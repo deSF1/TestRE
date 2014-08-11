@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Aes128PrivateKey__c</fullName>
+        <externalId>false</externalId>
+        <label>Aes128PrivateKey</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Auto_Create_WSI_Campaign_Members__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Auto Create WSI Campaign Members</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Auto_Create_WSI_Campaign__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Auto Create WSI Campaign</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>BRE_Debug_User__c</fullName>
+        <description>Debug user for BRE</description>
+        <externalId>false</externalId>
+        <label>BRE Debug User</label>
+        <length>30</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CaseBillingAccountFieldId__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Field Id for Case.Billing_Account__c</inlineHelpText>
+        <label>CaseBillingAccountFieldId</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CaseBillingAccountSMRFieldId__c</fullName>
+        <externalId>false</externalId>
+        <label>CaseBillingAccountSMRFieldId</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CaseCat1FieldId__c</fullName>
+        <externalId>false</externalId>
+        <label>CaseCat1FieldId</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CaseCat2FieldId__c</fullName>
+        <externalId>false</externalId>
+        <label>CaseCat2FieldId</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CaseCat3FieldId__c</fullName>
+        <externalId>false</externalId>
+        <label>CaseCat3FieldId</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CaseComplaintTypeFieldId__c</fullName>
+        <externalId>false</externalId>
+        <label>CaseComplaintTypeFieldId</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CaseHotIssueFieldId__c</fullName>
+        <externalId>false</externalId>
+        <label>CaseHotIssueFieldId</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CaseModeFieldId__c</fullName>
+        <externalId>false</externalId>
+        <label>CaseModeFieldId</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CaseNoOfContactsFieldId__c</fullName>
+        <externalId>false</externalId>
+        <label>CaseNoOfContactsFieldId</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CasePropertyFieldId__c</fullName>
+        <externalId>false</externalId>
+        <label>CasePropertyFieldId</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CaseVendorBillingAccountFieldId__c</fullName>
+        <externalId>false</externalId>
+        <label>CaseVendorBillingAccountFieldId</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CustClassifBAcctFieldId__c</fullName>
+        <externalId>false</externalId>
+        <label>CustClassifBAcctFieldId</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CustClassifCustFieldId__c</fullName>
+        <externalId>false</externalId>
+        <label>CustClassifCustFieldId</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Default_Case_Daily_Business_Hours__c</fullName>
+        <defaultValue>10</defaultValue>
+        <externalId>false</externalId>
+        <label>Default Case Daily Business Hours</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Default_Case_DueDate_Offset__c</fullName>
+        <externalId>false</externalId>
+        <label>Default Case DueDate Offset</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Default_ECO_Case_Due_Date__c</fullName>
+        <defaultValue>10</defaultValue>
+        <externalId>false</externalId>
+        <label>Default ECO Case Due Date</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Default_EWOV_Assisted_DueDate_Offset__c</fullName>
+        <defaultValue>14</defaultValue>
+        <externalId>false</externalId>
+        <label>Default EWOV Assisted DueDate Offset</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Default_EWOV_Investigative_DueDate_Offse__c</fullName>
+        <defaultValue>14</defaultValue>
+        <externalId>false</externalId>
+        <label>Default EWOV Investigative DueDate Offse</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Default_Fld_Dbt_Coll_Due_Date_Offset__c</fullName>
+        <defaultValue>18</defaultValue>
+        <externalId>false</externalId>
+        <label>Default Fld Dbt Coll Due Date Offset</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Default_LeakAllowance_DueDate_Offset__c</fullName>
+        <defaultValue>21</defaultValue>
+        <externalId>false</externalId>
+        <label>Default LeakAllowance DueDate Offset</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Default_Portal_Case_Due_Date_Offset__c</fullName>
+        <defaultValue>2</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>The default offset for cases originating from portal</inlineHelpText>
+        <label>Default Portal Case Due Date Offset</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Default_Web_DueDate_Offset__c</fullName>
+        <defaultValue>2</defaultValue>
+        <externalId>false</externalId>
+        <label>Default Web DueDate Offset</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Disable_Triggers__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to disable all triggers.</inlineHelpText>
+        <label>Disable Triggers</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Disable_Web_Services__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to stop web service callout and use test code instead</inlineHelpText>
+        <label>Disable Web Services</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Due_date_offset__c</fullName>
+        <externalId>false</externalId>
+        <label>Due date offset</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Event_Action_GroupId_for_Chatter_Posts__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>The Id for the group to be mentioned for chatter posts for every event action created</inlineHelpText>
+        <label>Event Action GroupId for Chatter Posts</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Financial_Year__c</fullName>
+        <externalId>false</externalId>
+        <label>Financial Year</label>
+        <length>7</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Google_Maps_API_Key__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>API Key generated from a google account to access Maps API Geocoder</inlineHelpText>
+        <label>Google Maps API Key</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Map_location_search_distance__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Specifiies the search distance(in KM) within the location filter criteria for the map</inlineHelpText>
+        <label>Map location search distance</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Maximum_map_zoom__c</fullName>
+        <externalId>false</externalId>
+        <label>Maximum map zoom</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Minimum_map_zoom__c</fullName>
+        <externalId>false</externalId>
+        <label>Minimum map zoom</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Next_bill_date_approx__c</fullName>
+        <externalId>false</externalId>
+        <label>Next bill date (approx)</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Number_Of_Days_Criteria__c</fullName>
+        <description>The number of days used by the criteria to send emails.</description>
+        <externalId>false</externalId>
+        <label>Number Of Days Criteria</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tibco_Host_URL__c</fullName>
+        <externalId>false</externalId>
+        <label>Tibco Host URL</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Water_LIVE_Desktop_Version_URL__c</fullName>
+        <externalId>false</externalId>
+        <label>Water LIVE Desktop Version URL</label>
+        <required>false</required>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Water_LIVE_Mobile_Page_URL__c</fullName>
+        <description>URL for the water live mobile page</description>
+        <externalId>false</externalId>
+        <inlineHelpText>URL for the water live mobile page</inlineHelpText>
+        <label>Water LIVE Mobile Page URL</label>
+        <required>false</required>
+        <type>Url</type>
+    </fields>
+    <label>SystemSettings</label>
+</CustomObject>

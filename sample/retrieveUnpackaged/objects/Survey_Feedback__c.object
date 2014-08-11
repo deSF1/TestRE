@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Apply_for_a_concession__c</fullName>
+        <externalId>false</externalId>
+        <label>Apply for a concession</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Easy to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Difficult to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Didn&apos;t know it existed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Arrange_direct_debit__c</fullName>
+        <externalId>false</externalId>
+        <label>Arrange direct debit</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Easy to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Difficult to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Didn&apos;t know it existed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CX_mySouthEastWater_Q14__c</fullName>
+        <description>Feel free to comment</description>
+        <externalId>false</externalId>
+        <label>CX mySouthEastWater Q14</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Case__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Case</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipLabel>Surveys Feedback</relationshipLabel>
+        <relationshipName>Surveys_Feedback</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Comment_for_Recommend_mysoutheastwater__c</fullName>
+        <description>Comment about how likely would you be to recommend using the my South Water site to friends or colleagues</description>
+        <externalId>false</externalId>
+        <label>Comment for Recommend_mysoutheastwater</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Comment_for_Satisfied_mysoutheastwater__c</fullName>
+        <description>Comment about how satisfied are you with your experience on the &quot;mySouthEastWater&quot; site</description>
+        <externalId>false</externalId>
+        <label>Comment for Satisfied_mysoutheastwater</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Surveys Feedback</relationshipLabel>
+        <relationshipName>Surveys_Feedback</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Interested_to_more_research__c</fullName>
+        <description>Would you be interested to participate in other customer research in the future</description>
+        <externalId>false</externalId>
+        <label>Interested to more research</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes - I&apos;m interested</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes - but only online surveys</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No thanks</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Move_in_out_of_a_property__c</fullName>
+        <externalId>false</externalId>
+        <label>Move in/out of a property</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Easy to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Difficult to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Didn&apos;t know it existed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Other_features_for_mysoutheastwater__c</fullName>
+        <externalId>false</externalId>
+        <label>Other features for mysoutheastwater</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Other_option__c</fullName>
+        <description>Option &apos;Other&apos; for how you find out about mySouthEastWater</description>
+        <externalId>false</externalId>
+        <label>Other option</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Provide_feedback_for_improvement__c</fullName>
+        <description>Please provide any comments, feedback or suggestions for improvement of mySouthEastWater.</description>
+        <externalId>false</externalId>
+        <label>Provide feedback for improvement</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Rate_Available_Functions__c</fullName>
+        <description>How would you rate mySouthEastWater on the following aspects?:</description>
+        <externalId>false</externalId>
+        <label>Rate_Available_Functions</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Rate_Ease_of_navigation__c</fullName>
+        <description>How would you rate mySouthEastWater on the following aspects?:</description>
+        <externalId>false</externalId>
+        <label>Rate_Ease of navigation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Rate_Look_and_feel_of_the_site__c</fullName>
+        <description>How would you rate mySouthEastWater on the following aspects?:</description>
+        <externalId>false</externalId>
+        <label>Rate_Look and feel of the site</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Rate_Registration_Process__c</fullName>
+        <description>How would you rate mySouthEastWater on the following aspects?:</description>
+        <externalId>false</externalId>
+        <label>Rate_Registration_Process</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Rate_Useful_Information__c</fullName>
+        <description>How would you rate mySouthEastWater on the following aspects?:</description>
+        <externalId>false</externalId>
+        <label>Rate_Useful_Information</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Rate_value_of_water_sewer_services__c</fullName>
+        <description>Finally, a general question about South East Water. How would you rate the value of the water and sewerage services we provide?</description>
+        <externalId>false</externalId>
+        <label>Rate value of water/sewer services</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Recommend_mysoutheastwater__c</fullName>
+        <description>How likely would you be to recommend using the my South Water site to friends or colleagues?</description>
+        <externalId>false</externalId>
+        <label>Recommend_mysoutheastwater</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Register_for_paperless_billing__c</fullName>
+        <externalId>false</externalId>
+        <label>Register for paperless billing</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Easy to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Difficult to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Didn&apos;t know it existed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Request_more_time_to_pay__c</fullName>
+        <externalId>false</externalId>
+        <label>Request more time to pay</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Easy to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Difficult to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Didn&apos;t know it existed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>SEW_contact_customer__c</fullName>
+        <description>Would you like someone from South East Water to contact you about any concerns or outstanding queries you may have?</description>
+        <externalId>false</externalId>
+        <label>SEW contact customer</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Satisfied_mysoutheastwater__c</fullName>
+        <description>Overall , how satisfied are you with your experience on the &quot;mySouthEastWater&quot; site?</description>
+        <externalId>false</externalId>
+        <label>Satisfied_mysoutheastwater</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Set_up_a_payment_plan__c</fullName>
+        <externalId>false</externalId>
+        <label>Set up a payment plan</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Easy to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Difficult to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Didn&apos;t know it existed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Submit_an_enquiry__c</fullName>
+        <externalId>false</externalId>
+        <label>Submit an enquiry</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Easy to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Difficult to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Didn&apos;t know it existed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Support_articles_FAQs__c</fullName>
+        <externalId>false</externalId>
+        <label>Support articles/FAQs</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Easy to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Difficult to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Didn&apos;t know it existed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>View_bill_and_payment_history__c</fullName>
+        <externalId>false</externalId>
+        <label>View bill and payment history</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Easy to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Difficult to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Didn&apos;t know it existed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>View_manage_your_account_information__c</fullName>
+        <externalId>false</externalId>
+        <label>View/manage your account information</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Easy to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Difficult to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Didn&apos;t know it existed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>View_manage_your_personal_details__c</fullName>
+        <externalId>false</externalId>
+        <label>View/manage your personal details</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Easy to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Difficult to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Didn&apos;t know it existed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>View_water_use__c</fullName>
+        <externalId>false</externalId>
+        <label>View water use</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Easy to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Difficult to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Didn&apos;t know it existed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>find_out_about_mySouthEastWater__c</fullName>
+        <externalId>false</externalId>
+        <label>find out about mySouthEastWater</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Survey Feedback</label>
+    <nameField>
+        <label>Survey Feedback Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Surveys Feedback</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

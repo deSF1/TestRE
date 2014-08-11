@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>PortalSidebarItems</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>PortalSidebarItems</value>
+    </caseValues>
+    <fields>
+        <label><!-- Group Name --></label>
+        <name>Group_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Active? --></label>
+        <name>Is_Active__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pass Parameters? --></label>
+        <name>Is_Pass_Parameters__c</name>
+    </fields>
+    <fields>
+        <label><!-- VF Page? --></label>
+        <name>Is_VF_Page__c</name>
+    </fields>
+    <fields>
+        <label><!-- Item Label --></label>
+        <name>Item_Label__c</name>
+    </fields>
+    <fields>
+        <help><!-- either a link or VF Page Name, Without slash in the front and Without Parameters --></help>
+        <label><!-- Link or VF Page --></label>
+        <name>Link_or_VF_Page__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order --></label>
+        <name>Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- Visible Account Record Types --></label>
+        <name>Visible_Account_Record_Types__c</name>
+    </fields>
+    <fields>
+        <help><!-- Comma seperated list
+If blank, all profiles visible --></help>
+        <label><!-- Visible Profiles --></label>
+        <name>Visible_Profiles__c</name>
+    </fields>
+    <fields>
+        <help><!-- This menu item is part of a wizard, hence no redirect will occur --></help>
+        <label><!-- Wizard? --></label>
+        <name>Wizard__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

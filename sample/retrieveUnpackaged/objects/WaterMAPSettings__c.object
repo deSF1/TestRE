@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Current_Period__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Use YYYY/YY format (e.g. 2009/10).</inlineHelpText>
+        <label>Current Period</label>
+        <length>7</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>WaterMAPSettings</label>
+</CustomObject>

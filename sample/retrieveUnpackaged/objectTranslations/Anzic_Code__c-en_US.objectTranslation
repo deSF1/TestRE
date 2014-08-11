@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>ANZSIC</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>ANZSIC</value>
+    </caseValues>
+    <fields>
+        <label><!-- ANZSIC External Code ID --></label>
+        <name>ANZSIC_External_Code_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- WaterMAP Visible --></label>
+        <name>WaterMAP_Visible__c</name>
+    </fields>
+    <layouts>
+        <layout>ANZSIC Layout (Portal)</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Anzsic Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <namedFilters>
+        <errorMessage><!-- Only ANZSIC codes visible to WaterMAP will be displayed --></errorMessage>
+        <name>nf_01I90000000FMdNEAW_00N90000001mnL5EAI</name>
+    </namedFilters>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

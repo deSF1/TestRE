@@ -1,0 +1,56 @@
+<!--
+    Type:      Page
+    Purpose:   Page container which differentiates to what page should the user be redirected to
+     
+    Used By:  
+    ---------------------------------------------------------------
+    History:
+
+    08/07/2014 ejandusay(Cloud Sherpas)         Created
+
+-->
+<apex:page showHeader="false" sidebar="false">
+    <script>
+        // Map of {regexp: deviceType} that should be applied against the UA.
+        // Most specific rules first.
+        var UA_RULES = [
+          ['iPhone;', 'phone'],
+          ['iPad;', 'tablet'],
+          ['Android.*Mobile Safari', 'phone'],  // Chrome/Browser on Android phone
+          ['Android.*Safari', 'tablet'],        // Chrome/Browser on Android tablet
+          ['.*', 'desktop'],                    // Fallback to desktop.
+        ]
+        window.onload = function () {
+          var ua = navigator.userAgent;
+          //alert(ua);
+          for (var i = 0; i < UA_RULES.length; i++) {
+            var device = UA_RULES[i][1];
+            var re = new RegExp(UA_RULES[i][0]);
+            if (ua.match(re)) {
+                /*alert(ua);
+                alert(re);*/
+
+              if(device == 'desktop'){
+                window.location = "{!$Setup.SystemSettings__c.Water_LIVE_Desktop_Version_URL__c}";
+              }else if(device == 'tablet'){
+                window.location = "{!$Setup.SystemSettings__c.Water_LIVE_Desktop_Version_URL__c}";
+              }else{
+                window.location = "{!$Setup.SystemSettings__c.Water_LIVE_Mobile_Page_URL__c}";
+              }
+              break;
+            }
+          }
+        }
+    </script>
+    <c:ActionStatus BackColor="#eeeeee"
+                    borderColor="#eeeeee"
+                    borderSize="0"
+                    height="50px"
+                    width="60px"
+                    margintop="-25px"   
+                    marginleft="-60px"
+                    ImageUrl="{!$Resource.LoadingGIF}"
+                    Message=""/>
+
+    
+</apex:page>

@@ -1,0 +1,13 @@
+<apex:page standardController="Schedule_Item__c" recordSetVar="sked">
+    <apex:pageBlock >
+        <apex:pageBlockTable value="{!sked}" var="s">
+            <apex:column >
+                <apex:outputLink value="{!URLFOR($Action.Schedule_Item__c.View, s.id)}">{!s.name}</apex:outputLink>
+            </apex:column>
+            <apex:column value="{!s.DOO__c}"/>
+            <apex:column value="{!s.Treatment_Plant__c}"/>
+            <apex:column value="{!s.OwnerId}"/>
+            <apex:column value="{!s.Status__c}"/>
+         </apex:pageBlockTable>
+     </apex:pageBlock>
+</apex:page>

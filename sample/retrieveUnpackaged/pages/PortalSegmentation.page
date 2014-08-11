@@ -1,0 +1,263 @@
+<apex:page standardController="Account" extensions="PortalSegment_Controller" sidebar="false" showHeader="true">
+    <!--
+        Description: page to update segmentation questionnaire
+        History:
+            17-Apr-2012 A.Vergara Created
+            16-May-2012 A.Vergara Change in UI 
+            29-May-2012 A.Vergara Added success notification
+            25-Jun-2012 D. Yu Updated: 5164 - updated DOB field
+            
+    -->
+    <head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalIcons_Styles}"/>
+        <apex:stylesheet value="{!$Resource.SEWPortalStyles}"/>
+       
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+         <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+            
+        <!-- TODO: merge this into the master styleSheet -->
+        <style type="text/css">
+            /* INCREASED LABEL WIDTH */
+            .bPageBlock .detailList .labelCol {
+                width: 30%;
+            }
+            .coreContentContainer {
+                width: 70%;
+                float: left;
+            }
+            
+         //   .ui-dialog-titlebar-close  {display: none }
+        </style>
+    <script>
+        var j$ = jQuery.noConflict();
+
+        function setFocus() {                
+            j$("{!$Component.personEmail}").focus();
+        }
+
+        var previousOnload = window.onload;        
+        window.onload = function() { 
+                if (previousOnload) { 
+                    previousOnload();
+                }
+                setFocus();
+                
+            }
+       j$(function() {
+          BuildSuccessDialog(); 
+       });
+           
+      function ShowSuccessDialog() {
+           try {
+               j$("#success-popup").dialog("open");
+                } catch (e) { alert(e.toString()); }
+                
+            
+         }
+      
+      function BuildSuccessDialog() {
+                j$( "#success-popup" ).dialog({
+                    dialogClass: 'ui-dropshadow',
+                    autoOpen: false,
+                    width: 400,
+                    modal: true,
+                    resizable: false,
+                    title: 'Thank you.'
+                });
+                
+                j$('#success-popup').bind('dialogclose', function(event) {
+                            window.location='{!$Page.PortalMyAccountHomePage}'; return false;
+                        });
+                    
+            }
+        
+        
+      
+            
+      function successMessage()
+      { BuildSuccessDialog(); 
+         var validValue = document.getElementById('{!$Component.theForm.contentCellPageblock.valid}').value
+        if(validValue == 'true'){
+           ShowSuccessDialog();
+         }
+      }
+      
+      j$(document).ready(
+                function() { 
+                    var startYear=1900; 
+                    var endYear=2030; 
+                    var optionsString=''; 
+                    if(startYear<endYear){ 
+                        for(i=startYear;i<endYear+1;i++){ 
+                            optionsString += "<option value=\""+i+"\">"+i+"</option>"; 
+                        } 
+                        j$('#calYearPicker').html(optionsString); 
+                    } 
+                    j$('#sidebarDiv #hideMyParent').parent().parent().hide(); 
+                }
+      );
+     
+        </script>
+    </head>
+    <apex:form id="theForm">
+        <!-- HIDDEN FIELDS START -->
+        <apex:inputHidden rendered="false" value="{!Account.RecordType.DeveloperName}" id="devName"/>
+        <apex:inputHidden value="{!Account.Segment_Usage_Quartile__c}" rendered="false" id="sQuartile"/>
+        <apex:inputHidden value="{!Account.Segment_Usage_Last_Updated__c}" rendered="false" id="sLastUpdate"/>
+        <!-- HIDDEN FIELDS END -->
+        
+    
+        <!--  SIDEBAR CONTENT -->
+        <div class="pbTransparent sideBarCellDiv" >
+            <c:PortalSidebar id="sidebar" groupName="MyDetails" currentAccRecordType="{!Account.RecordType.DeveloperName}"
+                currentDevName="" title="My Details"/>
+        </div>
+        
+        
+        <!--  MAIN CONTENT -->
+        <apex:outputPanel id="wholePage" layout="block" styleClass="contentCellDiv" >
+                
+            <!-- Page Block Header -->  
+            <div class="pageBlockHeader">
+                <apex:outputPanel layout="block" styleclass="pageBlockTitle">
+                    About me
+                </apex:outputPanel>
+            </div>
+            
+            <div class="clear"/>
+        
+            <apex:pageBlock id="contentCellPageblock">
+            
+                <!-- PAGE MESSAGES - ALWAYS DISPLAYED -->
+                <apex:outputPanel id="pageMessages" layout="block" >
+                    <apex:pageMessages id="msgTop" />
+                </apex:outputPanel>
+                
+                <!-- LEFT HAND SIDE CONTENT -->
+                <apex:outputPanel id="content">
+                       <div style="position:relative; top:0px;">
+                         <c:PortalRequiredField styleclass="requiredFieldIndicatorRHSNoHeight"/>
+                     </div> 
+                        <apex:pageBlockSection id="accountDetails" columns="1" title="My details" collapsible="false" >
+                            
+                
+                
+                            <apex:outputField id="personFirstName" value="{!userContact.FirstName}" label="First name" />
+                            <apex:outputField id="personLastName" value="{!userContact.LastName}" label="Last name" />
+                                   
+                            <apex:inputField id="personDoB" value="{!userContact.Birthdate}" required="true" label="Date of birth" rendered="{! customerType == 'Residential' }" >
+                                <script type="text/javascript">
+                                    // hide the date defaulter
+                                    var datefield = document.getElementById("{!$Component.personDoB}");
+                                    datefield.nextSibling.style.display="none";
+                                </script>
+                            </apex:inputField>
+                            
+                            <apex:inputField id="personEmail" value="{!userContact.Email}" required="true" label="Email address" />
+                        </apex:pageBlockSection>
+                        <!-- Segmentation -->
+                        <div style="font-weight: bold">
+                        <h3>More about me</h3>
+                    </div>
+                    <br/>
+                        <div>
+                        <apex:outputText rendered="{!customerType=='Residential'}" value="Please tell us a little more about you and your household"/>
+                            
+                            <apex:outputText rendered="{! customerType=='Business'}" value="As part of better understanding our customers and their different needs and interests, do you mind if we ask you a few quick questions?"/>
+                        </div>  
+                        <br/>   
+                        
+                        <apex:pageBlockTable id="pTable" headerClass="tableHeader" rowClasses="tableRowOdd,tableRowEven" value="{!questionAndAnswersPortal}" var="qa" style="width:100%">
+                            <apex:column style="width:20px; vertical-align:top; padding-left:5px; border-bottom:0; {!IF(qa.Question.Is_Group_Question__c, 'border-bottom:0; border-top: #E4E2DD dotted 1px', IF(NOT(ISBLANK(qa.Question.Group_Question__c)), 'border-bottom:0;','border-top: #E4E2DD dotted 1px'))}"> 
+                                <apex:outputText value="{0,number,0}." rendered="{!(ISBLANK(qa.Question.Group_Question__c))}">
+                                    <apex:param value="{!qa.Question.Order__c}" />
+                                </apex:outputText>
+                            </apex:column>
+                            <apex:column colspan="{!IF(qa.Question.Is_Group_Question__c, 2, 1)}" style="padding-right:20px; vertical-align:top; border-bottom:0; {!IF(qa.Question.Is_Group_Question__c, 'border-bottom:0; border-top: #E4E2DD dotted 1px', IF(NOT(ISBLANK(qa.Question.Group_Question__c)), 'border-bottom:0;','border-top: #E4E2DD dotted 1px'))}">
+                                <apex:outputField value="{!qa.Question.Question__c}"/>
+                            </apex:column>                          
+                            <apex:column rendered="{!NOT(qa.Question.Is_Group_Question__c)}"
+                                    style="padding:10px 15px; vertical-align:top; border-bottom:0; {!IF(qa.Question.Is_Group_Question__c, 'border-bottom:0; border-top: #E4E2DD dotted 1px', IF(NOT(ISBLANK(qa.Question.Group_Question__c)), 'border-bottom:0;','border-top: #E4E2DD dotted 1px'))}">
+                                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                                    <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                                        <apex:selectList styleClass="{!IF(qa.isValidAnswer==false,'error','')}"  required="true" multiselect="false" size="1" id="lstProduct1" value="{!qa.selectedAnswer}">
+                                            <apex:selectOptions value="{!qa.picklistValues}"/>
+                                        </apex:selectList>  
+                                        <apex:outputPanel rendered="{!qa.isValidAnswer==false}">
+                                            <div class="errorMsg">
+                                             <apex:image value="{!$Resource.ListBulletCross_Orange}" />
+                                                <strong>Error:</strong>
+                                                You must enter a value
+                                            </div>
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>
+                            </apex:column> 
+                        </apex:pageBlockTable>
+                        
+                        <apex:inputhidden id="valid" value="{!successfulSave}"/>
+                          
+                        <br/>
+                        <div style="margin:0 auto;text-align:center!important;">
+                        <apex:commandButton value="Save" 
+                            id="savebtn"
+                            styleClass="btnPrimary" 
+                            action="{!UpdateSegmentation}" 
+                            status="loading"
+                            rerender="contentCellPageblock"
+                            onComplete="successMessage();"
+                            />
+                              
+                        <apex:commandButton value="Cancel" 
+                            id="cancelbtn"
+                            styleClass="btnClearGreenText"
+                            action="{!home}" 
+                            immediate="true"/>
+                </div>
+                    
+                </apex:outputPanel> <!-- content END -->
+            
+            
+            <div id="success-popup" class="clear">
+                
+                <div style="height: 100px; text-align: justify; overflow: auto; padding: 0px 10px; border: solid 1px #E4E2DD" class="radiusAll">
+                    <!-- T&C -->
+                        <p>
+                            We appreciate the time you've taken to help us out.
+                        </p>
+                    <!-- END T&C -->  
+                </div>
+                 <center>
+                      
+                        <br />
+                        <apex:commandButton styleClass="btnPrimary" value="Ok"
+                        onclick="window.location='{!$Page.PortalMyAccountHomePage}'; return false;"
+                             tabindex="1" id="updateButton"/>
+                       
+                 </center>
+              
+             
+            
+        </div>
+                
+                
+            </apex:pageBlock>
+        </apex:outputPanel> <!-- contentCellDiv END -->
+        
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff"
+                                       borderColor="#6B6B6B"
+                                       borderSize="1"
+                                       height="50px"
+                                       width="120px"
+                                       margintop="-25px"
+                                       marginleft="-60px"
+                                       ImageUrl="{!$Resource.AjaxAnimation}"
+                                       Message="Loading..."/>
+            </apex:facet>
+        </apex:actionStatus>
+    </apex:form>
+</apex:page>

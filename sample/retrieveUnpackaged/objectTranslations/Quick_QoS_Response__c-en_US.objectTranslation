@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Quick Notes Response</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Quick_QoS_Response</value>
+    </caseValues>
+    <fields>
+        <label><!-- Group --></label>
+        <name>Group__c</name>
+    </fields>
+    <fields>
+        <label><!-- Substitute Account Balance? --></label>
+        <name>Is_Substitute_Account_Balance__c</name>
+    </fields>
+    <fields>
+        <label><!-- Letter Code --></label>
+        <name>Letter_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Letter Name --></label>
+        <name>Letter_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- What --></label>
+        <name>Level_1_Category__c</name>
+    </fields>
+    <fields>
+        <label><!-- Why --></label>
+        <name>Level_2_Category__c</name>
+    </fields>
+    <fields>
+        <label><!-- How --></label>
+        <name>Level_3_Category__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mode --></label>
+        <name>Mode__c</name>
+        <picklistValues>
+            <masterLabel>Action</masterLabel>
+            <translation><!-- Action --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Query</masterLabel>
+            <translation><!-- Query --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- QOS Code --></label>
+        <name>QOS_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Response --></label>
+        <name>Response__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

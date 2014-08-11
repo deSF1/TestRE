@@ -1,0 +1,88 @@
+<apex:page sidebar="false" showHeader="false" tabstyle="My_Accounts_Portal__tab" standardController="Portal_Marketing_Page__c">
+	<head>
+		
+		<apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+	    <apex:stylesheet value="{!$Resource.PortalHomePage_Styles}"/>
+	    <apex:stylesheet value="{!$Resource.PortalIcons_Styles}"/>
+	    <apex:stylesheet value="{!$Resource.PortalActionLinks_Styles}"/>
+	    <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+	    <!-- jquery -->
+	    <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+	    <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+	    <script>
+	        var j$ = jQuery.noConflict();
+	
+	        j$(function() {
+	            BuildMarketingPageDialog();
+	            ShowMarketingPageDialog();
+	            setAsDisplayed();
+	        });
+	        
+	     	function BuildMarketingPageDialog() {
+	         	j$( "#marketingPagePopup" ).dialog({
+	             	dialogClass: 'ui-dropshadow',
+	             	autoOpen: false,
+	             	width: {!if(ISNULL(Portal_Marketing_Page__c.Page_Width__c),300,Portal_Marketing_Page__c.Page_Width__c)},
+	             	height: {!if(ISNULL(Portal_Marketing_Page__c.Page_Height__c),500,Portal_Marketing_Page__c.Page_Height__c)},
+	             	modal: true,
+	           		resizable: false,
+	           		title: "{!if(ISNULL(Portal_Marketing_Page__c.Page_Title__c),'',Portal_Marketing_Page__c.Page_Title__c)}"
+	        	});             
+	     	}
+	     
+		     function ShowMarketingPageDialog() {
+		     	try {
+		        	j$("#marketingPagePopup").dialog("open");
+		        } 
+		        catch (e) { 
+		        	alert(e.toString()); 
+		        }
+		     }
+		     	
+		     function HideMarketingPageDialog() {
+		       	try {
+		           	j$("#marketingPagePopup").dialog("close");
+		        } 
+		        catch (e) { 
+		       		alert(e.toString()); 
+		       	}
+		     }
+	    </script>
+	    <style type="text/css">
+            .bPageTitle .ptBody .pageType {
+                color: #575756 !important;
+            }
+            .bPageTitle .ptBody .content {
+                width: 100%;
+            }
+        </style>
+    </head>
+    <apex:stylesheet value="{!$Resource.SEWPortalStyles}"/>
+    
+    <apex:form >
+	   	<div id="marketingPagePopup">
+	        <div style="text-align: justify; overflow: auto; padding: 0px 10px; border: solid 0px #E4E2DD"  id="theBorder">
+	            <div style="text-align: justify;">
+	               <apex:outputText escape="false" value="{!if(ISNULL(Portal_Marketing_Page__c.HTML__c),'',Portal_Marketing_Page__c.HTML__c)}" />
+	               
+	          	</div>
+	            <br />
+	            <div id="bottomSection">
+	             	<div style="text-align: right;" id="buttons">
+		             	<apex:commandButton rendered="{!NOT(ISNULL(Portal_Marketing_Page__c.Close_Button_Label__c))}" styleClass="btnLightGrey" value="{!if(ISNULL(Portal_Marketing_Page__c.Close_Button_Label__c),'',Portal_Marketing_Page__c.Close_Button_Label__c)}"
+			              	onclick="HideMarketingPageDialog();" style="padding: 1px 12px; font-size: 10.25pt;"
+			              	tabindex="1" id="closeButton"/> 
+		              	&nbsp;&nbsp;
+		             	<apex:commandButton rendered="{!NOT(ISNULL(Portal_Marketing_Page__c.Button_Label__c))}" styleClass="btnPrimary" value="{!if(ISNULL(Portal_Marketing_Page__c.Button_Label__c),'',Portal_Marketing_Page__c.Button_Label__c)}"
+		              		onclick="alert('URL link:' + {!if(ISNULL(Portal_Marketing_Page__c.Button_URL__c),'',Portal_Marketing_Page__c.Button_URL__c)});" 
+		              		tabindex="1" id="goButton"/>
+	             	</div>
+	             	<apex:outputPanel rendered="{!Portal_Marketing_Page__c.Display_Opt_Out_Option__c}">
+	           			<apex:inputCheckbox style="font-size:0.75em" id="optOutField" value="{!Portal_Marketing_Page__c.Display_Opt_Out_Option__c}" />&nbsp;Don't show this message again
+	           		</apex:outputPanel>
+	         	</div>
+	        </div>
+	    </div>
+    </apex:form>
+     
+</apex:page>

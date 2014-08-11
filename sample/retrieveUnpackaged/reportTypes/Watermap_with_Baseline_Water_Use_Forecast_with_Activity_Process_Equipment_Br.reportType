@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>WaterMAP__c</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>Watermap with Baseline Water Use &amp; Forecast with Activity/Process/Equipment Breakdown</description>
+    <label>Watermap with Baseline Water Use &amp; Forecast with Activity/Process/Equipment Breakdown</label>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Id</field>
+            <table>WaterMAP__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Name</field>
+            <table>WaterMAP__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedDate</field>
+            <table>WaterMAP__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedBy</field>
+            <table>WaterMAP__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedDate</field>
+            <table>WaterMAP__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedBy</field>
+            <table>WaterMAP__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Customer__c</field>
+            <table>WaterMAP__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Organisation_Name__c</field>
+            <table>WaterMAP__c</table>
+        </columns>
+        <masterLabel>Watermap</masterLabel>
+    </sections>
+</ReportType>

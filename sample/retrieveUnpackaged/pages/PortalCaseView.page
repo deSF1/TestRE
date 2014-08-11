@@ -1,0 +1,159 @@
+<apex:page sidebar="false" showHeader="true"
+    tabstyle="Portal_Enquiries__tab"
+    standardController="Case" doctype="html-5.0">
+
+    <!--  
+    Type:       VF page
+    Purpose:    Shows a user a specific case
+    --------------------------------------------------
+    History:
+        20-Mar-2012 M. Watson (Salesforce) - Created
+    -->
+
+	<head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <!-- jquery -->
+		<apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+
+	    <style type="text/css">
+	    	label {
+	    		font-weight: bold;
+	    		display: block;
+	    		margin-bottom: 5px;	
+	    	}
+	    	
+	    	.bPageBlock .detailList .labelCol {
+	    		width: 25%;
+	    	}
+	    	
+	    	.caseField {
+	    		margin-top: 10px;
+	    		margin-bottom: 5px;
+                clear: both;	    		
+	    	}
+	    	
+	    	.bPageBlock .requiredInput .requiredBlock {
+	    		background-color: transparent;
+	    	}   	
+	    </style>
+	</head>
+	
+    <apex:form id="theForm">
+
+ 	    <div class="sideBarCellDiv">
+	        <!--  sidebar -->                           
+	        <c:PortalSidebar id="sidebar" groupName="Enquiries" 
+	                        currentDevName="Enquiries_ViewMyCases" title="Enquiries"/>
+	    </div>
+
+ 	    <div class="contentCellDiv">
+
+	        <!-- Page Block Header -->
+	        <div class="pageBlockHeader">
+	            <apex:outputPanel layout="block" styleclass="pageBlockTitle">
+	                Case detail: {!case.caseNumber}
+	            </apex:outputPanel>
+	        </div>	 	    
+
+	        <apex:pageBlock id="pageblock">
+	            <!--  PAGE MESSAGES -->
+	            <div style="margin-top: 5px">
+	                <apex:pageMessages id="msg" />
+	            </div>
+
+	            <div class="innerContentLHSDiv">
+                     <apex:outputPanel id="caseFieldsPanel">
+ 						
+ 						<div style="margin-bottom: 20px"/>
+ 						
+ 						<apex:pageBlockSection id="rectypepbs" columns="1">
+ 							<apex:pageBlockSectionItem >
+	 							<apex:outputLabel value="Type"/>
+	 							<apex:outputField value="{!case.Portal_Case_Type__c}"/>
+							</apex:pageBlockSectionItem>
+ 						</apex:pageBlockSection>
+
+ 						<apex:pageBlockSection id="propertypbs" columns="1">
+ 							<apex:pageBlockSectionItem >
+	 							<apex:outputLabel value="Property"/>
+								<apex:outputText value="{!IF(not(isblank(case.Billing_Account__r.Property__c)), case.Billing_Account__r.Property__r.Street_Address_Proper__c + ', ' + case.Billing_Account__r.Property__r.Suburb_Proper__c + ' ' + case.Billing_Account__r.Property__r.Postal_Code__c, case.billing_account__r.HiAF_Account_Number_Check_Digit__c)}"
+												id="casePropertyAddress" label="Case Property Address"/>
+							</apex:pageBlockSectionItem>
+ 						</apex:pageBlockSection>
+
+ 						<apex:pageBlockSection id="createddatepbs" columns="1">
+ 							<apex:pageBlockSectionItem >
+	 							<apex:outputLabel value="Created date"/>
+								<apex:outputField value="{!case.CreatedDate}"/>
+								<!-- 
+	                        	<apex:outputText value="{0,date,dd/MM/yyyy}"
+	                        				id="caseCreated">
+	  									<apex:param value="{!case.CreatedDate}" /> 
+								</apex:outputText>
+								 -->
+							</apex:pageBlockSectionItem>
+ 						</apex:pageBlockSection>
+
+ 						<apex:pageBlockSection id="statuspbs" columns="1">
+ 							<apex:pageBlockSectionItem >
+	 							<apex:outputLabel value="Status"/>
+								<apex:outputText value="{!case.Status}" 
+										id="caseStatus" label="Case Status" />	
+							</apex:pageBlockSectionItem>
+ 						</apex:pageBlockSection>
+
+ 						<apex:pageBlockSection id="subjectpbs" columns="1">
+ 							<apex:pageBlockSectionItem >
+	 							<apex:outputLabel value="Subject"/>
+								<apex:outputField value="{!case.Subject}" 
+										id="caseSubject" label="Subject"/>			                        
+							</apex:pageBlockSectionItem>
+ 						</apex:pageBlockSection>
+
+ 						<apex:pageBlockSection id="descpbs" columns="1">
+ 							<apex:pageBlockSectionItem >
+	 							<apex:outputLabel value="Description"/>
+								<apex:outputField value="{!case.Description}" 
+										id="caseDescription" label="Case Description"/>			                        
+							</apex:pageBlockSectionItem>
+ 						</apex:pageBlockSection>
+
+						<div style="margin-top: 20px;"/> 
+
+ 						<apex:pageBlockSection id="closepbs" columns="1">
+ 							<apex:pageBlockSectionItem >
+	 							<apex:outputLabel />
+		 						<apex:outputLink styleClass="btn btnLink" value="/apex/PortalEnquiriesMyCases">Return to case list</apex:outputLink>
+							</apex:pageBlockSectionItem>
+						</apex:pageBlockSection>
+	                </apex:outputPanel>
+	            </div>
+                <div class="innerContentRHSDiv">
+					<!--  live chat -->
+		        	<c:LiveChat />
+		        	
+					<c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+						divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+						divStyle="width: 205px"/>
+
+                    <!--  quick links -->
+                    <div style="position: relative;"><c:PortalQuickLinks /></div>
+                </div>
+                <div style="clear:both"/>
+        	</apex:pageBlock>        
+	    </div>
+
+        <!-- Action Status that are not position dependent -->
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+                    borderSize="1" height="50px" width="120px" margintop="-25px"
+                    marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+                    Message="Processing..." />
+            </apex:facet>
+        </apex:actionStatus>
+
+	</apex:form>    
+       
+</apex:page>

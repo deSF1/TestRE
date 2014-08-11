@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Actual_Finish__c</fullName>
+        <externalId>false</externalId>
+        <label>Actual Finish</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Actual_Start__c</fullName>
+        <externalId>false</externalId>
+        <label>Actual Start</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Expected_Duration__c</fullName>
+        <externalId>false</externalId>
+        <label>Expected Duration</label>
+        <length>10</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>External_ID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>Montage WSI ID (TIBCO removes spaces)</description>
+        <externalId>true</externalId>
+        <label>External ID</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Hidden_WSI_Planned_Start_Date_counter__c</fullName>
+        <externalId>false</externalId>
+        <label>(Hidden)WSI Planned Start Date counter</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Properties_Affected__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Properties Affected</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Planned_Finish__c</fullName>
+        <externalId>false</externalId>
+        <label>Planned Finish</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Planned_Start__c</fullName>
+        <externalId>false</externalId>
+        <label>Planned Start</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>SEW_Event__c</fullName>
+        <externalId>false</externalId>
+        <label>SEW Event</label>
+        <referenceTo>SEW_Event__c</referenceTo>
+        <relationshipLabel>WSIs</relationshipLabel>
+        <relationshipName>WSI</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Tap_on_hydrant__c</fullName>
+        <externalId>false</externalId>
+        <label>Tap on hydrant</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Time_trigger_field__c</fullName>
+        <externalId>false</externalId>
+        <formula>CreatedDate -  0.03800</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Time trigger field</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Planned</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unplanned</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>WSI_Planned_Start_Date_counter__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( DATEVALUE(Planned_Start__c) &gt; TODAY(), 1,0 )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>WSI Planned Start Date counter</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WSI_Source_Modified_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>WSI Source Modified Date</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>WSI_status__c</fullName>
+        <externalId>false</externalId>
+        <label>WSI status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Water_state__c</fullName>
+        <externalId>false</externalId>
+        <label>Water state</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>WSI</label>
+    <nameField>
+        <label>WSI</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>WSIs</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

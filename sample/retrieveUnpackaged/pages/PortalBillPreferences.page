@@ -1,0 +1,386 @@
+<apex:page sidebar="false" showHeader="true" tabstyle="PortalAccounts__tab" doctype="html-5.0" action="{!CheckRedirectConfirmed}" 
+    controller="PortalBillPreferencesController" id="thePage">
+    <!--
+    Type:      VF page
+    Purpose:   Paperless Billing for eBilling and Reminders
+    ---------------------------------------------------------------
+    History:
+
+    17-Apr-2012 DYu         Created
+    25-May-2012 DYu			Updated: update dynamic style of submit button
+    07-Jun-2012 DYu			Updated: 5200
+    16-Apr-2013 N.Patterson TT10610: Added Floodlight scripts into the page
+    05-Sep-2013 N.Patterson TT11538: Removed Floodlight scripts from the page
+    23-Sep-2013 N.Patterson TT10401: View multiple customers for a single Portal user
+    -->
+    <head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        
+        <!-- jquery -->
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+        
+        <script>
+            var j$ = jQuery.noConflict();
+            var isAcceptTAndCCheckbox;
+            var submitBtn;
+         
+            j$(function() {
+                BuildTermsDialog();
+                checkAcceptTandC();
+            });
+            
+            j$("#terms-popup").parent().appendTo(j$("#{!SUBSTITUTE($Component.theForm,':','\\\\:')}")); 
+
+            function BuildTermsDialog() {
+                j$( "#terms-popup" ).dialog({
+                    dialogClass: 'ui-dropshadow',
+                    autoOpen: false,
+                    width: 500,
+                    modal: true,
+                    resizable: false,
+                    title: 'Terms & conditions for paperless billing'
+                });         
+            }
+
+            function hideTerms() {
+                j$("#terms-popup").dialog("close");
+            }
+
+            function checkAcceptTandC(){
+                submitBtn = document.getElementsByName('thePage:theForm:contentCellPageblock:isAccountHolder:submitBtn').item(0);
+                /* Enable/disable Submit button */
+                submitBtn.disabled = !isAcceptTAndCCheckbox.checked;
+                
+                if(submitBtn.disabled){
+                    submitBtn.setAttribute("class", "btnDarkGray");
+                    submitBtn.setAttribute("className", "btnDarkGray");
+                    submitBtn.setAttribute("style","cursor:default;");
+                }else{
+                    submitBtn.disabled = false;
+                    submitBtn.setAttribute("class", "btnGreen");
+                    submitBtn.setAttribute("className", "btnGreen");
+                    submitBtn.setAttribute("style","cursor:pointer;");
+                }
+            }
+            
+            function alertCustomer(fname,lname, id){
+                var name;
+                if(fname != ''){
+                	name = fname;
+                }else{
+                	name = lname;
+                }
+                var ans = confirm("We will email the current recepient ("+name+"), to notify them of your request. Select OK to proceed or Cancel to exit.");
+                if(ans){
+                    document.getElementById('{!$Component.theForm.hidbillAccountId}').value = id;
+                    saveAccount();
+                }
+            }
+            
+            function setBillingMethod(label, val){
+                document.getElementById(val).value = label;
+            }
+            
+            function setReminderMethod(label, val){
+                document.getElementById(val).value = label;
+            }
+        </script>
+        
+        <!-- TODO: merge this into the master styleSheet -->
+        <style type="text/css">
+            .bPageBlock .detailList .labelCol {
+                width: 60%;
+            }
+            .data2Col {
+                color: #252525;
+                width: 40%
+            }
+            .coreContentContainer {
+                width: 70%;
+                float: left;
+            }
+            div.countryReportSectionHeader {
+                color: red;
+                font-size: 16px;
+                padding-top: 10px;
+            }
+            td input{:
+                width: 250px;
+                display: block;
+                color: red;
+            }
+            .radioButton tr td {
+                display: block;
+                vertical-align: inherit;
+                border-color: inherit;
+            }
+            .radioButton tr td label {
+                margin-top: -16px;
+                display: block;
+                vertical-align: inherit;
+                border-color: inherit;
+                margin-left: 15px;
+                color: #252525;
+            }
+            .checkboxText {
+                top: -20px;
+                position: relative;
+                left: 30px;
+                width: 290px;
+            }
+            .changeLink{
+                color: #0097D2;
+                float: right;
+            }
+
+            input[type="checkbox"], input[type="radio"] {
+                border: none;
+                margin-left: -5px;
+            }
+        </style>
+    </head>
+    
+    
+    <apex:form id="theForm">
+        <apex:inputHidden id="hidbillAccountId" value="{!billAccountId}"/>
+        <apex:actionFunction action="{!saveAccountDetails}" name="saveAccount" rerender="notificationAccountsContent"></apex:actionFunction>
+        
+       <!--  SIDEBAR CONTENT -->
+        <apex:outputPanel id="sidebarContainer" layout="block" styleClass="sideBarCellDiv" >
+            <apex:outputPanel id="accountsListAndSidebar" layout="block" styleClass="pbTransparent" >
+                <c:PortalAccountsList displayAccountList="false"/><!-- TT10401-hide the account list -->
+                <div style="margin-top:-65px;"><!-- TT10401-shift up 65 px to remove gap -->
+                <c:PortalSidebar id="sidebar" groupName="Accounts" currentAccRecordType="{!customer.RecordType.DeveloperName}"
+                    currentDevName="Accounts_PaperlessBilling" /> <!-- TT10401-Don't show Menu title anymore -->
+                </div>
+            </apex:outputPanel>
+        </apex:outputPanel>
+
+        <!--  MAIN CONTENT -->
+        <apex:outputPanel id="contentCellPanel" layout="block" styleClass="contentCellDiv" >
+            <!-- BILLING & REMINDERS TITLE -->
+            <apex:sectionHeader subtitle="Billing & Reminders" />
+            <!-- MAIN PAGEBLOCK-->
+            <apex:pageBlock id="contentCellPageblock" >
+                <!-- PAGE MESSAGES - ALWAYS DISPLAYED -->
+                <apex:outputPanel id="pageMessages" layout="block" >
+                    <apex:pageMessages id="msgTop" />
+                </apex:outputPanel>
+                
+                <!-- LEFT HAND SIDE CONTENT -->
+                <apex:outputPanel id="innerContentLHSDiv" styleClass="innerContentLHSDiv" >
+                    <!-- CONTAINER FOR ALL EBILLING & REMINDERS ACCOUNTS -->
+                    <apex:outputPanel id="billingRemindersContent" layout="block">
+                        <!-- BILLING AND REMINDERS DESCRIPTION -->
+                        <div class="cellText">
+                            <p>When it comes to how you receive your bills and reminders - the choice<br></br>is yours.  Looking for convenience and a great way to positively impact the <br></br>environment?</p>
+                            <p>Go paperless by selecting email bills and reminders.</p>
+                        </div>
+                        <br/><br/>
+                        <!-- MY NOTIFICATION DETAILS -->
+                        <apex:outputText ><h2 style="font-weight:normal;">My notification details</h2></apex:outputText>
+                        <br/><br/>
+                        <apex:pageBlockSection showHeader="false" id="accountDetails" columns="1" title="" collapsible="false">
+                                <apex:outputField value="{!userContact.email}" label="All email notifications will be sent to"/>
+                                <!--<apex:outputField value="{!userContact.MobilePhone}" label="All SMS notifications will be sent to"/>-->
+                        </apex:pageBlockSection>
+                        <br/>
+                    </apex:outputPanel> <!-- billingRemindersContent END -->
+                    
+                    <!-- UPDATE DETAILS BUTTON -->
+                    <apex:outputPanel style="vertical-align: text-top">
+                        <apex:outputPanel layout="block" style="float:left;">
+                            <apex:commandButton styleClass="btn" value="Update details" action="{!returnToAccountDetailsPage}"/>
+                        </apex:outputPanel>
+                    </apex:outputPanel> 
+                    <br/><br/><br/>
+                    
+                    <!-- NOTIFICATION OPTIONS FOR ACCOUNTS -->
+                    <apex:outputPanel id="notificationAccountsContainer" layout="block">
+                        <apex:outputPanel id="notificationAccountsContent" layout="block">
+                            <apex:outputText ><h2 style="font-weight:normal;">Notification options for my accounts</h2></apex:outputText>
+                            <apex:repeat value="{!listBillingAccountWrapper}" var="acct">
+                                <apex:pageBlockSection id="detailsSection" columns="1" title="{!IF(ISBLANK(acct.billAcct.Property__c), acct.billAcct.HiAF_Account_Number_Check_Digit__c, acct.billAcct.Property__r.Street_Address_Proper__c+', '+ acct.billAcct.Property__r.Suburb_Proper__c+' '+acct.billAcct.Property__r.Postal_Code__c)}" collapsible="false" rendered="{!acct.billAcct.Group_Billing_Account__c == null}">
+                                    <apex:inputHidden value="{!acct.deliveryMethod}" id="hiddenBillMethod"/>
+                                    <apex:inputHidden value="{!acct.reminderMethod}" id="hiddenReminderMethod"/>
+                                    <apex:outputField value="{!acct.billAcct.eBill_Recipient__c}" label="Notifications are currently sent to:"/>
+                                    <apex:outputField value="{!acct.billAcct.eBill_Recipient__r.Email}" rendered="{!if(acct.billAcct.eBill_Recipient__r.Email = null, 'false', 'true')}" label="Email address:"/>
+                                    <apex:outputField value="{!userContact.Email}" rendered="{!if(acct.billAcct.eBill_Recipient__r.Email = null, 'true', 'false')}" label="Email address:"/>
+                                    <!--<apex:outputField value="{!acct.billAcct.eBill_Recipient__r.MobilePhone}" label="Mobile phone:"/>-->
+                                    <apex:pageBlockSectionItem rendered="{!acct.diffContact}">
+                                        <apex:outputLabel />
+                                        <apex:commandLink onclick="alertCustomer('{!acct.billAcct.eBill_Recipient__r.FirstName}', '{!acct.billAcct.eBill_Recipient__r.LastName}', '{!acct.billAcct.Id}'); return false;" 
+                                                value="Change to my notification details" id="changeDetailsLink" 
+                                                styleClass="changeLink bulletedLinkBlue pageLink"/>
+                                    </apex:pageBlockSectionItem>
+                                </apex:pageBlockSection>
+                                
+                                <!-- PAGE MESSAGE WHEN BILLING ACCOUNT IS SUB-ACCOUNT -->
+                                <apex:pageBlockSection id="subAccountGroup" columns="1">
+                                    <apex:outputPanel rendered="{!acct.billAcct.Group_Billing_Account__c != null}">
+                                        <apex:pageMessage strength="3" severity="info" summary="You cannot modify the billing or reminder preferences for this property as it is managed by a third-party."/>
+                                    </apex:outputPanel>
+                                </apex:pageBlockSection>
+                                
+                                <apex:pageBlockSection columns="1" showHeader="false" rendered="{!acct.billAcct.Group_Billing_Account__c == null}">
+                                    <apex:pageBlockSectionItem >
+                                    <apex:outputLabel value="Bill and reminder method" for="billMethodRadio"/>
+                                    <apex:selectRadio disabled="{!acct.bpayView}" value="{!acct.billAcct.eBill_Method__c}" id="billMethodRadio" label="Bill delivery method" styleClass="radioButton" onchange="setBillingMethod(this.label, '{!$Component.hiddenBillingMethod}');">
+                                        <apex:selectoptions value="{!acct.selMethod}"></apex:selectoptions>             
+                                    </apex:selectRadio>
+                                    </apex:pageBlockSectionItem>
+                                    <!--  PAGE MESSAGE WHEN EBILL METHOD IS BPAY VIEW -->
+                                    <apex:outputPanel rendered="{!acct.bpayView}">
+                                        <apex:pageMessage strength="3" severity="warning" summary="Our records show that you are currently registered via your bank's website for BPay view.  To arrange paperless billing, please cancel BPAY view with your bank.  When they have processed your request (allow at least two business days), you can register for paperless billing."/>
+                                    </apex:outputPanel>
+                                </apex:pageBlockSection>
+                                
+                                <!-- <apex:actionRegion >
+                                    <apex:pageBlockSection columns="1" showHeader="false" rendered="{!acct.billAcct.Group_Billing_Account__c == null}">
+                                        <apex:pageBlockSectionItem >
+                                            <apex:outputLabel value="Bill reminder method" for="reminder"/>
+                                            <apex:selectRadio id="reminder" value="{!acct.billAcct.Reminder_Method__c}" label="Bill reminder method" styleClass="radioButton" onchange="setReminderMethod(this.label, '{!$Component.hiddenReminderMethod}');">
+                                                <apex:actionSupport event="onchange" status="loading" rerender="detailedReasonAndattachment"/>
+                                                <apex:selectoptions value="{!acct.selReminder}"></apex:selectoptions>
+                                            </apex:selectRadio>
+                                        </apex:pageBlockSectionItem>
+                                    </apex:pageBlockSection>
+                                </apex:actionRegion> -->
+                                
+                                <!-- PAGE MESSAGE WHEN REMINDER METHOD IS SMS WITH NO MOBILE NUMBER -->
+                                <apex:outputPanel id="detailedReasonAndattachment" layout="block">
+                                    <apex:pageBlockSection id="detailedReason" columns="1" collapsible="false" rendered="{!IF(acct.billAcct.eBill_Recipient__r.MobilePhone==null && acct.billAcct.Reminder_Method__c == 'SMS', true, false)}">
+                                         <apex:pageMessage escape="false" strength="3" severity="error" summary="Our records show that you have not provided us with your mobile number.  We are happy to set this up for you, {!userContact.FirstName}.  Simply <a href={!$Page.PortalMyDetails}?id={!UserContact.Id}>update your details</a> by providing your email address."/>
+                                    </apex:pageBlockSection>
+                                </apex:outputPanel>
+                            </apex:repeat>
+                        </apex:outputPanel> <!-- END OF notificationAccountsContent -->
+                    </apex:outputPanel> <!-- END OF notificationAccountsContainer-->
+                    <br/><br/>
+                    
+                    <!-- TERMS AND CONDITIONS -->
+                    <apex:outputPanel id="termsConditions" layout="block">
+                            <apex:pageBlockSection id="isAccountHolder" columns="1" collapsible="false">
+                                <apex:pageBlockSectionItem id="tcpbsi">
+                                    <apex:outputPanel layout="block" style="position: relative; top: -18px" id="tcpanel" >
+                                        <apex:inputCheckbox id="isAcceptTAndCCheckbox"
+                                                            onclick="checkAcceptTandC();" />
+                                         <script>
+                                                isAcceptTAndCCheckbox = document.getElementById("{!$Component.isAcceptTAndCCheckbox}");
+                                         </script>
+                                        <div class="checkboxText" style="width: 100%">
+                                            I have read &amp; accept the
+                                            <apex:outputLink onclick="j$('#terms-popup').dialog('open'); return false;" >
+                                                terms and conditions 
+                                            </apex:outputLink>
+                                            for paperless<br></br> billing and reminders.
+                                        </div>
+                                    </apex:outputPanel>      
+                                </apex:pageBlockSectionItem>
+                                <!-- PAGE MESSAGES - ALWAYS DISPLAYED -->
+                                <apex:outputPanel id="pageMessagesBottom" layout="block" >
+                                        <apex:pageMessages id="msgBottom" />
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="block">
+                                    <div style="position:relative;left:175px;">
+                                         <apex:commandButton value="Update options"
+                                        action="{!save}"
+                                        style="cursor:pointer;"
+                                        styleClass="btnPrimary" 
+                                        id="submitBtn" status="loading" rerender="innerContentLHSDiv,pageMessages" oncomplete="BuildTermsDialog();">
+                                        </apex:commandButton>
+                                    </div>
+                                </apex:outputPanel>
+                            </apex:pageBlockSection> <!-- END OF isAccountHolder -->
+                    </apex:outputPanel> <!-- END OF termsConditions -->
+                </apex:outputPanel> <!-- END OF innerContentLHSDiv -->
+
+                <!-- RIGHT HAND SIDE CONTENT -->
+                <apex:outputPanel id="innerContentRHSDiv" layout="block" styleClass="innerContentRHSDiv" >
+                    <!--  LIVE CHAT -->
+                    <c:LiveChat />
+                    
+                    <!-- PORTAL KNOWLEDGE SIDE BAR -->
+                    <c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+                        divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+                        divStyle="width: 205px"/>
+                   
+                    <!--  QUICK LINKS -->
+                    <div style="position: relative;"><c:PortalQuickLinks mode="BillPreferences"/></div>
+                </apex:outputPanel>
+                <div style="clear:both"/>
+            </apex:pageBlock> <!-- END OF contentCellPageblock -->
+        </apex:outputPanel> <!-- END OF contentCellPanel  -->
+
+        <!-- TERMS AND CONDITIONS POPUP -->
+        <div id="terms-popup">
+            <div style="height: 400px; text-align: justify; overflow: auto; padding: 0px 10px; border: solid 1px #E4E2DD" class="radiusAll">
+                
+                <h3>Delivery</h3>
+                <p style="text-align: justify;">
+                The bill(s) that you have opted to be delivered by email will be emailed to your nominated email address. 
+                If you change your email you should update this information in mySouthEastWater.
+                </p>
+                <p style="text-align: justify;">
+                    You are not able to provide a different email address for your account. 
+                    We use the current registered email address against the person recorded. 
+                </p>
+                <p style="text-align: justify;">
+                   If a different person is already registered for paperless billing then the system will inform you that someone else is currently registered and that person will be notified of the change. 
+                   On a change of paperless billing recipient, a notification will be sent to the previous recipient notifying them of the change.  
+                   If you wish to discuss or dispute this, you can send through an enquiry or call us on 131 851.
+                </p>
+                <h3>One paperless bill per account</h3>
+                <p style="text-align: justify;">
+                  Only one paperless bill is permitted per billing account i.e. only one person per account can be set up to receive a paperless bill.
+                </p>
+                <h3>Process</h3>
+                <p style="text-align: justify;">
+                   Upon your selection to receive a bill by email, this request will take 2 business days to process. 
+                </p>   
+                <h3>Cancellation and changing your preference</h3>
+                <p style="text-align: justify;">
+                If you cancel a paperless bill you will automatically revert to being sent a paper bill. 
+                Depending on when you submit your update and the due date of your bill, you may get one more paper bill. 
+                Conversely, if you change your preference from paperless to post, you may receive one more email bill.
+                </p>
+                <p style="text-align: justify;">
+                The bill delivery and notification method can be changed via mySouthEastWater up to two times per billing period.
+                </p>
+                <h3>Format</h3>
+                <p style="text-align: justify;">
+                Your email bill will be sent as an attachment PDF attachment, so you'll need Acrobat Reader to view it. You can also see your last 15 bills online through mySouthEastWater.
+                </p>
+                <h3>Updates to the terms and conditions</h3>
+                <p style="text-align: justify;">
+                South East Water may amend or update these terms from time to time without notice to you. 
+                Such additional terms and conditions are incorporated by reference into these terms and conditions and you agree that you will comply with any additional terms and conditions that will be made available to you.  
+                You may deregister your account at any time if you do not agree to these terms and conditions or any amendments or updates we may make from time to time.
+                </p>
+                
+                
+            </div>
+            <center>
+                <br />
+                <apex:commandButton styleClass="btnPrimary" value="Close"
+                    onclick="hideTerms(); return false;" tabindex="1" id="closetermswindow"/>
+            </center>
+        </div>
+        <!-- Action Status that are not position dependent -->
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff"
+                                       borderColor="#6B6B6B"
+                                       borderSize="1"
+                                       height="50px"
+                                       width="120px"
+                                       margintop="-25px"
+                                       marginleft="-60px"
+                                       ImageUrl="{!$Resource.AjaxAnimation}"
+                                       Message="Loading..."/>
+            </apex:facet>
+        </apex:actionStatus>
+    </apex:form>
+</apex:page>

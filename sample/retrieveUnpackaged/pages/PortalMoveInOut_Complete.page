@@ -1,0 +1,221 @@
+<apex:page sidebar="false" showHeader="true"
+    tabstyle="PortalAccounts__tab" action="{!CheckRedirectConfirmed}"
+    controller="PortalMoveInOut_Controller">
+    
+    <!-- 
+    Type:       VF page
+    Purpose:    Move In and Out
+    ---------------------------------------------------------------
+    History:
+        05-Apr-2012 - Richard Enojas (Salesforce) - Created
+        16-May-2012 - Avergara - Update Label
+        14-Sept-2012 - Joel Jayoma (Cloud Sherpas)- updated rendering views for wizard steps 
+        26-Sep-2013  - N.Patterson  - TT11595 - Fixed the step 1 / step 2 / Step 3 / Complete banner below the Moving or Selling heading
+    -->
+    
+    <head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <!-- jquery -->
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+
+        <apex:stylesheet value="{!$Resource.MoveInOut_Styles}" />
+        
+    </head>
+    
+     <apex:form id="theForm">
+     	<apex:outputPanel id="sidebarContainer" layout="block" styleClass="sideBarCellDiv" >
+        	<apex:outputPanel id="accountsListAndSidebar" layout="block" styleClass="pbTransparent" >
+            	<c:PortalAccountsList displayAccountList="false"/> <!-- TT10401-show the accountlist section -->
+                <!--  sidebar -->                           
+                <div style="margin-top:-65px;"><!-- TT10401-shift up 65 px to remove gap -->
+	            	<c:PortalSidebar id="sidebar" groupName="Accounts" currentAccRecordType="{!customer.RecordType.DeveloperName}" 
+	                            currentDevName="Accounts_MovingSelling"/>
+				</div>
+			</apex:outputPanel>
+		</apex:outputPanel>
+     
+        <!-- div class="sideBarCellDiv">
+                <c:PortalSidebar id="sidebar" groupName="Accounts" currentAccRecordType="{!customer.RecordType.DeveloperName}" 
+	                            currentDevName="Accounts_MovingSelling" title="Accounts"/>
+        </div -->
+        
+        <div class="contentCellDiv">
+            <!-- Page Block Header -->
+            <div class="pageBlockHeader">
+                <apex:outputPanel layout="block" styleclass="pageBlockTitle">
+                    Moving or Selling
+                </apex:outputPanel>
+            </div>
+            <apex:pageBlock id="pageblock">            
+                <!-- Steps -->
+              <apex:outputpanel rendered="{!NOT(isMoveIn) && (tenantOrOwner == 'Tenant')}">	               
+					<div class="moveinout3stepcompleteImage">
+						<apex:panelGrid cellspacing="0" cellpadding="0" styleClass="stepInnerGrid">
+							<span class="step stepFirst">Step 1</span>
+							<span class="step">Step 2</span>
+							<span class="step">Step 3</span>
+							<span class="activeStep" style="margin-right: 0">Complete</span> 
+						</apex:panelGrid>
+					</div>
+                </apex:outputpanel>
+               
+                <apex:outputpanel rendered="{!NOT(NOT(isMoveIn) && (tenantOrOwner == 'Tenant')) && NOT(isMoveIn && tenantOrOwner == 'Owner' && newOrExistingOwner == 'New')}">
+	                <div class="completeImage">
+	                    <apex:panelGrid cellspacing="0" cellpadding="0" styleClass="stepInnerGrid">
+	                        <span class="step stepFirst">Step 1</span>
+	                        <span class="step">Step 2</span>                        
+	                        <span class="activeStep" >Complete</span>
+	                    </apex:panelGrid>
+	                </div>
+	             </apex:outputpanel>  
+	             <apex:outputpanel rendered="{!isMoveIn && tenantOrOwner == 'Owner' && newOrExistingOwner == 'New'}">	               
+					<div class="moveinout1stepcompleteImage">
+						<apex:panelGrid cellspacing="0" cellpadding="0" styleClass="stepInnerGrid">
+							<span class="step stepFirst">Step 1</span>
+							<span class="activeStep" style="margin-right: 0">Complete</span> 
+						</apex:panelGrid>
+					</div>
+                </apex:outputpanel>
+	               
+	           
+                 
+                <!-- 
+                	<apex:panelGrid cellspacing="0" cellpadding="0" styleClass="stepInnerGrid">
+                        <span class="step stepFirst">Step 1</span>
+                        <span class="step">Step 2</span>
+                        <span class="activeStep">Complete</span>
+                    </apex:panelGrid>                
+                 -->
+                
+                <!--  PAGE MESSAGES -->
+                <div style="margin-top: 5px">
+                    <apex:pageMessages id="msg" />
+                </div>
+                
+                <div class="innerContentLHSDiv">
+                <!-- Tenant Move In -->
+                <apex:outputPanel rendered="{!isMoveIn && tenantOrOwner == 'Tenant'}"> <!-- TT11595 - Meter reads are being created for Tenants only-->
+                    <div class="note">
+                        <p>
+                        Thanks {!$User.FirstName}, your move in request has been submitted successfully and we will organise a meter reading at the property.
+                        </p>
+                    </div>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!isMoveIn && tenantOrOwner == 'Tenant' && customerType=='Residential'}">
+                    <div class="note">
+                        <p>
+                        If you have a concession entitlement and wish to apply it to this property, please wait until you receive your first bill at the property. 
+                        You can then apply the concession by following the instructions on the <a href='{!$page.PortalManageConcession}'>Concession</a> page. 
+                        </p>
+                   </div>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!isMoveIn && tenantOrOwner == 'Tenant'}"> <!-- TT11595 - Meter reads aren't being created for Owners -->
+                    <div class="note">
+                        <p>
+                        Your case reference number for this request is {!casenumber}.
+                        If you wish to arrange disconnection at your existing property, please follow the instructions on the <a href='{!$page.PortalMoveInOut}'>Moving or selling</a> page. 
+                        </p>
+                    </div>
+                </apex:outputPanel>
+                
+                <!-- Tenant Move Out -->
+                <apex:outputPanel rendered="{!NOT(isMoveIn) && tenantOrOwner == 'Tenant'}">  <!-- TT11595 - This text is for Tenants only -->
+                     <div class="note">
+                        <p>
+                        Thanks {!$User.FirstName}, your move out request has been submitted successfully and we will organise a meter reading at the property.
+                        </p>
+                        <p>
+                        Your case reference number for this request is {!casenumber}.
+                        </p>
+                     </div>
+                </apex:outputPanel>
+                                  
+                <!-- Owner Move In New Home -->
+                <apex:outputPanel rendered="{!isMoveIn && tenantOrOwner == 'Owner' && newOrExistingOwner != 'Existing'}"> <!-- TT11595 - Meter reads aren't being created for Owners -->
+                    <div class="note">
+                        <p>
+                        Thanks {!$User.FirstName} for letting us know that you're moving.
+                        </p>
+                        <p>
+                        Your new property will be reflected on your South East Water account once we receive the notice of acquisition from your solicitor or conveyancer.
+                        </p>
+                        <p>
+                        You'll then be able to manage your account for this property online through <a href="apex/PortalMyAccountHomePage">mySouthEastWater</a> 24/7 -  where you can set up paperless billing, establish a payment plan and much more.
+                        </p>
+                        <p>
+                        If you need additional support please lodge an <a href="apex/PortalEnquiries">enquiry</a> or <a href="mailto:support@sew.com.au">email</a> us.
+                        </p>
+                    </div>
+                </apex:outputPanel>
+                
+                <!-- Owner Move In Existing Home -->
+                <apex:outputPanel rendered="{!isMoveIn && tenantOrOwner == 'Owner' && newOrExistingOwner == 'Existing'}"> <!-- TT11595 - Meter reads aren't being created for Owners -->
+                    <div class="note">
+                        <p>
+                        Thanks {!$User.FirstName} for letting us know that you're moving.
+                        </p>
+                        <p>
+                        Don't forget that you can manage your account through <a href="apex/PortalMyAccountHomePage">mySouthEastWater</a> 24/7 to set up paperless billing, establish a payment plan and much more.
+                        </p>
+                        <p>
+                        Your case reference number for this request is {!casenumber}.
+                        </p>
+                        <p>
+                        If you need additional support please lodge an <a href="apex/PortalEnquiries">enquiry</a> or <a href="mailto:support@sew.com.au">email</a> us.
+                        </p>
+                    </div>
+                </apex:outputPanel>
+                
+                <!-- Owner Move Out Not Selling -->
+                <apex:outputPanel rendered="{!NOT(isMoveIn) && tenantOrOwner == 'Owner' && NOT(isSelling)}"> <!-- TT11595 - Meter reads aren't being created for Owners -->
+                    <div class="note">
+                        <p>
+                        Thanks {!$User.FirstName} for letting us know that you're moving.
+                        </p>
+                        <p>
+                        As the property owner, you will continue to receive bills until we are notified of a new tenant's details. Your property agent can let us know your tenant's details, or you can provide them by <a href="http://southeastwater.com.au/SiteCollectionDocuments/Residential/MovingHouse/Move-In.pdf">completing and returning this form</a>.
+                        </p>
+                        <p>
+                        If the property has a separate water meter, your tenant will be responsible for water usage and sewage disposal charges. You will continue to receive a bill for the service charges and rates at the property.
+                        </p>
+                        <p>
+                        If you need additional support please lodge an <a href="apex/PortalEnquiries">enquiry</a> or <a href="mailto:support@sew.com.au">email</a> us.
+                        </p>
+                    </div>
+                </apex:outputPanel>
+                
+                <!-- Owner Move Out Selling -->
+                <apex:outputPanel rendered="{!NOT(isMoveIn) && tenantOrOwner == 'Owner' && isSelling}"> <!-- TT11595 - Meter reads aren't being created for Owners -->
+                    <div class="note">
+                        <p>
+                        Thanks {!$User.FirstName} for letting us know that you're moving out.
+                        </p>
+                        <p>
+                        Please note that you will continue to receive the bill for this property until we are notified of a transfer of property title.
+                        </p>
+                        <p>
+                        If you need additional support please lodge an <a href="apex/PortalEnquiries">enquiry</a> or <a href="mailto:support@sew.com.au">email</a> us.
+                        </p>
+                    </div>
+                </apex:outputPanel>
+                
+                </div>
+                <div class="innerContentRHSDiv">
+                    <!--  live chat -->
+                    <c:LiveChat />
+
+                    <c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+                        divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+                        divStyle="width: 205px"/>
+                    <!--  quick links -->
+                    <div style="position: relative;"><c:PortalQuickLinks mode="Property"/></div>
+                </div>
+            
+                <div style="clear:both"/>
+            </apex:pageBlock>
+        </div>
+        
+    </apex:form>
+    
+</apex:page>

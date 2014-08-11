@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Company_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Company name</label>
+        <length>80</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Confirm_Email_Address__c</fullName>
+        <externalId>false</externalId>
+        <label>Confirm Email Address</label>
+        <required>false</required>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer number</label>
+        <length>10</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Email_Address__c</fullName>
+        <externalId>false</externalId>
+        <label>Email address</label>
+        <required>false</required>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>First_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>First name</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Last name</label>
+        <length>40</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Mailing_City__c</fullName>
+        <externalId>false</externalId>
+        <label>Mailing City</label>
+        <length>40</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Mailing_Country__c</fullName>
+        <externalId>false</externalId>
+        <label>Mailing Country</label>
+        <length>40</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Mailing_DPID__c</fullName>
+        <externalId>false</externalId>
+        <label>Mailing DPID</label>
+        <length>40</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Mailing_Postal_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Mailing Postal Code</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Mailing_State__c</fullName>
+        <externalId>false</externalId>
+        <label>Mailing State</label>
+        <length>40</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Mailing_Street_Address__c</fullName>
+        <externalId>false</externalId>
+        <label>Mailing Street Address</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>Expressions of Interest</relationshipLabel>
+        <relationshipName>Expressions_of_Interest</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Other_details__c</fullName>
+        <description>Value to be entered if the Where did you hear about the Early Connection Option? is set to Other.</description>
+        <externalId>false</externalId>
+        <label>Other details</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Phone_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Phone number</label>
+        <required>false</required>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Property_City__c</fullName>
+        <externalId>false</externalId>
+        <label>Property City</label>
+        <length>40</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property_Country__c</fullName>
+        <externalId>false</externalId>
+        <label>Property Country</label>
+        <length>40</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property_DPID__c</fullName>
+        <externalId>false</externalId>
+        <label>Property DPID</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property_Postal_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Property Postal code</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property_State__c</fullName>
+        <externalId>false</externalId>
+        <label>Property State</label>
+        <length>40</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property_Street_Address__c</fullName>
+        <externalId>false</externalId>
+        <label>Property Street address</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Where_did_you_hear_about_ECO__c</fullName>
+        <externalId>false</externalId>
+        <label>What prompted your enquiry today?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Outdoor advertising</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Event</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Letter from SE Water</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Radio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Leader</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Southern Peninsula News</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mornington Peninsula Magazine</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Word of mouth</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SE Water website</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Social media</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Council</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SE Water bill insert</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rye office</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Construction site</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <label>Expression of Interest</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>First_Name__c</columns>
+        <columns>Last_Name__c</columns>
+        <columns>Property_City__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>New_EOIs</fullName>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>First_Name__c</columns>
+        <columns>Last_Name__c</columns>
+        <columns>Email_Address__c</columns>
+        <columns>Phone_Number__c</columns>
+        <columns>Property_City__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Opportunity__c</field>
+            <operation>notEqual</operation>
+            <value>NULL</value>
+        </filters>
+        <filters>
+            <field>Opportunity__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <label>New EOIs</label>
+    </listViews>
+    <nameField>
+        <displayFormat>EOI-{0000000}</displayFormat>
+        <label>EOI Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Expressions of Interest</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <startsWith>Vowel</startsWith>
+    <validationRules>
+        <fullName>Customer_Number_Numeric</fullName>
+        <active>true</active>
+        <description>Customer number must be a numeric value</description>
+        <errorConditionFormula>NOT(ISNUMBER( Customer_Number__c )  ||  ISBLANK(Customer_Number__c))</errorConditionFormula>
+        <errorDisplayField>Customer_Number__c</errorDisplayField>
+        <errorMessage>The value entered is invalid.  Please click on the link   What does this look like?   for help.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Phone_Number_Numeric</fullName>
+        <active>true</active>
+        <description>Phone number must be a numeric value</description>
+        <errorConditionFormula>NOT(ISNUMBER(  Phone_Number__c  ) || ISBLANK(Phone_Number__c ))</errorConditionFormula>
+        <errorDisplayField>Phone_Number__c</errorDisplayField>
+        <errorMessage>Enter your details without spaces or special characters</errorMessage>
+    </validationRules>
+</CustomObject>

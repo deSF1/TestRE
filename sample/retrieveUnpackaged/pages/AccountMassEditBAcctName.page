@@ -1,0 +1,318 @@
+<apex:page standardController="Account" extensions="AccountMassEditBAcctNameExCon" title="{!Account.Name} - Mass Account Name Update">
+    <!--
+        Description: This page allows the user to mass edit account names
+
+        History:
+            14-Sep-2011 D.Thong (Salesforce)    Created
+            05-Apr-2012 Ji Zhang (Coretec Solutions) #532 - add function for mass updating person details
+            24-Apr-2012 Ji Zhang (Coretec Solutions) - modify UI customer details 
+    -->
+    <apex:sectionHeader title="Mass Update Account Name" subtitle="{!Account.Name}"/>
+    <apex:includeScript value="/support/console/22.0/integration.js"/>
+        <script type="text/javascript">
+
+          function setTabTitle() {
+            if(sforce.console.isInConsole())
+              sforce.console.setTabTitle('{!Account.Name} - Manage Account Names');
+          }
+
+          var previousOnload = window.onload;
+          window.onload = function() {
+               if (previousOnload) {
+                   previousOnload();
+               }
+               setTabTitle();
+          }
+        </script>
+        
+           
+        <!-- UI custmer details start -->
+        <apex:form id="form">
+            <apex:pagemessages />
+            <apex:pageblock mode="maindetail" id="pb">       
+                <apex:actionRegion >
+                <apex:outputPanel id="custDetails">
+                <apex:pageBlockSection id="custDetailspbs" title="Customer Detail" collapsible="false">
+                    <apex:pageBlockSectionItem id="custaccounttitlepbsi" >
+                        <apex:outputLabel value="{!$ObjectType.Account.Fields.Title__c.Label}" />
+                            <!-- #532 added onchange -->
+                            <apex:inputField value="{!Account.Title__c}" id="custaccounttitle" onchange="CopyNameChanges()"/>
+<!--                             <apex:actionSupport event="onchange"
+                                                action="{!updateCustomerName}"
+                                                rerender="form"
+                                                focus="custaccountinitials"
+                                                status="updateName"/>
+ -->
+                    </apex:pageBlockSectionItem>
+                     <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.Account.Fields.Trading_Name__c.Label}"/>
+                        <apex:inputField value="{!Account.Trading_Name__c}" style="width:200px"/>
+                    </apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem id="custaccountinitialspbsi">
+                        <apex:outputLabel value="{!$ObjectType.Account.Fields.Initials__c.Label}"/>
+                            <!-- #532 added onchange -->
+                            <apex:inputField value="{!Account.Initials__c}" id="custaccountinitials" onchange="CopyNameChanges()" style="width:280px"/>
+<!--                             <apex:actionSupport event="onchange"
+                                                action="{!updateCustomerName}"
+                                                rerender="form"
+                                                focus="custaccountname"
+                                                status="updateName"/>
+ -->
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="custaccountnamepbsi">
+                        <apex:outputLabel value="{!$ObjectType.Account.Fields.Account_Name__c.Label}" for="custaccountname"/>
+                            <!-- #532 added onchange, made required -->
+                            <apex:inputField value="{!Account.Account_Name__c}" id="custaccountname" required="true" onchange="CopyNameChanges()" style="width:280px"/>
+<!-- 
+                            <apex:actionSupport event="onchange"
+                                                action="{!updateCustomerName}"
+                                               rerender="form"
+                                                focus="custname"
+                                                status="updateName"/>
+ -->
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="custnamepbsi">
+                         <apex:outputLabel value="{!$ObjectType.Account.Fields.Name.Label}"/>
+                         <apex:outputPanel >
+                             <apex:inputField value="{!Account.Name}" style="width:280px; " id="custname"/>
+                             <div style="height: 0">
+                             <apex:actionStatus id="updateName" style="display:inline-table;">
+                                    <apex:facet name="start">
+                                            <apex:image value="{!$Resource.AjaxAnimation}" style="left: 300px; position: relative; top: -17px;" alt="Updating..."/>
+                                    </apex:facet>
+                             </apex:actionStatus>    
+                             </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                </apex:outputPanel>
+                <!-- UI custmer details end-->
+                <apex:pageBlockSection title="Billing Accounts" collapsible="false"/>
+                <apex:pageblockTable value="{!Account.Billing_Account__r}" var="bacct" id="accttable">
+                    <apex:column headervalue="{!$ObjectType.Billing_Account__c.fields.Name.label}">
+                        <A HREF="#" onClick="testOpenSubtab{!bacct.id}();return false">{!bacct.Name}</A>
+                        <script type="text/javascript">
+                            function testOpenSubtab{!bacct.id}() {
+                                if(sforce.console.isInConsole()){
+                                    sforce.console.getEnclosingPrimaryTabId(openSubtab{!bacct.id});
+                                }
+                                else{
+                                    window.open("/{!bacct.id}");
+                                }
+                            }
+                            var openSubtab{!bacct.id} = function openSubtab{!bacct.id}(result) {
+                                var primaryTabId = result.id;
+                                sforce.console.openSubtab(primaryTabId , '/{!bacct.id}', true,
+                                    '{!bacct.Name}', null, null, 'subtab{!bacct.id}');
+                            };
+                        </script>
+                    </apex:column>
+                    <apex:column headervalue="{!$ObjectType.Billing_Account__c.fields.Role__c.label}">
+                        <apex:outputText escape="false" value="{!bacct.Role__c}"/>
+                    </apex:column>
+                    <apex:column headervalue="{!$ObjectType.Billing_Account__c.fields.Property_Address__c.label}">
+                        <apex:outputText escape="false" value="{!bacct.Property_Address__c}"/>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">Same as <br/>Customer</apex:facet>
+                        <!-- UI replace javacript with controller function -->
+                        <apex:inputField value="{!bacct.Same_Name_As_Customer__c }" id="bacctsamenameflag" onchange="CopyNameFields('{!$Component.bacctsamenameflag}', '{!$Component.baccttitle}', '{!$Component.bacctinitials}', '{!$Component.bacctname}')"/>
+<!-- 
+                        <apex:inputField value="{!bacct.Same_Name_As_Customer__c }" id="bacctsamenameflag">
+                        <apex:actionSupport event="onchange"
+                                            action="{!updateCustomerName}"
+                                           rerender="form"
+                                            focus="bacctsamenameflag"
+                                            status="updateName"/>
+                        </apex:inputField>
+-->
+
+                    </apex:column>
+                    <apex:column headervalue="{!$ObjectType.Billing_Account__c.fields.Title__c.label}">
+                        <apex:inputField value="{!bacct.Title__c }" id="baccttitle" onchange="UncheckSameNameFlag('{!$Component.bacctsamenameflag}', '{!$Component.baccttitle}', '{!$Component.bacctinitials}', '{!$Component.bacctname}')"/>
+                    </apex:column>
+                    <apex:column headervalue="{!$ObjectType.Billing_Account__c.fields.Initials__c.label}">
+                        <apex:inputField value="{!bacct.Initials__c }" id="bacctinitials" onchange="UncheckSameNameFlag('{!$Component.bacctsamenameflag}', '{!$Component.baccttitle}', '{!$Component.bacctinitials}', '{!$Component.bacctname}')"/>
+                    </apex:column>
+                    <apex:column headervalue="{!$ObjectType.Billing_Account__c.fields.Account_Name__c.label}">
+                        <apex:inputField value="{!bacct.Account_Name__c }" id="bacctname" onchange="UncheckSameNameFlag('{!$Component.bacctsamenameflag}', '{!$Component.baccttitle}', '{!$Component.bacctinitials}', '{!$Component.bacctname}')"/>
+                    </apex:column>
+                </apex:pageblockTable>
+
+                <apex:outputPanel rendered="{!numBillingAccts=0}" layout="block" style="padding-top:5px;font-style:italic">
+                    &nbsp;No records found...
+                </apex:outputPanel>
+                </apex:actionRegion>
+                <!-- #532 Start - add function for mass updating person details -->
+                <apex:pageBlockSection title="Persons" collapsible="false"/>
+                 <apex:pageblockTable value="{!Persons}" var="contacts">
+                    <apex:column headervalue="{!$ObjectType.Contact.fields.Name.label}">
+                        <A HREF="#" onClick="testOpenSubtab{!contacts.id}();return false">{!contacts.Name}</A>
+                        <script type="text/javascript">
+                            function testOpenSubtab{!contacts.id}() {
+                                if(sforce.console.isInConsole()){
+                                    sforce.console.getEnclosingPrimaryTabId(openSubtab{!contacts.id});
+                                }
+                                else{
+                                    window.open("/{!contacts.id}");
+                                }
+                            }
+                            var openSubtab{!contacts.id} = function openSubtab{!contacts.id}(result) {
+                                var primaryTabId = result.id;
+                                sforce.console.openSubtab(primaryTabId , '/{!contacts.id}', true,
+                                    '{!contacts.Name}', null, null, 'subtab{!contacts.id}');
+                            };
+                        </script>
+                    </apex:column>
+                    <apex:column headervalue="{!$ObjectType.Contact.fields.FirstName.label}">
+                        <apex:inputField value="{!contacts.FirstName}" id="cFirstName"/>
+                    </apex:column>
+                     <apex:column headervalue="{!$ObjectType.Contact.fields.LastName.label}">
+                        <apex:inputField value="{!contacts.LastName}" id="cLastName" />
+                    </apex:column>
+                    <apex:column headervalue="{!$ObjectType.Contact.fields.Primary_Secondary_Contact__c.label}">
+                        <apex:inputField value="{!contacts.Primary_Secondary_Contact__c}" id="cPrimarySecondaryContact"/>
+                    </apex:column>
+                    <apex:column headervalue="{!$ObjectType.Contact.fields.Birthdate.label}">
+                        <apex:inputField value="{!contacts.Birthdate}" id="cBirthdate"/>
+                    </apex:column>
+                    <apex:column headervalue="{!$ObjectType.Contact.fields.Drivers_License_Number__c.label}">
+                        <apex:inputField value="{!contacts.Drivers_License_Number__c}" id="cDriversLicenseNumber"/>
+                    </apex:column> 
+                </apex:pageblockTable> 
+                
+                <apex:outputPanel rendered="{!numPersons=0}" layout="block" style="padding-top:5px;font-style:italic">
+                    &nbsp;No records found...
+                </apex:outputPanel>  
+                <!-- #532 End -->
+
+                <apex:pageblockButtons >
+                    <apex:commandButton value="Save" action="{!saveBillingAccounts}" rendered="{!numBillingAccts>0}"/>
+                    <apex:commandButton value="Close Page" onclick="testCloseTab();return false"/>
+                    <script type="text/javascript">
+                        function testCloseTab() {
+                            if(sforce.console.isInConsole()){
+                                sforce.console.getEnclosingTabId(closeSubtab);
+                            }
+                            else{
+                                window.location = "/{!Account.id}";
+                            }
+                        }
+
+                        var closeSubtab = function closeSubtab(result) {
+                            var tabId = result.id;
+                            sforce.console.closeTab(tabId);
+                        };
+                    </script>
+                </apex:pageblockButtons>
+
+            </apex:pageblock>
+            <!-- UI adding status -->
+            <apex:actionStatus id="loading">
+                <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff"
+                                       borderColor="#6B6B6B"
+                                       borderSize="1"
+                                       height="50px"
+                                       width="120px"
+                                       margintop="-25px"
+                                       marginleft="-60px"
+                                       ImageUrl="{!$Resource.AjaxAnimation}"
+                                       Message="Updating..."/>
+                </apex:facet>
+            </apex:actionStatus>
+        </apex:form>
+
+        <script>
+            <!-- UI delete copy javascript -->
+
+            var titleField = document.getElementById('{!$Component.form.pb.custDetailspbs.custaccounttitlepbsi.custaccounttitle}');
+            var initialsField = document.getElementById('{!$Component.form.pb.custDetailspbs.custaccountinitialspbsi.custaccountinitials}');
+            var acctnameField = document.getElementById('{!$Component.form.pb.custDetailspbs.custaccountnamepbsi.custaccountname}');
+            var custnameField = document.getElementById('{!$Component.form.pb.custDetailspbs.custnamepbsi.custname}');
+
+            function CopyNameFields(bAcctSameNameFlagId, bAcctTitleId, bAcctInitialsId, bAcctNameId) {
+// #532 start
+//                var custName = '{!Account.Account_Name__c}';
+//                var custInitials = '{!Account.Initials__c}';
+//                var custTitle = '{!Account.Title__c}';
+                var custName = acctnameField.value;
+                var custInitials = initialsField.value;
+                var custTitle = titleField.value;
+// #532 end
+                var bAcctSameNameFlag = document.getElementById(bAcctSameNameFlagId).checked;
+                if (bAcctSameNameFlag) {
+                    // is checked, so update the sucker
+                    document.getElementById(bAcctTitleId).value = custTitle;
+                    document.getElementById(bAcctInitialsId).value = custInitials;
+                    document.getElementById(bAcctNameId).value = custName;
+                }
+            }
+
+            function UncheckSameNameFlag(bAcctSameNameFlagId, bAcctTitleId, bAcctInitialsId, bAcctNameId) {
+// #532 start
+//                var custName = '{!Account.Account_Name__c}';
+//                var custInitials = '{!Account.Initials__c}';
+//                var custTitle = '{!Account.Title__c}';
+                var custName = acctnameField.value;
+                var custInitials = initialsField.value;
+                var custTitle = titleField.value;
+// #532 end
+                var bAcctSameNameFlag = document.getElementById(bAcctSameNameFlagId).checked;
+                var bAcctTitle = document.getElementById(bAcctTitleId).value;
+                var bAcctInitials = document.getElementById(bAcctInitialsId).value;
+                var bAcctName = document.getElementById(bAcctNameId).value;
+                if (bAcctTitle != custTitle || bAcctInitials != custInitials || bAcctName != custName) {
+                    document.getElementById(bAcctSameNameFlagId).checked = false;
+                } else {
+                    document.getElementById(bAcctSameNameFlagId).checked = true;
+                }
+            }
+            
+            // #532
+            // Copy the account name to both customer name and all the billing account names
+            function CopyNameChanges() {
+                var name = '';
+                
+                if (titleField.value != null && titleField.value != ' ')
+                    name = name + titleField.value;
+
+                if (initialsField.value != null && initialsField.value != ' ') {
+                    if (name == '')
+                        name = initialsField.value;
+                    else
+                        name = name + ' ' + initialsField.value;
+                }
+
+                if (acctnameField.value != null && acctnameField.value != ' ') {
+                    if (name == '')
+                        name = acctnameField.value;
+                    else
+                        name = name + ' ' + acctnameField.value;
+                }
+                
+                custnameField.value = name;
+                
+                var numBillingAccts = parseInt('{!numBillingAccts}');
+                var i=0;
+                for (i; i<numBillingAccts; i++) { 
+                    var isSameName = document.getElementById('{!$Component.form.pb.accttable}:' + i + ':bacctsamenameflag').checked;
+
+                    if (isSameName) {
+                        document.getElementById('{!$Component.form.pb.accttable}:' + i + ':baccttitle').value = titleField.value;
+                        document.getElementById('{!$Component.form.pb.accttable}:' + i + ':bacctinitials').value = initialsField.value;
+                        document.getElementById('{!$Component.form.pb.accttable}:' + i + ':bacctname').value = acctnameField.value;
+                    }
+                }
+            }
+            
+        </script>
+
+</apex:page>

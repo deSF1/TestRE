@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>ECO Price</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>ECO Prices</value>
+    </caseValues>
+    <fields>
+        <label><!-- ECO Price --></label>
+        <name>ECO_Price__c</name>
+    </fields>
+    <fields>
+        <label><!-- Opportunity --></label>
+        <name>Opportunity__c</name>
+        <relationshipLabel><!-- ECO Prices --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Other Rejected Reason --></label>
+        <name>Other_Rejected_Reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- Rejected Reason --></label>
+        <name>Rejected_Reason__c</name>
+        <picklistValues>
+            <masterLabel>Customer&apos;s age</masterLabel>
+            <translation><!-- Customer&apos;s age --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Don&apos;t want to connect early</masterLabel>
+            <translation><!-- Don&apos;t want to connect early --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Happy with septic</masterLabel>
+            <translation><!-- Happy with septic --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Holiday house</masterLabel>
+            <translation><!-- Holiday house --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Too expensive</masterLabel>
+            <translation><!-- Too expensive --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Treatment plant</masterLabel>
+            <translation><!-- Treatment plant --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>ECO Price Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Other Rejected Reason can only be entered if the Rejected Reason is set to Other --></errorMessage>
+        <name>Other_reason_blank_if_reason_not_other</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Other Rejected Reason must be entered if the Rejected Reason is set to Other --></errorMessage>
+        <name>Other_reason_populated_if_reason_other</name>
+    </validationRules>
+</CustomObjectTranslation>

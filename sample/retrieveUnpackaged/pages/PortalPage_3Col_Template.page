@@ -1,0 +1,55 @@
+<apex:page showheader="false"
+	doctype="html-5.0">
+
+<!--
+    Description: 3 column page portal template
+
+    History:
+        7-Apr-2012 D.Thong (Salesforce)    Created
+-->
+
+    <head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+    </head>
+    
+    <apex:form id="theForm">
+	    <div class="sideBarCellDiv" id="sideBarCelldiv">
+	        <!--  sidebar -->
+	        <apex:insert name="sidebar"/>
+	    </div>    
+
+	    <div class="contentCellDiv">
+	
+	        <!-- Page Block Header -->
+	        <apex:insert name="title"/>
+	        
+	        <apex:pageBlock id="pageblock">
+	            <!--  PAGE MESSAGES -->
+	            <div style="margin-top: 5px">
+	                <apex:pageMessages id="msg" />
+	            </div>
+	            <div class="innerContentLHSDiv">
+			        <apex:insert name="innerContentLHS"/>
+	            </div>
+	            <div class="innerContentRHSDiv">
+			        <apex:insert name="innerContentRHS"/>
+	            </div>
+	            <div style="clear: both"/>
+	        </apex:pageBlock>
+
+			<apex:insert name="other"/>
+
+	        <!-- Action Status that are not position dependent -->
+	        <apex:actionStatus id="loading">
+	            <apex:facet name="start">
+	                <c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+	                    borderSize="1" height="50px" width="120px" margintop="-25px"
+	                    marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+	                    Message="Processing..." />
+	            </apex:facet>
+	        </apex:actionStatus>
+	    </div>
+	</apex:form>
+
+</apex:page>

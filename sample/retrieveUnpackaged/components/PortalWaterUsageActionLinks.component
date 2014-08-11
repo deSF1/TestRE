@@ -1,0 +1,64 @@
+<apex:component >
+
+    <!--
+        Description: Component to display action links at bottom of water usage page
+
+        History:
+        23-Mar-2012 D.Thong (Salesforce)    Created
+    -->
+
+	<style>
+		.verticalAlignTop {
+			vertical-align: top;
+		}
+	</style>
+
+	<!--  NAVIGATION LINKS -->
+	<div class="pbTransparent">
+	    <apex:pageBlock title="Quick Links">
+	        <apex:panelGrid columns="4" cellpadding="0" cellspacing="0" columnClasses="verticalAlignTop">
+	            <apex:outputPanel layout="block" 
+	                                styleClass="actionCell first borderDottedBlueRight">
+	                <apex:outputLink title="Using water wisely">
+	                    <div class="meterReadIcon"/>
+	                </apex:outputLink>
+	                <div class="actionText">Want to use less water?</div>
+	                <div class="actionLink">    
+	                    <apex:outputLink >Use water wisely</apex:outputLink>
+	                </div>
+	            </apex:outputPanel>
+
+	            <apex:outputPanel layout="block" 
+	                                styleClass="actionCell borderDottedBlueRight">
+	                <apex:outputLink title="Your bill explained">
+	                    <div class="billExplainedIcon"/>
+	                </apex:outputLink>
+	                <div class="actionText">Need help understanding your bill?</div>
+	                <div class="actionLink">    
+	                    <apex:outputLink >Your bill explained</apex:outputLink>
+	                </div>
+	            </apex:outputPanel>
+
+	            <apex:outputPanel layout="block" 
+	                                styleClass="actionCell borderDottedBlueRight">
+	                <apex:outputLink title="Get support">
+	                    <div class="helpLargeIcon"/>
+	                </apex:outputLink>
+	                <div class="actionText">Have a question?</div>
+	                <div class="actionLink">    
+	                    <apex:outputLink >Get support</apex:outputLink>
+	                </div>
+	            </apex:outputPanel>
+
+	            <apex:outputPanel layout="block" 
+	                                styleClass="actionCell">
+		        	<c:LiveChat />
+				</apex:outputPanel>
+
+
+
+	        </apex:panelGrid>
+	    </apex:pageBlock>
+	</div>
+
+</apex:component>

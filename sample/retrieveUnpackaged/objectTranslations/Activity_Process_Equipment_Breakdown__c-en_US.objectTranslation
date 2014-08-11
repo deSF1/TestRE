@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Water Using Equipment/Process</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Water Using Equipment/Processes</value>
+    </caseValues>
+    <fields>
+        <label><!-- Activity/Process/Equipment --></label>
+        <name>Activity_Process_Equipment__c</name>
+        <picklistValues>
+            <masterLabel>Animal use</masterLabel>
+            <translation><!-- Animal use --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Boiler</masterLabel>
+            <translation><!-- Boiler --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Building and Construction</masterLabel>
+            <translation><!-- Building and Construction --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Clean in Place (CIP)</masterLabel>
+            <translation><!-- Clean in Place (CIP) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cleaning</masterLabel>
+            <translation><!-- Cleaning --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cooling tower</masterLabel>
+            <translation><!-- Cooling tower --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dairy shed and milk vat</masterLabel>
+            <translation><!-- Dairy shed and milk vat --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Domestic Residence - not accommodation</masterLabel>
+            <translation><!-- Domestic Residence - not accommodation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Evaporative Cooling/chillers</masterLabel>
+            <translation><!-- Evaporative Cooling/chillers --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fire Service / Sprinkler Testing</masterLabel>
+            <translation><!-- Fire Service / Sprinkler Testing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Food Preparation, cooking, dishwashing</masterLabel>
+            <translation><!-- Food Preparation, cooking, dishwashing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Food production/ washing for production (not irrigation)</masterLabel>
+            <translation><!-- Food production/ washing for production (not irrigation) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Irrigation/plant watering</masterLabel>
+            <translation><!-- Irrigation/plant watering --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Laundry</masterLabel>
+            <translation><!-- Laundry --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other (please specify)</masterLabel>
+            <translation><!-- Other (please specify) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Outdoor</masterLabel>
+            <translation><!-- Outdoor --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pool and backwash</masterLabel>
+            <translation><!-- Pool and backwash --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Production process</masterLabel>
+            <translation><!-- Production process --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sterilising equipment</masterLabel>
+            <translation><!-- Sterilising equipment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Taps, showers, toilets, urinals</masterLabel>
+            <translation><!-- Taps, showers, toilets, urinals --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Vehicle washing/ cleaning</masterLabel>
+            <translation><!-- Vehicle washing/ cleaning --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Washdown equipment</masterLabel>
+            <translation><!-- Washdown equipment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water into product</masterLabel>
+            <translation><!-- Water into product --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Details__c</name>
+    </fields>
+    <fields>
+        <label><!-- Percentage of Water Use --></label>
+        <name>Percentage_of_Water_Use__c</name>
+    </fields>
+    <fields>
+        <label><!-- Specify Other --></label>
+        <name>Specify_Other__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Universal Id --></label>
+        <name>Universal_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- WaterMAP --></label>
+        <name>WaterMAP__c</name>
+        <relationshipLabel><!-- Water Using Equipment/Processes --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>Activity/Process/Equipment Breakdown Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Water Using Equipment/Process (portal)</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

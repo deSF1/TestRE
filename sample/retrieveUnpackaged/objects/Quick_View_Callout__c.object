@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <description>settings used to display Quick view page by profile</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Default__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Default</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>On_Tab_Click__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>On Tab Click</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Profile_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Profile Name</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Profile__c</fullName>
+        <externalId>false</externalId>
+        <label>Profile ID</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tab__c</fullName>
+        <externalId>false</externalId>
+        <label>Tab</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Visibility__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Visibility</label>
+        <type>Checkbox</type>
+    </fields>
+    <label>Quick View Callout</label>
+</CustomObject>

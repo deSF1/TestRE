@@ -1,0 +1,14 @@
+<apex:page cache="false"
+  standardStylesheets="false"
+  showHeader="true"
+  sidebar="false"
+  controller="pkb_Controller"
+  tabstyle="Portal_Support__tab"
+  language="{!$CurrentPage.parameters.l}">
+
+<!-- this empty page simply invokes the PKB site template and gives us a page to set the Site homepage to -->
+<apex:composition template="pkb_Template">
+  <apex:define name="body"></apex:define>
+</apex:composition>
+
+</apex:page>

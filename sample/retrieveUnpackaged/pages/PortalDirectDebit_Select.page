@@ -1,0 +1,195 @@
+<apex:page sidebar="false" showHeader="true"
+    doctype="html-5.0"
+    tabstyle="Portal_Payment_Options__tab"  action="{!CheckRedirectConfirmed}"
+    controller="PortalDirectDebitController">
+
+    <!-- 
+    Type:       VF page
+    Purpose:    Direct Debit - Step 1 - selection page
+    ---------------------------------------------------------------
+    History:
+        28-Mar-2012 D.Thong     Created
+        4-Jun-2012  D.Yu        Update: 5161 - Update header
+    -->
+
+    <html>
+        <!-- Head -->
+        <head>
+            <META HTTP-EQUIV="EXPIRES" CONTENT="-1" />
+            <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+            <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>        
+            <apex:stylesheet value="{!$Resource.PortalPayment_Styles}"/>
+            <apex:stylesheet value="{!$Resource.PortalActionLinks_Styles}"/>       
+            <style>
+                .tableHeader {
+                    background-color: #EFF8FD;
+                }
+            </style>
+        
+        </head>
+
+        <!-- Body -->
+        <body>
+            <apex:form id="form">
+                <apex:inputhidden value="{!userInputFields.Customer_Account__c}" />
+                <apex:inputhidden value="{!userInputFields.Billing_Account__c}"/>
+                <apex:inputhidden value="{!userInputFields.Person__c}"/>
+                <apex:inputhidden value="{!userInputFields.DD_Account_Type__c}"/>
+
+                
+                <!--  sidebar -->
+                <div class="pbTransparent sideBarCellDiv" >
+                    <!--  sidebar -->                           
+                    <c:PortalSidebar id="sidebar" groupName="PaymentOptions" 
+                                currentAccRecordType="{!customer.RecordType.DeveloperName}" 
+                                currentDevName="PaymentOptions_SetUpADirectDebit"
+                                title="Payment options"/>
+
+                    <!--  live chat -->
+                    <!-- 
+                    <div style="margin-left: 15px" class="pbTransparent">
+                        <c:LiveChat />
+                        
+                        <c:PortalKnowledgeSidebar rowClass="borderDottedWhiteBottom"
+                            divClass="pbTransparent pbWhiteDottedHeader pbNoPad grey"
+                            divStyle="width: 230px"/>
+                    </div>
+                     -->
+
+                </div>
+        
+                <!-- Start of real page content here-->
+        
+                <apex:outputPanel id="wholePage" layout="block" styleClass="contentCellDiv" >
+    
+                    <apex:sectionheader subtitle="Manage direct debit"/>
+                    <div class="clear"/>
+    
+                    <apex:pageblock id="pb" >
+        
+                        <!--  PAGE MESSAGES -->
+                        <div style="margin-top: 5px; text-align: left">
+                            <apex:pageMessages id="msg" escape="false" />
+                        </div>
+    
+                        <!-- CONTENT -->
+                        <apex:outputPanel rendered="{!gatewayStatus}">
+                        
+                            <!--  Inserted new message on the page -->
+                            <div>
+                                Convenient and reliable, direct debit lets you pay your bills automatically from any bank account. You will still receive your bill each quarter so you can see the amount to be deducted. Manage your direct debit preferences here.
+                            </div>
+                            
+                            <apex:pageblockSection title="Accounts" rendered="{!billingAccList.size>1}" columns="1" collapsible="false" >
+                                <apex:outputLabel style="position:relative;left:-10px" value="Update direct debit on your accounts individually, or in groups to make the same change across multiple accounts. To apply different preferences to groups of multiple accounts, complete this process separately for each group.">
+                                </apex:outputLabel>
+                            </apex:pageblockSection> <br/>  
+                            
+                            <!-- Changed text from 'Set up direct debit for the following selected accounts, for the total bill amount each quarter.'                             
+                            +_Inoy_+-->
+                            <div style="font-weight: bold">
+                                Select the account(s) to apply the same direct debit to:
+                            </div> <br/>                            
+                                
+                            <!-- Table of existing accounts -->
+                            <apex:pageBlockTable id="accountsListpbTable"
+                                    headerClass="tableHeader"
+                                    rowClasses="tableRowOdd,tableRowEven"
+                                    value="{!billingAccList}" var="acct" >
+                                
+                                <apex:column style="width: 40px">
+                                    <apex:inputCheckBox value="{!acct.isSelected}"/>
+                                </apex:column>
+                                
+                                <!-- This column was hid. -->
+                                <apex:column headerValue="Customer #" 
+                                            style="width: 90px"
+                                            value="{!acct.billingAccount.HiAF_Account_Number_Check_Digit__c}" rendered="false"/>
+                                
+                                <!-- headerValue was changed from 'Property' to 'Account' -->
+                                <apex:column headerValue="Account"
+                                            style="width: 170px">
+                                    <apex:outputText value="{!IF(NOT(ISBLANK(acct.billingAccount.Property__c)), acct.billingAccount.Property__r.Street_Address_Proper__c + '<br/>' + acct.billingAccount.Property__r.Suburb_Proper__c + ' ' + acct.billingAccount.Property__r.Postal_Code__c, acct.billingAccount.HiAF_Account_Number_Check_Digit__c)}"
+                                                    escape="false"/>
+                                </apex:column>
+                                
+                                <!-- headerValue was changed from 'Existing direct debit?' to 'Direct Debit' -->
+                                <apex:column headerValue="Direct debit">
+                                    <apex:outputText value="{!if(acct.billingAccount.Direct_Debit__c, 'Yes - ' + acct.billingAccount.Direct_Debit_Type__c, 'None')}"/>
+                                    <apex:outputPanel layout="block" rendered="{!acct.billingAccount.Direct_Debit__c && not(isblank(acct.billingAccount.Direct_Debit_Details__c))}">
+                                        <apex:outputText value="{!acct.billingAccount.Direct_Debit_Details__c}"/>
+                                    </apex:outputPanel>
+                                </apex:column>
+                                
+                                
+                                <apex:column headerValue="Payment plan" rendered="{!CustomerType=='Residential'}">
+                                    <apex:outputText value="{!if(acct.billingAccount.Is_Payment_Plan__c, acct.billingAccount.Payment_Plan_Frequency__c + ' ', 'None')}"
+                                        id="paymentplan"/>
+                                </apex:column>
+                                
+                                <!-- This column was hid. -->
+                                <apex:column headerValue="Balance"  headerClass="headerRowRight"
+                                                style="text-align: right; padding-right: 5px"
+                                                value="{!acct.billingAccount.Balance__c}" />
+
+
+                            </apex:pageBlockTable>
+                            
+                            <!-- Changed commandButton value from 'Set up selected' to 'Manage' AND
+                                         commandButton value from 'Remove selected' to 'Remove'                              
+                            +_Inoy_+ -->
+                            <div style="margin-top: 20px">
+                                <apex:commandButton value="      Manage      "
+                                        styleClass="btnPrimary"
+                                        action="{!Amend}"
+                                        />
+
+                                <apex:commandButton value="      Remove      "
+                                        action="{!Remove}"
+                                        rendered="{!hasRemovableAccounts}"
+                                        styleClass="btnPrimary"/>
+
+                                <apex:outputLink styleClass="btn btnLink btnClearGreenText"
+                                            style="position: relative;"
+                                            value="{!$Page.PortalPaymentOptions}">
+                                    Cancel
+                                </apex:outputLink>
+
+                            </div>
+                            
+                        </apex:outputPanel>
+                        
+                        <div class="clear"/>
+
+
+                     </apex:pageblock>
+                </apex:outputPanel>            
+
+                <apex:actionStatus id="loading">
+                    <apex:facet name="start">
+                        <c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+                            borderSize="1" height="50px" width="120px" margintop="-25px"
+                            marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+                            Message="Processing..." />
+                    </apex:facet>
+                </apex:actionStatus>
+                            
+            </apex:form>
+            
+            <div>
+                <c:PortalHorizontalQuickLinks mode="directDebit"/>
+            </div>
+            
+            <script type="text/javascript">
+                // disable back button
+                //window.history.forward(1);
+            </script>
+        </body> 
+
+        <head>
+            <META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
+            <META HTTP-EQUIV="EXPIRES" CONTENT="-1" />
+        </head>
+    </html>
+
+</apex:page>

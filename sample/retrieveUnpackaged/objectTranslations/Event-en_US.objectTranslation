@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Meeting</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Meetings</value>
+    </caseValues>
+    <fields>
+        <label><!-- Activity Created Date --></label>
+        <name>Activity_Created_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Indicates whether the call being logged is Inbound or Outbound --></help>
+        <label><!-- Call Type --></label>
+        <name>Call_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Called --></label>
+        <name>Called__c</name>
+    </fields>
+    <fields>
+        <label><!-- Caller --></label>
+        <name>Caller__c</name>
+    </fields>
+    <fields>
+        <help><!-- Category level 1: What is the activity about? --></help>
+        <label><!-- What --></label>
+        <name>Category_Level_1__c</name>
+    </fields>
+    <fields>
+        <help><!-- Category level 2: Why is the activity occurring? (not the root cause) --></help>
+        <label><!-- Why --></label>
+        <name>Category_Level_2__c</name>
+    </fields>
+    <fields>
+        <help><!-- Category level 3: The solution, the response, the process - create a case or process if needed. --></help>
+        <label><!-- How --></label>
+        <name>Category_Level_3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Class Code --></label>
+        <name>Class_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Complete Date --></label>
+        <name>Complete_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Completion Status --></label>
+        <name>Completion_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Connections --></label>
+        <name>Connections__c</name>
+    </fields>
+    <fields>
+        <label><!-- Created By User Type --></label>
+        <name>Created_By_User_Type__c</name>
+    </fields>
+    <fields>
+        <help><!-- Tells if the record is created via portal. --></help>
+        <label><!-- Created on Portal? --></label>
+        <name>Created_on_Portal__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer comments --></label>
+        <name>Customer_comments__c</name>
+    </fields>
+    <fields>
+        <help><!-- The date the event occurred --></help>
+        <label><!-- Event Date --></label>
+        <name>Event_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Exception Reason --></label>
+        <name>Exception_Reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- External Id --></label>
+        <name>External_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case Record --></label>
+        <name>FORMULA_LINK_Case_Record__c</name>
+    </fields>
+    <fields>
+        <label><!-- General --></label>
+        <name>General__c</name>
+    </fields>
+    <fields>
+        <label><!-- Group --></label>
+        <name>Group__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) Case Type Task ID --></label>
+        <name>HIDDEN_Case_Type_Task_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) Case Duplicate Task? --></label>
+        <name>HIDDEN_Is_Case_Duplicate_Task__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) Count as Call? --></label>
+        <name>HIDDEN_Is_Count_as_Call__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) Letter Code Sent --></label>
+        <name>HIDDEN_Letter_Code_Sent__c</name>
+    </fields>
+    <fields>
+        <label><!-- (HIDDEN) Refused Details --></label>
+        <name>HIDDEN_Refused_Details__c</name>
+    </fields>
+    <fields>
+        <label><!-- HiAF Account Number --></label>
+        <name>HiAF_Account_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) CC Amount --></label>
+        <name>Hidden_CC_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) CC Number --></label>
+        <name>Hidden_CC_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) CC Payment Receipt Number --></label>
+        <name>Hidden_CC_Payment_Receipt_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) DD Action Type --></label>
+        <name>Hidden_DD_Action_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) DD Commencement Date --></label>
+        <name>Hidden_DD_Commencement_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) DD Details --></label>
+        <name>Hidden_DD_Details__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) DD Type --></label>
+        <name>Hidden_DD_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) Direct Debit --></label>
+        <name>Hidden_Direct_Debit__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) Messages --></label>
+        <name>Hidden_Messages__c</name>
+    </fields>
+    <fields>
+        <label><!-- Hot Issue --></label>
+        <name>Hot_Issue__c</name>
+    </fields>
+    <fields>
+        <label><!-- Interaction Type --></label>
+        <name>Interaction_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Active --></label>
+        <name>Is_Active__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check this field if the Event is a Key Customer Visit --></help>
+        <label><!-- Is Key Customer Visit --></label>
+        <name>Is_Key_Customer_Visit__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Modified By User Name --></label>
+        <name>Last_Modified_By_User_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Modified By User Type --></label>
+        <name>Last_Modified_By_User_Type__c</name>
+    </fields>
+    <fields>
+        <help><!-- The Last Review Date for the Financial Hardship activity --></help>
+        <label><!-- Last Review Date --></label>
+        <name>Last_Review_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Letter Sent --></label>
+        <name>Letter_Sent__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sent to --></label>
+        <name>Letter_Sent_to__c</name>
+    </fields>
+    <fields>
+        <label><!-- Attendees --></label>
+        <name>MD_CEO_Meeting_Attendees__c</name>
+    </fields>
+    <fields>
+        <label><!-- MD / CEO Visits --></label>
+        <name>MD_CEO_Visits__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mode --></label>
+        <name>Mode__c</name>
+    </fields>
+    <fields>
+        <help><!-- The type of eBill Method after it was modified --></help>
+        <label><!-- New eBill Method --></label>
+        <name>New_eBill_Method__c</name>
+    </fields>
+    <fields>
+        <label><!-- Next Review Action --></label>
+        <name>Next_Review_Action__c</name>
+    </fields>
+    <fields>
+        <label><!-- Next Review Date --></label>
+        <name>Next_Review_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- No. of Contacts --></label>
+        <name>No_of_Contacts__c</name>
+    </fields>
+    <fields>
+        <label><!-- Old Owner --></label>
+        <name>Old_Owner__c</name>
+    </fields>
+    <fields>
+        <help><!-- 3rd Party Person Name which has not been created as Person in Salesforce. --></help>
+        <label><!-- Other Person Name --></label>
+        <name>Other_Person_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Owner --></label>
+        <name>Owner__c</name>
+    </fields>
+    <fields>
+        <label><!-- Previous Exception Reason --></label>
+        <name>Previous_Exception_Reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- Previous Next Review Action --></label>
+        <name>Previous_Next_Review_Action__c</name>
+    </fields>
+    <fields>
+        <label><!-- Previous Next Review Date --></label>
+        <name>Previous_Next_Review_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Previous Status --></label>
+        <name>Previous_Status__c</name>
+    </fields>
+    <fields>
+        <help><!-- The type of eBill Method before it was modified --></help>
+        <label><!-- Previous eBill Method --></label>
+        <name>Previous_eBill_Method__c</name>
+    </fields>
+    <fields>
+        <label><!-- Private? --></label>
+        <name>Private__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reference --></label>
+        <name>Reference__c</name>
+    </fields>
+    <fields>
+        <label><!-- Short Comments --></label>
+        <name>Short_Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Suspend To Date --></label>
+        <name>Suspend_To_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Team response / resolution --></label>
+        <name>Team_response_resolution__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tone --></label>
+        <name>Tone__c</name>
+    </fields>
+    <fields>
+        <name>Type</name>
+        <picklistValues>
+            <masterLabel>Call</masterLabel>
+            <translation><!-- Call --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Email</masterLabel>
+            <translation><!-- Email --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Meeting</masterLabel>
+            <translation><!-- Meeting --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- UCID --></label>
+        <name>UCID__c</name>
+    </fields>
+    <layouts>
+        <layout>ECO Event Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Event Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Stakeholder Event  Page Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- ECO Event --></label>
+        <name>ECO_Event</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

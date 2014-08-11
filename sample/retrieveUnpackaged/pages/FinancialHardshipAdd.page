@@ -1,0 +1,53 @@
+<apex:page controller="FinancialHardshipController" showHeader="false">
+   <!--
+        Description: Used as a redirector to perform the Financial Hardship add request 
+                     This is related to the business requirements for 
+                     SCRUM 13-14/Vulnerable Customer Stream - EPIC-272 / US-279
+                     
+
+        History:
+            11-Nov-2013 G.Tsaousidis [SEW]      Created
+            12-Nov-2013 G.Tsaousidis [SEW]      Tidyups, addition of back URL action
+            14-Nov-2013 G.Tsaousidis [SEW}      Bound to a new Custom Controller, to support javascript calls
+                                                to this page for FH Processing
+            18-Dec-2013 G.Tsoausidis [SEW]      Removed temporary changes that were coordinating BRE and Client-Side
+                                                calls. All handled from Controller now.
+    -->
+
+    <script type="text/javascript">
+       var previousOnload = window.onload;
+       window.onload = function() {
+            if (previousOnload) {
+                previousOnload();
+            }
+            PerformFH();
+            
+       } 
+    </script>
+
+    <apex:form id="theForm">
+        <apex:pageMessages id="messages" />
+        <apex:inputHidden value="{!preStepPass}" />
+         
+        <apex:commandLink value="<-- Back to Financial Hardship application" action="{!back}"/>
+        
+        <apex:actionFunction name="PerformFH"
+                            action="{!performFinancialHardship}"
+                            status="loading"
+                            rerender="theForm,messages,presteppass"/>
+                                    
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff"
+                                        borderColor="#6B6B6B"
+                                        borderSize="1"
+                                        height="50px"
+                                        width="120px"
+                                        margintop="-25px"
+                                        marginleft="-60px"
+                                        ImageUrl="{!$Resource.AjaxAnimation}"
+                                        Message="Loading..."/>
+            </apex:facet>
+        </apex:actionStatus>
+    </apex:form>
+</apex:page>

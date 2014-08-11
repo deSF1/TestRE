@@ -1,0 +1,94 @@
+<apex:page controller="QASTest_Controller">
+<!-- 
+    Type:       VF page
+    Purpose:    Used for testing only! 
+                
+    Used By:    QAS 
+    ---------------------------------------------------------------
+    History:
+    
+    12-12-2011 D.Thong  Created
+ -->
+    <head>
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+    </head>
+
+    <script type="text/javascript">
+        var j$ = jQuery.noConflict();
+        j$(function() {
+            j$( "#qas-popup").dialog({
+                dialogClass: 'ui-dropshadow',
+                autoOpen: false,
+                height: 320,
+                width: 450,
+                modal: true,
+                resizable: false,
+                zIndex: 60,
+                title: 'Address Entry'
+            });
+            //j$("#billdetail-popup").siblings("div.ui-dialog-titlebar").remove();
+            // added function to move popup back in form - jquery will normally move it outside
+            j$("#qas-popup").parent().appendTo(j$("#{!SUBSTITUTE($Component.qasForm,':','\\\\:')}")); 
+        });   
+
+        function ShowQASPopup() {
+            try {
+                j$("#qas-popup").dialog("open");
+            } catch (e) { alert(e.toString()); }
+        }
+
+        function CloseQASPopup() {
+            try {
+                j$("#qas-popup").dialog("close");
+            } catch (e) { alert(e.toString()); }
+            return false;
+        }        
+        
+    </script>
+
+
+    <apex:pageMessages />
+    <!-- <apex:iframe src="{!qasiFrameURL}" width="300" height="210"/>  -->
+    <p/>
+    <apex:form id="theForm">
+        <apex:inputHidden value="{!address}" id="address" />
+        <apex:commandButton value="Validate Address" rerender="theForm" onclick="ShowQASPopup(); return false;" />
+
+        <apex:commandButton action="{!PopulateDPID}" value="DPID" rerender="theForm" />
+
+        <script>
+            function ReceiveAddress(address) {
+                var completeAddress;
+                
+                for (var i=0; i < address.Length; i++) {
+                    var line = address.AddressLines[i].Line;
+//                      alert(i + ' ' + line + ' ' + line.LineType);
+                    
+                    if (line != null & line != "") {
+                        if (completeAddress == null)
+                            completeAddress = line;
+                        else                    
+                            completeAddress = completeAddress + ', ' + line;
+                    }
+                }
+                document.getElementById("{!$Component.address}").value = completeAddress;
+                document.getElementById("{!$Component.addressVisible}").innerHTML = completeAddress;
+                jsPopulateDPID();
+                CloseQASPopup();
+            }
+        </script>
+        <apex:outputText label="Received Address" value="{!address}" id="addressVisible" />
+        <apex:outputText value="{!dpid}" id="dpid"/>
+
+        <apex:actionFunction action="{!PopulateDPID}" name="jsPopulateDPID" rerender="theForm"/>
+    </apex:form>
+
+    <apex:form id="qasForm">
+        <div id="qas-popup">
+            <c:QASPopup />
+        </div>
+    </apex:form>
+    
+</apex:page>

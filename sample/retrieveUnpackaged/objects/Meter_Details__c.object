@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Digital_Meter__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Digital Meter</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Digital_meter_install_date__c</fullName>
+        <externalId>false</externalId>
+        <label>Digital meter install date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>FORMULA_Location_Description__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(MID(Location_Code__c ,2,1),
+&quot;B&quot;, &quot;Buried/low&quot;,
+&quot;C&quot;, &quot;Left double gate/driveway&quot;,
+&quot;D&quot;, &quot;Right double gate/driveway&quot;,
+&quot;F&quot;, &quot;At Fence&quot;,
+&quot;G&quot;, &quot;Opposite left corner house&quot;,
+&quot;H&quot;, &quot;Opposite right corner house&quot;,
+&quot;J&quot;, &quot;Left small entrance&quot;,
+&quot;K&quot;, &quot;Right small entrance&quot;,
+&quot;P&quot;, &quot;Pit&quot;,
+&quot;R&quot;, &quot;Read from outside&quot;,
+&quot;S&quot;, &quot;Shrub/bush&quot;,
+&quot;T&quot;, &quot;At Tap&quot;,
+&quot;W&quot;, &quot;At wall&quot;,
+&quot;Z&quot;, &quot;Dog&quot;,
+&quot;X&quot;, &quot;Meter is visible&quot;,
+MID(Location_Code__c ,2,1))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Location Description</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FORMULA_RLIST_Meter_Reading_History__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(
+&quot;javascript:if (typeof(srcUp) == &apos;function&apos;) { srcUp(&apos;/apex/MeterReadingsHistory?id=&quot;&amp;Id&amp;&quot;&amp;isdtp=vw&apos;); } else { window.location = &apos;/apex/MeterReadingsHistory?id=&quot;&amp;Id&amp;&quot;&amp;retURL=&apos;+window.location.href; }&quot;, 
+&quot;See Meter Readings History&quot;, &quot;_top&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Meter Reading History</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Group_Meter_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Group Meter Number</label>
+        <length>10</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location2__c</fullName>
+        <externalId>false</externalId>
+        <label>Location2</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location3__c</fullName>
+        <externalId>false</externalId>
+        <label>Location3</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Location Code</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Meter_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Meter Description</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Meter_Location__c</fullName>
+        <description>Shows the meter location on the house in an image form</description>
+        <externalId>false</externalId>
+        <formula>IF(Location_Code__c == &quot;99&quot;, &quot;No Meter&quot;,
+IMAGE(  &quot;https://southeastwater--c.ap1.content.force.com&quot; +
+CASE(  LEFT(Location_Code__c , 1),
+&quot;0&quot;, &quot;/servlet/servlet.ImageServer?id=015900000002mB4&quot;, 
+&quot;1&quot;, &quot;/servlet/servlet.ImageServer?id=015900000002mAo&quot;,
+&quot;2&quot;, &quot;/servlet/servlet.ImageServer?id=015900000002mAt&quot;,
+&quot;3&quot;, &quot;/servlet/servlet.ImageServer?id=015900000002mAy&quot;,
+&quot;4&quot;, &quot;/servlet/servlet.ImageServer?id=015900000002mAu&quot;,
+&quot;5&quot;, &quot;/servlet/servlet.ImageServer?id=015900000002mB3&quot;,
+&quot;6&quot;, &quot;/servlet/servlet.ImageServer?id=015900000002mB8&quot;,
+&quot;7&quot;, &quot;/servlet/servlet.ImageServer?id=015900000002mBD&quot;,
+&quot;8&quot;, &quot;/servlet/servlet.ImageServer?id=015900000002mBI&quot;,
+&quot;9&quot;, &quot;/servlet/servlet.ImageServer?id=015900000002mBN&quot;,
+&quot;/servlet/servlet.ImageServer?id=015900000003GOp&quot;) + &quot;&amp;oid=00DO0000000W4pz&quot; 
+, &quot;Meter Image&quot;))</formula>
+        <label>Meter Location</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Meter_Profile__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE( Person_Count__c ,
+		1, &apos;A&apos;,
+		2, &apos;B&apos;,
+		3, &apos;C&apos;,
+		4, &apos;D&apos;,
+		5, &apos;E&apos;,
+		&apos;F&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Meter Profile</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Meter_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Meter Type</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Nbr_of_Consecutive_Estimated_Reads__c</fullName>
+        <externalId>false</externalId>
+        <label># of Consecutive Estimated Reads</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Person_Count__c</fullName>
+        <externalId>false</externalId>
+        <label>Person Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pit_Reference__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <externalId>true</externalId>
+        <label>Pit Reference</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Property__c</fullName>
+        <externalId>false</externalId>
+        <label>Property</label>
+        <referenceTo>Property__c</referenceTo>
+        <relationshipLabel>Meters</relationshipLabel>
+        <relationshipName>Meter_Details</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Remote_Make__c</fullName>
+        <externalId>false</externalId>
+        <label>Remote Make</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Remote_Serial__c</fullName>
+        <externalId>false</externalId>
+        <label>Remote Serial</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Meter</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Pit_Reference__c</columns>
+        <columns>Meter_Type__c</columns>
+        <columns>Location_Code__c</columns>
+        <columns>Meter_Description__c</columns>
+        <columns>Property__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Meter Serial</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Meters</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>Meter_Readings_History</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Meter Readings History</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if (typeof(srcUp) == &apos;function&apos;) {
+    navigateToUrl(&apos;/apex/MeterReadingsHistory?id={!Meter_Details__c.Id}&amp;isdtp=vw&apos;);
+} else {   
+    window.location = &quot;/apex/MeterReadingsHistory?id={!Meter_Details__c.Id}&amp;retURL=&quot;+window.location.href;
+}</url>
+    </webLinks>
+</CustomObject>

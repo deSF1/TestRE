@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>PortalSettings</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>PortalSettings</value>
+    </caseValues>
+    <fields>
+        <label><!-- API Hostname --></label>
+        <name>API_Hostname__c</name>
+    </fields>
+    <fields>
+        <label><!-- Disable Segmentation --></label>
+        <name>Disable_Segmentation__c</name>
+    </fields>
+    <fields>
+        <label><!-- LiveChat Button Id --></label>
+        <name>LiveChat_Button_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- LiveChat Deployment Id --></label>
+        <name>LiveChat_Deployment_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- LiveChat URL --></label>
+        <name>LiveChat_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Portal Contact Phone --></label>
+        <name>Portal_Contact_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Portal Task Default User --></label>
+        <name>Portal_Task_Default_User__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sandbox Name --></label>
+        <name>Sandbox_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- The secure login URL used for redirecting from a non-secure login page --></help>
+        <label><!-- Secure Login Url --></label>
+        <name>Secure_Login_Url__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

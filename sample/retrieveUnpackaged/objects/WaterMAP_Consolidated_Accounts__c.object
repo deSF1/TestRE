@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Billing_Account__c</fullName>
+        <externalId>false</externalId>
+        <label>Billing Account</label>
+        <referenceTo>Billing_Account__c</referenceTo>
+        <relationshipLabel>WaterMAP Consolidated Accounts</relationshipLabel>
+        <relationshipName>WaterMAP_Consolidated_Accounts</relationshipName>
+        <relationshipOrder>1</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Primary__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Primary</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Site_Address__c</fullName>
+        <externalId>false</externalId>
+        <formula>Billing_Account__r.Property_Address__c</formula>
+        <label>Site Address</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Watermap__c</fullName>
+        <externalId>false</externalId>
+        <label>Watermap</label>
+        <referenceTo>WaterMAP__c</referenceTo>
+        <relationshipLabel>WaterMAP Consolidated Accounts</relationshipLabel>
+        <relationshipName>WaterMAP_Consolidated_Accounts</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <label>WaterMAP Consolidated Account</label>
+    <nameField>
+        <displayFormat>{0000000000}</displayFormat>
+        <label>Record #</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>WaterMAP Consolidated Accounts</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

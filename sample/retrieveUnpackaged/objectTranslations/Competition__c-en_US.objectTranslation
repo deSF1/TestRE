@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Competition</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Competitions</value>
+    </caseValues>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>Contact__c</name>
+        <relationshipLabel><!-- Competitions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Hide Direct Debit --></label>
+        <name>Hide_Direct_Debit__c</name>
+    </fields>
+    <fields>
+        <label><!-- Hide Paperless --></label>
+        <name>Hide_Paperless__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of DD Clicks --></label>
+        <name>Number_of_DD_Clicks__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of Paperless Clicks --></label>
+        <name>Number_of_Paperless_Clicks__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

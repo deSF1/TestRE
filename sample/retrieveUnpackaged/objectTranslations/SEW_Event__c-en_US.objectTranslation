@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>SEW Event</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>SEW Events</value>
+    </caseValues>
+    <fields>
+        <label><!-- # Active Water Off --></label>
+        <name>Active_water_off__c</name>
+    </fields>
+    <fields>
+        <label><!-- Category --></label>
+        <name>Category__c</name>
+    </fields>
+    <fields>
+        <label><!-- City --></label>
+        <name>City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Class --></label>
+        <name>Class__c</name>
+    </fields>
+    <fields>
+        <label><!-- Coordinates --></label>
+        <name>Coordinates__c</name>
+    </fields>
+    <fields>
+        <label><!-- Country --></label>
+        <name>Country__c</name>
+    </fields>
+    <fields>
+        <label><!-- Source Event Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary Contact --></label>
+        <name>Event_Primary_Contact__c</name>
+        <relationshipLabel><!-- SEW Events --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Event_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Expected Completion --></label>
+        <name>Expected_Completion__c</name>
+    </fields>
+    <fields>
+        <label><!-- Expected Response --></label>
+        <name>Expected_Response__c</name>
+    </fields>
+    <fields>
+        <label><!-- Event ID --></label>
+        <name>External_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Full Problem Address --></label>
+        <name>Full_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Further work --></label>
+        <name>Further_work__c</name>
+    </fields>
+    <fields>
+        <label><!-- Has Planned WSI? --></label>
+        <name>Has_Planned_WSI__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) Public End --></label>
+        <name>Hidden_Public_End__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) Public Start --></label>
+        <name>Hidden_Public_Start__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) WSI Actual Finish Latest --></label>
+        <name>Hidden_WSI_Actual_Finish_Latest__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) WSI Actual Start Earliest --></label>
+        <name>Hidden_WSI_Actual_Start_Earliest__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) WSI Count --></label>
+        <name>Hidden_WSI_Count__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) WSI Planned Finish Latest --></label>
+        <name>Hidden_WSI_Planned_Finish_Latest__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) WSI Planned Start Earliest --></label>
+        <name>Hidden_WSI_Planned_Start_Earliest__c</name>
+    </fields>
+    <fields>
+        <label><!-- Image --></label>
+        <name>Image__c</name>
+    </fields>
+    <fields>
+        <label><!-- Internal Type --></label>
+        <name>Internal_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Local Government Area --></label>
+        <name>Local_Government_Area__c</name>
+    </fields>
+    <fields>
+        <label><!-- Nearest Property --></label>
+        <name>Nearest_Property__c</name>
+        <relationshipLabel><!-- SEW Events --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Number of affected properties --></label>
+        <name>Number_of_affected_properties__c</name>
+    </fields>
+    <fields>
+        <label><!-- # Planned WSI --></label>
+        <name>Planned_WSI__c</name>
+    </fields>
+    <fields>
+        <label><!-- Postal Code --></label>
+        <name>Postal_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Priority --></label>
+        <name>Priority__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5</masterLabel>
+            <translation><!-- 5 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Public status --></label>
+        <name>Public_Status__c</name>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Progress</masterLabel>
+            <translation><!-- In Progress --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Resolved</masterLabel>
+            <translation><!-- Resolved --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Published to IVR --></label>
+        <name>Published_to_IVR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Published to Internet --></label>
+        <name>Published_to_Internet__c</name>
+    </fields>
+    <fields>
+        <label><!-- Quality Indicator --></label>
+        <name>Quality_Indicator__c</name>
+    </fields>
+    <fields>
+        <label><!-- Resolution --></label>
+        <name>Resolution__c</name>
+    </fields>
+    <fields>
+        <label><!-- Roll up IVR Actions --></label>
+        <name>Roll_up_IVR_Actions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Roll up Internet Actions --></label>
+        <name>Roll_up_Internet_Actions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Source System Modified Date --></label>
+        <name>Source_System_Modified_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Source system status --></label>
+        <name>Source_system_status__c</name>
+        <picklistValues>
+            <masterLabel>Complete</masterLabel>
+            <translation><!-- Complete --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Progress</masterLabel>
+            <translation><!-- In Progress --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Transit</masterLabel>
+            <translation><!-- In Transit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not started</masterLabel>
+            <translation><!-- Not started --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Working elsewhere</masterLabel>
+            <translation><!-- Working elsewhere --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- State --></label>
+        <name>State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status Timestamp --></label>
+        <name>Status_Timestamp__c</name>
+    </fields>
+    <fields>
+        <label><!-- Street Name --></label>
+        <name>Street_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Street Number --></label>
+        <name>Street_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Street Type --></label>
+        <name>Street_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Unit Number --></label>
+        <name>Unit_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Unit Type --></label>
+        <name>Unit_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- WSI Count --></label>
+        <name>WSI_Count__c</name>
+    </fields>
+    <fields>
+        <label><!-- Water is Off --></label>
+        <name>Water_is_Off__c</name>
+    </fields>
+    <layouts>
+        <layout>Montage Event Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Event Details --></label>
+            <section>Event Details</section>
+        </sections>
+        <sections>
+            <label><!-- Publishing Status --></label>
+            <section>Publishing Status</section>
+        </sections>
+        <sections>
+            <label><!-- WSI Detail --></label>
+            <section>WSI Detail</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Montage --></label>
+        <name>Montage</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Other --></label>
+        <name>Other</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

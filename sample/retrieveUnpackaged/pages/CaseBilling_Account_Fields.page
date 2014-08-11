@@ -1,0 +1,120 @@
+<apex:page standardController="Case">
+    <style>
+        .detailList {
+            width: 100%;
+            color: #000000;
+        }
+        
+        .labelCol1 {
+            padding: 3px 23px 3px 2px;
+        }
+        
+        .labelCol2 {
+            padding: 3px 12px 3px 2px;
+        }
+        
+        .labelCol1, .labelCol2 {
+            color: #4A4A56;
+            width: 18%;
+            border-bottom: 1px solid #ECECEC;
+            vertical-align: top;
+            font-size: 91%;
+            font-weight: bold;
+            text-align: right;
+            font-family: Arial,Helvetica,sans-serif;
+            margin: 0;
+            
+        }
+        
+        .dataCol1 {
+            padding: 3px 10px 3px 0px;
+        }
+        
+        .dataCol2 {
+            padding: 3px 10px 3px 5px;
+        }
+        
+        .dataCol1, .dataCol2{
+            color: #000000;
+            width: 32%;
+            border-right-color: transparent;
+            border-bottom: 1px solid #ECECEC;
+            vertical-align: top;
+            font-size: 91%;
+            text-align: left;
+            font-family: Arial,Helvetica,sans-serif;
+            margin: 0;
+            font-size: 1.1em;
+            letter-spacing: -0.01em;
+            position: relative;
+        }
+    </style>
+    <table class="detailList" cellspacing="0" cellpadding="0" border="0">
+        <tbody>
+             <tr>
+                <td class="labelCol1">Type</td>
+                <td class="dataCol1" > <apex:outputField value="{!Case.billing_account__r.Residential_or_Non_Residential__c}"/> </td>
+            </tr>
+            <tr>
+                <td class="labelCol1">Role</td>
+                <td class="dataCol1" > <apex:outputField value="{!Case.billing_account__r.Role__c}"/> </td>
+                <td class="labelCol2">Active Concession</td>
+                <td class="dataCol2" > <apex:outputField value="{!Case.billing_account__r.Valid_Concession__c}"/> </td>
+            </tr>
+            <tr>
+                <td class="labelCol1">Property Address</td>
+                <td class="dataCol1" > <apex:outputField value="{!Case.billing_account__r.Property_Address__c}"/> </td>
+                <td class="labelCol2">Concession Number</td>
+                <td class="dataCol2" > <apex:outputField value="{!Case.billing_account__r.Concession_Number__c}"/> </td>
+            </tr>
+            <tr>
+                <td class="labelCol1">Overdue Amount</td>
+                <td class="dataCol1" > <apex:outputField value="{!Case.billing_account__r.Overdue_Amount_Formula__c}"/> </td>
+                <td class="labelCol2">Concession Holder</td>
+                <td class="dataCol2" > <apex:outputField value="{!Case.billing_account__r.Concession_Holder__c}"/> </td>
+            </tr>
+            <tr>
+                <td class="labelCol1">Account Balance</td>
+                <td class="dataCol1" > <apex:outputField value="{!Case.billing_account__r.Balance__c}"/> </td>
+                <td class="labelCol2">Card First Name</td>
+                <td class="dataCol2" > <apex:outputField value="{!Case.billing_account__r.Card_Firstname__c}"/> </td>
+            </tr>
+            <tr>
+                <td class="labelCol1">Current Bill Due Date</td>
+                <td class="dataCol1" > <apex:outputField value="{!Case.billing_account__r.Current_Bill_Due_Date__c}"/> </td>
+                <td class="labelCol2">Card Last Name</td>
+                <td class="dataCol2" > <apex:outputField value="{!Case.billing_account__r.Card_Lastname__c}"/> </td>
+            </tr>
+            <tr>
+                <td class="labelCol1">Last Payment Date</td>
+                <td class="dataCol1" > <apex:outputField value="{!Case.billing_account__r.Last_Payment_Date__c}"/> </td>
+                <td class="labelCol2">Card Type</td>
+                <td class="dataCol2" > <apex:outputField value="{!Case.billing_account__r.Card_Type__c}"/> </td>
+            </tr>    
+            <tr>
+                <td class="labelCol1">Last Payment Amount</td>
+                <td class="dataCol1" > <apex:outputField value="{!Case.billing_account__r.Last_Payment_Made__c}"/> </td>
+                <td class="labelCol2">Concession Start Date</td>
+                <td class="dataCol2" > <apex:outputField value="{!Case.billing_account__r.Concession_Start_Date__c}"/> </td>
+            </tr>    
+            <tr>
+                <td class="labelCol1">Property Melway's Reference</td>
+                <td class="dataCol1" > <apex:outputField value="{!Case.billing_account__r.property__r.Directory_Reference__c}"/> </td> 
+                <td class="labelCol2">Logical Meter Count</td>
+                <td class="dataCol2" > <apex:outputField value="{!Case.billing_account__r.property__r.Logical_Meter_Count__c}"/> </td>                           
+            </tr>
+            <tr>
+                <td class="labelCol1">Property X Co-ordinate</td>
+                <td class="dataCol1" > <apex:outputField value="{!Case.billing_account__r.property__r.Grid_Coordinate_X__c}"/> </td>
+                <td class="labelCol2">Recycled Meter Count</td>
+                <td class="dataCol2" > <apex:outputField value="{!Case.billing_account__r.property__r.Recycled_Meter_Count__c}"/> </td>                
+            </tr>     
+            <tr>
+                <td class="labelCol1">Property Y Co-ordinate</td>
+                <td class="dataCol1" > <apex:outputField value="{!Case.billing_account__r.property__r.Grid_Coordinate_Y__c}"/> </td>
+                <td class="labelCol2">1 Meter with Multiple Properties</td>
+                <td class="dataCol2" > <apex:outputField value="{!Case.billing_account__r.property__r.X1_Meter_Multi_Props__c}"/> </td>                 
+            </tr>                        
+             </tbody>
+    </table>
+</apex:page>

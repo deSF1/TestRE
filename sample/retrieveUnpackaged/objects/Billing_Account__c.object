@@ -1,0 +1,2618 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>CreateBillingAccountWizard</content>
+        <skipRecordTypeSelect>true</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This object links Customers will Properties and provides billing information.</description>
+    <enableActivities>true</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Account_Address__c</fullName>
+        <externalId>false</externalId>
+        <formula>Street_Address__c &amp;br()&amp; City__c &amp;&quot; &quot;&amp; State__c &amp;&quot; &quot;&amp; Postal_Code__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Account Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Closed__c</fullName>
+        <externalId>false</externalId>
+        <label>Account Closed</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Account_Name_Formula__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(Title__c), &apos;&apos;, Title__c + &apos; &apos;) +  IF(ISBLANK(Initials__c), &apos;&apos;, Initials__c+ &apos; &apos;) +  Account_Name__c</formula>
+        <label>Account Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Account Name</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Opened__c</fullName>
+        <externalId>false</externalId>
+        <label>Account Opened</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Address_Warnings__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISBLANK(Group_Billing_Account__c), &apos;&apos;, IMAGE(&apos;https://southeastwater--c.ap1.content.force.com/servlet/servlet.ImageServer?id=015900000002rg0&amp;oid=00DO0000000W4pz&apos;, &apos;Blah&apos;) &amp; &apos; This is a Sub Customer. Refer all address changes to the Group Accounts Team.&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Address Warnings</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Applicable_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Applicable Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Attention__c</fullName>
+        <externalId>false</externalId>
+        <label>Attention</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Average_Daily_Water_Usage_KL__c</fullName>
+        <externalId>false</externalId>
+        <formula>Total_Water_Usage_KL__c /  Total_Consumption_Days__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Average Daily Water Usage (KL)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Balance__c</fullName>
+        <externalId>false</externalId>
+        <label>Balance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Bill_To_Parent__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Bill To Parent</label>
+        <trackHistory>true</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Billed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Billed</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Billing_Address_Same_As__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please set flag None to change address in Billing Account.</inlineHelpText>
+        <label>Billing Address Same As</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Customer Mailing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Primary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Property</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Group Account</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CIS_Property_Id__c</fullName>
+        <externalId>false</externalId>
+        <formula>Property__r.CIS_Property_Id__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CIS Property Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Card_Firstname__c</fullName>
+        <externalId>false</externalId>
+        <label>Card Firstname</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Card_Lastname__c</fullName>
+        <externalId>false</externalId>
+        <label>Card Lastname</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Card_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Card Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>DVA - Gold Card</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DVA - Pensioner Concession Card</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Health Care Card</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pensioner Concession Card</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Care_Of__c</fullName>
+        <externalId>false</externalId>
+        <label>Care Of</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>City__c</fullName>
+        <description>Billing Account Address</description>
+        <externalId>false</externalId>
+        <label>City</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Clerical__c</fullName>
+        <externalId>false</externalId>
+        <label>Clerical</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Concession_End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Concession End Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Concession_Holder__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Relationship to the Billing Account holder.</inlineHelpText>
+        <label>Concession Holder</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Account Holder</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>A/C Holder Partner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Third Party</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Concession_Number__c</fullName>
+        <description>Concession Card Number.</description>
+        <externalId>false</externalId>
+        <label>Concession Number</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Concession_Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Concession Start Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Concession_cnt__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Valid_Concession__c , 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Concession_cnt</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Council_Property_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>Property__r.Council_Property_Type__c</formula>
+        <label>Council Property Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Council__c</fullName>
+        <externalId>false</externalId>
+        <formula>Property__r.Council__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Council</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <description>Billing Account Address</description>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Bill_B_F_Balance__c</fullName>
+        <externalId>false</externalId>
+        <label>Current Bill B/F Balance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Current_Bill_Billed_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Current Bill Billed Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Current_Bill_Due_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Current Bill Due Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Id__c</fullName>
+        <externalId>false</externalId>
+        <formula>Customer__r.Id</formula>
+        <label>Customer Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Customer__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Customer Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer_Universal_Id__c</fullName>
+        <externalId>false</externalId>
+        <formula>Customer__r.Universal_Id__c</formula>
+        <label>Customer Universal Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Billing Accounts</relationshipLabel>
+        <relationshipName>Billing_Account</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>DPID__c</fullName>
+        <description>Billing Account Address DPID</description>
+        <externalId>false</externalId>
+        <label>DPID</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Data_Check_Address_Special_Charactor__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(OR(
+OR(CONTAINS( Street_Address__c , &quot;\&quot;&quot;),CONTAINS( Street_Address__c , &quot;.&quot;)),
+OR(CONTAINS( City__c , &quot;\&quot;&quot;),CONTAINS( City__c , &quot;.&quot;)),
+OR(CONTAINS( Country__c , &quot;\&quot;&quot;),CONTAINS(Country__c , &quot;.&quot;)),
+OR(CONTAINS( Postal_Code__c , &quot;\&quot;&quot;),CONTAINS( Postal_Code__c , &quot;.&quot;)),
+OR(CONTAINS( State__c , &quot;\&quot;&quot;),CONTAINS( State__c , &quot;.&quot;))), &quot;Address has special charactors&quot;, &quot;Address has no special charactors&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Data Check Address Special Charactor</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Days_Overdue__c</fullName>
+        <description>Days Overdue for Credit View Page</description>
+        <externalId>false</externalId>
+        <formula>TODAY()  -  Current_Bill_Due_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Today - Current Bill Due Date</inlineHelpText>
+        <label>Days Overdue</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Direct_Debit_Commencement_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Direct Debit Commencement Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Direct_Debit_Details__c</fullName>
+        <description>Stores bank/credit information set up for direct debit</description>
+        <externalId>false</externalId>
+        <label>Direct Debit Details</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Direct_Debit_Type__c</fullName>
+        <description>Direct debit option type</description>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Bank Account</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Direct_Debit__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Direct Debit</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>EWOV_Alert__c</fullName>
+        <externalId>false</externalId>
+        <formula>Customer__r.EWOV_Alert__c</formula>
+        <label>EWOV Alert</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Greater_3_Consecutive_Estimated_Reads__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>&gt; 3 Consecutive Estimated Reads</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Group_Billing_Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Group Billing Account</label>
+        <referenceTo>Billing_Account__c</referenceTo>
+        <relationshipLabel>Sub Accounts</relationshipLabel>
+        <relationshipName>Billing_Accounts</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Group_Customer_Address__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(  Group_Billing_Account__c ), &quot;N/A&quot;,  &quot;DPID: &quot;&amp; Group_Billing_Account__r.DPID__c  &amp;BR()&amp;&quot;Address Title: &quot;&amp;Group_Billing_Account__r.Title__c &amp;BR()&amp;  Group_Billing_Account__r.Street_Address__c &amp;BR()&amp; Group_Billing_Account__r.City__c &amp;BR()&amp; Group_Billing_Account__r.State__c &amp;&quot; &quot;&amp; Group_Billing_Account__r.Postal_Code__c &amp; &quot;  &quot;&amp;Group_Billing_Account__r.Country__c)</formula>
+        <inlineHelpText>This is the Group Account&apos;s Address.</inlineHelpText>
+        <label>Group Customer Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Group_HiAF_Account_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>Group_Billing_Account__r.HiAF_Account_Number__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Group HiAF Account Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HIDDEN_Is_Auto_Suspend_By_Case__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>(Hidden) Auto Suspend By Case?</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>HIDDEN_Synch_DD_BulkUpload__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>For Campaign syncing
+One off job for eDM#3</description>
+        <externalId>false</externalId>
+        <label>HIDDEN_Synch_DD_BulkUpload</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Has_Other__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Serve as flag when billing address same as is other for validation purposes</description>
+        <externalId>false</externalId>
+        <label>Has Other</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>HiAF_Account_Number_Check_Digit__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>HiAF Account Number (Check Digit)</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>HiAF_Account_Number__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>HiAF Account #</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>ICE_Customer_Ref__c</fullName>
+        <externalId>false</externalId>
+        <label>ICE Customer Ref</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Initials__c</fullName>
+        <externalId>false</externalId>
+        <label>Initials</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Invalid_Billing_Address__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>marks if communication has been returned and the address is invalid for that customer.</description>
+        <externalId>false</externalId>
+        <label>Invalid Billing Address</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_EWOV_Assisted_Complaint__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>EWOV Assisted Complaint</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_EWOV_Investigative_Complaint__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>EWOV Investigative Complaint?</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Payment_Plan__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Payment Plan?</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Last_Bill_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Bill Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Last_Bill_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Bill Number</label>
+        <length>6</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Modified_By_User_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>LastModifiedBy.Username</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Last Modified By User Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Modified_By_User_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(LastModifiedBy.UserType)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Last Modified By User Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Payment_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Payment Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Last_Payment_Made__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Payment Made</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Last_Read_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Read Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Next_Bill_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Next Bill Date (Approx)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>OverdueFlags__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(( Overdue_Amount_Formula__c  &gt; 0),1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>OverdueFlags</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Overdue_Amount_Formula__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(
+	OR(Balance__c &lt;= 0, Is_Payment_Plan__c=TRUE, Direct_Debit__c=TRUE, Recovery_Suspended_Date__c &gt;= TODAY())
+	, 0
+	, IF(Balance__c &lt;= Current_Bill_Billed_Amount__c
+		, IF(Current_Bill_Due_Date__c &lt; TODAY()
+			, Balance__c
+			, 0)
+		, IF(Current_Bill_Due_Date__c &lt; TODAY()
+				, Balance__c
+				, IF(Balance__c &lt; Current_Bill_B_F_Balance__c
+					,Balance__c
+					,Current_Bill_B_F_Balance__c)
+				)
+			
+		)
+	)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Overdue Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Parent_Account_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>Customer__r.ParentId</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Parent Account ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Payment_Method__c</fullName>
+        <externalId>false</externalId>
+        <label>Payment Method</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Payment_Plan_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Payment Plan Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Plan_End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Payment Plan End Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Plan_Frequency__c</fullName>
+        <externalId>false</externalId>
+        <label>Payment Plan Frequency</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Payment_Plan_Number_of_Payments__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Payments</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Payment_Plan_Removal_Due_Date__c</fullName>
+        <description>The adjusted due date when a Payment Plan is removed.  This is 14 days from the date of removal.</description>
+        <externalId>false</externalId>
+        <label>Payment Plan Removal Due Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Plan_Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Payment Plan Start Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Portal_Sort_Order__c</fullName>
+        <description>Controls the order the account is displayed in portal</description>
+        <externalId>false</externalId>
+        <formula>CASE( Status__c , &apos;Active&apos;, 1, &apos;Pending&apos;, 2, 3)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Portal Sort Order</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Portal_Update_User__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Portal Update User</description>
+        <externalId>false</externalId>
+        <label>Portal Update User</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Portal_Update_Users</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Postal_Code__c</fullName>
+        <description>Billing Account Address</description>
+        <externalId>false</externalId>
+        <label>Postal Code</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Prior_Recipient_Email_First_Name__c</fullName>
+        <description>eBill Recipient Prior First Name</description>
+        <externalId>false</externalId>
+        <formula>eBill_Recipient_Prior__r.FirstName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Prior Recipient Email First Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Prior_Recipient_Email__c</fullName>
+        <description>Prior Recipient Email</description>
+        <externalId>false</externalId>
+        <formula>eBill_Recipient_Prior__r.Email</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Prior Recipient Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property_Address__c</fullName>
+        <externalId>false</externalId>
+        <formula>Property__r.Street_Address__c &amp; br() &amp; Property__r.Suburb__c &amp;&quot; &quot;&amp; text( Property__r.State__c)&amp;&quot; &quot;&amp; Property__r.Postal_Code__c</formula>
+        <label>Property Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property_DPID__c</fullName>
+        <externalId>false</externalId>
+        <formula>Property__r.DPID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Property DPID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property_Id__c</fullName>
+        <externalId>false</externalId>
+        <formula>Property__r.Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Property Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property_Usage__c</fullName>
+        <externalId>false</externalId>
+        <formula>Text(Property__r.Property_Usage__c)</formula>
+        <label>Property Usage</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Property</label>
+        <referenceTo>Property__c</referenceTo>
+        <relationshipLabel>Billing Accounts</relationshipLabel>
+        <relationshipName>Billing_Accounts</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Recipient_Email__c</fullName>
+        <externalId>false</externalId>
+        <formula>eBill_Recipient__r.Email</formula>
+        <label>Recipient Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Recipient_Mobile__c</fullName>
+        <externalId>false</externalId>
+        <formula>eBill_Recipient__r.MobilePhone</formula>
+        <label>Recipient Mobile</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RecordTypeName__c</fullName>
+        <externalId>false</externalId>
+        <formula>$RecordType.DeveloperName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>RecordTypeName</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Recovery_Last_Action_Date__c</fullName>
+        <description>Shows the date of the last recovery action against the billing account</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Shows the date of the last recovery action against the billing account</inlineHelpText>
+        <label>Recovery Last Action Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Recovery_Last_Action__c</fullName>
+        <description>Shows information regarding the last recovery action for the billing account</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Shows information regarding the last recovery action for the billing account</inlineHelpText>
+        <label>Recovery Last Action</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Recovery_Next_Action_Date__c</fullName>
+        <description>Shows the date of the next recovery action against the billing account</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Shows the date of the next recovery action against the billing account</inlineHelpText>
+        <label>Recovery Next Action Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Recovery_Next_Action__c</fullName>
+        <description>Shows information regarding the next recovery action against the billing account</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Shows information regarding the next recovery action against the billing account</inlineHelpText>
+        <label>Recovery Next Action</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Recovery_Path__c</fullName>
+        <externalId>false</externalId>
+        <label>Recovery Path</label>
+        <length>24</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Recovery_Suspended_Date__c</fullName>
+        <description>Shows the date suspend recovery was applied until</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Shows the date suspend recovery was applied until</inlineHelpText>
+        <label>Recovery Suspended To Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Reminder_Method__c</fullName>
+        <externalId>false</externalId>
+        <label>Reminder Method</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mail</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SMS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Residential_or_Non_Residential__c</fullName>
+        <externalId>false</externalId>
+        <label>Residential or Non-Residential</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Residential</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Non-Residential</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Risk_Factor__c</fullName>
+        <externalId>false</externalId>
+        <label>Risk Factor</label>
+        <length>1</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Role__c</fullName>
+        <externalId>false</externalId>
+        <label>Role</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Owner Occupier</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Landlord</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tenant</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Owner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Body Corporate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Group</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ad-Hoc</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Run_From_Workflow__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Flag to prevent trigger runs when update comes from a workflow when applying future addresses</description>
+        <externalId>false</externalId>
+        <label>Run From Workflow</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Same_Name_As_Customer__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Same Name As Customer</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Send_Mail_To__c</fullName>
+        <externalId>false</externalId>
+        <label>Send Mail To</label>
+        <picklist>
+            <picklistValues>
+                <fullName>My mailing address</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>My home address</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>My business address</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>The property address</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Another address</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>State__c</fullName>
+        <description>Billing Account Address</description>
+        <externalId>false</externalId>
+        <label>State</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>?Status Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Street_Address__c</fullName>
+        <description>Billing Account Address</description>
+        <externalId>false</externalId>
+        <label>Street Address</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Temp_Billing_City__c</fullName>
+        <externalId>false</externalId>
+        <label>(Temp) Billing City</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Temp_Billing_Country__c</fullName>
+        <externalId>false</externalId>
+        <label>(Temp) Billing Country</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Temp_Billing_DPID__c</fullName>
+        <externalId>false</externalId>
+        <label>(Temp) Billing DPID</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Temp_Billing_Postal_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>(Temp) Billing Postal Code</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Temp_Billing_State__c</fullName>
+        <externalId>false</externalId>
+        <label>(Temp) Billing State</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Temp_Billing_Street_Address__c</fullName>
+        <externalId>false</externalId>
+        <label>(Temp) Billing Street Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Title__c</fullName>
+        <externalId>false</externalId>
+        <label>Title</label>
+        <length>16</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Consumption_Days__c</fullName>
+        <description>Used for average calculation</description>
+        <externalId>false</externalId>
+        <label>Total # of Consumption Days</label>
+        <summarizedField>Consumption_and_Charge__c.Number_of_Days__c</summarizedField>
+        <summaryForeignKey>Consumption_and_Charge__c.Billing_Account__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Water_Usage_KL__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Water Usage (KL)</label>
+        <summarizedField>Consumption_and_Charge__c.Water_Volume__c</summarizedField>
+        <summaryForeignKey>Consumption_and_Charge__c.Billing_Account__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Trading_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Customer__r.Trading_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Trading Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Update_Sub_Account_Addresses__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This field is used in the Batch Class that updates all Sub Billing Account Addresses when the Group Account Address is updated</description>
+        <externalId>false</externalId>
+        <label>Update Sub Account Addresses</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Updated_Touchpoints_Timestamp__c</fullName>
+        <externalId>false</externalId>
+        <label>Updated_Touchpoints_Timestamp</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Updated_Touchpoints__c</fullName>
+        <externalId>false</externalId>
+        <label>Updated_Touchpoints</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Valid_Concession__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Valid Concession</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>WaterMAP__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>WaterMAP</label>
+        <referenceTo>WaterMAP__c</referenceTo>
+        <relationshipLabel>Billing Accounts</relationshipLabel>
+        <relationshipName>Billing_Accounts</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>eBill_Method__c</fullName>
+        <externalId>false</externalId>
+        <label>eBill Method</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mail</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BPAY View</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>eBill_Recipient_Prior_First_Name__c</fullName>
+        <description>eBill Recipient Prior First Name</description>
+        <externalId>false</externalId>
+        <formula>eBill_Recipient_Prior__r.FirstName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>eBill Recipient Prior First Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>eBill_Recipient_Prior_Last_Name__c</fullName>
+        <description>eBill Recipient Prior Last Name</description>
+        <externalId>false</externalId>
+        <formula>eBill_Recipient_Prior__r.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>eBill Recipient Prior Last Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>eBill_Recipient_Prior__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>eBill Recipient Prior</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Billing Accounts (eBill Recipient Prior)</relationshipLabel>
+        <relationshipName>eBill_Recipients_Prior</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>eBill_Recipient__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>eBill Recipient</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>eBill Delivery Preferences</relationshipLabel>
+        <relationshipName>eBill_Recipients</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <label>Billing Account</label>
+    <listViews>
+        <fullName>Adhoc_Billing_Accounts</fullName>
+        <columns>NAME</columns>
+        <columns>Customer__c</columns>
+        <columns>Property__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RecordTypeName__c</field>
+            <operation>equals</operation>
+            <value>Ad_Hoc</value>
+        </filters>
+        <label>Adhoc Billing Accounts</label>
+    </listViews>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Customer__c</columns>
+        <columns>Property__c</columns>
+        <columns>Status__c</columns>
+        <columns>Role__c</columns>
+        <columns>Group_Billing_Account__c</columns>
+        <columns>Concession_Number__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Closed_Accounts</fullName>
+        <columns>NAME</columns>
+        <columns>Balance__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Closed</value>
+        </filters>
+        <label>Closed Accounts</label>
+    </listViews>
+    <listViews>
+        <fullName>DTSub</fullName>
+        <columns>NAME</columns>
+        <columns>Customer__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Update_Sub_Account_Addresses__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>Sub Account Update</label>
+        <sharedTo>
+            <group>Admin</group>
+            <group>SEWCAPPS</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Main_Group_Billing_Account</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Name__c</columns>
+        <columns>Customer_Name__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Billing_Account__c.Group_Billing_Account</value>
+        </filters>
+        <label>Main Group Billing Account</label>
+    </listViews>
+    <listViews>
+        <fullName>Non_Residential_billing_account</fullName>
+        <columns>NAME</columns>
+        <columns>Customer__c</columns>
+        <columns>Property__c</columns>
+        <columns>Role__c</columns>
+        <columns>RECORDTYPE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Residential_or_Non_Residential__c</field>
+            <operation>equals</operation>
+            <value>Non-Residential</value>
+        </filters>
+        <label>Non-Residential Billing Account</label>
+    </listViews>
+    <listViews>
+        <fullName>Residential_billing_account</fullName>
+        <columns>NAME</columns>
+        <columns>Customer__c</columns>
+        <columns>Property__c</columns>
+        <columns>Role__c</columns>
+        <columns>RECORDTYPE</columns>
+        <columns>Last_Bill_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Residential_or_Non_Residential__c</field>
+            <operation>equals</operation>
+            <value>Residential</value>
+        </filters>
+        <filters>
+            <field>Last_Bill_Date__c</field>
+            <operation>greaterThan</operation>
+            <value>7/1/2014</value>
+        </filters>
+        <label>Residential Billing Account</label>
+    </listViews>
+    <nameField>
+        <label>Billing Account #</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <namedFilters>
+        <fullName>Case_00NO0000000GtZLMA0</fullName>
+        <active>true</active>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <field>Case.Billing_Account__c</field>
+        <filterItems>
+            <field>$Source.AccountId</field>
+            <operation>equals</operation>
+            <value></value>
+        </filterItems>
+        <filterItems>
+            <field>Billing_Account__c.Customer__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.AccountId</valueField>
+        </filterItems>
+        <isOptional>true</isOptional>
+        <name>Case_Billing Account</name>
+        <sourceObject>Case</sourceObject>
+    </namedFilters>
+    <namedFilters>
+        <fullName>Case_00NO0000000H04NMAS</fullName>
+        <active>true</active>
+        <field>Case.Vendor_Billing_Account__c</field>
+        <filterItems>
+            <field>Billing_Account__c.Property__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Property__c</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+        <name>Case_Vendor Billing Account</name>
+        <sourceObject>Case</sourceObject>
+    </namedFilters>
+    <namedFilters>
+        <fullName>Case_00NO0000000H04fMAC</fullName>
+        <active>true</active>
+        <field>Case.Tenant_Billing_Account__c</field>
+        <filterItems>
+            <field>Billing_Account__c.Property__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Property__c</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+        <name>Case_Tenant Billing Account</name>
+        <sourceObject>Case</sourceObject>
+    </namedFilters>
+    <namedFilters>
+        <fullName>Case_00NO0000000H4uzMAC</fullName>
+        <active>true</active>
+        <field>Case.Billing_Account_SMR__c</field>
+        <filterItems>
+            <field>Billing_Account__c.Property__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Property__c</valueField>
+        </filterItems>
+        <isOptional>true</isOptional>
+        <name>Case_Billing Account</name>
+        <sourceObject>Case</sourceObject>
+    </namedFilters>
+    <namedFilters>
+        <fullName>nf_01I90000000FMYwEAO_00NO0000000GtLiMAK</fullName>
+        <active>true</active>
+        <field>Billing_Account__c.Group_Billing_Account__c</field>
+        <filterItems>
+            <field>Billing_Account__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Group Billing Account</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+        <name>Billing Account_Group Billing Account</name>
+    </namedFilters>
+    <namedFilters>
+        <fullName>nf_01I90000000FMdNEAW_00N90000001mlFHEAY</fullName>
+        <active>true</active>
+        <field>WaterMAP__c.Billing_Account__c</field>
+        <filterItems>
+            <field>Billing_Account__c.Customer__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Customer__c</valueField>
+        </filterItems>
+        <isOptional>true</isOptional>
+        <name>Watermap_Billing Account</name>
+        <sourceObject>WaterMAP__c</sourceObject>
+    </namedFilters>
+    <namedFilters>
+        <fullName>nf_01I90000000FcM0EAK_00NO0000000GtpfMAC</fullName>
+        <active>true</active>
+        <field>Customer_Classification__c.Billing_Account__c</field>
+        <filterItems>
+            <field>Billing_Account__c.Customer__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Customer__c</valueField>
+        </filterItems>
+        <isOptional>true</isOptional>
+        <name>Customer Classification_Billing Account</name>
+        <sourceObject>Customer_Classification__c</sourceObject>
+    </namedFilters>
+    <namedFilters>
+        <fullName>nf_01IO00000000H7LMAU_00NO0000000HDmoMAG</fullName>
+        <active>true</active>
+        <field>Credit_Card_Proxy__c.Billing_Account__c</field>
+        <filterItems>
+            <field>Billing_Account__c.Customer__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Customer_Account__c</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+        <name>Credit Card Proxy_Billing Account</name>
+        <sourceObject>Credit_Card_Proxy__c</sourceObject>
+    </namedFilters>
+    <pluralLabel>Billing Accounts</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Ad_Hoc</fullName>
+        <active>true</active>
+        <description>Ad-hoc billing account.</description>
+        <label>Ad-Hoc</label>
+        <picklistValues>
+            <picklist>Billing_Address_Same_As__c</picklist>
+            <values>
+                <fullName>Customer Mailing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Primary</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Card_Type__c</picklist>
+            <values>
+                <fullName>DVA - Gold Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DVA - Pensioner Concession Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Health Care Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pensioner Concession Card</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Concession_Holder__c</picklist>
+            <values>
+                <fullName>A%2FC Holder Partner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Account Holder</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Third Party</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Direct_Debit_Type__c</picklist>
+            <values>
+                <fullName>Bank Account</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reminder_Method__c</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SMS</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Residential_or_Non_Residential__c</picklist>
+            <values>
+                <fullName>Non-Residential</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Residential</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Role__c</picklist>
+            <values>
+                <fullName>Ad-Hoc</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Send_Mail_To__c</picklist>
+            <values>
+                <fullName>Another address</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>My business address</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>My home address</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>My mailing address</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>The property address</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Active</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>eBill_Method__c</picklist>
+            <values>
+                <fullName>BPAY View</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mail</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Billing_Account</fullName>
+        <active>true</active>
+        <description>Billing Account that is not a Group Billing Account or Adhoc Account</description>
+        <label>Billing Account</label>
+        <picklistValues>
+            <picklist>Billing_Address_Same_As__c</picklist>
+            <values>
+                <fullName>Customer Mailing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Primary</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Group Account</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Card_Type__c</picklist>
+            <values>
+                <fullName>DVA - Gold Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DVA - Pensioner Concession Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Health Care Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pensioner Concession Card</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Concession_Holder__c</picklist>
+            <values>
+                <fullName>A%2FC Holder Partner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Account Holder</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Third Party</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Direct_Debit_Type__c</picklist>
+            <values>
+                <fullName>Bank Account</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reminder_Method__c</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SMS</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Residential_or_Non_Residential__c</picklist>
+            <values>
+                <fullName>Non-Residential</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Residential</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Role__c</picklist>
+            <values>
+                <fullName>Body Corporate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Landlord</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Owner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Owner Occupier</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tenant</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Send_Mail_To__c</picklist>
+            <values>
+                <fullName>Another address</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>My business address</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>My home address</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>My mailing address</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>The property address</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>eBill_Method__c</picklist>
+            <values>
+                <fullName>BPAY View</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mail</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Group_Billing_Account</fullName>
+        <active>true</active>
+        <description>Group Billing Account that may have multiple Sub Accounts under its umbrella.</description>
+        <label>Group Billing Account</label>
+        <picklistValues>
+            <picklist>Billing_Address_Same_As__c</picklist>
+            <values>
+                <fullName>Customer Mailing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Primary</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Card_Type__c</picklist>
+            <values>
+                <fullName>DVA - Gold Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DVA - Pensioner Concession Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Health Care Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pensioner Concession Card</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Concession_Holder__c</picklist>
+            <values>
+                <fullName>A%2FC Holder Partner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Account Holder</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Third Party</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Direct_Debit_Type__c</picklist>
+            <values>
+                <fullName>Bank Account</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reminder_Method__c</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SMS</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Residential_or_Non_Residential__c</picklist>
+            <values>
+                <fullName>Non-Residential</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Residential</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Role__c</picklist>
+            <values>
+                <fullName>Group</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Send_Mail_To__c</picklist>
+            <values>
+                <fullName>Another address</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>My business address</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>My home address</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>My mailing address</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>The property address</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Active</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>eBill_Method__c</picklist>
+            <values>
+                <fullName>BPAY View</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mail</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>HiAF_Account_Number__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Customer__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Property__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Property_Address__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Role__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Care_Of__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Initials__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Account_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Street_Address__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>HiAF_Account_Number__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CIS_Property_Id__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Property_Address__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Role__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Care_Of__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Title__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Initials__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Account_Name__c</lookupDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchResultsAdditionalFields>HiAF_Account_Number__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Role__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Customer__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Property__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Property_Address__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Title__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Initials__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Account_Name__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Address_Special_Characters</fullName>
+        <active>true</active>
+        <description>quotes and full stop not allowed in addresses.</description>
+        <errorConditionFormula>CONTAINS( Street_Address__c , &quot;\&quot;&quot;)</errorConditionFormula>
+        <errorDisplayField>Street_Address__c</errorDisplayField>
+        <errorMessage>quotes are not allowed in address formats</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Bill_To_Parent_Check</fullName>
+        <active>true</active>
+        <description>Billing Address Same As have to be selected to tick Bill to Parent.</description>
+        <errorConditionFormula>ISPICKVAL(Billing_Address_Same_As__c, &apos;&apos;)  &amp;&amp; Bill_To_Parent__c == TRUE</errorConditionFormula>
+        <errorDisplayField>Billing_Address_Same_As__c</errorDisplayField>
+        <errorMessage>Please select an address type for the Bill To Parent.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>City_Special_Characters</fullName>
+        <active>true</active>
+        <description>quotes and periods are not allowed in address formats</description>
+        <errorConditionFormula>CONTAINS( City__c , &quot;\&quot;&quot;)</errorConditionFormula>
+        <errorDisplayField>City__c</errorDisplayField>
+        <errorMessage>quotes are not allowed in address formats</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Country_Special_Characters</fullName>
+        <active>true</active>
+        <description>quotes and periods are not allowed in address formats</description>
+        <errorConditionFormula>CONTAINS( Country__c , &quot;\&quot;&quot;)</errorConditionFormula>
+        <errorDisplayField>Country__c</errorDisplayField>
+        <errorMessage>quotes are not allowed in address formats</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Must_have_Email_for_Reminder</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISPICKVAL(Reminder_Method__c , &quot;Email&quot;) &amp;&amp;  ISBLANK(Recipient_Email__c) &amp;&amp;  $Profile.Name &lt;&gt; &quot;SEW Administrator&quot; &amp;&amp; $Profile.Name &lt;&gt; &quot;System Administrator&quot; &amp;&amp; $Profile.Name &lt;&gt; &quot;SEW Integration&quot;</errorConditionFormula>
+        <errorDisplayField>Reminder_Method__c</errorDisplayField>
+        <errorMessage>No Receipient Email exist. Please choose another Reminder Method.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Must_have_mobile_for_reminder</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISPICKVAL(Reminder_Method__c , &quot;SMS&quot;) &amp;&amp;  ISBLANK(Recipient_Mobile__c) &amp;&amp;  $Profile.Name &lt;&gt; &quot;SEW Administrator&quot; &amp;&amp; $Profile.Name &lt;&gt; &quot;System Administrator&quot; &amp;&amp; $Profile.Name &lt;&gt; &quot;SEW Integration&quot;</errorConditionFormula>
+        <errorDisplayField>Reminder_Method__c</errorDisplayField>
+        <errorMessage>No Receipient Mobile exist. Please choose another Reminder Method.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>No_New_Billing_Account</fullName>
+        <active>true</active>
+        <description>Not allow Non-SEW Misc Charge users to create Group Accounts.</description>
+        <errorConditionFormula>$RecordType.DeveloperName=&quot;Group Billing Account &quot;&amp;&amp; ISNEW()&amp;&amp;  $Profile.Name  &lt;&gt; &quot;SEW Misc Charges&quot;</errorConditionFormula>
+        <errorMessage>You can&apos;t create a new Billing Account.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Post_Code_Special_Characters</fullName>
+        <active>true</active>
+        <description>quotes and periods are not allowed in address formats</description>
+        <errorConditionFormula>CONTAINS( Postal_Code__c , &quot;\&quot;&quot;)</errorConditionFormula>
+        <errorDisplayField>Postal_Code__c</errorDisplayField>
+        <errorMessage>quotes are not allowed in address formats</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Select_Group_Account</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISBLANK( Group_Billing_Account__c ) &amp;&amp; ISPICKVAL( Billing_Address_Same_As__c , &quot;Group Account&quot;)</errorConditionFormula>
+        <errorDisplayField>Billing_Address_Same_As__c</errorDisplayField>
+        <errorMessage>Billing Address Same As cannot be &quot;Group Account&quot; if no Group Billing Account is Selected</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>State_Special_Characters</fullName>
+        <active>true</active>
+        <description>quotes and periods are not allowed in address formats</description>
+        <errorConditionFormula>CONTAINS( State__c , &quot;\&quot;&quot;)</errorConditionFormula>
+        <errorDisplayField>State__c</errorDisplayField>
+        <errorMessage>quotes are not allowed in address formats</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>eBill_Method_BPAY_change</fullName>
+        <active>true</active>
+        <description>Cannot change the eBill Method from or to BPAY.
+But allow system adminstrators to do this, for integration.</description>
+        <errorConditionFormula>AND(
+ISCHANGED( eBill_Method__c ) ,
+ OR(
+  ISPICKVAL(eBill_Method__c , &quot;BPAY View&quot;) ,
+ ISPICKVAL(PRIORVALUE (eBill_Method__c ),  &quot;BPAY View&quot;)
+) 
+)
+&amp;&amp; (NOT($Profile.Name=&quot;System Administrator&quot; || $Profile.Name=&quot;SEW Administrator&quot; || $Profile.Name=&quot;SEW Integration&quot; ))</errorConditionFormula>
+        <errorDisplayField>eBill_Method__c</errorDisplayField>
+        <errorMessage>Cannot change eBill Method from or to BPAY.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>eBill_Recipient_Check</fullName>
+        <active>true</active>
+        <description>eBill Recipient must be entered if the eBill Method is email or Reminder is SMS.</description>
+        <errorConditionFormula>AND(
+ISBLANK( eBill_Recipient__c ),
+ (OR(ISPICKVAL(eBill_Method__c  , &quot;Email&quot;),
+ ISPICKVAL( Reminder_Method__c , &quot;SMS&quot;)) )
+)</errorConditionFormula>
+        <errorDisplayField>eBill_Recipient__c</errorDisplayField>
+        <errorMessage>An eBill Recipient must be entered if the eBill Method is email or Reminder is SMS.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>eBill_Recipient_email_address</fullName>
+        <active>true</active>
+        <description>Check that the ebill recipient has an email address.</description>
+        <errorConditionFormula>AND( ISPICKVAL( eBill_Method__c , &quot;Email&quot;) ,
+ ISBLANK( eBill_Recipient__r.Email ) 
+)</errorConditionFormula>
+        <errorDisplayField>eBill_Recipient__c</errorDisplayField>
+        <errorMessage>eBill Recipient must have an email address for this eBill Method.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>eBill_Recipient_mobile_check</fullName>
+        <active>true</active>
+        <description>Check that the ebill recipient has a mobile number.</description>
+        <errorConditionFormula>AND( ISPICKVAL(  Reminder_Method__c  , &quot;SMS&quot;) ,
+ISBLANK(  eBill_Recipient__r.MobilePhone )
+)</errorConditionFormula>
+        <errorDisplayField>eBill_Recipient__c</errorDisplayField>
+        <errorMessage>eBill Recipient must have a mobile number for this Reminder Method.</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Bill_History</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Bill History</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if (typeof(srcUp) == &apos;function&apos;) { 
+srcUp(&apos;/apex/BillHistory?id={!Billing_Account__c.Id}&amp;isdtp=vw&apos;); 
+} else { 
+window.location = &quot;/apex/BillHistory?id={!Billing_Account__c.Id}&quot;; 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>CC_Payment</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>CC Payment</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if (typeof(srcUp) == &apos;function&apos;) { 
+    navigateToUrl(&apos;/apex/CreditCardPayment?customerId={! Billing_Account__c.CustomerId__c}&amp;billAcctId={!  Billing_Account__c.Id }&amp;isdtp=vw&apos;); 
+} else { 
+    window.location = &quot;/apex/CreditCardPayment?customerId={! Billing_Account__c.CustomerId__c}&amp;billAcctId={!  Billing_Account__c.Id }&amp;retURL=&quot;+window.location.href; 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Concessions</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Concessions</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if (typeof(srcUp) == &apos;function&apos;) { 
+navigateToUrl(&apos;/apex/Manage_Concession?customerId={! Billing_Account__c.CustomerId__c}&amp;billAcctId={! Billing_Account__c.Id }&amp;isdtp=vw&apos;); 
+} else { 
+window.location = &quot;/apex/Manage_Concession?customerId={! Billing_Account__c.CustomerId__c}&amp;billAcctId={! Billing_Account__c.Id }&amp;retURL=&quot;+window.location.href; 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Copy_Billing_Address</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Copy Billing Address</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if (typeof(srcUp) == &apos;function&apos;) {
+    srcUp(&apos;/apex/CopyBillingAddress?id={!Billing_Account__c.Id}&amp;isdtp=vw&apos;);
+} else {    
+    window.location=&apos;/apex/CopyBillingAddress?id={!Billing_Account__c.Id}&apos;;
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Customer_Verification</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Customer Verification</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if (typeof(srcUp) == &apos;function&apos;) {
+    navigateToUrl(&apos;/apex/CustomerVerificationPage?id={!Billing_Account__c.CustomerId__c}&amp;billAccId={!Billing_Account__c.Id}&amp;isdtp=vw&apos;);
+} else {   
+    window.location = &quot;/apex/CustomerVerificationPage?id={!Billing_Account__c.CustomerId__c}&amp;billAccId={!Billing_Account__c.Id}&amp;retURL=&quot;+window.location.href;
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Direct_Debit</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Direct Debit</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if (typeof(srcUp) == &apos;function&apos;) { 
+navigateToUrl(&apos;/apex/DirectDebit?customerId={! Billing_Account__c.CustomerId__c}&amp;billAcctId={! Billing_Account__c.Id }&amp;isdtp=vw&apos;); 
+} else { 
+window.location = &quot;/apex/DirectDebit?customerId={! Billing_Account__c.CustomerId__c}&amp;billAcctId={! Billing_Account__c.Id }&amp;retURL=&quot;+window.location.href; 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>ECO_Web_Mapping_Site</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>ECO Web Mapping Site</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>http://awmdev2/backlog/</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Manage_Addresses_Billing_Account</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Manage Addresses</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if (typeof(srcUp) == &apos;function&apos;) {
+    srcUp(&apos;/apex/AccountMassBAcctAddressUpdateRedirect?id={!Account.Id}&amp;isdtp=vw&amp;billing={!Billing_Account__c.Id}&apos;);
+} else {   
+    window.location = &quot;/apex/AccountMassBAcctAddressUpdateRedirect?id={!Account.Id}&amp;billing={!Billing_Account__c.Id}&quot;;
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Missed_Payment</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Missing Payments</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if (typeof(srcUp) == &apos;function&apos;) { 
+   navigateToUrl(&apos;/apex/MissedPaymentsPlan?id={! Billing_Account__c.Id }&amp;isdtp=vw&apos;); 
+}else {   
+    window.location = &quot;/apex/MissedPaymentsPlan?id={!Billing_Account__c.Id}&quot;;
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>More_Time_To_Pay</fullName>
+        <availability>online</availability>
+        <description>TT10680 - For Mercantile Agency More Time To Pay access, however button could be reused in the future for other items</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>More Time To Pay</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>/500/e?CF00N900000037xnb={!Billing_Account__c.HiAF_Account_Number__c}&amp;CF00N900000037xnb_lkid={!Billing_Account__c.Id}&amp;nooverride=1&amp;def_account_id={!Billing_Account__c.Customer_Id__c}&amp;CF00N90000001kAv1=&amp;CF00N90000001kAv1_lkid=&amp;cas5=Billing+%26+Accounts&amp;retURL=%2Fa08O00000041my1&amp;RecordType=01290000000GJlT&amp;00N900000037xpt={!TODAY()+14}&amp;cas11=&quot;Mercantile&quot;&amp;ent=Case</url>
+    </webLinks>
+    <webLinks>
+        <fullName>New_BAcct_Customer_Rlist</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>New Billing Account</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>if (typeof(srcUp) == &apos;function&apos;) { 
+navigateToUrl(&apos;/apex/CreateBillingAccountWizard?customerId={!Account.Id}&amp;retURL=%2F{!Account.Id}&apos;); 
+} else { 
+window.top.location = &quot;/apex/CreateBillingAccountWizard?customerId={!Account.Id}&amp;retURL=%2F{!Account.Id}&quot;; 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>New_BAcct_Property_Rlist</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>New Billing Account</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if (typeof(srcUp) == &apos;function&apos;) { 
+navigateToUrl(&apos;/apex/CreateBillingAccountWizard?propertyId={!Property__c.Id}&amp;retURL=%2F{!Property__c.Id}&apos;); 
+} else { 
+window.top.location = &quot;/apex/CreateBillingAccountWizard?propertyId={!Property__c.Id}&amp;retURL=%2F{!Property__c.Id}&quot;; 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>New_Group_Account</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>New Group Account</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>/a08/e?CF00N90000001jnH8={!Account.Name}&amp;CF00N90000001jnH8_lkid={!Account.Id}&amp;retURL=%2F{!Account.Id}&amp;RecordType=012O00000000A5S&amp;&amp;scontrolCaching=0&amp;retURL=%2F001O0000004auWa&amp;sfdc.override=0</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Payment_History</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Payment History</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if (typeof(srcUp) == &apos;function&apos;) {
+srcUp(&apos;/apex/PaymentHistory?id={!Billing_Account__c.Id}&amp;isdtp=vw&apos;);
+} else {
+window.location = &quot;/apex/PaymentHistory?id={!Billing_Account__c.Id}&quot;;
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Payment_Plan</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Payment Plan</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if (typeof(srcUp) == &apos;function&apos;) { 
+navigateToUrl(&apos;/apex/ManagePaymentPlan?customerId={! Billing_Account__c.CustomerId__c}&amp;billAcctId={! Billing_Account__c.Id }&amp;isdtp=vw&apos;); 
+} else { 
+window.location = &quot;/apex/ManagePaymentPlan?customerId={! Billing_Account__c.CustomerId__c}&amp;billAcctId={! Billing_Account__c.Id }&amp;retURL=&quot;+window.location.href; 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Print_Latest_Bill</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Print Latest Bill</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>window.showModalDialog(&quot;/apex/PrintLatestBill?id={!Billing_Account__c.Id}&quot;, &quot;&quot;, &quot;dialogWidth:500px; dialogHeight:300px; center:yes; toolbar:0; status:0; resizable:0;&quot;);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Quick_Notes</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Quick Notes</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if (typeof(srcUp) == &apos;function&apos;) { 
+navigateToUrl(&apos;/apex/QuickNotes?customerId={!Billing_Account__c.CustomerId__c}&amp;billAcctId={!Billing_Account__c.Id}&amp;isdtp=vw&apos;); 
+} else { 
+window.location = &quot;/apex/QuickNotes?customerId={!Billing_Account__c.CustomerId__c}&amp;billAcctId={!Billing_Account__c.Id}&amp;retURL=&quot;+window.location.href; 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Quick_View</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Quick View</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if (typeof(srcUp) == &apos;function&apos;) {
+    srcUp(&apos;/apex/QuickView?id={!Billing_Account__c.Customer_Id__c}&amp;bid={!Billing_Account__c.Id}&amp;isdtp=vw&apos;);
+} else {   
+    window.location = &quot;/apex/QuickView?id={!Billing_Account__c.Customer_Id__c}&amp;bid={!Billing_Account__c.Id}&quot;;
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>RefreshBillingAccount</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>page</linkType>
+        <masterLabel>Refresh</masterLabel>
+        <openType>replace</openType>
+        <page>BillingAccountRefresh</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>Validate_Address_button</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Validate Address</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/resource/1250693978000/experianqas__jquery132min&quot;)} 
+{!REQUIRESCRIPT(&quot;/resource/1250699255000/experianqas__thickbox31js&quot;)} 
+{!REQUIRESCRIPT(&quot;/resource/1252330725000/experianqas__PopupHelperJS&quot;)} 
+QASDisplayPopup({ id : &quot;{!Billing_Account__c.Id}&quot;, touchpoint : &quot;BillingAccountAddress&quot;});</url>
+    </webLinks>
+    <webLinks>
+        <fullName>View_Latest_Bill</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>View Latest Bill</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>window.open(&quot;/apex/BillView?CustNumber={!Billing_Account__c.HiAF_Account_Number_Check_Digit__c }&amp;billNumber1={!Billing_Account__c.Last_Bill_Number__c}&amp;Encrypt=No&quot;, &quot;_bill&quot;)</url>
+    </webLinks>
+</CustomObject>

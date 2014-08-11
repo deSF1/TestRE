@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>QASOnDemand</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>QASOnDemand</value>
+    </caseValues>
+    <fields>
+        <label><!-- Dataset --></label>
+        <name>Dataset__c</name>
+    </fields>
+    <fields>
+        <label><!-- Endpoint --></label>
+        <name>Endpoint__c</name>
+    </fields>
+    <fields>
+        <label><!-- Layout --></label>
+        <name>Layout__c</name>
+    </fields>
+    <fields>
+        <label><!-- OnDemand Endpoint --></label>
+        <name>OnDemand_Endpoint__c</name>
+    </fields>
+    <fields>
+        <label><!-- Password --></label>
+        <name>Password__c</name>
+    </fields>
+    <fields>
+        <label><!-- SearchEngine --></label>
+        <name>SearchEngine__c</name>
+    </fields>
+    <fields>
+        <label><!-- Userid --></label>
+        <name>Userid__c</name>
+    </fields>
+    <fields>
+        <label><!-- iFrame Endpoint --></label>
+        <name>iFrame_Endpoint__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

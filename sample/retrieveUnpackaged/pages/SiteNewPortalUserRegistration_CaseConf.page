@@ -1,0 +1,97 @@
+<apex:page controller="SiteNewPortalUserRegWizard_Controller" 
+            showHeader="false"
+            title="Request Assistance"
+            cache="true">
+    <!--
+        Description: Site login paged rebranded for SEW
+                     This is the 'Need Help Registering' page post case creation (shows case Number)
+
+        History:
+            06-Mar-2012 M.Watson (Salesforce)    Created
+            08-May-2012 I.Castillo               Updated labels to proper case
+            
+   -->
+
+    <head>
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}" />
+        <apex:stylesheet value="{!$Resource.PortalHomePage_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalIcons_Styles}"/>
+        <apex:stylesheet value="{!$Resource.SitePortalRegistration_Styles}" />
+
+        <title>mySouthEastWater - New User Registration</title>
+        <link rel="shortcut icon"
+            href="https://southeastwater.secure.force.com/portal/favicon.ico" />
+
+        <!-- jquery -->
+
+        <style>
+            .bPageBlock .detailList .labelCol {
+                width: 28%;
+            }
+        </style>
+
+    </head>
+
+
+
+    <apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+            <apex:outputPanel id="wholePage" layout="block" styleclass="bodyDiv brdPalette">
+                <apex:form forceSSL="true" id="theForm">
+                    <div class="contentCell" style="width: 700px; margin: auto; margin-bottom: 200px">
+
+                        <!--  TITLE -->
+                        <div style="margin-bottom: 10px"/>
+                        <apex:sectionheader title="mySouthEastWater"
+                                            subtitle="Registration"/>
+                        <div style="clear:both"/>
+
+                        <!--  CONTENT -->
+                        <apex:pageBlock >
+                        
+                            <!-- Steps -->
+                            <div class="completeImage">
+                                <apex:panelGrid cellspacing="0" cellpadding="0" styleClass="stepInnerGrid">
+                                    <span class="step stepFirst">Step 1</span>
+                                    <span class="step">Step 2</span>
+                                    <span class="step">Step 3</span>
+                                    <span class="activeStep" style="margin-right: 0">Request submitted</span>
+                                </apex:panelGrid>
+                            </div>
+                        
+                            <!-- page messages -->
+                            <div style="margin: 15px 0px">
+                                <apex:pageMessages />
+                            </div>
+                
+                            <!--  Content -->
+
+                            <apex:outputPanel id="responsePanel">
+                                <div class="caseField">
+                                    <p>
+                                        Thank you, your request has been logged successfully.
+                                        South East Water will be in contact with you shortly.
+                                    </p>
+                                    <p>
+                                        Your request reference number is <b>{!casenumber}</b>.
+                                    </p>
+                                </div>
+                            </apex:outputPanel>
+
+                            <div style="text-align:center; width: 100%; margin-top: 30px">
+                                <apex:commandButton value="Home" 
+                                    onclick="window.location='http://www.southeastwater.com.au'; return false;"
+                                    styleClass="btnGreen" 
+                                    style="width: 80px"
+                                    id="Home" />
+                            </div>
+                            
+                        </apex:pageBlock>
+                    </div>
+
+                </apex:form>
+            </apex:outputPanel>
+        </apex:define>
+    </apex:composition>
+
+</apex:page>

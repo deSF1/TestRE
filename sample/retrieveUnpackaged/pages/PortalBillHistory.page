@@ -1,0 +1,238 @@
+<apex:page controller="PortalBillHistoryExCon" sidebar="false" showHeader="true" action="{!CheckRedirectConfirmed}" tabstyle="Bill_Payment_History__tab" doctype="html-5.0">
+<!-- 
+    Type:       VF page
+    Purpose:    Displays Bill History For Portal User
+    ---------------------------------------------------------------
+    History:
+
+    15-Feb-2012 Manu Erwin (Salesforce.com) - Updated per Epic's 102 and 103
+        UPDATE: Rearranged order of columns per updated wireframes.
+        DELETE: Removed BillLines functionality as now handled by webservice callout.
+        DELETE: Removed export as pdf, xls and print options.
+        DELETE: Removed floating panels and supporting actionfunctions, as well as supporting javascript.
+        CHANGE: Now using PortalBillHistoryExCon
+    20-Feb-2012 Manu Erwin (Salesforce.com)
+        UPDATE: Almost complete rewrite based on new pattern from Dennis
+    14-Mar-2012 Matt Watson (Salesforce.com)
+        UPDATE: Changed the 'Bill View' URL to reference encrypted Customer Number
+    28-Mar-2012 Richard Enojas (Salesforce.com)
+        UPDATE: Page styling    
+    23-Apr-2012 DYU
+        UPDATE: Update paperless billing link
+    23-May-2012 DYU
+        UPDATE: Added validation for invalid selected timeframe
+    24-May-2012 AVergara
+        UPDATE: Include commented timeframe validation
+    29-May-2012 AVergara
+        UPDATE: 5097
+    04-Jun-2012 DYu
+        UPDATE: 5145: Update invalid timeframe error message
+        UPDATE: 5155
+    26-OCT-2012 JBarrameda
+        UPDATE: 5420: Change View link to View Bill
+	30-Nov-2012 ICastillo
+		UPDATE: Proper case titles
+	12-Dec-2013 A. Recio (Cloudsherpas) Placed portal knowledge sidebar component inside a form
+ -->
+
+    <head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <apex:stylesheet value="{!$Resource.PortalIcons_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalActionLinks_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalHomePage_Styles}"/>
+        
+    </head>
+
+    <script type="text/javascript">
+       var previousOnload = window.onload;
+       window.onload = function() {
+            if (previousOnload) {
+                previousOnload();
+            }
+            performPopulateBillingHistory();
+       }
+    </script>
+    <style type="text/css">
+        .contents {
+           height: 70px;
+           width: 800px;
+        }
+    </style>
+
+    <apex:form id="theForm">
+    <div class="contentCellDiv">
+        <div class="contents">
+        <apex:outputPanel id="sectionHeaderAndTabs" layout="block" style="width:700px">
+            
+            <apex:sectionHeader title="Bill & payment history"
+                subtitle="{!if(not(isblank(selectedBillingAccount.Property__c)), selectedBillingAccount.Property__r.Street_Address_Proper__c + ', ' + selectedBillingAccount.Property__r.Suburb_Proper__c + ' ' + selectedBillingAccount.Property__r.Postal_Code__c, selectedBillingAccount.HiAF_Account_Number_Check_Digit__c)}"/>
+            <div style="clear:both"/>
+        </apex:outputPanel>
+        </div>
+
+    <!-- Begin -->
+    <apex:outputPanel styleclass="pbTransparent pbNoLeftPad pbNoRightPad fullPageTableOuterDiv">
+        <apex:pageblock id="pb" >
+        <c:PortalSubTab groupName="Bills"
+                                currentDevName="Bill_History"
+                                currentAccRecordType="{!customer.RecordType.DeveloperName}"/>
+        
+        <apex:outputPanel id="billHistoryTable" 
+                                    layout="block"
+                                    styleClass="fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll">
+            <apex:outputPanel id="filter" layout="block" styleclass="filterPanel">
+                <apex:panelGrid columns="2">
+                    <apex:outputlabel >Property</apex:outputlabel>
+                    <apex:outputLabel >Select timeframe (financial year)</apex:outputLabel>
+                    <apex:outputPanel id="property" >                     
+                        <apex:selectList size="1" label="Property" value="{!selectedbillingaccountid}"
+                                                id="billingaccountlist" style="width:350px">
+                                        <apex:actionSupport event="onchange" rerender="theForm" status="loading"
+                                                            action="{!populateBillingHistory}"/>
+                                        <apex:selectOptions value="{!billAcctOptions}"/>
+                        </apex:selectList>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel id="years"> 
+                        <apex:actionRegion >                    
+                            <apex:selectList value="{!startYear}" 
+                                            size="1" label="Period (Start)" 
+                                            id="fystartlist">
+                                <apex:selectOptions value="{!finYearOptions}"/>
+                                <apex:actionSupport event="onchange" rerender="theForm" status="loading"/>
+                            </apex:selectList>
+                            <apex:outputLabel style="margin: 0px 5px;">to</apex:outputLabel>
+                            <apex:selectList value="{!endYear}" 
+                                            size="1" label="Period (End)" 
+                                            id="fyendlist">
+                                <apex:selectOptions value="{!finYearOptions}"/>
+                                <apex:actionSupport event="onchange" rerender="theForm" status="loading"/>
+                            </apex:selectList>
+                        </apex:actionRegion>                    
+                    </apex:outputPanel>
+                </apex:panelGrid>
+            </apex:outputPanel>
+        
+        
+            <!--  PAGE MESSAGES -->
+            <div style="margin: 10px">
+                <apex:pageMessages id="msg" />
+            </div>
+             
+             <!-- PAGE MESSAGE WHEN TIMEFRAME SELECTED IS INVALID-->
+             <apex:outputPanel id="detailedReasonAndattachment" layout="block">
+                 <apex:pageBlockSection id="detailedReason" columns="1" collapsible="false" rendered="{!invalidResult}">
+                      <apex:pageMessage strength="3" severity="error" summary="Please select a timeframe where the financial year in the first field either matches or precedes the second field."/>
+                 </apex:pageBlockSection>
+             </apex:outputPanel>
+
+            <!--rendered="{!nbrOfBills >= 15}"-->
+            <apex:outputPanel style="margin: 10px" layout="block">
+                <apex:pageMessage escape="false"
+                    severity="info"
+                    strength="2"
+                    summary="{!tooManyBillsMsg}"/>
+            </apex:outputPanel>
+            
+    
+            <!-- CONTENT -->
+            <!-- TODO: change this to a styleClass -->
+            <apex:outputPanel layout="block" rendered="{!nbrOfBills==0}" style="padding:15px 15px; font-style: italic" >
+                <i>No records to display</i>
+            </apex:outputPanel>
+
+            <apex:outputPanel layout="block" rendered="{!nbrOfBills!=0}"> 
+                <apex:pageBlockTable id="pbTableBillHistory"
+                            headerClass="tableHeader"
+                            rowClasses="tableRowOdd,tableRowEven"
+                            columnClasses="tableCol"
+                            value="{!billsDisplayed}" var="bill">
+                
+                    <apex:column headervalue="Date" style="white-space: nowrap" >
+                        <apex:outputText value="{0,date,d MMMM yyyy}" styleClass="smallFontSize Grey resetLineHeight">
+                            <apex:param value="{!bill.BilledDate}"/>
+                        </apex:outputText>
+                    </apex:column>
+                   <apex:column headervalue="Brought forward" style="white-space: nowrap">
+                        <span class="smallFontSize Grey resetLineHeight">$</span><apex:outputText style="margin-left:-2px;" value="{!bill.BroughtForwardAmount}" styleClass="smallFontSize Grey resetLineHeight" />
+                    </apex:column>
+                    <apex:column headervalue="Billed amount" style="white-space: nowrap;letter-spacing: 0px;" >
+                        <span class="smallFontSize Grey resetLineHeight">$</span><apex:outputText style="margin-left:-2px;" value="{!bill.BilledAmount}" styleClass="smallFontSize Grey resetLineHeight"/>
+                    </apex:column>
+                    <apex:column headervalue="Total" headerClass="tableHeaderEmphasise" style="white-space: nowrap" styleClass="tableRowEmphasise">
+                        <span class="largeFontSize Grey resetLineHeight">$</span><apex:outputText style="margin-left:-2px;" value="{!bill.BillTotal}" styleClass="largeFontSize Grey resetLineHeight" />
+                    </apex:column>
+                    <apex:column headerClass="tableHeaderEmphasise" styleClass="tableRowEmphasise">
+                        <a href="{!$Page.BillView}?CustNumber={!encryptedBillAccNumber}&billNumber1={!TRIM(bill.BillNumber)}" 
+                                id="viewBill" target="_Bill"><b>View bill</b></a>
+                    </apex:column>
+                </apex:pageblockTable>
+            </apex:outputPanel>
+        
+        
+                <apex:outputPanel layout="block" 
+                            style="margin: 15px 0 0">
+                    <apex:commandButton onclick="window.location='{!$Page.PortalManageConcession}'; return false;"
+                                style="margin-left:15px"
+                                styleClass="btnLightGrey" 
+                                value="+  Add concession details"/>
+                    <apex:commandButton onclick="window.location='{!$Page.PortalBillPreferences}'; return false;"
+                                style="margin-left:15px"
+                                styleClass="btnLightGrey" 
+                                value="Set up paperless billing "/>
+                    <apex:commandButton onclick="window.location='{!$Page.PortalPaymentOptions}'; return false;"
+                                style="margin-left:15px"
+                                styleClass="btnLightGrey" 
+                                value="View payment options"/>
+                </apex:outputPanel>
+            </apex:outputPanel>
+            
+        </apex:pageblock>
+
+        
+            
+    </apex:outputPanel>
+    </div>
+    <!-- End -->
+    
+        <!-- Action Status that are not position dependent -->
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff"
+                                       borderColor="#6B6B6B"
+                                       borderSize="1"
+                                       height="50px"
+                                       width="120px"
+                                       margintop="-25px"
+                                       marginleft="-60px"
+                                       ImageUrl="{!$Resource.AjaxAnimation}"
+                                       Message="Loading..."/>
+            </apex:facet>
+        </apex:actionStatus>
+        <apex:actionFunction name="performPopulateBillingHistory"
+            action="{!populateBillingHistory}" status="loading"
+            rerender="theForm" />
+		<div class="sideBarCellDiv" >
+
+        <div id="livechatdiv" style="margin: 20px 0;" >
+            <c:LiveChat />
+        </div>
+
+        <c:PortalKnowledgeSidebar rowClass="borderDottedWhiteBottom"
+                divClass="pbTransparent pbWhiteDottedHeader pbNoPad"
+                divStyle="width: 205px"
+               />
+
+        <!--  quick links -->
+        <c:PortalQuickLinks />
+
+     	</div>
+    </apex:form>
+    
+     <!-- 
+     <div style="margin-left: 15px;">
+           <c:PortalWaterUsageActionLinks />
+    </div>
+     -->
+</apex:page>

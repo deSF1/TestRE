@@ -1,0 +1,170 @@
+<apex:page sidebar="false" showHeader="true" tabstyle="My_Accounts_Portal__tab">
+    <!-- Javascript libraries go here -->
+    <!-- first one - if inputfield is too low, script will bounce it back to top -->
+    <!-- second one - automatically add proper number formatting, 2000.00 to 2,000.00 -->
+    <!--
+    <script>
+        function init() {
+            window.scrollTo(0,0);
+        }
+        var previousOnload = window.onload;
+        window.onload = function() {
+            if (previousOnload) {
+                previousOnload();
+            }
+            init();
+        }
+        function addCommas(nStr)
+        {
+            nStr += '';
+            x = nStr.split('.');
+            x1 = x[0];
+            x2 = x.length > 1 ? '.' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + ',' + '$2');
+            }
+            return x1 + x2;
+        }
+    </script>
+    -->
+    <apex:stylesheet value="{!$Resource.SEWPortalStyles}"/>
+    <!--<apex:stylesheet value="{!$Resource.WaterMap_Styles}"/>-->
+    <!-- extra, page specific css - example below increase width of label for this page only -->
+    
+ <!--    <style type="text/css">
+
+        .bPageBlock .detailList .labelCol {
+            width: 20%;
+        }
+
+        #kbaitextblock td.labelCol {
+            width: 20% !important;
+        }
+        #kbaitextblock td.dataCol {
+            width: auto !important;
+        }
+
+        .waterUseHeading {
+            padding-left: 30px !important;
+        }
+
+    </style>  -->
+    <apex:form >
+        <!-- hidden outputfields or input fields go here -->
+        <!--
+        <apex:outputfield rendered="false" value="{!WaterMAP_Submission__c.Status__c}"/>
+        <apex:outputfield rendered="false" value="{!WaterMAP_Submission__c.Year__c}"/>
+        <apex:outputfield rendered="false" value="{!WaterMAP_Submission__c.Indicators_Targets_Complete__c}"/>
+        <apex:outputfield rendered="false" value="{!WaterMAP_Submission__c.Watermap__r.ANZSIC__c}"/>
+        <apex:outputfield rendered="false" value="{!WaterMAP_Submission__c.Watermap__r.ANZSIC_Benchmark_Indicator__c}"/>
+        <apex:outputfield rendered="false" value="{!WaterMAP_Submission__c.Watermap__r.Billing_Account__c}"/>
+        -->
+        <table>
+            <tr>
+                <td class="sideBarCell">
+                <!-- Sidebar menu -->
+                    <c:PortalSidebar id="sidebar" 
+                     			currentAccRecordType="PUT THE RECORD TYPE IN HERE" 
+                    			groupName="Billing_Account__c" 
+                    			currentDevName="TestActive" title="Menu">
+                        Put record information to display on sidebar
+                    </c:PortalSidebar>
+                </td>
+                <td class="contentCell">
+                <!-- Start of real page content here-->
+                    <apex:pageBlock id="pageblock" title="Page Title">
+                        <!--  TOP BUTTONS -->
+                        <div style="vertical-align: text-top; height: 40px;">
+                            <div style="float:left">
+                                <apex:commandButton value="Top left button - light blue"/>
+                                <apex:commandButton value="Top left button - dark blue" styleClass="btnDarkBlue"/>
+                            </div>
+                            <span style="float:right;">
+                                <apex:commandButton value="Top right button - green" styleClass="btnGreen"/>
+                            </span>
+                        </div>
+                        <!--  PAGE MESSAGES -->
+                        <div style="margin-top:5px"><apex:pageMessages id="msg"/></div>
+
+                        <!-- CONTENT -->
+                        <!-- use the outputpanel below for words that goes across the whole content page-->
+                        <apex:outputPanel >
+                            <h1>Section Title - Using H1</h1>
+                            <p style="text-align: justify">
+                            Use this for descriptions
+                            </p>
+                            <p/><!-- adds extra space -->
+                        </apex:outputPanel>
+                        <div class="pbSectionDivider"></div> <!-- adds divider -->
+                        <apex:outputPanel styleclass="informationBox">
+                            This is a general information box
+                        </apex:outputPanel>
+                        <br/> <!-- another way to add spaces - <br/> leaves more space than <p/> -->
+                        <!-- use the structure below for fields -->
+                        <apex:pageBlockSection columns="1" collapsible="false" title="Section Title - Using PB Section">
+                            <apex:pageBlockSectionItem >
+                                <apex:outputPanel >
+                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}"/>
+                                    <apex:outputLabel value="Field label"/>
+                                </apex:outputPanel>
+                                <apex:outputPanel id="kbaiEntry">
+                                    <apex:inputText />
+                                </apex:outputPanel>
+                            </apex:pageBlockSectionItem>
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Table Label"/>
+                                <apex:outputPanel >
+                                    <apex:outputPanel styleclass="informationBox" style="margin-bottom:10px;">
+                                        This is an information box for specific field
+                                        <br/>
+                                        <apex:commandButton value="Use this to add button in information box" status="loading"/>
+                                    </apex:outputPanel>
+                                    <!-- pageblock table -->
+                                    <!--
+                                    <apex:pageblockTable>
+                                        <apex:column headerValue="Test 1" value="Test 1"/>
+                                        <apex:column headerValue="Test 2" value="Test 2"/>
+                                        <apex:column headerValue="Test 3" value="Test 3"/>
+                                        <apex:column headerValue="Test 4" value="Test 4"/>
+                                        <apex:column headerValue="Test 5" value="Test 5"/>
+                                    </apex:pageblockTable>
+                                    -->
+                                </apex:outputPanel>
+                            </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+                        <div class="pbSectionDivider"></div>
+                        <br/>
+                        <!--  BOTTOM BUTTONS -->
+                        <div style="vertical-align: text-top; layout:block">
+                            <div style="float:left">
+                                <apex:commandButton value="Bottom left button - light blue"/>
+                                <apex:commandButton value="Bottom left button - dark blue" styleClass="btnDarkBlue"/>
+                            </div>
+                            <span style="float:right;">
+                                <apex:commandButton value="Bottom right button - green" styleClass="btnGreen"/>
+                            </span>
+                        </div>
+                        <br/>
+                    </apex:pageBlock>
+                </td>
+            </tr>
+        </table>
+        
+        <!-- Action Status that are not position dependent -->
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff"
+                                       borderColor="#6B6B6B"
+                                       borderSize="1"
+                                       height="50px"
+                                       width="120px"
+                                       margintop="-25px"
+                                       marginleft="-60px"
+                                       ImageUrl="{!$Resource.AjaxAnimation}"
+                                       Message="Loading..."/>
+            </apex:facet>
+        </apex:actionStatus>
+
+    </apex:form>
+</apex:page>

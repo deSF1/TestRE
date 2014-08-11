@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>SystemSettings</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>SystemSettings</value>
+    </caseValues>
+    <fields>
+        <label><!-- Aes128PrivateKey --></label>
+        <name>Aes128PrivateKey__c</name>
+    </fields>
+    <fields>
+        <label><!-- Auto Create WSI Campaign Members --></label>
+        <name>Auto_Create_WSI_Campaign_Members__c</name>
+    </fields>
+    <fields>
+        <label><!-- Auto Create WSI Campaign --></label>
+        <name>Auto_Create_WSI_Campaign__c</name>
+    </fields>
+    <fields>
+        <label><!-- BRE Debug User --></label>
+        <name>BRE_Debug_User__c</name>
+    </fields>
+    <fields>
+        <help><!-- Field Id for Case.Billing_Account__c --></help>
+        <label><!-- CaseBillingAccountFieldId --></label>
+        <name>CaseBillingAccountFieldId__c</name>
+    </fields>
+    <fields>
+        <label><!-- CaseBillingAccountSMRFieldId --></label>
+        <name>CaseBillingAccountSMRFieldId__c</name>
+    </fields>
+    <fields>
+        <label><!-- CaseCat1FieldId --></label>
+        <name>CaseCat1FieldId__c</name>
+    </fields>
+    <fields>
+        <label><!-- CaseCat2FieldId --></label>
+        <name>CaseCat2FieldId__c</name>
+    </fields>
+    <fields>
+        <label><!-- CaseCat3FieldId --></label>
+        <name>CaseCat3FieldId__c</name>
+    </fields>
+    <fields>
+        <label><!-- CaseComplaintTypeFieldId --></label>
+        <name>CaseComplaintTypeFieldId__c</name>
+    </fields>
+    <fields>
+        <label><!-- CaseHotIssueFieldId --></label>
+        <name>CaseHotIssueFieldId__c</name>
+    </fields>
+    <fields>
+        <label><!-- CaseModeFieldId --></label>
+        <name>CaseModeFieldId__c</name>
+    </fields>
+    <fields>
+        <label><!-- CaseNoOfContactsFieldId --></label>
+        <name>CaseNoOfContactsFieldId__c</name>
+    </fields>
+    <fields>
+        <label><!-- CasePropertyFieldId --></label>
+        <name>CasePropertyFieldId__c</name>
+    </fields>
+    <fields>
+        <label><!-- CaseVendorBillingAccountFieldId --></label>
+        <name>CaseVendorBillingAccountFieldId__c</name>
+    </fields>
+    <fields>
+        <label><!-- CustClassifBAcctFieldId --></label>
+        <name>CustClassifBAcctFieldId__c</name>
+    </fields>
+    <fields>
+        <label><!-- CustClassifCustFieldId --></label>
+        <name>CustClassifCustFieldId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Default Case Daily Business Hours --></label>
+        <name>Default_Case_Daily_Business_Hours__c</name>
+    </fields>
+    <fields>
+        <label><!-- Default Case DueDate Offset --></label>
+        <name>Default_Case_DueDate_Offset__c</name>
+    </fields>
+    <fields>
+        <label><!-- Default ECO Case Due Date --></label>
+        <name>Default_ECO_Case_Due_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Default EWOV Assisted DueDate Offset --></label>
+        <name>Default_EWOV_Assisted_DueDate_Offset__c</name>
+    </fields>
+    <fields>
+        <label><!-- Default EWOV Investigative DueDate Offse --></label>
+        <name>Default_EWOV_Investigative_DueDate_Offse__c</name>
+    </fields>
+    <fields>
+        <label><!-- Default Fld Dbt Coll Due Date Offset --></label>
+        <name>Default_Fld_Dbt_Coll_Due_Date_Offset__c</name>
+    </fields>
+    <fields>
+        <label><!-- Default LeakAllowance DueDate Offset --></label>
+        <name>Default_LeakAllowance_DueDate_Offset__c</name>
+    </fields>
+    <fields>
+        <help><!-- The default offset for cases originating from portal --></help>
+        <label><!-- Default Portal Case Due Date Offset --></label>
+        <name>Default_Portal_Case_Due_Date_Offset__c</name>
+    </fields>
+    <fields>
+        <label><!-- Default Web DueDate Offset --></label>
+        <name>Default_Web_DueDate_Offset__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check to disable all triggers. --></help>
+        <label><!-- Disable Triggers --></label>
+        <name>Disable_Triggers__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check to stop web service callout and use test code instead --></help>
+        <label><!-- Disable Web Services --></label>
+        <name>Disable_Web_Services__c</name>
+    </fields>
+    <fields>
+        <label><!-- Due date offset --></label>
+        <name>Due_date_offset__c</name>
+    </fields>
+    <fields>
+        <help><!-- The Id for the group to be mentioned for chatter posts for every event action created --></help>
+        <label><!-- Event Action GroupId for Chatter Posts --></label>
+        <name>Event_Action_GroupId_for_Chatter_Posts__c</name>
+    </fields>
+    <fields>
+        <label><!-- Financial Year --></label>
+        <name>Financial_Year__c</name>
+    </fields>
+    <fields>
+        <help><!-- API Key generated from a google account to access Maps API Geocoder --></help>
+        <label><!-- Google Maps API Key --></label>
+        <name>Google_Maps_API_Key__c</name>
+    </fields>
+    <fields>
+        <help><!-- Specifiies the search distance(in KM) within the location filter criteria for the map --></help>
+        <label><!-- Map location search distance --></label>
+        <name>Map_location_search_distance__c</name>
+    </fields>
+    <fields>
+        <label><!-- Maximum map zoom --></label>
+        <name>Maximum_map_zoom__c</name>
+    </fields>
+    <fields>
+        <label><!-- Minimum map zoom --></label>
+        <name>Minimum_map_zoom__c</name>
+    </fields>
+    <fields>
+        <label><!-- Next bill date (approx) --></label>
+        <name>Next_bill_date_approx__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number Of Days Criteria --></label>
+        <name>Number_Of_Days_Criteria__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tibco Host URL --></label>
+        <name>Tibco_Host_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Water LIVE Desktop Version URL --></label>
+        <name>Water_LIVE_Desktop_Version_URL__c</name>
+    </fields>
+    <fields>
+        <help><!-- URL for the water live mobile page --></help>
+        <label><!-- Water LIVE Mobile Page URL --></label>
+        <name>Water_LIVE_Mobile_Page_URL__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

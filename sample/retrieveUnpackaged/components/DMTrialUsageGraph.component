@@ -1,0 +1,405 @@
+<!-- 
+* @author Original: Adrian Recio Cloud Sherpas
+* @date Original: 2/3/2014
+* @description VF component that renders Digital Meter Water usage graph
+	4/3/2014	ejandusay	fixed bug oon drilldown function
+	17/3/2014	ejandusay	added info message, trial site banner and additional text at the bottom
+-->
+<apex:component controller="DMTrialUsageGraphClass">
+
+    <apex:attribute name="pageNameStr" description="My snapshot" type="String"/>
+    
+    <script type="text/javascript">
+        window.onload = function () {  
+        	invokeWebServiceusage(); 
+        }
+        
+        var type;
+        var type2;
+		var val;
+		
+		function renderer(klass, item) {
+			var interval = document.getElementById("{!$Component.mainFormId.hiddenInterval}").value;
+			//if(interval =="Weekly"){
+				// type = item.storeItem.get('intervalVarDate');
+			//}else{
+				 type = item.storeItem.get('intervalVar');
+				 type2 = item.storeItem.get('intervalVarDate');
+			//}
+		   //alert(type);
+		    val = item.storeItem.get('actualVar');
+		    this.setTitle(type + " : " + val);
+			//alert(val);
+		    var e = window.event;
+		    //condition for firefox
+		    if (e == undefined) {
+		    	
+		    	var x = document.getElementsByTagName('rect');
+				if (x.length>0) {
+					for (var i=0;i<x.length;i++) {
+						if (document.getElementById(x[i].id) != null) {
+							document.getElementById(x[i].id).addEventListener("click", graphDrillDown);
+						}
+					}
+				}
+				
+		    } else {
+			    var t = e.target || e.srcElement;
+			    t.onclick=function(event){
+			    	
+			       graphDrillDown();
+			    };
+			}
+		}
+		function graphDrillDown(){
+			var intervalVar = document.getElementById("{!$Component.mainFormId.hiddenInterval}").value;
+			
+			if(intervalVar == "Weekly" || intervalVar == "Monthly" || intervalVar == "Yearly"){
+				try{
+					var formatDate = '';
+					var sfFormatDate = '';
+					var currentDate = document.getElementById("{!$Component.mainFormId.hiddenDate}").value;
+					
+					currentDate = currentDate.toString().split("/");
+				
+					if(intervalVar == "Weekly"){
+						formatDate = type2.toString();
+						var mnth = '';
+						if(parseInt(formatDate) < parseInt(currentDate[0])){
+							mnth = currentDate[1];
+						}else{
+							if(currentDate[1] == 1){
+								mnth = currentDate[1]
+							}else{
+								mnth = currentDate[1] - 1;
+							}
+						}
+						sfFormatDate = formatDate + "/" + mnth + "/" +  currentDate[2];
+						
+						document.getElementById("{!$Component.mainFormId.hiddenTempDate}").value  = sfFormatDate;
+						drillDaily();
+					}
+	
+					if(intervalVar == "Monthly"){
+						formatDate = type.toString();
+						sfFormatDate = formatDate + "/" + currentDate[1] + "/" +  currentDate[2];
+	
+						document.getElementById("{!$Component.mainFormId.hiddenTempDate}").value  = sfFormatDate;
+						drillDaily();
+					}
+					
+					if(intervalVar == "Yearly"){
+						formatDate = type.toString();
+						var monthNumber = '12';
+						
+						if(formatDate == "Jan"){
+							monthNumber = "1";
+						}else if(formatDate == "Feb") {
+							monthNumber = "2";
+						}else if(formatDate == "Mar") {
+							monthNumber = "3";
+						}else if(formatDate == "Apr") {
+							monthNumber = "4";
+						}else if(formatDate == "May") {
+							monthNumber = "5";
+						}else if(formatDate == "Jun") {
+							monthNumber = "6";
+						}else if(formatDate == "Jul") {
+							monthNumber = "7";
+						}else if(formatDate == "Aug") {
+							monthNumber = "8";
+						}else if(formatDate == "Sep") {
+							monthNumber = "9";
+						}else if(formatDate == "Oct") {
+							monthNumber = "10"
+						}else if(formatDate == "Nov") {
+							monthNumber = "11";
+						}	
+
+						sfFormatDate = "1" + "/" + monthNumber + "/" + currentDate[2];		
+						document.getElementById("{!$Component.mainFormId.hiddenTempDate}").value  = sfFormatDate;
+						drillMonthly();
+					}
+	
+					//alert("Current Date:" + currentDate);
+					//alert("Selected Date:" + sfFormatDate);
+					
+				}catch(err){
+					alert("Error:" + err);
+				}
+			}
+			
+		}
+		
+    </script>
+
+	
+    <style>
+    	.filterPanelUsage {
+		    background-color: #D8EFF7;
+		    margin: 0px;
+		    padding: 30px 10px 20px;
+		}
+		
+		.filterPanelUsage td {
+			padding-right: 12px;
+		}
+		
+		.filterPanelUsage label {
+			padding: 0;
+			margin-left: 2px;
+			color: #575756;
+			font-weight: bold;
+		}
+    	div.tooltip {
+	    width: 10px;
+	    float: left;
+	    //padding-left:-10px;
+	  }
+	  div.tooltip:hover {
+	    background: #D0D0D0	;
+	    text-decoration: none;
+	  } 
+	  div.tooltip span {
+	    display: none;
+	    padding: 2px 3px;
+	    margin-left: 8px;
+	    width: 191px;
+	    height: 94px;
+	  }
+	  div.tooltip:hover span {
+	    display: inline;
+	    position: absolute;
+	    border: 1px solid #cccccc;
+	    background: #D0D0D0;
+	    color: #000000;
+	  }
+        .blockUsageChart{
+            background-color:grey;
+            height: 500px;
+            width: 1100px;
+            //border: solid medium #e4e2dd;
+            opacity:0.5;
+            //z-index:1000;
+            position:absolute;
+        }
+        
+        .mainChartPanel{
+            height: 500px;
+            width: 1100px;
+            //border: solid medium #e4e2dd;
+        }
+        
+        .whiteBox{
+            border: 1px solid #0097D2;
+            padding: 3px;
+            border-radius: 3px;
+            background-color:white;
+            height: 25px;
+        }
+    </style>
+    
+    <apex:form Id="mainFormId">
+    	<apex:pagemessages id="errors" ></apex:pagemessages>	
+    	<apex:inputHidden Id="hiddenDate" value="{!datename}"></apex:inputHidden>
+    	<apex:inputHidden Id="hiddenInterval" value="{!currentInterval}"></apex:inputHidden>
+    	<apex:inputHidden Id="hiddenTempDate" value="{!tempDate}"></apex:inputHidden>
+    	
+         <apex:actionFunction name="invokeWebServiceusage" action="{!invokeWebServiceUsage}" status="usageChartLoader" rerender="mainChartPanel,filter,errors"></apex:actionFunction>
+       
+    	<apex:actionFunction name="drillDaily" action="{!drillDaily}" rerender="subTabInterval,mainChartPanel,filter,hiddenInterval,hiddenDate,hiddenTempDate" status="usageChartLoader" oncomplete="invokeWebServiceusage();"/>
+    	<apex:actionFunction name="drillMonthly" action="{!drillMonthly}" rerender="subTabInterval,mainChartPanel,filter,hiddenInterval,hiddenDate,hiddenTempDate" status="usageChartLoader" oncomplete="invokeWebServiceusage();"/>
+    	
+        <!--  <apex:actionFunction name="loadChart" action="{!loadChart}" rerender="mainChartPanel" status="usageChartLoader"></apex:actionFunction>-->
+        <apex:actionFunction name="refreshByDate" action="{!invokeWebServiceUsage}" rerender="subTabInterval,mainChartPanel,filter,hiddenInterval,hiddenDate,hiddenTempDate,theText,errors" status="usageChartLoader"></apex:actionFunction>
+        <apex:actionFunction name="refreshMeter" action="{!resetMeter}" rerender="meterId,mainChartPanel,propertyNameId,theText,errors" status="usageChartLoader" oncomplete="refreshByDate();"></apex:actionFunction>
+   
+    <!-- <apex:outputText style="font-family:Calibri,'Trebuchet MS',sans-serif;color:#575756;font-size:22.5pt !important;" Id="propertyNameId" value="{!pageNameStr} - {!PropertyName}"></apex:outputText>-->
+
+	<!-- Start of main panel -->
+	<apex:actionStatus id="status">
+            <apex:facet name="start">
+            <c:ActionStatus BackColor="#ffffff"
+                                    borderColor="#6B6B6B"
+                                    borderSize="1"
+                                    height="50px"
+                                    width="60px"
+                                    margintop="-25px"	
+                                    marginleft="-60px"
+                                    ImageUrl="{!$Resource.AjaxAnimation}"
+                                    Message=""/>
+            </apex:facet>
+        </apex:actionStatus>
+    <apex:outputPanel Id="mainPanelId"> 
+        
+            <!-- Property Name Panel -->
+            <div style="margin-top:-10px;margin-bottom:15px;">
+                <apex:outputPanel id="propertyNameId" layout="block" style="width:1000px;">
+        
+                    <apex:sectionHeader title="{!pageNameStr}"
+                        subtitle="{!PropertyName}"/>
+                    <img style="height:70px;margin-top:-10px;margin-right:40px;" src="{!$Resource.TrialOnlyBanner}"/>
+          
+                </apex:outputPanel>
+            </div>
+    		<!-- End of Property Name Panel -->
+    		
+            <!-- Sub Tabs -->
+            <apex:outputPanel layout="block" style="width: 97%;margin-top:-10px;margin-bottom:-10px;">
+                
+                <!-- Interval Sub tabs -->
+                <apex:outputPanel id="subTabInterval" style="float: right;margin-top:-36px;">
+                    
+                    <table class="subTabBar" cellpadding="0" cellspacing="0"><tr>
+                            <td><apex:commandLink styleclass="{!dailyStyle}" action="{!setDaily}" value="Daily" rerender="subTabInterval,mainChartPanel,filter,hiddenInterval,hiddenDate,hiddenTempDate" status="usageChartLoader" oncomplete="refreshByDate();"/></td>
+                            <td><apex:commandLink styleclass="{!weeklyStyle}" action="{!setWeekly}" value="Weekly" rerender="subTabInterval,mainChartPanel,filter,hiddenInterval,hiddenDate,hiddenTempDate" status="usageChartLoader" oncomplete="refreshByDate();"/></td>
+                            <td><apex:commandLink styleclass="{!monthlyStyle}" action="{!setMonthly}" value="Monthly" rerender="subTabInterval,mainChartPanel,filter,hiddenInterval,hiddenDate,hiddenTempDate" status="usageChartLoader" oncomplete="refreshByDate();"/></td>
+                            <td><apex:commandLink styleclass="{!yearlyStyle}" action="{!setYearly}" value="Yearly" rerender="subTabInterval,mainChartPanel,filter,hiddenInterval,hiddenDate,hiddenTempDate" status="usageChartLoader" oncomplete="refreshByDate();"/></td>             
+                    </tr></table>
+                </apex:outputPanel>
+            </apex:outputPanel>
+            <!-- End of Sub Tabs -->
+
+			<!-- Main layout panel  -->
+            <apex:outputPanel id="layoutPanel" layout="block" styleClass="fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll">
+                
+                <!-- Main Filter Panel -->
+                <apex:outputPanel id="filter" layout="block" styleclass="filterPanelUsage" style="padding:10px 10px !important;"> 
+                	
+					<!-- Panel Grid to hold page fields -->
+	                <apex:panelGrid Id="fieldGrid" columns="5">
+	          			<!-- Property Picklist -->   
+	                	<apex:panelGrid columns="1">
+	                            <apex:outputText value="Property"></apex:outputText>
+	                            <apex:selectList value="{!propertyId}" multiselect="false" size="1" onchange="refreshMeter();">
+	                                <apex:selectOptions value="{!Property}"/>
+	                            </apex:selectList>
+	                    </apex:panelGrid>
+	    
+	    				<!-- Meter Picklist -->
+	                    <apex:panelGrid columns="1">
+	                            <apex:outputText value="Meter No."></apex:outputText> 
+	                            <apex:selectList Id="meterId" value="{!meterNumber}" multiselect="false" size="1" onchange="refreshByDate();">
+	                                <apex:selectOptions value="{!Meter}"/>
+	                            </apex:selectList>
+	                    </apex:panelGrid>   
+
+	                    <apex:panelGrid columns="1" id="filterGrid">
+	                    		<!-- Date Range picker -->
+	                            <apex:outputText value="Date Range"></apex:outputText>
+	                            <apex:panelGrid columns="5" styleClass="whiteBox">
+	                                <apex:commandLink value="<<" style="font-family:Calibri,'Trebuchet MS',sans-serif;font-size:15px;" rerender="subTabInterval,mainChartPanel,filter,hiddenInterval,hiddenDate,hiddenTempDate" status="usageChartLoader" action="{!previousDateInterval}" oncomplete="refreshByDate();"/> 
+	                                <apex:outputText value="{0,date,d/M/yyyy}" style="font-family:Calibri,'Trebuchet MS',sans-serif;font-size:15px;">
+	                                    <apex:param value="{!startDate}"/>
+	                                </apex:outputText> 
+	                                
+	                                <apex:outputText value="-" />
+	                                
+	                                <apex:outputText value="{0,date,d/M/yyyy}" style="font-family:Calibri,'Trebuchet MS',sans-serif;font-size:15px;">
+	                                    <apex:param value="{!endDate}"/>
+	                                </apex:outputText>
+	                                <apex:commandLink style="font-family:Calibri,'Trebuchet MS',sans-serif;font-size:15px;" rerender="subTabInterval,mainChartPanel,filter,hiddenInterval,hiddenDate,hiddenTempDate" status="usageChartLoader" action="{!nextDateInterval}" value=">>" oncomplete="refreshByDate();" />      
+	                            </apex:panelGrid> 
+	                            
+	                    </apex:panelGrid>
+	    				<apex:panelGrid columns="1">
+		                    
+	                   		<apex:outputText value="Select date"></apex:outputText>
+	                           <apex:inputText Id="dateNameId" styleClass="whiteBox" value="{!datename}" onchange="refreshByDate();" size="10" id="demo" onClick="DatePicker.pickDate(true, this , false);" />
+	                           <!-- <img src="data:image/gif;base64,R0lGODlhEAAQAMQAANvn8klVa+bt9Onx9lRpiUWHuXaYtT13uVJgea/S5OPr8ENLXPL1+HiOqerv+m+NrYOqxYyzzFp5npa805/E2KjL3ikxQz5FVUHUD+fv93uhvercjYXaaer0/7jT7P///yH5BAAAAAAALAAAAAAQABAAAAWJ4CeOZCkCSVJRUwRphvFIjZgAGaDvevYRtk5heCgaDz9RZeDpNJ/OTvJDyXg8m+x1+0GIJo5mdhNtdkWRMFbLaXs+ARFEAG1yMBxp/KNRtDlbf28LIhoCd3l1UoQfBoduW1wXIg8MilAfkx8SAAwCnwqhCgADHxYiDQSqCAgBAQsLFxcWXia2IyEAOw==" 
+	               					size="20" alt="Calendar Icon" border="0" id="datePickerImage1"/> -->
+	                   
+		               
+	                    </apex:panelGrid>
+	                   
+	                    <apex:outputText escape="false" id="theText" style="width:50px;"> Trial data available from :<br/> {!InstallDate}  <div class="tooltip" style="display:inline;margin-left:100px;margin-top:-15px;">
+					    	  <img class="helpIcon" alt="" src="{!$Resource.qMark}"/>
+					    <span>This is the date that your daily usage data became availale during the trial. To view usage prior to this date simply select the <a href ="{!$Page.PortalWaterUsageList}">Water use</a> tab.</span>
+					</div></apex:outputText>
+					    	  
+	                </apex:panelGrid>
+                	
+                </apex:outputPanel>
+				 <!-- End of Main Filter Panel -->
+				<apex:pageMessage escape="false" strength="3" severity="info" summary="The availability and accuracy of this site and the data, information, materials and/or records presented on this page may vary throughout the trial. *<a href=/portal/articles/FAQ/Terms-of-Use-Digital-meter-trial>More information</a>"/>
+			     
+				<!-- Usage Chart and Status Panel -->
+                <apex:outputPanel Id="mainChartPanel" styleClass="mainChartPanel" layout="block">
+                            <!-- Main Chart Status Panel -->                    
+			                <apex:actionStatus id="usageChartLoader">
+			                    <apex:facet name="start">
+			                        <apex:outputPanel styleClass="blockUsageChart fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll" layout="block">
+			                                <apex:outputPanel layout="block" style="padding-top:15px;
+			                                										padding-right:15px;
+			                                										padding-left:15px;
+			                                										border-radius: 6px;
+			                                										margin-left:480px;
+			                                										margin-top:225px;
+			                                										position:absolute;
+			                                										width:100px;
+			                                										height:40px;
+			                                										background-color:white;">
+			                                    <apex:outputPanel layout="block" style="float:left;">
+			                                        <img src="{!$Resource.AjaxAnimation}"/>
+			                                    </apex:outputPanel>
+			                                    <apex:outputPanel layout="block" style="float:right;">
+			                                        <apex:outputText value="Loading..."></apex:outputText>
+			                                    </apex:outputPanel>
+			                                </apex:outputPanel>                         
+			                        </apex:outputPanel>
+			                    </apex:facet>
+			                </apex:actionStatus>
+			                <!-- End of main Chart Status Panel -->    
+			                 
+			                 <apex:outputPanel layout="block" style="padding-left:450px;padding-top:10px;padding-bottom:20px;">
+	                         	<apex:outputText style="font-size:25px;" value="My {!LOWER(currentInterval)} usage"></apex:outputText>
+	                 		 </apex:outputPanel>
+			                     
+			                 <!-- Main Chart Panel -->
+			                 <apex:outputPanel Id="dailyPanel" layout="block" style="height:85%;width:100%;">
+                    			
+			                 
+			                     <apex:chart id="UsageChart" height="400" width="1100" data="{!UsageByInterval}">
+			                     	
+			                     
+			                         <apex:legend position="right" Id="Legend"/>
+			                 
+			                         <apex:axis Id="LitresId" type="Numeric" position="left" fields="actualVar,averageVar,sAveVar,pAveVar,myAveVar" title="Litres" minimum="0"/>
+			                         <apex:axis type="Category" position="bottom" fields="intervalVar" 
+			                         title="{!horizontalLabel}"/> 
+			                    
+			                    			                         
+			                         <apex:barSeries title="Actual Usage" colorSet="#0097D2" showInLegend="true" orientation="vertical" axis="bottom" xField="intervalVar" yField="actualVar">
+			                         	<apex:chartTips id="chartTipId" rendererFn="renderer"/>
+			                         </apex:barSeries>
+			                         
+			                         <apex:lineSeries title="My average*" markerType="circle" axis="bottom" xField="intervalVar" yField="averageVar" markerSize="4" markerFill="#A20067" strokeColor="#A20067"/>
+			                         <apex:lineSeries title="My suburb*" markerType="circle" axis="bottom" xField="intervalVar" yField="sAveVar" markerSize="4" markerFill="#97D700" strokeColor="#97D700"/>
+			                         <apex:lineSeries title="Similar households*" markerType="circle" axis="bottom" xField="intervalVar" yField="pAveVar" markerSize="4" markerFill="#3EB1C8" strokeColor="#3EB1C8"/>
+			                         <apex:lineSeries rendered="{!IF(currentInterval == 'Daily',false,true)}" title="My target" markerType="circle" axis="bottom" xField="intervalVar" yField="myAveVar" markerSize="4" markerFill="#F3D03E" strokeColor="#F3D03E"/>
+			                         
+			                     </apex:chart>
+			                     
+			                 </apex:outputPanel>
+			               	<!-- End of Main Chart Panel -->
+                        	
+                        	<apex:outputText style="padding-left:760px;font-size:13px;" value="* these figures are averages based on the period selected"></apex:outputText>
+                        	<apex:outputPanel layout="block" style="font-size:13px;margin-top:-30px;padding-left:70px;">
+		                   		<b>Questions or feedback regarding the trial?</b>
+		                   		<br/>                  		
+		                   		<apex:outputLink value="{!$Page.PortalEnquiries}">Email</apex:outputLink><apex:outputText value=" or call us on" />
+		                   		<b> 1800 337 775 </b>
+		                   		<br/>
+		                   		(Monday to Friday, 8am to 5.30pm).
+		                   	</apex:outputPanel> 
+                    </apex:outputPanel>  
+					<!-- End of usage Chart and Status Panel -->
+					
+					
+            </apex:outputPanel> 
+            <!-- End of Main layout panel -->
+    </apex:outputPanel>  
+    <!-- End of Main panel -->
+
+    </apex:form>   
+</apex:component>

@@ -1,0 +1,1605 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Decline</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>DeleteSeries</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>NewEvent</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>OwnerId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Subject</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Call</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Meeting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Send Letter/Quote</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Type</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Meeting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Call</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>WhatId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>WhoId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <recordTypes>
+        <fullName>ECO_Event</fullName>
+        <active>true</active>
+        <label>ECO Event</label>
+        <picklistValues>
+            <picklist>Category_Level_1__c</picklist>
+            <values>
+                <fullName>Account Payments %26 Collections</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Asset Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Audit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Billing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Claims</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Community Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Compliance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Details</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Environmental Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Industry program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Insurance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Knowledge sharing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Land Development</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Plumbing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Policy Reform</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pricing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Programs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Regulatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Relationships</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Research</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales %26 Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strategy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transfer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Water quality</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Category_Level_2__c</picklist>
+            <values>
+                <fullName>Account%2FAccess</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Applications - Land Development</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Applications - Property Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Applications%2C Commercial Units</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Aquabiz</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Backflow</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Billing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Build over</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call transfer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Campaigns %26 Programs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Concession</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Debt Recovery Action</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Development Process</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Did Not Receive Bill</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Efficiency Programs %26 Products</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Events</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Funding</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Gardens Program %28Residential%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Give Explanation of Charges</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>High Usage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hot Issues - Media</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incorrect Charges</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Industrial and Private Water</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Information Statement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Information Statement Update</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Local Govt Strategic Relationship</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Meter Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Meter Readings</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Metering</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Move In %2F Move Out</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payments</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Personal Injury</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Plumbing Process</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property Declaration</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property Development Fire Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property Matters</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recycled Water</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Referral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Returned Account</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Service Issues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sewer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sewer - Claims</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sewer Connection Scheme</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Showerhead Exchange</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tappings</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tappings%2FPluggings</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Toilet Replacement Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unable to Pay</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Update Customer%2FPerson</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Update Property</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Vehicle</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Water</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Water - Claims</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Water Efficiency %2F Conservation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Water Off%2FOn</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Water Restrictions</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Category_Level_3__c</picklist>
+            <values>
+                <fullName>Acceptance of Works</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Access to Meter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Account Balance%2FDue Date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Account Password</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ad Hoc Billing Explained</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Add%2FAmend Concession Details</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Advice %2F Information Provided</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Alternate Water Supplies</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Alternate Water Supplies - Recycled Water</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Amend Direct Debit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Amend Email List %28Add%2FDelete%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Amend Meter Reading</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Amend Property Description</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Applications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Audit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BWG Offer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Backlog Sewer Charges Explained</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bad Debt Recommendation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Balance Transfer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bankruptcy and  Liquidations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Billing %2F Metering</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Billing Adjustment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bookings</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Build overs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Campaign Opt In%2FOut</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Caveat</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Certificate of Completion</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Change of Occupier Explained</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Check Meters</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Check for Tampering</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Claim</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Collision</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Complaint</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Confirm Article Contributor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Consent to connect Water or Sewer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Consolidations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contact Details Changed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit Card Payment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Classifaction Changes</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Read</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Read Taken</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Default Listing %28On%2FOff%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Delete Concession</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Denied Information Access %28No Authority%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Desalination</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Desalination Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Development Cycled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dial Before You Dig</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dialysis</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Differing Meter Numbers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dishonour</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Drainage %26 Waterways Explained</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Drawing set up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dry Tappings Meter Installations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Easements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EasyPay Card Order</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email%2FPhone Update</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee Issue</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Encumbrances</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Essential Services Commission</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Event %2F speaker</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Events</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exchange %28Planned and Unplanned%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exchange made</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exemptions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exemptions %2F Water Restrictions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Extension %28Private%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fault with Product%2FService</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Faults</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Faulty Enquiry</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Feedback</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Financial Hardship Support</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Financial Transfer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fire Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fire Services Explained</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Follow Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Force Billing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Freedom of Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Funding</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Generate New Customer Record</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Generate New Person Record</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Government - Centrepay</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Gravity Sewer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Group Account %28Add%2FDelete%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Group Account Balance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Guaranteed Service Levels</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Guidelines</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hot Water Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>How to Conduct Leak Test</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>How to Read Meter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hydroshare</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incident</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Increased Pricing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Information Provided</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Information Statements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Inspections</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Internal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Investigation Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invitation Offer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Land Servicing Advice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Last Account Explained</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Last Payment - Cheque Settlement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Leak Allowance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Legal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Legislation %26 Policy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Link Person Records</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low Pressure sewer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Manage Clericals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mercantile Action</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Merge Customers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Meter Reader Issue</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Meter Returns</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Meter Tappings</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Minor Sewer Alteration</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Missing Meter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Missing Meters</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Missing Payment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Modify Recovery</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Name Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Negotiated Settlements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Contact Details</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Direct Debit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non Works</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-Collision</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not for Profit Rebate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Notice of Sale</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On-site Kiosk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open or Close Charges</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Organise Refund</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other - Specify</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Authorities Works</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Owners Corp Explained</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ownership Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Parks Charge Explained</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment Issue</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Personal Injury</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Photographer Shoot Arranged</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Portal Password</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pricing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pricing Enquiry</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pricing Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Print Bill</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Priority Plumbing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Privacy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Product Sale</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Program Feedback</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property Class%2F Memo Changes</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property Information Statement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property Sewerage Plans</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property Visit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Provide Next Reading Date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RSVP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rates Updates</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rebate Offer %28Small Bus%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rebates</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Receipt Method Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recheck Meter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recovery Agency Issue</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recovery Notice Explained</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recycled Water</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recycled Water Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Relationship Engagement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remote Meters</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Report - Water Consumption</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Responsibility of Account%2FPayments</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reversal of Credit Card Payment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Role Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SDC Explained</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheme Amendments</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Segmentation Update</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Seminars</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Send Application Form</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Septic to Sewer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Service Restricted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sewer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sewer Depth Size and Offsets</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sewer and Water Plots</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sewerage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Showerhead Exchange</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Single Residential Applications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Special Credit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Special Read</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Statement of Compliance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Story %2F Photos Approval</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Subdivison</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Supply of Receipt</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>T-Insertion Bookings</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Telephone Issue</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tenancy Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Testing Meter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Third Party Access</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Time to Pay Extension</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Toilet Retrofit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Toilet installed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Town Planning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trade Waste</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trade Waste Explained</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transactions Statement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unable to Read Meter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unclaimed Credits</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unexplained Usage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unrestrict Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Update Mailing Address</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Update Meter Details</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Update Provided</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Usage Charges</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Validation Results</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Valuations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Verification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>View Bill</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Visit Site - Confirm Project Completion</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voluntary WaterMAP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>WEF Offer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Water</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Water %26 Sewer Services Explained</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Water Efficiency Program %2F Usage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Water Loss%2F Pressure %2F Quality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Water On%2FOff Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Water Restriction Breach</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Water Tanks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Water and Sewer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Water%2C Sewer and Recycled Water</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web%2FInternet Issue</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Welcome Home Kit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wet Tappings</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Withdraw Direct Debit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Works</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Group__c</picklist>
+            <values>
+                <fullName>Billing %26 Accounts</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Faults and Emergencies</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Key Account management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property Development</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Risk Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stakeholder Management</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Hidden_DD_Action_Type__c</picklist>
+            <values>
+                <fullName>Add</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Amend</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cancel</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Hidden_DD_Type__c</picklist>
+            <values>
+                <fullName>Bank Account</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Interaction_Type__c</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fax</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Follow Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IVR</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Meeting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MobileApp</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Notification Letters</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Online Survey</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Portal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SMS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Send Letter%2FQuote</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Social Media</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Visit</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Letter_Sent_to__c</picklist>
+            <values>
+                <fullName>Billing Address</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Customer Mailing Address</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Primary Address</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Mode__c</picklist>
+            <values>
+                <fullName>Action</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Query</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>New_eBill_Method__c</picklist>
+            <values>
+                <fullName>BPAY View</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mail</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>No_of_Contacts__c</picklist>
+            <values>
+                <fullName>1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>more than 3</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Previous_eBill_Method__c</picklist>
+            <values>
+                <fullName>BPAY View</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mail</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Subject</picklist>
+            <values>
+                <fullName>Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Meeting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Send Letter%2FQuote</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Meeting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+</CustomObject>

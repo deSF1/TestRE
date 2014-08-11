@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>None</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>Darryl R Peck &amp; Rachel M Oliver Customer Executive</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>Darryl R Peck &amp; Rachel M Oliver Customer Executive</name>
+    <opportunityAccessLevel>None</opportunityAccessLevel>
+    <parentRole>Executives</parentRole>
+</Role>

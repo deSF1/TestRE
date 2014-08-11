@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <body>&lt;div style=&quot;border:0; display: block; width: 728px; margin-bottom: 5px;&quot;&gt;	&lt;iframe id=&quot;homeframe&quot; src=&quot;/apex/PortalHomePanel?core.apexpages.devmode.url=1&quot; width=&quot;100%&quot; frameborder=&quot;0&quot; height=&quot;400&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;script type=&quot;text/javascript&quot;&gt;	var url = window.location.toString();	if (url.indexOf(&apos;/portal/&apos;, 0) &gt;= 0) {		document.getElementById(&quot;homeframe&quot;).src=&quot;/portal/PortalHomePanel?core.apexpages.devmode.url=1&quot;;	}&lt;/script&gt;</body>
+    <pageComponentType>htmlArea</pageComponentType>
+    <width>wide</width>
+</HomePageComponent>

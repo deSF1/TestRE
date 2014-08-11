@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Adhoc_Charge__c</fullName>
+        <externalId>false</externalId>
+        <label>Adhoc Charge ($)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Adjusted__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Adjusted</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Billing_Account__c</fullName>
+        <externalId>false</externalId>
+        <label>Billing Account</label>
+        <referenceTo>Billing_Account__c</referenceTo>
+        <relationshipName>Account_Periodic_Consumption_and_Charges</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Billing_Frequency__c</fullName>
+        <externalId>false</externalId>
+        <label>Billing Frequency</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Monthly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quarterly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Annual</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Concession_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Concession Amount ($)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Current_Read_Date__c</fullName>
+        <description>Current consumption meter read date.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Current consumption meter read date.</inlineHelpText>
+        <label>Current Read Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Drainage_Charge__c</fullName>
+        <externalId>false</externalId>
+        <label>Drainage Charge ($)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>End Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Financial_Year__c</fullName>
+        <externalId>false</externalId>
+        <label>Financial Year</label>
+        <length>10</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Fire_Service_Usage_Cost__c</fullName>
+        <externalId>false</externalId>
+        <label>Fire Service Usage Cost ($)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Fire_Service_Volume__c</fullName>
+        <externalId>false</externalId>
+        <label>Fire Service Volume (KL)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Current_Year__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Set by workflow and unset by batch apex</description>
+        <externalId>false</externalId>
+        <label>Is Current Year</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Misc_Charge__c</fullName>
+        <externalId>false</externalId>
+        <label>Misc Charge</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Days__c</fullName>
+        <description>Number of days in the consumption period (based on meter read dates)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of days in the consumption period (based on meter read dates)</inlineHelpText>
+        <label>Number of Days</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Parks_Charge__c</fullName>
+        <externalId>false</externalId>
+        <label>Parks Charge ($)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Period__c</fullName>
+        <externalId>false</externalId>
+        <label>Period</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Quarter 1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quarter 2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quarter 3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quarter 4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>January</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>February</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>March</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>April</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>May</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>June</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>July</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>August</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>September</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>October</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>November</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>December</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Previous_Read_Date__c</fullName>
+        <description>Previous consumption meter read date</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Previous consumption meter read date</inlineHelpText>
+        <label>Previous Read Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Recycled_Water_Cost__c</fullName>
+        <externalId>false</externalId>
+        <label>Recycled Water Cost ($)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Recycled_Water_Service_Charge__c</fullName>
+        <externalId>false</externalId>
+        <label>Recycled Water Service ($)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Recycled_Water_Volume__c</fullName>
+        <externalId>false</externalId>
+        <label>Recycled Water Volume (KL)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sewage_Disposal_Cost__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Sewage Disposal Cost ($)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Sewage_Disposal_Volume__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Sewage Disposal Volume (KL)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sewage_Service_Charge__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Sewage Service ($)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Source__c</fullName>
+        <description>Flag to identify data migrated from legacy systems eg. DTDigital.</description>
+        <externalId>false</externalId>
+        <label>Source</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Read</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rebilled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read in Progress</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Billed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read Requested</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Billing Pending</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Exception Pending</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Trade_Waste_Agreement__c</fullName>
+        <description>Trade Waste Agreement Fee</description>
+        <externalId>false</externalId>
+        <label>Trade Waste Agreement ($)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Trade_Waste_Cost__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Trade Waste Usage Cost ($)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Trade_Waste_Volume__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Trade Waste Volume (KL)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Universal_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Universal Id</label>
+        <length>30</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Water_Cost__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Water Usage Cost ($)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Water_Service_Charge__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Service charge for water</description>
+        <externalId>false</externalId>
+        <label>Water Service ($)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Water_Use_Range__c</fullName>
+        <externalId>false</externalId>
+        <formula>If( Water_Volume__c &gt;5000&amp;&amp;Water_Volume__c&lt;10000, &quot;5-10&quot;, IF(Water_Volume__c&gt;50000,&quot;&gt;50&quot;,  &quot;10-50&quot;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Water Use Range</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Water_Volume__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Water Volume (KL)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Consumption and Charge</label>
+    <nameField>
+        <label>Consumption Period</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Consumption and Charges</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

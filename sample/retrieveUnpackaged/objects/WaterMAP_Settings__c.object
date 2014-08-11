@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <customSettingsVisibility>Protected</customSettingsVisibility>
+    <description>Indicates the current watermap year. Used in:
+- Default year for customer plans
+- When activating a waterMAP, if &gt; start year, use the custom setting
+- When creating next years submission, if custom setting &gt; last submission year + 1</description>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Current_Period__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Use the format YYYY/YY (e.g. 2010/11).</inlineHelpText>
+        <label>Current Period</label>
+        <length>7</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>DONOT USEWaterMAP Settings</label>
+</CustomObject>

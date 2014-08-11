@@ -1,0 +1,33 @@
+<apex:page standardcontroller="Case" extensions="CaseAfterSaveCon" action="{!updateSMR}">
+    <!-- 
+    Type:       VF page
+    Purpose:    Inline visualforce page section in case detail page
+    ---------------------------------------------------------------
+    History:
+        5-Sep-2012 Davey Yu (Cloud Sherpas) ID#TP212 - Manage Addresses SMR
+    -->
+    <apex:includeScript value="/support/console/24.0/integration.js"/>
+    <apex:form >
+        <script>
+            window.onload = function(){
+                if({!isManaged}){
+                    if(sforce.console.isInConsole()){
+                        openConsoleTab();
+                    }else{
+                         window.top.location = '{!$Page.AccountMassBAcctAddressFlagUpdate}?id={!case.AccountId}&cid={!case.Id}&loaded=true';
+                    }
+                }
+            }
+            
+            function openConsoleTab(){
+                var openSubtab = function(result) {              
+                    sforce.console.openSubtab(result.id,'/apex/AccountMassBAcctAddressFlagUpdate?id={!case.AccountId}&cid={!case.Id}&loaded=true',true);            
+                };
+                // Get the enclosing primary tab id. The openSubtab method is set as the callback
+                sforce.console.getEnclosingPrimaryTabId(openSubtab);
+            }
+            
+        </script>
+        <apex:Messages ></apex:Messages>
+    </apex:form>
+</apex:page>

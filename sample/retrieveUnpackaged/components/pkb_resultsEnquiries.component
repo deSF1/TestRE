@@ -1,0 +1,91 @@
+<apex:component allowDML="true" controller="pkb_Controller" id="theComponent">
+    <!--
+    Type:      Component
+    Purpose:   Displays search results based on public fields
+    
+    Used By:    PortalEnquiries VF Page
+    ---------------------------------------------------------------
+    History:
+
+    29-May-2012 DYu         Created
+    -->
+    <apex:attribute name="enqCon" type="PortalEnquiries_Controller" required="true" description="handle to the PortalEnquiries_Controller" />
+    <apex:attribute name="enteredSearch" type="string" required="true" description="entered search" assignTo="{!urlSearchQuery}"/>
+    <apex:attribute name="rowClass" description="The individual row class" type="string"/>
+    
+    <apex:variable var="noResultsFound" value="{!IF(foundRecommended, 'false', 'true')}" />
+    <apex:variable var="currPage" value="{!IF(displayContactUs, 1, currPage)}" />
+    <apex:variable var="varMore" value="false"/>
+    
+   	<apex:outputPanel layout="block" id="results">
+		<div id="results">
+		    <apex:panelGrid width="445px;">
+		        <table width="100%" class="list" border="0" cellspacing="0" cellpadding="0">
+		            <tr>
+		                <th style="background-color: #EFF8FD; width: 105px">Article title</th>
+		                <th style="background-color: #EFF8FD; width: 47px; text-align: center;">Ratings</th>
+		            </tr>
+		        </table>
+		        <knowledge:articleList articleVar="a" 
+		            pageSize="{!pkbCon.articlesPerPage}"
+		            hasMoreVar="more"
+		            keyword="{!enteredSearch}"
+		            language="{!pkbCon.selectedLanguage}"
+		            pageNumber="{!pkbCon.currPage}">
+		            <table width="100%" class="list" border="0" cellspacing="0" cellpadding="0">
+		                <tr>
+		                    <td style="width:105px;">
+		                        <a onclick="openKBArticleDeflect_{!a.id}(); return false;"
+		                            style="display: block; cursor:pointer;"
+		                            class= "rowClass"
+		                            target="_blank">
+		                            {!a.title}
+		                         </a>
+		                         
+		                    </td>
+		                    <td style="width:47px; text-align: center;">
+		                        <c:pkb_rating aid="{!a.id}"/>
+		                    </td>
+		                    
+		                </tr>
+		            </table>
+		            <apex:variable var="varMore" value="{!more}"/> 
+		            <script type="text/javascript">
+		            
+		               function openKBArticleDeflect_{!a.id}(){ 
+		                   window.open('{!URLFOR($Action.KnowledgeArticle.View,a.id,['popup' = 'true', 'caseid' = enqCon.caseRec.id, 'aid' = a.id])}', '_blank', 'menubar=no,status=no,resizable=yes,scrollbars=yes,location=no,height=480,width=640');
+		               }
+		             
+		           </script>
+		           <apex:variable var="noResultsFound" value="false" />
+		           <script type="text/javascript">noResultsFound = {!noResultsFound}</script>
+		        </knowledge:articleList>
+		    </apex:panelGrid>
+		    <apex:outputPanel layout="block" rendered="{!(noResultsFound == 'true')}" style="margin-top: 10px; margin-left: 5px;">
+		        {!$Label.PKB2_No_Results}
+		    </apex:outputPanel>
+		    <center>
+		        <apex:outputPanel layout="block" style="height: 20px; margin-top: 10px;" styleClass="resultsPaginationLinks" rendered="{!NOT(pkbCon.displayContactUs)}" id="btnPanel">
+		            <div style="margin-bottom: 10px;" id="btnDiv">
+		                <apex:actionStatus id="status">
+		                    <apex:facet name="start"><apex:image value="{!$Resource.PortalAjaxLoader}" /></apex:facet>
+		                    <apex:facet name="stop"></apex:facet>
+		                </apex:actionStatus>
+		                &nbsp;  
+		                <apex:commandLink action="{!pkbCon.firstPage}" rerender="results" rendered="{!(pkbCon.currPage > 2)}" status="status"><apex:image value="{!$Resource.pkb_first}"></apex:image></apex:commandLink>
+		                &nbsp;
+		                <apex:commandLink action="{!pkbCon.prevPage}" rerender="results" rendered="{!(pkbCon.currPage > 1)}" status="status"><apex:image value="{!$Resource.pkb_previous}"></apex:image>&nbsp;{!$Label.PKB2_Previous_Link}</apex:commandLink>
+		                &nbsp; 
+		                <apex:commandLink action="{!pkbCon.nextPage}" rerender="results" status="status" id="nextBtn">{!$Label.PKB2_Next_Link}&nbsp;<apex:image value="{!$Resource.pkb_next}"></apex:image>
+		                    <script  type="text/javascript">
+		                        if ("{!varMore}" == "false"){ 
+		                            document.getElementById('{!$Component.nextBtn}').style.visibility = 'hidden';
+		                        }
+		                    </script>
+		                </apex:commandLink>
+		            </div>
+		        </apex:outputPanel>
+		    </center>
+	    </div>
+    </apex:outputPanel>
+</apex:component>

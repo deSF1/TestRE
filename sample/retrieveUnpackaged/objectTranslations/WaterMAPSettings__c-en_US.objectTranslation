@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>WaterMAPSettings</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>WaterMAPSettings</value>
+    </caseValues>
+    <fields>
+        <help><!-- Use YYYY/YY format (e.g. 2009/10). --></help>
+        <label><!-- Current Period --></label>
+        <name>Current_Period__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

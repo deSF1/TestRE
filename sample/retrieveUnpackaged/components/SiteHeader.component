@@ -1,0 +1,133 @@
+<apex:component id="headerComponent">
+
+    <!--
+        Description: Site header rebranded
+
+        History:
+            14-Jun-2011 D.Thong (Salesforce)    Created
+            23-Apr-2012 D.Yu                    NEW: Updated the login labels to sentence case
+            10-May-2012 I.Castillo              Added "?" to Forgot your username
+            14-May-2012 Ji Zhang				Updated Logged in as link
+    -->
+
+    <head>
+        <script type="text/javascript">
+            /* To do: Add language key locale to url */
+            function searchText(val){
+                if(val != '')
+                    window.parent.location = '{!$Page.pkb_Home}?q='+val;
+            }
+            
+            function searchTextBinocular(){
+                var val = document.getElementsByName('searchTextBox').item(0).value;
+                if(val != '')
+                    window.parent.location = '{!$Page.pkb_Home}?q='+val;
+            }
+            
+            function restorePrompt(val){
+            	document.getElementsByName('searchTextBox').item(0).value = val;
+            }
+            function resetText(){
+            	document.getElementsByName('searchTextBox').item(0).value = '';
+            }
+            
+        </script>
+        
+        <script>
+		  	
+		  	function hideDiv(val) { 
+				if(val=='true'){
+				document.getElementById('hidReset').style.display = "inline"; 
+				}
+				else{
+				document.getElementById('hidReset').style.display = "none";
+				restorePrompt('Search...');
+				}
+				
+			}
+			function checkSearch(){
+				if(document.getElementById('searchTextBox').value!='' && document.getElementById('searchTextBox').value!='Search...' && document.getElementById('searchTextBox').value!=null){
+				hideDiv('true');
+				}
+				else{
+				hideDiv('false');
+				}
+			}
+			function checkBinocular(){
+				if(document.getElementById('searchTextBox').value!='' && document.getElementById('searchTextBox').value!='Search...' && document.getElementById('searchTextBox').value!=null){
+				searchTextBinocular();
+				}
+				else{
+				restorePrompt('Search...');
+				}
+			}
+  		</script>
+        
+        <apex:stylesheet value="{!$Resource.PortalHeaderFooterStyles}"/>
+        <style type="text/script">
+            .searchBox{
+              background-repeat:no-repeat;
+              padding-left:20px;
+            }
+
+            
+        </style>
+    </head>
+
+    <apex:attribute name="authenticated" 
+            description="indicates if the component is being used whilst logged in" 
+            type="Boolean" 
+            default="false"/>
+            
+
+    <div class="header-footer">
+        <div class="header-content" style="height: 100px">
+            <div style="float: left; width: 250px; padding-left: 25px; padding-top: 3px">
+                <apex:outputLink value="{!IF($Profile.Name='Portal Profile' && NOT(authenticated), 'SiteLogin', 'PortalMyAccountHomePage')}" target="_top">
+                    <apex:image url="{!$Resource.SEWPortalLogo}" 
+                            style="align: left" alt="South East Water" 
+                            title="South East Water"/>
+                </apex:outputLink>
+            </div>
+            <apex:outputPanel style="float: right; width: 400px; padding-top: 15px;"
+                    layout="block"
+                    rendered="{!AND(ISPICKVAL($User.UserType,'Guest'), $Site.LoginEnabled)}">
+                <!-- <apex:outputLink value="http://www.sewl.com.au/ContactUs/Pages/contact_us.aspx"  target="_blank">Contact Us</apex:outputLink>
+                <span style="margin-left:15px"/>  -->
+                <apex:outputText style="font-weight: bold" value="Not logged in"/>
+                <br/>
+                <apex:outputLink styleclass="bulletedLinkWhite" value="{!$Site.Prefix}/apex/SiteLogin" >Log in</apex:outputLink>
+                <span style="margin-left:15px"/>
+                <apex:outputLink styleclass="bulletedLinkWhite" value="{!$Site.Prefix}/apex/ForgotPassword" >Reset password</apex:outputLink>
+                <span style="margin-left:15px"/>
+                <apex:outputLink styleclass="bulletedLinkWhite" value="{!$Site.Prefix}/apex/ForgotUsername" >Forgot your username?</apex:outputLink>
+            </apex:outputPanel>
+            <apex:outputPanel style="float: right; width: 280px; padding-top: 15px;"
+                    rendered="{!NOT(ISPICKVAL($User.UserType,'Guest'))}" 
+                    layout="block">
+                <apex:outputLink value="{!$Page.PortalMyDetails}" style="font-weight:bold; white-space:nowrap;" target="_top">
+                    <apex:outputText value="Logged in as {!$User.FirstName + ' ' + $User.LastName}"/>
+                </apex:outputLink>
+                <br/>
+                <apex:outputLink styleclass="bulletedLinkWhite" value="{!$Site.Prefix}/secur/logout.jsp"  target="_top">Log out</apex:outputLink>
+                <span style="margin-left:15px"/>
+                <apex:outputLink styleclass="bulletedLinkWhite" value="{!$Page.ChangePassword}" target="_top">Reset password</apex:outputLink>
+                <div style="margin-top:10px; width: 205px;">
+                    <table width="204" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="12"><a href="#" onclick=" checkBinocular();"><img src="{!$Resource.PortalSearchBinocular}" width="30" height="30" /></a></td>
+                            <td width="192" style="background-image: URL({!$Resource.PortalSearchText})"><label for="searchTextBox"></label>
+                            <input type="text"  value="Search..." name="searchTextBox" id='searchTextBox' style="width: 75%; border: transparent;moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none; color: #0097D2;" onkeydown="if (event.keyCode == 13) searchText(this.value);" 
+                            onfocus="if(this.value==this.defaultValue) this.value=''; hideDiv('true');"  onblur="checkSearch();" />
+                            <div id="hidReset" style="display: none; margin-left: 10px;" >
+				  			<a href="#" id="resetButton"  class="reset" onclick="resetText(); hideDiv('false');" ><apex:image value="{!$Resource.jqueryResetIcon}"/></a>
+				 			</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </apex:outputPanel>
+            <div style="clear:both"/>
+        </div>
+    </div>
+</apex:component>

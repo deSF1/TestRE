@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Portal Bill History</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Portal Bill History</value>
+    </caseValues>
+    <fields>
+        <label><!-- Bill_Number --></label>
+        <name>Bill_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billed Amount --></label>
+        <name>Billed_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Brought Forward --></label>
+        <name>Brought_Forward__c</name>
+    </fields>
+    <fields>
+        <label><!-- Date --></label>
+        <name>Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total --></label>
+        <name>Total__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

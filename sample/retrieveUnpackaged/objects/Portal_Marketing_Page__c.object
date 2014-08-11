@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Contains information about the Marketing pages that are displayed when a user first logs into the Home page of the Portal</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Button_Label__c</fullName>
+        <description>The label which will be displayed on the button that takes the user to the appropriate page.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The label which will be displayed on the button that takes the user to the appropriate page.</inlineHelpText>
+        <label>Button Label</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Button_URL__c</fullName>
+        <description>When the button is pressed, the user is taken to this URL (in a new page).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When the button is pressed, the user is taken to this URL (in a new page).</inlineHelpText>
+        <label>Button URL</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Close_Button_Label__c</fullName>
+        <description>The label which will be displayed on the button that closes the marketing page.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The label which will be displayed on the button that closes the marketing page.</inlineHelpText>
+        <label>Close Button Label</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Criteria_Logic__c</fullName>
+        <description>Indicates the logic for the criteria rules</description>
+        <externalId>false</externalId>
+        <inlineHelpText>(1 AND 2) OR 3</inlineHelpText>
+        <label>Criteria Logic</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Display_Frequency_Type__c</fullName>
+        <description>How often the marketing page is to be displayed.  If Once only is selected, Display Frequency Value is ignored.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select how often the marketing page is to be displayed.  If Once only is selected, Display Frequency Value is ignored, otherwise, you need to enter a Display Frequency Value.</inlineHelpText>
+        <label>Display Frequency Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Once Only</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Every # Logins</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Every # Days</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Display_Frequency_Value__c</fullName>
+        <description>How often the marketing page is to be displayed.  If Once only is selected, this value is ignored</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter how often the marketing page is to be displayed.  If Once only is selected, this value is ignored, otherwise, you need to enter this value.</inlineHelpText>
+        <label>Display Frequency Value</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Display_Maximum_Times__c</fullName>
+        <description>The maximum number of times the page is displayed to any single user.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The maximum number of times the page is displayed to any single user.</inlineHelpText>
+        <label>Display Maximum Times</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Display_Opt_Out_Option__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Indicates whether to display the link where the user can request not to display this Marketing Page again.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates whether to display the link where the user can request not to display this Marketing Page again.</inlineHelpText>
+        <label>Display Opt Out Option</label>
+        <trackHistory>true</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>End_Timestamp__c</fullName>
+        <description>The date/time when to stop showing the marketing page to the users.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the date and time for when the marketing page should no longer be displayed to users.</inlineHelpText>
+        <label>End Timestamp</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>HTML__c</fullName>
+        <description>The HTML code for the marketing page.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the HTML code which will be displayed in the splash page.</inlineHelpText>
+        <label>HTML</label>
+        <length>32768</length>
+        <trackHistory>true</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>35</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Page_Height__c</fullName>
+        <description>The height of the marketing splash page.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The height of the marketing splash page.</inlineHelpText>
+        <label>Page Height</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Page_Title__c</fullName>
+        <description>The text which is displayed at the top of the market page dialog</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The text which is displayed at the top of the market page dialog</inlineHelpText>
+        <label>Page Title</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Page_Width__c</fullName>
+        <description>The width of the marketing splash page.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The width of the marketing splash page.</inlineHelpText>
+        <label>Page Width</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Priority__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The priority of the marketing page, just in case a user matches multiple campaigns.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the priority number. The value should be unique for all active marketing pages.  For random, enter 0.</inlineHelpText>
+        <label>Priority</label>
+        <precision>2</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Start_Timestamp__c</fullName>
+        <description>The date/time when to start showing the marketing page to the users.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the start date and time for when the marketing page should be displayed to users.</inlineHelpText>
+        <label>Start Timestamp</label>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <label>Portal Marketing Page</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Start_Timestamp__c</columns>
+        <columns>End_Timestamp__c</columns>
+        <columns>Priority__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>All_Current_and_Future</fullName>
+        <columns>Priority__c</columns>
+        <columns>NAME</columns>
+        <columns>Start_Timestamp__c</columns>
+        <columns>End_Timestamp__c</columns>
+        <columns>Display_Frequency_Type__c</columns>
+        <columns>Display_Frequency_Value__c</columns>
+        <columns>Display_Maximum_Times__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>End_Timestamp__c</field>
+            <operation>greaterOrEqual</operation>
+            <value>TODAY</value>
+        </filters>
+        <label>All Current and Future</label>
+    </listViews>
+    <nameField>
+        <label>Portal Marketing Page Name</label>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Portal Marketing Pages</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <webLinks>
+        <fullName>Preview</fullName>
+        <availability>online</availability>
+        <description>Shows a preview of the Marketing Page</description>
+        <displayType>button</displayType>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>page</linkType>
+        <masterLabel>Preview</masterLabel>
+        <openType>newWindow</openType>
+        <page>PortalMarketingPageView</page>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+    </webLinks>
+</CustomObject>

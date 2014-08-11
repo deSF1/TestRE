@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Billing_Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Billing Account</label>
+        <referenceTo>Billing_Account__c</referenceTo>
+        <relationshipLabel>Products Owned</relationshipLabel>
+        <relationshipName>Products_Owned</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Cost__c</fullName>
+        <externalId>false</externalId>
+        <label>Cost</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Customer__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Products Owned</relationshipLabel>
+        <relationshipName>Products_Owned</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Date_of_Purchase__c</fullName>
+        <externalId>false</externalId>
+        <label>Date of Purchase</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Plan__c</fullName>
+        <externalId>false</externalId>
+        <label>Payment Plan</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Upfront</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Instalment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Product__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Product</label>
+        <referenceTo>Product2</referenceTo>
+        <relationshipLabel>Products Owned</relationshipLabel>
+        <relationshipName>Products_Owned</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Property__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Property</label>
+        <referenceTo>Property__c</referenceTo>
+        <relationshipLabel>Products Owned</relationshipLabel>
+        <relationshipName>Products_Owned</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Rebate_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Rebate Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Rebate_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Rebate Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Rebate_Flag__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Rebate Flag</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Rebate_cnt__c</fullName>
+        <description>Hidden formula used to rollup rebate flag to the customer level.</description>
+        <externalId>false</externalId>
+        <formula>IF( Rebate_Flag__c , 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Rebate cnt</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Product Owned</label>
+    <nameField>
+        <displayFormat>PDT{0000000000}</displayFormat>
+        <label>Product Owned Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Products Owned</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

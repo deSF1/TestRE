@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Event Affected Property</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Event Affected Properties</value>
+    </caseValues>
+    <fields>
+        <label><!-- External ID --></label>
+        <name>External_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Property --></label>
+        <name>Property__c</name>
+        <relationshipLabel><!-- Event Affected Properties --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- SEW Event --></label>
+        <name>SEW_Event__c</name>
+        <relationshipLabel><!-- Event Affected Properties --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- WSI --></label>
+        <name>WSI__c</name>
+        <relationshipLabel><!-- Event Affected Properties --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>Event Affected Property Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,1600 @@
+<apex:page standardController="Account" extensions="CreateCustomerAndPersonWizardExCon" id="thePage"> 
+<!-- 
+    Type:       VF page
+    Purpose:    Creates customer and corresponding persons in SFDC
+    ---------------------------------------------------------------
+    History:
+        7-Feb-2012 DT - #370 show first name/last name on individual
+        9-Feb-2012 DT - #375 do not show copy info for non-res company
+        12-Feb-2012 DT - #399 Make phone # no longer mandatory
+        21-Feb-2012 DT - #344 Relocated copy address button to middle
+        15-Oct-2012 J.Jayoma - #336 Warning Dup Customer
+    
+ -->
+    <!-- HIDDEN FIELDS START -->
+    <apex:outputField rendered="false" value="{!Account.RecordType.DeveloperName}"/>
+    <apex:outputField rendered="false" value="{!Account.RecordType.Name}"/>
+    <!-- HIDDEN FIELDS END -->
+    <apex:sectionHeader title="Create Customer & Person Wizard" subtitle="New Customer and Person"/>
+    <apex:includeScript value="/support/console/22.0/integration.js"/>
+    <apex:includeScript value="{!$Resource.experianqas__PopupHelperJS}"/>
+    <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}"/> 
+    <apex:includeScript value="{!$Resource.highlight}"/>            
+    <style type="text/css">
+             
+        .highlighted
+        {
+            background-color:Yellow; 
+        }
+
+        .highlight {
+            background-color: #FFFFAA;
+           
+        }
+                
+        .highlight {
+                    padding:0px 0px; 
+                    margin:0 0px;
+        }
+
+    </style>
+        
+    <script type="text/javascript">         
+                
+        function setTabTitle() {
+            if(sforce.console.isInConsole())
+            sforce.console.setTabTitle('New Customer'); 
+        }
+
+        var previousOnload = window.onload;
+        window.onload = function() {
+        if (previousOnload) {
+            previousOnload();
+        }
+            setTabTitle();
+        }
+        
+        function validateAddress(obj){
+           popupWin = window.open('/apex/experianqas__QASPopup?id='+obj.id+'&navUrl=x,' + encodeURIComponent('{!getCompletedCustomerPageURL}') +'&isLaunchButton=true' +'&tp='+obj.touchpoint,
+               '_blank', 'width=775,height=420,status=yes,toolbar=no,menubar=no');
+        }    
+      
+    </script>
+    <apex:pageMessages />
+    <apex:form id="theForm">    
+        <apex:actionFunction name="xAddressMailing" action="{!Address}" status="loading" oncomplete="CloseQASDialog();" rerender="custInfoEntryOP">  
+            
+                <apex:param name="firstParam" assignTo="{!MailingStreet}" value="" />  
+                <apex:param name="secondParam" assignTo="{!MailingCity}" value="" />  
+                <apex:param name="thirdParam" assignTo="{!MailingState}" value="" />  
+                <apex:param name="fourthParam" assignTo="{!MailingPostal}" value="" />  
+                <apex:param name="fifthParam" assignTo="{!MailingCountry}" value="" /> 
+               
+        </apex:actionFunction> 
+        
+         <apex:actionFunction name="xAddressPrimary" action="{!Address}" status="loading" oncomplete="CloseQASDialog();" rerender="custInfoEntryOP">            
+                <apex:param name="firstParam" assignTo="{!primaryStreet}" value="" />  
+                <apex:param name="secondParam" assignTo="{!primaryCity}" value="" />  
+                <apex:param name="thirdParam" assignTo="{!primaryState}" value="" />  
+                <apex:param name="fourthParam" assignTo="{!primaryPostal}" value="" />  
+                <apex:param name="fifthParam" assignTo="{!primaryCountry}" value="" />         
+        </apex:actionFunction> 
+        
+        <apex:actionFunction name="clearall" action="{!clearSearchVariables}" status="loading" oncomplete="highlight();">  
+             
+        </apex:actionFunction> 
+        
+        
+        <!-- Mailing Address -->
+        <apex:inputHidden id="hiddenMailingDPID" value="{!Account.Billing_Address_DPID__c}"  />                     
+        <apex:inputHidden id="hiddenMailingStreet" value="{!Account.BillingStreet}" />
+        <apex:inputHidden id="hiddenMailingCity" value="{!Account.BillingCity}" />
+        <apex:inputHidden id="hiddenMailingState" value="{!Account.BillingState}"  />
+        <apex:inputHidden id="hiddenMailingPostalCode" value="{!Account.BillingPostalCode}" />
+        <apex:inputHidden id="hiddenMailingCountry" value="{!Account.BillingCountry}"  />  
+        
+        <!-- Primary Address -->
+        <apex:inputHidden id="hiddenPrimaryDPID" value="{!Account.Primary_Address_DPID__c}" />  
+        <apex:inputHidden id="hiddenShippingStreet" value="{!Account.ShippingStreet}" />
+        <apex:inputHidden id="hiddenShippingCity" value="{!Account.ShippingCity}" />
+        <apex:inputHidden id="hiddenShippingState" value="{!Account.ShippingState}"  />
+        <apex:inputHidden id="hiddenShippingPostalCode" value="{!Account.ShippingPostalCode}"  />
+        <apex:inputHidden id="hiddenShippingCountry" value="{!Account.ShippingCountry}" />
+       
+        <!-- TP 336 Error Message  -->
+        <apex:outputPanel id="noA" layout="block">                                 
+            <apex:pageMessage severity="Error" strength="2" escape="false" summary="{!ErrorMessage}" rendered="{!isError}"/> 
+        </apex:outputPanel>
+            
+        <apex:outputPanel id="wholePage">
+            <apex:inputHidden value="{!isCompany}" id="hiddenInput" />
+           
+            <apex:pagemessages rendered="{!NOT(createSuccessful)}"/>            
+            <apex:outputPanel rendered="{!ISNULL(Account.RecordTypeId)}">
+                <apex:pageBlock title="Customer Record Type Selection">
+                    <apex:pageBlockSection >
+                        <apex:pageBlockSectionItem >                            
+                            <apex:outputLabel value="{!$ObjectType.Account.fields.RecordTypeId.label}"/>
+                            <apex:outputPanel >
+                                
+                                <apex:selectList size="1" value="{!Account.RecordTypeId}">
+                                    <apex:selectOptions value="{!customerRecordTypeSelections}"/>
+                                    <apex:actionSupport event="onchange" action="{!updateCustRecordType}" status="recordTypeSelectStatus" reRender="wholePage,test"/>
+                                </apex:selectList>
+                                &nbsp;&nbsp;
+                                <apex:actionStatus id="recordTypeSelectStatus">
+                                    <apex:facet name="start">
+                                        <apex:image value="{!$Resource.AjaxAnimation}" alt="Loading..."/>
+                                    </apex:facet>
+                                </apex:actionStatus>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:outputPanel>
+            <apex:outputPanel id="custInfoEntryOP" rendered="{!NOT(ISNULL(Account.RecordTypeId))}">
+                <apex:pageblock title="1. New {!Account.RecordType.Name} Details" mode="edit" id="pbuCstInfo">
+                    
+                    <!-- <apex:pageblockSection rendered="{!NOT(isNonResCompany) && ISNULL(createdCustomerId)}">  -->
+                    <apex:pageblockSection rendered="{!NOT(isNonResCompany) && ISNULL(createdCustomerId)}" id="pbsInput" columns="1"> 
+                         <!--<apex:inputField value="{!Account.Title__c}"/>
+                        <apex:inputField value="{!Account.Initials__c}"/>-->                       
+                                           
+                        <apex:pageblockSectionItem id="pbsiInput" >
+                            <!--<apex:outputPanel >
+                                <apex:outputLabel value=""/> 
+                                <apex:outputLabel value=""/> 
+                                </apex:outputPanel>
+                             -->
+                            <apex:panelGrid columns="4" cellpadding="0px" cellspacing="0px">
+                            
+                                <apex:outputLabel value="First name"/>
+                                <apex:outputLabel value="Last name"/>
+                                <apex:outputLabel value="DOB (DD/MM/YYYY)"/>
+                                <apex:outputLabel value="Licence"/>
+                                
+                                
+                                <apex:inputText value="{!fakeFirstCurrentPersonFirstName}" id="firstFN"/>
+                                <apex:inputText value="{!fakeFirstCurrentPersonLastName}" id="firstSN"/>                               
+                                <apex:inputField value="{!Account.Applicable_Date__c}" id="bdatefield" label="Date of birth" style="width:120px;" onblur="validateInputFirst()">
+                                                <script type="text/javascript">
+                                                    // hide the date defaulter
+                                                    settlementdate = document.getElementById("{!$Component.bdatefield}");
+                                                    settlementdate.nextSibling.style.display="none";
+                                                    document.getElementById('{!$Component.bdatefield}').size = "8";     
+                                                    
+                                                    function validateInputFirst(){
+                                                        var inputFirst = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:bdatefield"]').val();
+                                                        var inputSecond = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:bdatefield2"]').val();
+                                                        var inputThird = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:bdatefield3"]').val();
+                                                        if((inputFirst.length<8 && inputFirst.length!=0)|| (inputSecond.length<8 && inputSecond.length!=0) || (inputThird.length<8 && inputThird.length!=0)){
+                                                            alert('Date must be in DD/MM/YYYY format to proceed searching.');
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbsNext:pbsiNext:cmdBtnNext"]').hide();
+                                                        }
+                                                        else{
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbsNext:pbsiNext:cmdBtnNext"]').show();
+                                                        }
+                                                    
+                                                    }                 
+                                                                                                                    
+                                                </script>
+                                </apex:inputField>                       
+                                <apex:inputText value="{!licenseFirst}" id="firstLicense"/>
+                                
+                                
+                                <apex:inputText value="{!fakeSecondCurrentPersonFirstName}" id="secondFN"/>
+                                <apex:inputText value="{!fakeSecondCurrentPersonLastName}" id="secondSN"/>
+                                <apex:inputField value="{!Account.Segment_Profile_Next_Review_Date__c}" id="bdatefield2" label="Date of birth" style="width:120px;" onblur="validateInputSecond()">  
+                                    <script type="text/javascript">
+                                        // hide the date defaulter
+                                         settlementdate = document.getElementById("{!$Component.bdatefield2}");
+                                         settlementdate.nextSibling.style.display="none";
+                                         document.getElementById('{!$Component.bdatefield2}').size = "8";   
+                                         
+                                         function validateInputSecond(){
+                                            var inputFirst = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:bdatefield"]').val();
+                                            var inputSecond = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:bdatefield2"]').val();
+                                            var inputThird = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:bdatefield3"]').val();
+                                            if((inputFirst.length<8 && inputFirst.length!=0)|| (inputSecond.length<8 && inputSecond.length!=0) || (inputThird.length<8 && inputThird.length!=0)){
+                                                alert('Date must be in DD/MM/YYYY format to proceed searching.');
+                                                j$('[id="thePage:theForm:pbuCstInfo:pbsNext:pbsiNext:cmdBtnNext"]').hide();
+                                            }
+                                            else{
+                                                j$('[id="thePage:theForm:pbuCstInfo:pbsNext:pbsiNext:cmdBtnNext"]').show();
+                                            }
+                                            
+                                        }                                         
+                                                                                                                    
+                                    </script>
+                                </apex:inputField>    
+                                <apex:inputText value="{!licenseSecond}" id="secondLicense"/>
+                                
+                                
+                                
+                                <apex:inputText value="{!fakeThirdCurrentPersonFirstName}" id="thirdFN"/>
+                                <apex:inputText value="{!fakeThirdCurrentPersonLastName}" id="thirdSN"/>  
+                                <apex:inputField value="{!Account.Applicable_Date_Primary__c}" id="bdatefield3" label="Date of birth" style="width:120px;" onblur="validateInputThird();">  
+                                    <script type="text/javascript">
+                                         // hide the date defaulter
+                                         
+                                         settlementdate = document.getElementById("{!$Component.bdatefield3}");
+                                         settlementdate.nextSibling.style.display="none";
+                                         document.getElementById('{!$Component.bdatefield3}').size = "8";   
+                                         
+                                         
+                                        // jquery script to overide the input field current year  in salesforce 
+                                        j$(document).ready(function() {
+                                        
+                                            var currentYear = (new Date).getFullYear(); // get the current year
+                                            
+                                            var startYear=1900;  
+                                            var endYear=currentYear-1; 
+                                            
+                                            var optionsString='';
+                                            
+                                                
+                                                j$('#calYearPicker option').remove(); // remove all options in the list
+                                                
+                                                //Loops through each date and renders the string for an option tag and addes it to the Optrionsstring variable
+                                                
+                                                for(i=startYear;i<endYear+1;i++){
+                                                                                        
+                                                    // append the dates
+                                                    j$('#calYearPicker').append('<option>'+i+'</option>'); 
+
+                                                }
+                                                
+                                        });    
+                                        
+                                        function validateInputThird(){
+                                            var inputFirst = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:bdatefield"]').val();
+                                                        var inputSecond = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:bdatefield2"]').val();
+                                                        var inputThird = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:bdatefield3"]').val();
+                                                        if((inputFirst.length<8 && inputFirst.length!=0)|| (inputSecond.length<8 && inputSecond.length!=0) || (inputThird.length<8 && inputThird.length!=0)){
+                                                            alert('Date must be in DD/MM/YYYY format to proceed searching.');
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbsNext:pbsiNext:cmdBtnNext"]').hide();
+                                                        }
+                                                        else{
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbsNext:pbsiNext:cmdBtnNext"]').show();
+                                                        }
+                                            
+                                        }
+                                        
+                                                              
+                                                                                                                    
+                                    </script>
+                               </apex:inputField>  
+                                <apex:inputText value="{!licenseThird}" id="thirdLicense"/>  
+                                <!-- <apex:outputPanel ><apex:inputCheckbox value="{!isAndOthers}"/>&nbsp;and others</apex:outputPanel>  -->               
+                                
+                            </apex:panelGrid>
+                        </apex:pageblockSectionItem>
+                        
+                        <!--
+                        <apex:pageblockSectionItem >
+                            <apex:outputPanel >
+                                <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}" rendered="{!isResidential}"/>&nbsp;
+                                <apex:outputLabel value="{!$ObjectType.Contact.fields.LastName.label}"/>
+                            </apex:outputPanel>
+                            <apex:inputField value="{!firstCurrentPersonWrapper.person.LastName}" required="false"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Date of Birth"/>
+                            <apex:outputPanel >
+                                <apex:inputfield id="customerDOBField" value="{!firstCurrentPersonWrapper.person.Birthdate}" required="{!isResidential}"/>
+                                <script>
+                                    var customerDOBText = document.getElementById("{!$Component.customerDOBField}");
+                                    customerDOBText.nextSibling.style.display="none";
+                                </script>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Driver's License Number"/>
+                            <apex:panelGrid columns="2">
+                                <apex:inputfield value="{!firstCurrentPersonWrapper.person.Drivers_License_Number__c}" required="false"/>
+                                <apex:outputPanel >
+                                    &nbsp;&nbsp;<apex:inputCheckbox value="{!noInfoForLicence}"/>&nbsp;No Info
+                                </apex:outputPanel>
+                            </apex:panelGrid>
+                        </apex:pageBlockSectionItem>
+                        -->
+                    </apex:pageblockSection>
+                    <!-- DT #370 - Display First Name and Last Name -->
+                    <apex:pageblockSection rendered="{!isResidential && NOT(ISNULL(createdCustomerId))}" columns="1" id="pbCompany">
+                         <!--<apex:outputField value="{!Account.Title__c}"/>
+                        <apex:outputField value="{!Account.Initials__c}"/>-->
+                        <apex:pageblockSectionItem >
+                            <apex:outputPanel >
+                                <apex:outputLabel value="{!$ObjectType.Account.fields.Name.label}"/>
+                            </apex:outputPanel>
+                            <apex:panelGrid columns="2" cellpadding="0px" cellspacing="0px">
+                                <apex:outputField value="{!Account.Name}"/>
+                            </apex:panelGrid>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem >
+                            <apex:outputPanel >
+                                <apex:outputLabel value="First Name"/>
+                            </apex:outputPanel>
+                            <apex:panelGrid columns="2" cellpadding="0px" cellspacing="0px">
+                                <apex:outputField value="{!Account.Initials__c}"/>
+                            </apex:panelGrid>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem >
+                            <apex:outputPanel >
+                                <apex:outputLabel value="Last Name"/>
+                            </apex:outputPanel>
+                            <apex:panelGrid columns="2" cellpadding="0px" cellspacing="0px">
+                                <apex:outputField value="{!Account.Account_Name__c}"/>
+                            </apex:panelGrid>
+                        </apex:pageblockSectionItem>
+                    </apex:pageblockSection>
+                    <apex:pageblockSection rendered="{!isNonResIndividual} && ISNULL(createdCustomerId)">
+                        <apex:pageblockSectionItem >
+                            <apex:outputLabel value="or"/>
+                            <apex:outputPanel />
+                        </apex:pageblockSectionItem>
+                    </apex:pageblockSection>
+                    <apex:pageblockSection rendered="{!NOT(isResidential) && ISNULL(createdCustomerId)}" id="pbsCompany">
+                        <apex:pageblockSectionItem id="pbsiCompany">
+                            <apex:outputPanel >
+                                <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}" rendered="{!isNonResCompany}"/>&nbsp;
+                                <apex:outputLabel value="Company Name"/>
+                            </apex:outputPanel>
+                            <apex:inputField value="{!Account.Name}" required="false" id="company"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem id="pbsiTrading">
+                            <apex:outputLabel value="{!$ObjectType.Account.fields.Trading_Name__c.label}"/>
+                            <apex:inputField value="{!Account.Trading_Name__c}" id="trading">
+                                    <script type="text/javascript">
+                                        
+                                    </script>       
+                            </apex:inputField>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem id="pbsiACN">
+                            <apex:outputPanel >
+                                <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}" rendered="{!isNonResCompany}"/>&nbsp;
+                                <apex:outputLabel value="{!$ObjectType.Account.fields.ACN__c.label}"/>
+                            </apex:outputPanel>
+                            <apex:inputField value="{!Account.ACN__c}" id="acn"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem id="pbsiABN">
+                            <apex:outputPanel >
+                                <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}" rendered="{!isNonResCompany}"/>&nbsp;
+                                <apex:outputLabel value="{!$ObjectType.Account.fields.ABN__c.label}" />
+                            </apex:outputPanel>
+                            <apex:inputField value="{!Account.ABN__c}" id="abn"/>
+                        </apex:pageblockSectionItem>
+                    </apex:pageblockSection>
+                    <apex:pageblockSection rendered="{!NOT(isResidential) && NOT(ISNULL(createdCustomerId))}">
+                        <apex:outputField value="{!Account.Name}"/>
+                        <apex:outputField value="{!Account.Trading_Name__c}"/>
+                        <apex:outputField value="{!Account.ACN__c}"/>
+                        <apex:outputField value="{!Account.ABN__c}"/>
+                    </apex:pageblockSection>
+                    <apex:pageblocksection title="Contact Details"
+                        rendered="{!ISNULL(createdCustomerId)}" id="pbsNext">
+                        <apex:pageblockSectionItem id="contact">
+                            <apex:outputPanel >
+                                <!-- <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}"/>&nbsp;  --> 
+                                <apex:outputLabel value="{!$ObjectType.Account.fields.Phone.label}" />
+                            </apex:outputPanel>
+                            <apex:inputField value="{!Account.Phone}" id="phone"/>
+                        </apex:pageblockSectionItem>
+                        <apex:inputField value="{!Account.Additional_Phone__c}"/>
+                            <apex:pageblockSectionItem >
+                                <apex:outputPanel >
+                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}"/>&nbsp;
+                                    <apex:outputLabel value="{!$ObjectType.Account.fields.Preferred_Contact_Type__c.label}"/>
+                                </apex:outputPanel>
+                                <apex:inputField value="{!Account.Preferred_Contact_Type__c}"/>
+                            </apex:pageblockSectionItem>
+                         
+                        <!-- Added TP 336 J.Jayoma -->
+                        <apex:pageblockSectionitem />
+                        <apex:pageblockSectionitem id="pbsiNext">
+                            <apex:outputPanel id="pbNext">
+                                <div style="margin-left: 200px" id="divNext">
+                                    <apex:commandButton value="Next" action="{!ShowResult}"
+                                        rerender="divResult,noA"
+                                        id="cmdBtnNext" oncomplete="clearall();" status="loading">
+                                        
+                                        <script type="text/javascript">
+                                            
+                                                                                
+                                                    function highlight(){
+                                                        var rectype = j$('[id="thePage:theForm:hiddenInput"]').val();
+                                                    
+                                                        if(rectype=='true'){
+                                                            highlightCompany();
+                                                        }
+                                                        
+                                                        if(rectype=='false'){
+                                                            highlightResAndNonRes();
+                                                        }
+                                                    
+                                                    }
+                                                                    
+                                                    function highlightResAndNonRes(){
+                                                        
+                                                        var firstFN = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:firstFN"]').val();                                                       
+                                                        var firstSN = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:firstSN"]').val();
+                                                        var firstDOB = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:bdatefield"]').val();
+                                                        var firstLicense = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:firstLicense"]').val();
+                                                        var firstFullname = firstFN + ' ' + firstSN; 
+                                                     
+                                                        
+                                                        var secondFN = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:secondFN"]').val();
+                                                        var secondSN = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:secondSN"]').val();
+                                                        var secondDOB = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:bdatefield2"]').val();
+                                                        var secondLicense = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:secondLicense"]').val();
+                                                        var secondFullname = secondFN + ' ' + secondSN; 
+                                                        
+                                                        var thirdFN = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:thirdFN"]').val();
+                                                        var thirdSN = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:thirdSN"]').val();
+                                                        var thirdDOB = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:bdatefield3"]').val();
+                                                        var thirdLicense = j$('[id="thePage:theForm:pbuCstInfo:pbsInput:pbsiInput:thirdLicense"]').val(); 
+                                                        var thirdFullname = thirdFN + ' ' + thirdSN; 
+                                                        
+                                                        var phone = j$('[id="thePage:theForm:pbuCstInfo:pbsNext:contact:phone"]').val();
+                                                                     
+                                                                   
+                                                        // remove any old highlighted terms  
+                                                        j$('td').removeHighlight();
+                                                        
+                                                    
+                                                        // disable highlighting if empty
+                                                        
+                                                        // -- for first row input box
+                                                        if ( firstFN.length > 1)  {
+                                                            // highlight the new term
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult:pbDevResult:pbtDivResult"] td').highlight( firstFN );
+                                                        }
+                                                        
+                                                        if ( firstSN.length > 1) {
+                                                            // highlight the new term
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult:pbDevResult:pbtDivResult"] td').highlight( firstSN );
+                                                        }
+                                                        
+                                                        
+                                                        if ( firstFullname.length > 1) {
+                                                            // highlight the new term
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult:pbDevResult:pbtDivResult"] td').highlight( firstFullname );
+                                                        }
+                                                        
+                                                        if ( firstDOB.length > 1) {
+                                                            // highlight the new term
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult:pbDevResult:pbtDivResult"] td').highlight( firstDOB );
+                                                        }
+                                                        
+                                                        
+                                                        if ( firstLicense.length > 1) {
+                                                            // highlight the new term
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult:pbDevResult:pbtDivResult"] td').highlight( firstLicense );
+                                                        }
+                                                        
+                                                        
+                                                        
+                                                        // -- for second row input box
+                                                        
+                                                        if ( secondFN.length > 1)  {
+                                                            // highlight the new term
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult:pbDevResult:pbtDivResult"] td').highlight( secondFN );
+                                                        }
+                                                        
+                                                        if ( secondSN.length > 1) {
+                                                            // highlight the new term
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult:pbDevResult:pbtDivResult"] td').highlight( secondSN );
+                                                        }
+                                                        
+                                                        if ( secondFullname.length > 1 ) {
+                                                            // highlight the new term
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult:pbDevResult:pbtDivResult"] td').highlight( secondFullname );
+                                                        }
+                                                        
+                                                        if ( secondDOB.length > 1 ) {
+                                                            // highlight the new term
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult:pbDevResult:pbtDivResult"] td').highlight( secondDOB );
+                                                        }
+                                                        
+                                                        
+                                                        if ( secondLicense.length > 1 ) {
+                                                            // highlight the new term
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult:pbDevResult:pbtDivResult"] td').highlight( secondLicense );
+                                                        }
+                                                        
+                                                        
+                                                         // -- for third row input box
+                                                         
+                                                        if ( thirdFN.length > 1)  {
+                                                            // highlight the new term
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult:pbDevResult:pbtDivResult"] td').highlight( thirdFN );
+                                                        }
+                                                        
+                                                        if ( thirdSN.length > 1) {
+                                                            // highlight the new term
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult:pbDevResult:pbtDivResult"] td').highlight( thirdSN );
+                                                        }
+                                                        
+                                                        if ( thirdFullname.length > 1 ) {
+                                                            // highlight the new term
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult:pbDevResult:pbtDivResult"] td').highlight( thirdFullname );
+                                                        }
+                                                        
+                                                        if ( thirdDOB.length > 1 ) {
+                                                            // highlight the new term
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult:pbDevResult:pbtDivResult"] td').highlight( thirdDOB );
+                                                        }
+                                                        
+                                                        
+                                                        if ( thirdLicense.length > 1 ) {
+                                                            // highlight the new term
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult:pbDevResult:pbtDivResult"] td').highlight( thirdLicense );
+                                                        }
+                                                        
+                                                        if ( phone.length > 1 ) {
+                                                            // highlight the new term
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult:pbDevResult:pbtDivResult"] td').highlight( phone ); 
+                                                        }                                                             
+                                                       
+                                                    }   
+                                                                                        
+                                                    function highlightCompany(){                                                        
+                                                        var phone = j$('[id="thePage:theForm:pbuCstInfo:pbsNext:contact:phone"]').val();
+                                                        var company = j$('[id="thePage:theForm:pbuCstInfo:pbsCompany:pbsiCompany:company"]').val(); 
+                                                        var acn = j$('[id="thePage:theForm:pbuCstInfo:pbsCompany:pbsiACN:acn"]').val();                                                                
+                                                        var trading = j$('[id="thePage:theForm:pbuCstInfo:pbsCompany:pbsiTrading:trading"]').val();                                                     
+                                                        var abn = j$('[id="thePage:theForm:pbuCstInfo:pbsCompany:pbsiABN:abn"]').val(); 
+                                                        
+                                                           
+                                                                    
+                                                        // remove any old highlighted terms  
+                                                        j$('td').removeHighlight();
+                                                        
+                                                      
+                                                        if ( trading.length > 1 ) {                                                         
+                                                            // highlight the new term
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult2:pbDevResult2:pbtDevResult2"] td').highlight(trading);
+                                                        }
+                                                        
+                                                        if ( company.length > 1 ) {
+                                                            // highlight the new term
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult2:pbDevResult2:pbtDevResult2"] td').highlight( company );
+                                                        }
+                                                        
+                                                        if ( abn.length > 1 ) {
+                                                            // highlight the new term
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult2:pbDevResult2:pbtDevResult2"] td').highlight( abn );
+                                                        }                                                               
+                                                       
+                                                        if ( acn.length > 1 ) {
+                                                            // highlight the new term                                                                  
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult2:pbDevResult2:pbtDevResult2"] td').highlight( acn );
+                                                        }
+                                                        
+                                                        
+                                                        if ( phone.length > 1 ) {
+                                                            // highlight the new term
+                                                            j$('[id="thePage:theForm:pbuCstInfo:pbSearchResult2:pbDevResult2:pbtDevResult2"] td').highlight( phone ); 
+                                                        }           
+                                                            
+                                                    } 
+                                                                               
+                                                                               
+                                                                                                                  
+                                        </script>
+                                        
+                                    </apex:commandButton>    
+                                </div>
+                                
+                                <apex:actionStatus id="loadingNice">
+                                    <apex:facet name="start">
+                                        <c:EnhancedActionStatus BackColor="#ffffff"
+                                            borderColor="#6B6B6B" borderSize="1" height="50px"
+                                            width="120px" margintop="-25px" marginleft="-60px"
+                                            ImageUrl="{!$Resource.AjaxAnimation}" Message="Loading..." /> 
+                                    </apex:facet>
+                                </apex:actionStatus>
+                            </apex:outputPanel>
+                        </apex:pageblockSectionitem>
+                        <div></div>
+
+                        <apex:outputPanel />
+                        </apex:pageblockSection>
+                        <apex:pageblocksection title="Contact Details"
+                            rendered="{!NOT(ISNULL(createdCustomerId))}">
+                            <apex:outputField value="{!Account.Phone}" />
+                            <apex:outputField value="{!Account.Additional_Phone__c}"/>
+                            <apex:outputField value="{!Account.Preferred_Contact_Type__c}"/>
+                         
+                        </apex:pageblockSection>
+                        
+                        <apex:outputPanel id="divResult">
+                            <apex:outputPanel rendered="{!showNonResAndRes}">   
+                                <apex:pageblockSection id="pbSearchResult" title="Potential Matches" rendered="{!showSearch}" columns="1">
+                                    
+                                   <apex:pageBlockSectionItem id="pbDevResult">   
+                                        <apex:outputPanel id="pnlDevResult">      
+                                            <apex:pageBlockTable value="{!resultList}" var="r" width="100%" id="pbtDivResult">
+                                                <!-- <apex:column value="{!a.name}" />  -->
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">Customer Number</apex:facet>                                                    
+                                                    <A HREF="#" onClick="testOpenSubtabProperty{!r.accountResult.Id}();return false;"><apex:outputText escape="false" value="{!r.accountResult.Customer_Number2__c}"/></A>
+                                                    <script type="text/javascript">
+                                                      function testOpenSubtabProperty{!r.accountResult.Id}() {
+                                                          if(sforce.console.isInConsole()){
+                                                              sforce.console.getEnclosingPrimaryTabId(openSubtabProperty{!r.accountResult.Id});
+                                                          }
+                                                         
+                                                      }
+                                                      var openSubtabProperty{!r.accountResult.Id} = function openSubtabProperty{!r.accountResult.Id}(result) {
+                                                          var primaryTabId = result.id;
+                                                          sforce.console.openSubtab(primaryTabId , '/{!r.accountResult.Id}', true,
+                                                              "{!r.accountResult.name}", null, null, 'subtab{!r.accountResult.Id}');
+                                                      };
+                                                    </script>  
+                                                </apex:column>                                                
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">Customer</apex:facet>
+                                                    
+                                                    <A HREF="#" onClick="testOpenSubtabProperty{!r.accountResult.Id}();return false;"><apex:outputText escape="false" value="{!r.accountResult.name}"/></A>
+                                                    <script type="text/javascript">
+                                                      function testOpenSubtabProperty{!r.accountResult.Id}() {
+                                                          if(sforce.console.isInConsole()){
+                                                              sforce.console.getEnclosingPrimaryTabId(openSubtabProperty{!r.accountResult.Id});
+                                                          }
+                                                         
+                                                      }
+                                                      var openSubtabProperty{!r.accountResult.Id} = function openSubtabProperty{!r.accountResult.Id}(result) {
+                                                          var primaryTabId = result.id;
+                                                          sforce.console.openSubtab(primaryTabId , '/{!r.accountResult.Id}', true,
+                                                              "{!r.accountResult.name}", null, null, 'subtab{!r.accountResult.Id}');
+                                                      };
+                                                    </script>  
+                                                </apex:column>
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">Person</apex:facet> 
+                                                    
+                                                    
+                                                    <A HREF="#" onClick="testOpenSubtabProperty{!r.contactResult.Id}();return false;"><apex:outputText escape="false" value="{!r.contactResult.name}"/></A>
+                                                    <script type="text/javascript">
+                                                          function testOpenSubtabProperty{!r.contactResult.Id}() {
+                                                              if(sforce.console.isInConsole()){
+                                                                  sforce.console.getEnclosingPrimaryTabId(openSubtabProperty{!r.contactResult.Id});
+                                                              }
+                                                             
+                                                          }
+                                                          var openSubtabProperty{!r.contactResult.Id} = function openSubtabProperty{!r.contactResult.Id}(result) {
+                                                              var primaryTabId = result.id;
+                                                              sforce.console.openSubtab(primaryTabId , '/{!r.contactResult.Id}', true,
+                                                                  "{!r.contactResult.name}", null, null, 'subtab{!r.contactResult.Id}');
+                                                          };
+                                                      </script>
+                                                </apex:column>
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">Preferred Phone</apex:facet> 
+                                                    {!r.contactResult.Preferred_Phone_Number__c}
+                                                </apex:column>
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">Customer Phone</apex:facet> 
+                                                    {!r.accountResult.phone}
+                                                </apex:column>
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">Mailing Address</apex:facet> 
+                                                    {!r.BillingAddress}
+                                                </apex:column>
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">Person Phone</apex:facet> 
+                                                    {!r.contactResult.phone}
+                                                </apex:column>
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">Mobile Phone</apex:facet> 
+                                                    {!r.contactResult.MobilePhone}
+                                                </apex:column>
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">Home Phone</apex:facet> 
+                                                    {!r.contactResult.HomePhone}
+                                                </apex:column>
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">Other Phone</apex:facet> 
+                                                    {!r.contactResult.OtherPhone}
+                                                </apex:column>  
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">Agents Phone</apex:facet> 
+                                                    {!r.contactResult.Agent_s_Phone__c}
+                                                </apex:column> 
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">DOB</apex:facet> 
+                                                        <!-- {!r.contactResult.Birthdate}  --> 
+                                                        <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                                                            <apex:param value="{!r.contactResult.Birthdate}" /> 
+                                                        </apex:outputText>
+                                                        
+                                                    
+                                                </apex:column> 
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">Driver's Licence</apex:facet> 
+                                                    {!r.contactResult.Drivers_License_Number__c}
+                                                </apex:column>  
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">Email</apex:facet> 
+                                                    {!r.contactResult.Email}
+                                                </apex:column>  
+                                                                                        
+                                                
+                                            </apex:pageBlockTable>
+                                       </apex:outputPanel>  
+                                   </apex:pageBlockSectionItem>                             
+                               
+                                    <apex:pageBlockSectionItem >
+                                        
+                                            <apex:commandButton value="Cancel & Close" onclick="testCloseTab();return false" disabled="{!createSuccessful}">                                
+                                            </apex:commandButton> 
+                                            <apex:commandButton value="Create New Customer" action="{!continueCustomer}" Id="btnContinue" rerender="pnlCompany,divAddress,pnlAddress,divResult,pbSearchResult,errorMsg,custInfoEntryOP" />
+                                                                                      
+                                        
+                                    </apex:pageBlockSectionItem>
+                                    
+                                </apex:pageblockSection>
+                            </apex:outputPanel>   
+                            
+                            
+                            <apex:outputPanel rendered="{!showCompany}" id="pnlCompany">    
+                                <apex:pageblockSection id="pbSearchResult2" title="Potential Matches" rendered="{!showSearch}" columns="1">
+                                    
+                                   <apex:pageBlockSectionItem id="pbDevResult2">   
+                                        <apex:outputPanel id="pbPnlDevResult2">      
+                                            <apex:pageBlockTable value="{!resultList}" var="r" width="100%" id="pbtDevResult2">
+                                                <!-- <apex:column value="{!a.name}" />  -->
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">Company Name</apex:facet> 
+                                                    <!-- {!r.accountResult.name}  -->
+                                                                                                     
+                                                    <A HREF="#" onClick="testOpenSubtabProperty{!r.accountResult.Id}();return false;"><apex:outputText escape="false" value="{!r.accountResult.name}"/></A>
+                                                    <script type="text/javascript">
+                                                      function testOpenSubtabProperty{!r.accountResult.Id}() {
+                                                          if(sforce.console.isInConsole()){
+                                                              sforce.console.getEnclosingPrimaryTabId(openSubtabProperty{!r.accountResult.Id});
+                                                          }
+                                                         
+                                                      }
+                                                      var openSubtabProperty{!r.accountResult.Id} = function openSubtabProperty{!r.accountResult.Id}(result) {
+                                                          var primaryTabId = result.id;
+                                                          sforce.console.openSubtab(primaryTabId , '/{!r.accountResult.Id}', true,
+                                                              '{!r.accountResult.name}', null, null, 'subtab{!r.accountResult.Id}');
+                                                      };
+                                                    </script>  
+                                                </apex:column>
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">Trading Name</apex:facet> 
+                                                    {!r.accountResult.Trading_Name__c}
+                                                </apex:column>
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">Mailing Address</apex:facet> 
+                                                    {!r.BillingAddress}
+                                                </apex:column>
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">Primary Address</apex:facet> 
+                                                    {!r.ShippingAddress}
+                                                </apex:column>
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">Phone Number</apex:facet> 
+                                                    {!r.accountResult.phone}
+                                                </apex:column>
+                                                
+                                                 <apex:column >
+                                                    <apex:facet name="header">Additional Phone</apex:facet> 
+                                                    {!r.accountResult.Additional_Phone__c}
+                                                </apex:column>
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">ABN</apex:facet> 
+                                                    {!r.accountResult.ABN__c}
+                                                </apex:column>
+                                                
+                                                <apex:column >
+                                                    <apex:facet name="header">ACN</apex:facet> 
+                                                    {!r.accountResult.ACN__c}
+                                                </apex:column>
+                                                                                        
+                                                
+                                            </apex:pageBlockTable>
+                                       </apex:outputPanel>  
+                                   </apex:pageBlockSectionItem>                             
+                               
+                                    <apex:pageBlockSectionItem >
+                                        
+                                            <apex:commandButton value="Cancel & Close" onclick="testCloseTab();return false" disabled="{!createSuccessful}">                                
+                                            </apex:commandButton> 
+                                            <apex:commandButton value="Create New Customer" action="{!continueCustomer}" Id="btnContinue">
+                                                
+                                            </apex:commandButton>  
+                                        
+                                    </apex:pageBlockSectionItem>
+                                    
+                                </apex:pageblockSection>
+                            </apex:outputPanel>  
+                                    
+                                    
+                        </apex:outputPanel> 
+                             
+                        <div id="divAddress">  
+                               <script type="text/javascript">                                                  
+                                  //j$('#divAddress').block({ message: null });                                                         
+                               </script>
+                                
+                              <apex:outputPanel id="pnlAddress" layout="block">
+                                   <apex:pageblocksection title="Addresses" id="pbSectionAddresses" rendered="{!ISNULL(createdCustomerId)  && showAddressPanel}">
+                                        <!-- <apex:pageblocksection columns="1">
+                                  <apex:pageBlockSectionItem >
+                                      <apex:outputPanel >
+                                          <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}"/>&nbsp;
+                                          <apex:outputLabel value="{!$ObjectType.Account.fields.BillingStreet.label}"/>
+                                      </apex:outputPanel>
+                                      <apex:inputField value="{!Account.BillingStreet}"/>
+                                  </apex:pageBlockSectionItem>
+                                  <apex:pageBlockSectionItem >
+                                      <apex:outputPanel >
+                                          <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}"/>&nbsp;
+                                          <apex:outputLabel value="{!$ObjectType.Account.fields.BillingCity.label}"/>
+                                      </apex:outputPanel>
+                                      <apex:inputField value="{!Account.BillingCity}"/>
+                                  </apex:pageBlockSectionItem>
+                                  <apex:pageBlockSectionItem >
+                                      <apex:outputPanel >
+                                          <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}"/>&nbsp;
+                                          <apex:outputLabel value="{!$ObjectType.Account.fields.BillingState.label}"/>
+                                      </apex:outputPanel>
+                                      <apex:inputField value="{!Account.BillingState}"/>
+                                  </apex:pageBlockSectionItem>
+                                  <apex:pageBlockSectionItem >
+                                      <apex:outputPanel >
+                                          <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}"/>&nbsp;
+                                          <apex:outputLabel value="{!$ObjectType.Account.fields.BillingPostalCode.label}"/>
+                                      </apex:outputPanel>
+                                      <apex:inputField value="{!Account.BillingPostalCode}"/>
+                                  </apex:pageBlockSectionItem>
+                                  <apex:pageBlockSectionItem >
+                                      <apex:outputPanel >
+                                          <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}"/>&nbsp;
+                                          <apex:outputLabel value="{!$ObjectType.Account.fields.BillingCountry.label}"/>
+                                      </apex:outputPanel>
+                                      <apex:inputField value="{!Account.BillingCountry}"/>
+                                  </apex:pageBlockSectionItem>
+                                </apex:pageblocksection>  -->
+                                        <apex:pageblocksection columns="1" id="pbSectionAddresses">
+                                            <apex:pageBlockSectionItem id="pbSectionItemAddresses">
+                                                <apex:outputPanel >
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}" />&nbsp;
+                                                    <apex:outputLabel value="{!$ObjectType.Account.fields.BillingStreet.label}" />
+                                                </apex:outputPanel>
+                                                <apex:outputText value="{!MailingStreet}" id="fldBillingStreet"/>                                                                                           
+                                                
+                                            </apex:pageBlockSectionItem>
+                                            <apex:pageBlockSectionItem >
+                                                <apex:outputPanel >
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}" />&nbsp;
+                                                    <apex:outputLabel value="{!$ObjectType.Account.fields.BillingCity.label}" />
+                                                </apex:outputPanel>
+                                                <apex:outputText value="{!MailingCity}" />      
+                                            </apex:pageBlockSectionItem>
+                                            <apex:pageBlockSectionItem >
+                                                <apex:outputPanel >
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}" />&nbsp;
+                                                    <apex:outputLabel value="{!$ObjectType.Account.fields.BillingState.label}" />
+                                                </apex:outputPanel>
+                                                <apex:outputText value="{!MailingState}"/>      
+                                            </apex:pageBlockSectionItem>
+                                            <apex:pageBlockSectionItem >
+                                                <apex:outputPanel >
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}" />&nbsp;
+                                                    <apex:outputLabel value="{!$ObjectType.Account.fields.BillingPostalCode.label}" />
+                                                </apex:outputPanel>
+                                                <apex:outputText value="{!MailingPostal}" />    
+                                            </apex:pageBlockSectionItem>
+                                            <apex:pageBlockSectionItem >
+                                                <apex:outputPanel >
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}" />&nbsp;
+                                                    <apex:outputLabel value="{!$ObjectType.Account.fields.BillingCountry.label}" />
+                                                </apex:outputPanel>
+                                                <apex:outputText value="{!MailingCountry}"/>    
+                                            </apex:pageBlockSectionItem>
+                                            <apex:pageBlockSectionItem >
+                                                <apex:outputPanel />
+                                                <apex:commandButton id="findMailingAddButton"
+                                                    value="     Amend Address     "
+                                                    onclick="ShowQASDialog(1,'mailing');return false;" rerender="qasPanel"/>
+                                                    
+                                                    
+                                            </apex:pageBlockSectionItem>                                            
+                                           
+                                        </apex:pageblocksection>
+                                        <!--  <apex:pageblocksection columns="1">
+                                <apex:inputField value="{!Account.ShippingStreet}"/>
+                                <apex:inputField value="{!Account.ShippingCity}"/>
+                                <apex:inputField value="{!Account.ShippingState}"/>
+                                <apex:inputField value="{!Account.ShippingPostalCode}"/>
+                                <apex:inputField value="{!Account.ShippingCountry}"/>
+                                <apex:pageBlockSectionItem >
+                                    <apex:outputLabel />
+                                    <apex:outputPanel layout="block" style="position: relative; top:-100px; left:-340px">
+                                        <apex:commandLink action="{!copyPrimaryAddressFromMailingAddress}" value="Copy Mailing Address to Primary" reRender="custInfoEntryOP" status="copyAddressStatus"/>
+                                        &nbsp;&nbsp;
+                                        <apex:actionStatus id="copyAddressStatus">
+                                            <apex:facet name="start">
+                                                <apex:image value="{!$Resource.AjaxAnimation}" alt="Loading..."/>
+                                            </apex:facet>
+                                        </apex:actionStatus>
+                                    </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                            </apex:pageblocksection>
+                        </apex:pageblockSection> -->
+                                        <apex:pageblocksection columns="1" id="pbCopyPrimary" rendered="{!ISNULL(createdCustomerId)  && showAddressPanel}">
+                                            <!--  <apex:outputField value="{!Account.ShippingStreet}" />
+                                            <apex:outputField value="{!Account.ShippingCity}" />
+                                            <apex:outputField value="{!Account.ShippingState}" />
+                                            <apex:outputField value="{!Account.ShippingPostalCode}" />
+                                            <apex:outputField value="{!Account.ShippingCountry}" /> -->
+                                            
+                                                <apex:pageBlockSectionItem >
+                                                    <apex:outputPanel >                                                     
+                                                        <apex:outputLabel value="{!$ObjectType.Account.fields.ShippingStreet.label}" />
+                                                    </apex:outputPanel>
+                                                    <apex:outputText value="{!primaryStreet}"/>                                                                                           
+                                                    
+                                                </apex:pageBlockSectionItem>
+                                                <apex:pageBlockSectionItem >
+                                                    <apex:outputPanel >                                                    
+                                                        <apex:outputLabel value="{!$ObjectType.Account.fields.ShippingCity.label}" />
+                                                    </apex:outputPanel>
+                                                    <apex:outputText value="{!primaryCity}" />      
+                                                </apex:pageBlockSectionItem>
+                                                <apex:pageBlockSectionItem >
+                                                    <apex:outputPanel >                                                   
+                                                        <apex:outputLabel value="{!$ObjectType.Account.fields.ShippingState.label}" />
+                                                    </apex:outputPanel>
+                                                    <apex:outputText value="{!primaryState}"/>      
+                                                </apex:pageBlockSectionItem>
+                                                <apex:pageBlockSectionItem >
+                                                    <apex:outputPanel >                                                    
+                                                        <apex:outputLabel value="{!$ObjectType.Account.fields.ShippingPostalCode.label}" />
+                                                    </apex:outputPanel>
+                                                    <apex:outputText value="{!primaryPostal}" />    
+                                                </apex:pageBlockSectionItem>
+                                                <apex:pageBlockSectionItem >
+                                                    <apex:outputPanel >                                                     
+                                                        <apex:outputLabel value="{!$ObjectType.Account.fields.ShippingCountry.label}" />
+                                                    </apex:outputPanel>
+                                                    <apex:outputText value="{!primaryCountry}"/>   
+                                                </apex:pageBlockSectionItem>
+                                            
+                                            
+                                            <apex:pageBlockSectionItem id="pbitemCopyPrimary">
+                                                <apex:outputLabel />
+                                                <apex:outputPanel id="panelCopyPrimary" layout="block"
+                                                    style="position: relative; top:-100px; left:-340px">
+                                                    <apex:commandLink id="copyPrimary" action="{!copyPrimaryAddressFromMailingAddress}"
+                                                        value="Copy Mailing Address to Primary"
+                                                        reRender="custInfoEntryOP" status="copyAddressStatus" >
+                                                            
+                                                            <script type="text/javascript">  
+                                                              
+                                                            </script>               
+                                                                     
+                                                    </apex:commandLink> 
+                                                    
+                                        &nbsp;&nbsp;
+                                        <apex:actionStatus id="copyAddressStatus">
+                                                        <apex:facet name="start">
+                                                            <apex:image value="{!$Resource.AjaxAnimation}"
+                                                                alt="Loading..." />
+                                                        </apex:facet>
+                                                    </apex:actionStatus>
+                                                </apex:outputPanel>
+                                            </apex:pageBlockSectionItem>
+                                            <apex:pageBlockSectionItem >
+                                                <apex:outputPanel />
+                                                <apex:commandButton id="findPrimaryAddButton"
+                                                    value="     Amend Address     "
+                                                    onclick="ShowQASDialog(1,'primary');return false;"/>
+                                            </apex:pageBlockSectionItem>
+                                        </apex:pageblocksection>
+                                        </apex:pageblockSection>
+                                        <apex:pageblocksection title="Addresses"
+                                            rendered="{!NOT(ISNULL(createdCustomerId))}">
+                                            <apex:outputField value="{!Account.BillingStreet}" />
+                                            <apex:outputField value="{!Account.ShippingStreet}" />
+                                            <apex:outputField value="{!Account.BillingCity}" />
+                                            <apex:outputField value="{!Account.ShippingCity}" />
+                                            <apex:outputField value="{!Account.BillingState}" />
+                                            <apex:outputField value="{!Account.ShippingState}" />
+                                            <apex:outputField value="{!Account.BillingPostalCode}" />
+                                            <apex:outputField value="{!Account.ShippingPostalCode}" />
+                                            <apex:outputField value="{!Account.BillingCountry}" />
+                                            <apex:outputField value="{!Account.ShippingCountry}" />
+                                            </apex:pageblockSection>
+                                            <apex:pageblocksection title="Additional Notes"
+                                                rendered="{!ISNULL(createdCustomerId)  && showAddressPanel}" columns="1">
+                                                <apex:inputField value="{!Account.Description}"
+                                                    style="width:500px;height:100px" />
+                                            </apex:pageblocksection>
+                                            <apex:pageblocksection title="Additional Notes"
+                                                rendered="{!NOT(ISNULL(createdCustomerId))}" columns="1">
+                                                <apex:outputField value="{!Account.Description}" />
+                                            </apex:pageblocksection>    
+                                  </apex:outputPanel>
+                             </div>  
+                              
+                </apex:pageblock>
+                
+                
+               
+                
+                <div id="test">                    
+                               
+                    <apex:pageBlock id="assocPplListPB" title="2. List of Associated People" rendered="{!showListPeople}"> 
+                        <apex:pageblockButtons location="top">
+                            <apex:commandButton action="{!updateMainPersonInfoFromCustomer}" value="Copy Info from Above" 
+                                rendered="{!ISNULL(createdCustomerId) && NOT(isNonResCompany)}" status="copyInfoAboveStatus" reRender="assocPplListPB"
+                                 />
+                            &nbsp;&nbsp;
+                            <apex:actionStatus id="copyInfoAboveStatus">
+                                <apex:facet name="start">
+                                    <apex:image value="{!$Resource.AjaxAnimation}" alt="Loading..."/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:pageblockButtons>
+                        <apex:pageblocktable value="{!currentPersonWrappers}" var="personWrapper" >
+                            <apex:column headerValue="{!$ObjectType.Contact.fields.FirstName.label}">
+                                <apex:inputField value="{!personWrapper.person.FirstName}" style="width:85px" rendered="{!ISNULL(createdCustomerId)}"/>
+                                <apex:outputField value="{!personWrapper.person.FirstName}" rendered="{!NOT(ISNULL(createdCustomerId))}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$ObjectType.Contact.fields.LastName.label}">
+                                <apex:inputField value="{!personWrapper.person.LastName}" required="false" style="width:85px" rendered="{!ISNULL(createdCustomerId)}"/>
+                                <apex:outputField value="{!personWrapper.person.LastName}" rendered="{!NOT(ISNULL(createdCustomerId))}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$ObjectType.Contact.fields.Birthdate.label}">
+                                <apex:outputPanel rendered="{!ISNULL(createdCustomerId)}">
+                                    <apex:inputField id="personDOBField" value="{!personWrapper.person.Birthdate}" style="width:70px"/>&nbsp;
+                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}" rendered="{!personWrapper.uniqueId==firstCurrentPersonWrapper.uniqueId && isResidential}"/>
+                                    <script>
+                                        var personDOBText{!personWrapper.uniqueId} = document.getElementById("{!$Component.personDOBField}");
+                                        personDOBText{!personWrapper.uniqueId}.nextSibling.style.display="none";
+                                    </script>
+                                </apex:outputPanel>
+                                <apex:outputField value="{!personWrapper.person.Birthdate}" rendered="{!NOT(ISNULL(createdCustomerId))}"/>
+                            </apex:column>
+                            <apex:column headerValue="Drivers L/N">
+                                <apex:outputPanel rendered="{!ISNULL(createdCustomerId)}">
+                                    <apex:inputfield value="{!personWrapper.person.Drivers_License_Number__c}" required="false" style="width:70px"/>&nbsp;
+                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}" rendered="{!personWrapper.uniqueId==firstCurrentPersonWrapper.uniqueId && isResidential}"/>
+                                    <!--
+                                    <apex:outputPanel layout="none" rendered="{!personWrapper.uniqueId==firstCurrentPersonWrapper.uniqueId && NOT(isNonResCompany)}">
+                                        &nbsp;<apex:inputCheckbox value="{!noInfoForLicence}"/>&nbsp;<apex:outputLabel value="No Info"/>
+                                    </apex:outputPanel>
+                                    -->
+                                </apex:outputPanel>
+                                <apex:outputField value="{!personWrapper.person.Drivers_License_Number__c}" rendered="{!NOT(ISNULL(createdCustomerId))}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$ObjectType.Contact.fields.MobilePhone.label}">
+                                <apex:inputField value="{!personWrapper.person.MobilePhone}" style="width:85px" rendered="{!ISNULL(createdCustomerId)}"/>
+                                <apex:outputField value="{!personWrapper.person.MobilePhone}" rendered="{!NOT(ISNULL(createdCustomerId))}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$ObjectType.Contact.fields.Phone.label}">
+                                <apex:inputField value="{!personWrapper.person.Phone}" style="width:85px" rendered="{!ISNULL(createdCustomerId)}"/>
+                                <apex:outputField value="{!personWrapper.person.Phone}" rendered="{!NOT(ISNULL(createdCustomerId))}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$ObjectType.Contact.fields.HomePhone.label}" rendered="{!NOT(isNonResCompany)}">
+                                <apex:inputField value="{!personWrapper.person.HomePhone}" style="width:85px" rendered="{!ISNULL(createdCustomerId)}"/>
+                                <apex:outputField value="{!personWrapper.person.HomePhone}" rendered="{!NOT(ISNULL(createdCustomerId))}"/>
+                            </apex:column>
+                            <!--
+                            <apex:column headerValue="{!$ObjectType.Contact.fields.OtherPhone.label}">
+                                <apex:inputField value="{!personWrapper.person.OtherPhone}" style="width:85px"/>
+                            </apex:column>
+                            -->
+                            <apex:column headerValue="{!$ObjectType.Contact.fields.Email.label}">
+                                <apex:inputField value="{!personWrapper.person.Email}" style="width:100px" rendered="{!ISNULL(createdCustomerId)}"/>
+                                <apex:outputField value="{!personWrapper.person.Email}" rendered="{!NOT(ISNULL(createdCustomerId))}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$ObjectType.Contact.fields.Preferred_Contact_Type__c.label}">
+                                <apex:inputField value="{!personWrapper.person.Preferred_Contact_Type__c}" rendered="{!ISNULL(createdCustomerId)}"/>
+                                <apex:outputField value="{!personWrapper.person.Preferred_Contact_Type__c}" rendered="{!NOT(ISNULL(createdCustomerId))}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$ObjectType.Contact.fields.Preferred_Phone_Type__c.label}">
+                                <apex:inputField value="{!personWrapper.person.Preferred_Phone_Type__c}" rendered="{!ISNULL(createdCustomerId)}"/>
+                                <apex:outputField value="{!personWrapper.person.Preferred_Phone_Type__c}" rendered="{!NOT(ISNULL(createdCustomerId))}"/>
+                            </apex:column>
+                            <!--
+                            <apex:column headerValue="{!$ObjectType.Contact.fields.Preferred_Contact_Type__c.label}">
+                                <apex:outputPanel rendered="{!ISNULL(createdCustomerId)}">
+                                    <apex:inputField id="contactType" value="{!personWrapper.person.Preferred_Contact_Type__c}" onchange="showTextboxForCallType{!personWrapper.uniqueID}();"/>
+                                    <apex:outputPanel id="contactTypeCall">
+                                        <br/><apex:inputField value="{!personWrapper.person.Preferred_Phone_Type__c}"/>
+                                    </apex:outputPanel>
+                                    <script>
+                                        showTextboxForCallType{!personWrapper.uniqueID}();
+                                        function showTextboxForCallType{!personWrapper.uniqueID}() {
+                                            var picklistSelect = document.getElementById("{!$Component.contactType}");
+                                            var picklistChoice = picklistSelect.options[picklistSelect.selectedIndex].value;
+                                            if("Call"==picklistChoice){
+                                                document.getElementById("{!$Component.contactTypeCall}").style.display="inline";
+                                            }else{
+                                                document.getElementById("{!$Component.contactTypeCall}").style.display="none";
+                                            }
+                                        }
+                                    </script>
+                                </apex:outputPanel >
+                                <apex:outputField value="{!personWrapper.person.Preferred_Contact_Type__c}" rendered="{!NOT(ISNULL(createdCustomerId))}"/>
+                            </apex:column>
+                            -->
+                            <apex:column headerValue="{!$ObjectType.Contact.fields.Primary_Secondary_Contact__c.label}">
+                                <apex:inputField id="thridPartyType" value="{!personWrapper.person.Primary_Secondary_Contact__c}" rendered="{!ISNULL(createdCustomerId)}"/>
+                                <apex:outputField value="{!personWrapper.person.Primary_Secondary_Contact__c}" rendered="{!NOT(ISNULL(createdCustomerId))}"/>
+                            </apex:column>
+                            <!--
+                            <apex:column headerValue="{!$ObjectType.Person_Customer_Relationship__c.fields.Third_Party_Type__c.label}">
+                                <apex:outputPanel rendered="{!ISNULL(createdCustomerId)}">
+                                    <apex:inputField id="thridPartyType" value="{!personWrapper.thirdPartyRel.Third_Party_Type__c}" onchange="showTextboxForOtherType{!personWrapper.uniqueID}();"/>
+                                    <apex:outputPanel id="thridPartyTypeOther">
+                                        <br/><apex:inputField value="{!personWrapper.thirdPartyRel.Specify_Other__c}"/>
+                                    </apex:outputPanel>
+                                    <script>
+                                        showTextboxForOtherType{!personWrapper.uniqueID}();
+                                        function showTextboxForOtherType{!personWrapper.uniqueID}() {
+                                            var picklistSelect = document.getElementById("{!$Component.thridPartyType}");
+                                            var picklistChoice = picklistSelect.options[picklistSelect.selectedIndex].value;
+                                            if("Other"==picklistChoice){
+                                                document.getElementById("{!$Component.thridPartyTypeOther}").style.display="inline";
+                                            }else{
+                                                document.getElementById("{!$Component.thridPartyTypeOther}").style.display="none";
+                                            }
+                                        }
+                                    </script>
+                                </apex:outputPanel >
+                                <apex:outputField value="{!personWrapper.thirdPartyRel.Third_Party_Type__c}" rendered="{!NOT(ISNULL(createdCustomerId))}"/>
+                            </apex:column>
+                            -->
+                        </apex:pageblocktable>
+                    </apex:pageBlock>
+                        
+               
+            </div>    
+             
+             
+                 <apex:pageBlock title="3. Create Records" rendered="{!showListPeople}">
+                     <apex:pageblockSection columns="1">
+                         <apex:pageblockSectionItem >
+                             <apex:outputLabel />
+                             <apex:outputPanel >
+                                 Is the customer a tenant for an NSM property?&nbsp;&nbsp;
+                                 <apex:inputCheckbox value="{!isNSM}" disabled="{!NOT(ISNULL(createdCustomerId))}"/>
+                             </apex:outputPanel>
+                         </apex:pageblockSectionItem>
+                     </apex:pageblockSection>
+                     <apex:pageblockButtons location="bottom">
+                         <apex:actionStatus id="createRecordStatus">
+                             <apex:facet name="start">
+                                 <apex:image value="{!$Resource.AjaxAnimation}" alt="Loading..."/>
+                             </apex:facet>
+                             <apex:facet name="stop">
+                                 <apex:outputPanel >
+                                     <apex:commandButton action="{!submit}" value="Create Records" disabled="{!createSuccessful}"/>
+                                     <apex:commandButton value="Cancel" onclick="testCloseTab();return false" disabled="{!createSuccessful}"/>
+                                 </apex:outputPanel>
+                             </apex:facet>
+                         </apex:actionStatus>
+                     </apex:pageblockButtons>
+                 </apex:pageBlock>
+                
+                   
+                    <apex:pageblock title="Record Creation Successful" rendered="{!createSuccessful}">
+                        <apex:pageBlockSection columns="1">
+                            <apex:pagemessages />
+                            <apex:panelGrid columns="6" cellpadding="0px" cellspacing="0px" style="vertical-align:middle;">
+                                <!-- Commented by: J.Jayoma as part of 214 AC -->
+                                <!-- <apex:commandButton value="Validate Mailing Address" onclick="QASDisplayPopup({ id: '{!createdCustomerId}', touchpoint: 'AccountBillingAddress'});"/>
+                                     <apex:commandButton value="Validate Primary Address" onclick="QASDisplayPopup({ id: '{!createdCustomerId}', touchpoint: 'AccountShippingAddress'});"/>
+                                 -->
+                                <apex:commandButton value="Segmentation" onclick="OpenSegmentation(); return false;"/>
+                                <apex:outputPanel rendered="{!NOT(isNSM)}">&nbsp;&nbsp;<apex:commandButton value="Create Billing Account" action="{!createBillAcc}"/></apex:outputPanel>
+                                <apex:outputPanel >&nbsp;&nbsp;<apex:commandButton value="View Record" action="{!viewCreatedRecord}"/></apex:outputPanel>
+                                <apex:outputPanel >&nbsp;&nbsp;<apex:commandButton value="Close Page" onclick="testCloseTab();return false"/></apex:outputPanel>
+                            </apex:panelGrid>
+                        </apex:pageBlockSection>
+                    </apex:pageblock>
+               </apex:outputPanel>
+            </apex:outputPanel>
+        
+        <script type="text/javascript">
+            var addressType='';
+            document.onkeypress=function(e){
+                        e=e?e:window.event;
+                        if (e.keyCode==13)return false;
+            };     
+            
+            
+                        
+            function testCloseTab() {
+                if(sforce.console.isInConsole()){
+                    sforce.console.getEnclosingTabId(closeSubtab);
+                }
+                else{
+                    window.location = "{!JSENCODE(retURL)}";
+                }
+            }
+            
+            var closeSubtab = function closeSubtab(result) {
+                var tabId = result.id;
+                sforce.console.closeTab(tabId);
+            };
+
+            function OpenSegmentation() {
+                if(sforce.console.isInConsole()){
+                    sforce.console.getEnclosingPrimaryTabId(OpenSegmentationTab);
+                } else {
+                    window.open("/apex/CustomerSegmentEntry?id={!Account.Id}", "_new");
+                }
+            }
+    
+            var OpenSegmentationTab = function OpenSegmentationTab (result) {
+                sforce.console.openSubtab(result.id , '/apex/CustomerSegmentEntry?id={!Account.Id}', true, '', null);
+            }
+            
+            var j$ = jQuery.noConflict();                                       
+                
+            j$(function() {             
+                  hideSearch();                          
+                  hideManual();   
+            });            
+                  
+            //Build the Qas Dialog and Close Page Alert Dialog
+            function BuildQASDialog() {
+                j$( "#qas-popup").dialog({
+                    dialogClass: 'ui-dropshadow',
+                    autoOpen: false,
+                    height: 500,
+                    width: 450,
+                    modal: true,
+                    resizable: false,
+                    zIndex: 60,
+                    title: 'Address Entry'
+                });                           
+            }
+            
+         
+            
+            //Show the QaS search component            
+            function showSearch() {
+               try {
+                   j$("#qaSearch").show();
+               } catch (e) { alert(e.toString()); }
+            }
+            
+            //Hide the QaS search component
+            function hideSearch() {
+               try {
+                   j$("#qaSearch").hide();
+               } catch (e) { alert(e.toString()); }
+            }
+            
+            //Hide the manual QaS search div
+            function hideManual() {
+               try {
+                   j$("#qaManual").hide();
+               } catch (e) { alert(e.toString()); }
+            }
+             //Show the QaS dialog         
+            function ShowQASDialog(x,y) {
+               try {
+                   BuildQASDialog(); 
+                   j$("#qas-popup").dialog("open");
+                   showSearch();
+                   hideManual();
+                   caller = x;                
+                   addressType=y;
+                  
+               } catch (e) { alert(e.toString()); }
+            }    
+            
+             //Close the QaS dialog
+            function CloseQASDialog() {
+                try {                   
+                    j$("#qas-popup").dialog("close"); 
+                       
+                } catch (e) { alert(e.toString()); }
+            return false;
+            }   
+            
+            //Show the manula QaS search div
+            function showManual(x) {
+               try {
+                   mode = x;
+                   j$("#qaManual").show();
+                   clearEntries(x);
+                   hideSearch();
+               } catch (e) { alert(e.toString()); }
+            }      
+            
+             //Function that parses the address from QAS then display it on their respective component.
+            function ReceiveAddress(address) {     
+                var Street = address.AddressLines[0].Line;
+                var Street2 = address.AddressLines[1].Line;            
+                var Suburb = address.AddressLines[2].Line;
+                var State = address.AddressLines[3].Line;
+                var Postal = address.AddressLines[4].Line;
+                var Country = address.AddressLines[5].Line;
+                var completeAddress, fullStreet,StatePostal;                                    
+                
+                for (var i=0; i < address.Length; i++) {
+                    var line = address.AddressLines[i].Line;
+                    
+                    if (line != null & line != "") {
+                        if (completeAddress == null)
+                            completeAddress = line;
+                        else                    
+                            completeAddress = completeAddress + ', ' + line;
+                    }
+                }
+
+                if(Street2 != ''){
+                    fullStreet = Street +', '+Street2;
+                } 
+                else{
+                    fullStreet = Street;                           
+                }
+                
+                if (trim(State) == ''){
+                    StatePostal = Postal ; 
+                }    
+                else{    
+                    StatePostal = State + ', ' + Postal;          
+                }
+                
+                //Assign values to hidden mailing address
+                if(caller == 1){   
+                                             
+                   
+                }
+                
+                //Assign values to shipping address
+                if(caller == 2){
+                    
+                }  
+                 
+                 // Get The Full Address                          
+                
+                if(addressType=='mailing'){
+                    xAddressMailing(fullStreet,Suburb,State,Postal,Country);
+                }  
+                else{
+                    xAddressPrimary(fullStreet,Suburb,State,Postal,Country);
+                }                 
+                                    
+            }
+            
+            //Function that parses the address from QAS then display it on their respective component for local and overseas
+            function ReceiveAddressManually(){
+                            
+                var mStreet =  document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStreetItem.street}').value;
+                var mStreet2 =  document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStreet2Item.street2}').value;    
+                var mSuburb =  document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaSuburbItem.suburb}').value;               
+                var mState =  document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStateItem.state}').value;
+                var mPostal =  document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaPostal.postalCode}').value;
+                var mCountry =  document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaCountry.country}').value;
+                var mFullStreet, mStatePostal;                              
+                if(mode == 'manual'){
+                    if ((trim(mStreet) == '') || (trim(mSuburb) == '') || (trim(mPostal) == '') || (trim(mCountry) == '') || (trim(mState) == '')) {
+                        alert('You must enter a value on all the required fields.');
+                        return false;               
+                    } 
+                       
+                }else{
+                    if ((trim(mStreet) == '') || (trim(mCountry) == '')) {
+                        alert('You must enter a value on all the required fields.');
+                        return false;               
+                    } 
+                }
+                
+                if (trim(mStreet2) != ''){
+                    mFullStreet = mStreet + ', ' + mStreet2 ;                     
+                } 
+                else{
+                    mFullStreet = mStreet;                           
+                }
+                if (trim(mState) == ''){
+                    mStatePostal = mPostal ; 
+                }    
+                else{    
+                    mStatePostal = mState + ', ' + mPostal;          
+                }
+               
+                if(mode == 'manual'){
+                    if(mFullStreet.length < 4 || mFullStreet.length > 60){
+                        alert('Street address cannot be less than 4 or greater than 60 characters.');
+                        return false;
+                    }else if(mState.length < 2){
+                        alert('State should be 2 or more characters.');
+                        return false;
+                    }else if(mSuburb.length < 2){
+                        alert('Suburb should be 2 or more characters.');
+                        return false;
+                    }     
+                }          
+               
+                
+                //Assign values to hidden mailing address
+                if(caller == 1){                        
+                        
+                }
+                 
+                //Assign values to hidden primary address
+                if(caller == 2){  
+                
+                }  
+                 
+                //Save billing account addresses
+                if(caller == 3){
+                    
+                }               
+                
+                if(addressType=='mailing'){                 
+                    xAddressMailing(mFullStreet,mSuburb,mState,mPostal,mCountry);
+                }  
+                else{                   
+                    xAddressPrimary(mFullStreet,mSuburb,mState,mPostal,mCountry);
+                }                         
+            
+            }
+            
+            function clearEntries(x){
+                document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStreetItem.street}').focus();
+                document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStreetItem.street}').value='';
+                document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStreet2Item.street2}').value='';    
+                document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaSuburbItem.suburb}').value='';               
+                document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStateItem.state}').value='';
+                document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaPostal.postalCode}').value='';
+                 
+                if(x == 'manual'){
+                    document.getElementById('thePage:qasForm:testBlock:qaSearchSection:qaCountry:country').value='AUSTRALIA';
+                    document.getElementById('thePage:qasForm:testBlock:qaSearchSection:qaCountry:country').readOnly=true; 
+                    document.getElementById('requiredInputDiv').className="requiredInput";
+                    document.getElementById('requiredBlockDiv').className="requiredBlock"; 
+                    document.getElementById('requiredInputDivState').className="requiredInput";
+                    document.getElementById('requiredBlockDivState').className="requiredBlock"; 
+                    document.getElementById('requiredInputDivPostal').className="requiredInput";
+                    document.getElementById('requiredBlockDivPostal').className="requiredBlock";
+                }else{
+                     document.getElementById('requiredInputDiv').className="";
+                    document.getElementById('requiredBlockDiv').className=""; 
+                    document.getElementById('requiredInputDivState').className="";
+                    document.getElementById('requiredBlockDivState').className=""; 
+                    document.getElementById('requiredInputDivPostal').className="";
+                    document.getElementById('requiredBlockDivPostal').className=""; 
+                    document.getElementById('thePage:qasForm:testBlock:qaSearchSection:qaCountry:country').value='';
+                    document.getElementById('thePage:qasForm:testBlock:qaSearchSection:qaCountry:country').readOnly=false; 
+                }               
+            }
+                   
+        </script>
+    </apex:form>
+    <apex:form id="qasForm" >    
+        <div id="qas-popup" >
+            
+            <!--TP296 QAS Component -->
+            <apex:outputPanel id="qasPanel">
+                <div id="qaSearch">
+                        <c:QaSPopupPulse />                    
+                </div> 
+            </apex:outputPanel>    
+            
+            <!--TP296 QAS Manual Entry -->
+            <div id="qaManual" class="pbTransparent requiredInput">   
+                <apex:pageBlock id="testBlock">                                                          
+                    Please enter your address details below.<br/><br/>                                                   
+                    <apex:pageBlockSection id="qaSearchSection" columns="1" >
+                        <apex:pageBlockSectionItem id="qaStreetItem">                                                                               
+                        <apex:outputLabel value="Street address 1"/> 
+                         <apex:outputPanel >
+                         <div class="requiredInput">
+                            <div class="requiredBlock"></div>
+                                <apex:inputTextarea rows="2" id="street" required="true" styleClass="requiredInput" style="width:250px" />
+                            </div>
+                        </apex:outputPanel>                                   
+                    </apex:pageBlockSectionItem>
+                                    
+                    <apex:pageBlockSectionItem id="qaStreet2Item">
+                        <apex:outputLabel value="Street address 2"/> 
+                        <apex:inputTextArea rows="2" label="Street" id="street2" required="true" styleClass="requiredInput" style="width:250px"  /> 
+                    </apex:pageBlockSectionItem>
+                        
+                    <apex:pageBlockSectionItem id="qaSuburbItem">
+                        <apex:outputLabel value="Suburb"/>
+                        <apex:outputPanel id="suburbPanel">
+                         <div class="requiredInput" id="requiredInputDiv">
+                            <div class="requiredBlock" id="requiredBlockDiv"></div>                               
+                                    <apex:inputText id="suburb" required="true" style="width:250px" />
+                                </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                                 
+                    <apex:pageBlockSectionItem id="qaStateItem">
+                        <apex:outputLabel value="State"/> 
+                        <apex:outputPanel >
+                         <div class="requiredInput" id="requiredInputDivState">
+                            <div class="requiredBlock" id="requiredBlockDivState"></div>                                     
+                          <apex:inputText id="state" required="true" style="width:250px" /> 
+                      </div>
+                        </apex:outputPanel>                                  
+                    </apex:pageBlockSectionItem>
+                                    
+                    <apex:pageBlockSectionItem id="qaPostal">
+                       <apex:outputLabel value="Postal code"/>
+                         <apex:outputPanel >
+                         <div class="requiredInput" id="requiredInputDivPostal">
+                            <div class="requiredBlock" id="requiredBlockDivPostal"></div>
+                                    <apex:inputText id="postalCode" required="true" style="width:250px"/>
+                                </div>
+                        </apex:outputPanel>  
+                    </apex:pageBlockSectionItem>
+                                    
+                    <apex:pageBlockSectionItem id="qaCountry">
+                        <apex:outputLabel value="Country"/>
+                        <apex:outputPanel >
+                            <div class="requiredInput">
+                                <div class="requiredBlock"></div>
+                                <apex:inputText id="country" required="true" style="width:250px" />
+                            </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <br/>
+                    
+                    <apex:pageBlockSectionItem id="qaButtons">
+                        <apex:outputLabel value=""/>
+                        <apex:pageBlockSectionItem dataStyle="horizontal-align: middle">                      
+                            <apex:commandButton id="acceptSearchButton" onclick="ReceiveAddressManually();"  value="Accept" styleClass="btnPrimary"/>                               
+                                                    
+                                                       
+                            <apex:commandButton onclick="CloseQASDialog();" value="Cancel"  immediate="true" styleclass="btnBlueText" /> 
+                        </apex:pageBlockSectionItem>                                        
+                    </apex:pageBlockSectionItem>                                                                     
+                </apex:pageBlockSection>                              
+            </apex:pageBlock>                                             
+        </div>
+    </div>    
+   
+    <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff"
+                                       borderColor="#6B6B6B"
+                                       borderSize="1"
+                                       height="50px"
+                                       width="120px"
+                                       margintop="-25px"
+                                       marginleft="-60px"
+                                       ImageUrl="{!$Resource.AjaxAnimation}"
+                                       Message="Loading..."/>
+            </apex:facet>
+        </apex:actionStatus>
+    </apex:form>
+</apex:page>

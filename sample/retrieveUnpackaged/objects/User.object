@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>FreezeUserAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ManagePermSetsAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>PasswordUnlockAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ResetPasswordAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>UserActivationAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <fields>
+        <fullName>Approver__c</fullName>
+        <externalId>false</externalId>
+        <label>Approver</label>
+        <relationshipName>UserApprover</relationshipName>
+        <restrictedAdminField>false</restrictedAdminField>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Hierarchy</type>
+    </fields>
+    <fields>
+        <fullName>HIDDEN_Birthdate__c</fullName>
+        <externalId>false</externalId>
+        <label>(Hidden) Birthdate</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>HIDDEN_Confirmed_Portal_User__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>(Hidden) Confirmed Portal User</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ManagerId</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <type>Hierarchy</type>
+    </fields>
+    <fields>
+        <fullName>PortalReg_Confirm_Password__c</fullName>
+        <description>For portal registration</description>
+        <externalId>false</externalId>
+        <label>Confirm Password</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PortalReg_Customer_Name__c</fullName>
+        <description>Used by portal registration</description>
+        <externalId>false</externalId>
+        <label>Customer Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PortalReg_Customer_Number__c</fullName>
+        <description>Used by portal registration</description>
+        <externalId>false</externalId>
+        <label>Customer Number</label>
+        <length>10</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PortalReg_Drivers_License_Number__c</fullName>
+        <description>Used by portal registration</description>
+        <externalId>false</externalId>
+        <label>Drivers License Number</label>
+        <length>30</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PortalReg_Password__c</fullName>
+        <description>New password for portal registration</description>
+        <externalId>false</externalId>
+        <label>Password</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Profile_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Profile.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Profile Name</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Require_Portal_Password_Reset__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Applicable for portal users only. This is only set if the user is created by a CSO and not via self-registration.</inlineHelpText>
+        <label>Require Portal Password Reset</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Secret_Answer__c</fullName>
+        <externalId>false</externalId>
+        <label>Secret Answer</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Secret_Question__c</fullName>
+        <externalId>false</externalId>
+        <label>Secret Question</label>
+        <picklist>
+            <picklistValues>
+                <fullName>What is the name of your favourite pet?</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>What city or town where you born in?</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>What is your mother’s maiden name?</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Who is your favourite historical figure?</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>What was the last school you attended?</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Team__c</fullName>
+        <externalId>false</externalId>
+        <formula>UserRole.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Team</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Universal_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Universal Id</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <listViews>
+        <fullName>ActiveUsers</fullName>
+        <columns>FULL_NAME</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <columns>CORE.USERS.USERNAME</columns>
+        <columns>CORE.USERS.LAST_LOGIN</columns>
+        <columns>CORE.USER_ROLE.NAME</columns>
+        <columns>CORE.PROFILE.NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CORE.USERS.ACTIVE</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>Active Users</label>
+    </listViews>
+    <listViews>
+        <fullName>AdminUsers</fullName>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <columns>FULL_NAME</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <columns>CORE.USERS.USERNAME</columns>
+        <columns>CORE.USERS.LAST_LOGIN</columns>
+        <columns>CORE.USER_ROLE.NAME</columns>
+        <columns>CORE.USERS.ACTIVE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CORE.PROFILE.NAME</field>
+            <operation>equals</operation>
+            <value>System Administrator</value>
+        </filters>
+        <filters>
+            <field>CORE.PROFILE.NAME</field>
+            <operation>equals</operation>
+            <value>SEW Administrator</value>
+        </filters>
+        <label>Admin Users</label>
+    </listViews>
+    <listViews>
+        <fullName>AllUsers</fullName>
+        <columns>FULL_NAME</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <columns>CORE.USERS.USERNAME</columns>
+        <columns>CORE.USERS.LAST_LOGIN</columns>
+        <columns>CORE.USER_ROLE.NAME</columns>
+        <columns>CORE.USERS.ACTIVE</columns>
+        <columns>CORE.PROFILE.NAME</columns>
+        <filterScope>Everything</filterScope>
+        <label>All Users</label>
+    </listViews>
+    <listViews>
+        <fullName>Live_Agent_User</fullName>
+        <columns>FULL_NAME</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <columns>CORE.USERS.USERNAME</columns>
+        <columns>CORE.USERS.LAST_LOGIN</columns>
+        <columns>CORE.USER_ROLE.NAME</columns>
+        <columns>CORE.USERS.ACTIVE</columns>
+        <columns>CORE.PROFILE.NAME</columns>
+        <columns>MANAGER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>LIVEAGENT_USER</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>Live Agent User</label>
+    </listViews>
+    <listViews>
+        <fullName>SEW_CSO</fullName>
+        <columns>FULL_NAME</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <columns>CORE.USERS.USERNAME</columns>
+        <columns>CORE.USERS.LAST_LOGIN</columns>
+        <columns>CORE.USER_ROLE.NAME</columns>
+        <columns>CORE.PROFILE.NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CORE.PROFILE.NAME</field>
+            <operation>equals</operation>
+            <value>SEW CSO Team Leader,SEW CSO (Customer Service Officer)</value>
+        </filters>
+        <filters>
+            <field>CORE.USERS.ACTIVE</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>SEW CSO</label>
+    </listViews>
+    <listViews>
+        <fullName>SEW_CSO_Team_Leaders</fullName>
+        <columns>FULL_NAME</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <columns>CORE.USERS.USERNAME</columns>
+        <columns>CORE.USERS.LAST_LOGIN</columns>
+        <columns>CORE.USER_ROLE.NAME</columns>
+        <columns>CORE.PROFILE.NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CORE.USERS.ACTIVE</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>CORE.PROFILE.NAME</field>
+            <operation>equals</operation>
+            <value>SEW CSO Team Leader</value>
+        </filters>
+        <label>SEW CSO Team Leaders</label>
+    </listViews>
+    <listViews>
+        <fullName>SEW_Staff</fullName>
+        <columns>FULL_NAME</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <columns>CORE.USERS.USERNAME</columns>
+        <columns>CORE.USERS.LAST_LOGIN</columns>
+        <columns>CORE.USER_ROLE.NAME</columns>
+        <columns>CORE.USERS.ACTIVE</columns>
+        <columns>CORE.PROFILE.NAME</columns>
+        <columns>MANAGER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CORE.PROFILE.USERTYPE</field>
+            <operation>equals</operation>
+            <value>S</value>
+        </filters>
+        <filters>
+            <field>CORE.USERS.ACTIVE</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>SEW Staff</label>
+    </listViews>
+    <listViews>
+        <fullName>SFDC_Users</fullName>
+        <columns>FULL_NAME</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <columns>CORE.USERS.USERNAME</columns>
+        <columns>CORE.USERS.LAST_LOGIN</columns>
+        <columns>CORE.USER_ROLE.NAME</columns>
+        <columns>CORE.USERS.ACTIVE</columns>
+        <columns>CORE.PROFILE.NAME</columns>
+        <columns>MANAGER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CORE.PROFILE.NAME</field>
+            <operation>equals</operation>
+            <value>SFDC</value>
+        </filters>
+        <label>SFDC Users</label>
+        <sharedTo>
+            <group>Admin</group>
+        </sharedTo>
+    </listViews>
+    <namedFilters>
+        <fullName>nf_01IO00000000WSlMAM_00NO0000000crgmMAA</fullName>
+        <active>true</active>
+        <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
+        <errorMessage>The selected user must be a Portal user.</errorMessage>
+        <field>Portal_Marketing_Page_Tracking__c.User__c</field>
+        <filterItems>
+            <field>User.Profile.Name</field>
+            <operation>equals</operation>
+            <value>SEW WaterMAP Portal User</value>
+        </filterItems>
+        <filterItems>
+            <field>User.Profile.Name</field>
+            <operation>equals</operation>
+            <value>SEW WaterMAP Only Portal User</value>
+        </filterItems>
+        <filterItems>
+            <field>User.Profile.Name</field>
+            <operation>equals</operation>
+            <value>SEW Portal User</value>
+        </filterItems>
+        <filterItems>
+            <field>User.Profile.Name</field>
+            <operation>equals</operation>
+            <value>Overage High Volume Customer Portal User</value>
+        </filterItems>
+        <infoMessage>Select the Portal User for this tracking record.</infoMessage>
+        <isOptional>false</isOptional>
+        <name>Portal Marketing Page Tracking_User</name>
+    </namedFilters>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>FULL_NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CORE.USER_ROLE.NAME</lookupDialogsAdditionalFields>
+        <lookupFilterFields>FULL_NAME</lookupFilterFields>
+        <lookupFilterFields>CORE.USER_ROLE.NAME</lookupFilterFields>
+        <lookupPhoneDialogsAdditionalFields>FULL_NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CORE.USER_ROLE.NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CORE.USERS.PHONE</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CORE.USERS.EXTENSION</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CORE.USERS.CELL</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>FULL_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.TITLE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.PHONE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.EMAIL</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USER_ROLE.NAME</searchResultsAdditionalFields>
+    </searchLayouts>
+    <webLinks>
+        <fullName>APXTConga4__Conga_Mail_Merge</fullName>
+        <availability>online</availability>
+        <description>*** This is an example of a simple Conga Composer button. *** 
+
+Copy the URL from this button and paste it into your own custom button or link. Then add optional parameters to finely tune the button&apos;s behavior. See the Conga Configuration Guide for details.</description>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>false</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>450</height>
+        <isResizable>false</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Conga Composer</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>https://www.appextremes.com/apps/Conga/PointMerge.aspx
+?sessionId={!API.Session_ID}
+&amp;serverUrl={!API.Partner_Server_URL_80}
+&amp;id={!User.Id}</url>
+        <width>625</width>
+    </webLinks>
+    <webLinks>
+        <fullName>OrgViewUserChart</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>OrgView User Chart</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <url>https://www.dreamfactory.com/orgview/orgview.html? 
+sessionid={!API.Session_ID}&amp; 
+serverurl={!API.Partner_Server_URL_70}&amp; 
+username={!User.Username}&amp; 
+fullname={!User.Name}&amp; 
+linkid={!User.Id}&amp; 
+userid={!User.Id}</url>
+    </webLinks>
+</CustomObject>

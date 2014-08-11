@@ -1,0 +1,234 @@
+<apex:page sidebar="false" showHeader="true"
+	tabstyle="PortalAccounts__tab" action="{!CheckRedirectConfirmed}"
+	controller="PortalMoveInOut_Controller" id="thePage">
+
+	<!-- 
+    Type:       VF page
+    Purpose:    Move Out Step 3
+    ---------------------------------------------------------------
+    History:
+       
+        14-Sept-2012 - Joel Jayoma (Cloud Sherpas)- Created for TP#234
+        22-Jul-2013  - N.Patterson  - TT11222 - disable the submit button when they click to ensure no multiple clicking occurs
+        30-Aug-2013  - N.Patterson  - Added the Loading page to display when the redirect is going on.  To be included in the next release.
+        26-Sep-2013  - N.Patterson  - TT11595 - Fixed the step 1 / step 2 / Step 3 / Complete banner below the Moving or Selling heading
+    -->
+
+	<head>
+<apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+<!-- jquery -->
+<apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+<apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+<apex:stylesheet value="{!$Resource.PortalSidebar_Styles}" />
+<apex:stylesheet value="{!$Resource.MoveInOut_Styles}" />
+<style>
+.contactMethod {
+	padding-left: 140px;
+}
+
+.contactMethod label {
+	display: block;
+	padding-left: 30px;
+	padding-top: -20px;
+	position: relative;
+	top: -15px;
+}
+
+.radioTitle {
+	color: #575756; ! important;
+	position: relative;
+	left: -10px;
+}
+
+.longInput {
+	width: 300px !important;
+}
+</style>
+
+<script>
+   /*     	function submitMoveOut (){
+        		submitBtn = document.getElementById('{!$Component.thePage.theForm.pageblock.submitbtn2}');
+        		submitBtn.disabled = 'disabled';
+        		submitBtn.classname = "btnDisabled btnPrimary";
+        		
+        		cancelBtn = document.getElementById('{!$Component.thePage.theForm.pageblock.cancelbtn }');
+        		cancelBtn.disabled = 'disabled';
+        		cancelBtn.classname = "btnDisabled btnPrimary";
+        		//submit();
+        	}
+        	*/
+        	
+        	function hideAll(){
+        		hideSection = document.getElementById('submitting');
+        		hideSection.style.visibility = 'visible';
+        	}
+        </script>
+	</head>
+
+	<apex:form id="theForm">
+
+		<apex:actionFunction name="submit" action="{!submit}" status="loading" />
+
+		<apex:outputPanel id="sidebarContainer" layout="block" styleClass="sideBarCellDiv" >
+        	<apex:outputPanel id="accountsListAndSidebar" layout="block" styleClass="pbTransparent" >
+            	<c:PortalAccountsList displayAccountList="false"/> <!-- TT10401-show the accountlist section -->
+                <!--  sidebar -->                           
+                <div style="margin-top:-65px;"><!-- TT10401-shift up 65 px to remove gap -->
+	            	<c:PortalSidebar id="sidebar" groupName="Accounts"
+							currentAccRecordType="{!customer.RecordType.DeveloperName}"
+							currentDevName="Accounts_MovingSelling"	/>
+				</div>
+			</apex:outputPanel>
+		</apex:outputPanel>
+		<!-- div class="sideBarCellDiv">
+			<c:PortalSidebar id="sidebar" groupName="Accounts"
+					currentAccRecordType="{!customer.RecordType.DeveloperName}"
+					currentDevName="Accounts_MovingSelling" title="Accounts" />
+		</div -->
+
+		<div class="contentCellDiv">
+
+			<!-- Page Block Header -->
+			<div class="pageBlockHeader">
+				<apex:outputPanel layout="block" styleclass="pageBlockTitle">
+                    Moving or Selling
+                </apex:outputPanel>
+			</div>
+
+			<apex:pageBlock id="pageblock">
+
+				<!-- Steps -->
+				<div class="moveinoutstep3of3Image">
+					<apex:panelGrid cellspacing="0" cellpadding="0"
+						styleClass="stepInnerGrid">
+						<span class="step stepFirst">Step 1</span>
+						<span class="step">Step 2</span>
+						<span class="activeStep">Step 3</span>
+						<span class="stepIncomplete">Complete</span>
+					</apex:panelGrid>
+				</div>
+
+				<!--  PAGE MESSAGES -->
+				<div style="margin-top: 5px">
+					<apex:pageMessages id="msg" />
+				</div>
+
+				<apex:outputPanel styleClass="innerContentLHSDiv">
+					<apex:outputPanel id="moreOptions">
+						<apex:actionRegion >
+							<apex:pageBlockSection title="Final Bill" collapsible="false"
+								columns="1">
+								<div class="radioTitle">Select how you wish to receive
+									your final bill</div>
+								<apex:selectRadio value="{!contactMethod}" required="false"
+									layout="pageDirection" styleClass="contactMethod"
+									id="contactMethod">
+									<apex:selectOption itemValue="email"
+										itemLabel="Email: {!userContact.Email}" />
+									<!-- <apex:selectOption itemValue="propertyAddress" itemLabel="Property address: {!contactPropertyAddress}"/>  -->
+									<apex:selectOption itemValue="propertyAddress"
+										itemLabel="Forwarding Address: {!forwardingpAddress}" />
+									<apex:actionSupport event="onclick" rerender="moreOptions"
+										status="loading" />
+
+
+
+								</apex:selectRadio>
+								<apex:selectRadio value="{!numberOption}"
+									label="Contact Number:">
+									<apex:selectOption itemValue="mobile" itemLabel="Mobile" />
+									<apex:selectOption itemValue="work" itemLabel="Work" />
+									<apex:selectOption itemValue="other" itemLabel="Other" />
+								</apex:selectRadio>
+								<apex:pageBlockSectionItem >
+									<apex:outputLabel value="" />
+									<apex:outputPanel >
+										<div class="requiredInput">
+											<div class="requiredBlock"></div>
+											<apex:inputText style="position:relative;width:200px;"
+												title="Mandatory Field" alt="Mandatory Field"
+												id="contactNumber" value="{!contactNumber}" />
+										</div>
+									</apex:outputPanel>
+								</apex:pageBlockSectionItem>
+
+							</apex:pageBlockSection>
+						</apex:actionRegion>
+
+					</apex:outputPanel>
+
+					<div style="clear: both" />
+					<br />
+
+					<apex:pageBlockSection id="buttonspbs" columns="1">
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel />
+							<apex:outputPanel >
+								<apex:outputPanel >
+									<apex:commandButton id="submitBtn" value="Submit"
+										action="{!getReadyForSubmit}" status="validating"
+										disabled="{!submitting}" rerender="buttonspbs, submitting"
+										onComplete="hideAll(); submit();" styleClass="btnPrimary" />
+								</apex:outputPanel>
+
+
+								<!--        
+                                            <apex:commandButton value="Start Again" immediate="true" action="{!StartAgain}"/>
+                                             -->
+
+								<apex:commandButton value="Cancel" id="cancelbtn"
+									disabled="{!submitting}" styleClass="btnClearGreenText"
+									action="{!home}" immediate="true" rendered="{!NOT(submitted)}" />
+							</apex:outputPanel>
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSection>
+
+				</apex:outputPanel>
+
+				<div class="innerContentRHSDiv">
+					<!--  live chat -->
+					<c:LiveChat />
+
+					<c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+						divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+						divStyle="width: 205px" />
+					<!--  quick links -->
+					<div style="position: relative;">
+						<c:PortalQuickLinks mode="Property" />
+					</div>
+				</div>
+
+				<div style="clear: both" />
+			</apex:pageBlock>
+
+		</div>
+
+		<apex:actionStatus id="loading">
+			<apex:facet name="start">
+				<c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+					borderSize="1" height="50px" width="120px" margintop="-25px"
+					marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+					Message="Loading..." />
+			</apex:facet>
+		</apex:actionStatus>
+		
+		<apex:actionStatus id="validating">
+			<apex:facet name="start">
+				<c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+					borderSize="1" height="50px" width="120px" margintop="-25px"
+					marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+					Message="Validating..." />
+			</apex:facet>
+		</apex:actionStatus>
+		
+		<div id="submitting" style="visibility:hidden;">
+			<c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+				borderSize="1" height="50px" width="120px" margintop="-25px"
+				marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+				Message="Loading..." />
+		</div>
+		
+	</apex:form>
+
+</apex:page>

@@ -1,0 +1,25 @@
+<!--
+    Type:      Page
+    Purpose:   event action detail page
+    
+    Used By:    
+    ---------------------------------------------------------------
+    History:
+
+    29/05/2014 ejandusay(Cloud Sherpas)         Created
+-->
+<apex:page standardController="Event_Action__c" showHeader="true" sidebar="true">
+	<apex:includeScript value="/support/console/26.0/integration.js"/>
+<script type="text/javascript">
+	window.onload = function refreshPrimaryTab(){
+		sforce.console.getFocusedPrimaryTabId(showTabId);
+
+	}
+	var showTabId = function showTabId(result) {
+        //result.id contains the focused primary tab to refresh
+        sforce.console.refreshPrimaryTabById(result.id, true);
+    };
+
+</script>
+	<apex:detail />
+</apex:page>

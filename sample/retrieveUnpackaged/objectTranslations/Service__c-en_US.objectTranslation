@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Service</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Services</value>
+    </caseValues>
+    <fields>
+        <label><!-- Billing Account --></label>
+        <name>Billing_Account__c</name>
+        <relationshipLabel><!-- Services --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- HIDDEN Tariff Conversion --></label>
+        <name>HIDDEN_TariffConv__c</name>
+    </fields>
+    <fields>
+        <label><!-- Meter Type --></label>
+        <name>Meter_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Property --></label>
+        <name>Property__c</name>
+        <relationshipLabel><!-- Services --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Quantity --></label>
+        <name>Quantity__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tariff --></label>
+        <name>Tariff__c</name>
+    </fields>
+    <fields>
+        <label><!-- Unique Id --></label>
+        <name>Unique_Id__c</name>
+    </fields>
+    <layouts>
+        <layout>Service Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

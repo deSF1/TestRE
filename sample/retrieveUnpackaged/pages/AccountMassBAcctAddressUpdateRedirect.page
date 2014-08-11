@@ -1,0 +1,7 @@
+<apex:page standardController="Account"
+    extensions="AccountMassBAcctAddressFlagUpdateExCon"
+    action="{!Redirector}">
+
+    <apex:pageMessages />
+
+</apex:page>

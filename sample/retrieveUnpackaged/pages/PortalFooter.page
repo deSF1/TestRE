@@ -1,0 +1,8 @@
+<apex:page cache="true" showheader="false" sidebar="false" >
+    <head>
+        <apex:stylesheet value="{!$Resource.SEWPortalStyles}"/>
+        <apex:stylesheet value="{!$Resource.SiteStyles}"/>
+        <apex:stylesheet value="{!$Resource.PortalHeaderFooterStyles}"/>
+    </head>
+    <c:SiteFooter />
+</apex:page>

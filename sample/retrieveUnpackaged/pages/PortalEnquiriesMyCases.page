@@ -1,0 +1,155 @@
+<apex:page sidebar="false" showHeader="true"
+    tabstyle="Portal_Enquiries__tab" action="{!CheckRedirectConfirmed}"
+    controller="PortalEnquiriesMyCases_Controller" doctype="html-5.0">
+
+    <!--  
+    Type:       VF page
+    Purpose:    Shows a user their open & closed cases
+    --------------------------------------------------
+    History:
+        19-Mar-2012 M. Watson (Salesforce) - Created
+        14-Jun-2012 D.Thong	Date is now datetime
+        28-Jun-2012 M.Watson - TT 5317, Created Date column width from 130px to 135px    
+        11-Nov-2013 A.Recio - Added filter condition for status display of cases. 
+        					  If Status is 'Waiting for HiAffinity', display 'In Progress'.    
+    -->
+
+    <head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <!-- jquery -->
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalActionLinks_Styles}"/>
+
+        <style type="text/css">
+            label {
+                display: block;
+                margin-bottom: 5px; 
+            }
+            
+            .caseField {
+                margin-top: 10px;
+                margin-bottom: 5px;
+                clear: both;                
+            }
+            
+            .bPageBlock .requiredInput .requiredBlock {
+                background-color: transparent;
+            }
+            
+            .tableHeader th {
+                padding: 5px;
+                line-height: 1.2;
+            }
+            
+            .tableColcase {
+                padding: 0px;
+                line-height: 1.2;
+                border-bottom: dotted 1px #F3F2F0
+            }
+            
+        </style>
+    </head>
+    
+    <apex:form id="theForm">
+        
+        <div class="sideBarCellDiv">
+            <!--  sidebar -->                           
+            <c:PortalSidebar id="sidebar" groupName="Enquiries" currentAccRecordType="{!customer.RecordType.DeveloperName}" 
+                            currentDevName="Enquiries_ViewMyCases" title="Enquiries"/>
+        </div>
+
+        <div class="contentCellDiv">
+
+            <!-- Page Block Header -->
+            <div class="pageBlockHeader">
+                <apex:outputPanel layout="block" styleclass="pageBlockTitle">
+                    My cases
+                </apex:outputPanel>
+            </div>  
+
+            <apex:pageBlock id="pageblock">
+                <!--  PAGE MESSAGES -->
+                <div style="margin-top: 5px">
+                    <apex:pageMessages id="msg" />
+                </div>
+
+                <div class="innerContentLHSDivx">
+                    <apex:outputPanel id="caseListPanel" >
+                        <span style="font-weight:bold">Show my &nbsp;</span>
+                        <apex:selectList id="caseToggle" value="{!caseToggle}" size="1">
+                            <apex:actionSupport event="onchange" rerender="pbTableMyCases" status="loading"/>
+                            <apex:selectOption itemValue="open" itemLabel="Open"/>
+                            <apex:selectOption itemValue="closed" itemLabel="Closed"/>
+                        </apex:selectList>
+                        <span style="font-weight:bold">&nbsp;cases (logged via mySouthEastWater):</span>
+
+                        <p/>
+
+                        <apex:actionRegion >
+                            <apex:pageBlockTable id="pbTableMyCases"
+                                    headerClass="tableHeader"
+                                    rowClasses="tableRowOdd,tableRowEven"
+                                    columnClasses="tableColcase"
+                                    value="{!IF(caseToggle == 'open', allOpenCases, allClosedCases)}" var="currCase" >
+    
+                                <apex:column headervalue="#" style="width: 60px;">
+                                    <apex:outputLink value="/apex/PortalCaseView?id={!currCase.Id}">{!currCase.CaseNumber}</apex:outputLink>        
+                                </apex:column>
+                                <apex:column headervalue="Created date" style="width:135px">
+                                	<apex:outputField value="{!currCase.CreatedDate}"/>
+                                	<!--  
+                                    <apex:outputText value="{0,date,dd/MM/yyyy}">
+                                        <apex:param value="{!currCase.CreatedDate}" /> 
+                                    </apex:outputText>
+                                    -->
+                                </apex:column>
+                                
+                                <apex:variable var="statVar" value="{!currCase.Status}" />
+
+                                <apex:column headervalue="Type" style="width: 140px;" value="{!currCase.Portal_Case_Type__c}"/>
+                                <apex:column headervalue="Status" style="width: 90px;" value="{!IF(statVar = 'Waiting for HiAffinity','In Progress',statVar)}"/>
+                                <apex:column headervalue="Subject" value="{!currCase.Subject}"/>
+                            </apex:pageBlockTable> 
+                        </apex:actionRegion>
+                            
+                    </apex:outputPanel>             
+                </div>
+<!-- 
+                <div class="innerContentRHSDiv">
+                    <div style="position: relative;"><c:PortalQuickLinks /></div>
+                </div>
+ -->
+                <div style="clear:both"/>
+        
+            </apex:pageBlock>
+        </div>  
+
+        <!-- Action Status that are not position dependent -->
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+                    borderSize="1" height="50px" width="120px" margintop="-25px"
+                    marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+                    Message="Processing..." />
+            </apex:facet>
+        </apex:actionStatus>
+
+        <script>
+    
+            var j$ = jQuery.noConflict();
+    
+            var previousOnload = window.onload;
+            window.onload = function() {
+                try {
+                    j$(":input:enabled:visible:first").focus();
+                } catch (e) {
+                }
+            }
+        </script>
+    
+    </apex:form>
+     <div>
+        <c:PortalHorizontalQuickLinks mode="enquiries"/>
+    </div>
+</apex:page>

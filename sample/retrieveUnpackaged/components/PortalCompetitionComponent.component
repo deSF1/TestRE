@@ -1,0 +1,185 @@
+<apex:component controller="PortalCompetitionController" allowDml="true">
+
+    <style>
+   
+        
+        .campaignMsg{
+            color:White;
+            font-size:15px;
+            font-weight:bold;
+            padding:5px 5px 5px 5px;
+        }
+
+        
+        .mainPanelMagenta{
+            width:320px;
+            height:80px;
+            border:3px solid grey;
+            border-radius: 7px;
+            background-color:#A20067;
+        }
+        
+        .mainPanelGreen{
+            width:320px;
+            height:80px;
+            border:3px solid grey;
+            border-radius: 7px;
+            background-color:#509E2F;
+        }
+        
+                
+        .dropImage{
+            padding-top:5px; 
+        }
+        
+        
+        
+        .optionPanelGrey{
+            width:320px;
+            height:45px;
+            border:3px solid grey;
+            border-radius: 7px;
+            background-color:#F3F2F0;
+        }
+        
+        .optionPanelWhite{
+            width:320px;
+            height:45px;
+            border:3px solid grey;
+            border-radius: 7px;
+            background-color:white;
+        }
+        
+        .moreInfo{
+            font-size:13px;
+            color:blue;
+            text-decoration: none;
+        }
+        
+        .veticalBar{
+            font-size:13px;
+            font-weight:bold;
+        }
+
+
+        .subMessageGrey{
+            font-size:13px;
+            font-weight:bold;
+            color:Grey;
+        }
+        
+        .subMessageBlack{
+            font-size:13px;
+            font-weight:bold;
+            color:black;
+        }
+        
+        .subMessage{
+            font-size:12px;
+            color:white;
+        }
+        
+        .btnStyle{
+            width:70px;
+            height:25px;
+            font-size:12px !important;
+        }
+        
+        .closeOption{
+            font-size:13px;
+            cursor:pointer;
+            color:grey;
+        }
+        
+        .competitionPopUp {
+            display:block;
+            position:fixed;
+            top:75%;
+            right:300px;
+            width: 29px;
+            z-index: 1000 !important;
+        }
+
+    </style>
+    
+    <apex:actionFunction name="hideUp" action="{!HideUp}" status="counterStatus" rerender="DropDown,optionPanel"/>
+    <apex:actionFunction name="hideDown" action="{!HideDown}" status="counterStatus" rerender="DropDown,optionPanel"/>
+    
+    <apex:actionFunction name="closePaperLessBilling" action="{!closePaperLessBilling}" status="counterStatus" rerender="competitionPanel,optionPanel"/>
+    <apex:actionFunction name="closeDirectDebit" action="{!closeDirectDebit}" status="counterStatus" rerender="competitionPanel,optionPanel"/>     
+        
+    <!-- <apex:actionStatus startText="started" stopText="stop" id="counterStatus"/> -->
+    
+    <apex:outputPanel Id="enablePanel" rendered="{!IsEnabled}" styleClass="competitionPopUp">
+    <apex:outputPanel Id="competitionPanel">
+        <apex:outputPanel rendered="{!showCompetitionPanel}">
+        <div class="{!campaignColor}">
+            <apex:outputPanel Id="DropDown">
+                <div style="width:290px;float:left;"><div class="campaignMsg">{!campaignMessage}</div></div>
+                <apex:outputPanel style="width:20px;float:left;" rendered="{!showDownArrow}" > <div class="dropImage"> <apex:image style="float:right;" width="20px;" value="{!$Resource.DownArrow}" onclick="hideDown();"/> </div> </apex:outputPanel>         
+                <apex:outputPanel style="width:20px;float:left;" rendered="{!showUpArrow}" > <div class="dropImage"> <apex:image style="float:right;" width="20px;" value="{!$Resource.UpArrow}" onclick="hideUp();"/> </div> </apex:outputPanel> 
+            </apex:outputPanel>
+            
+            <div>
+                <div style="padding-left:5px;clear:both;" class="subMessage">Win one of 12 pre-paid $200 Visa cards drawn each week</div>
+            </div>
+            
+            <div>
+                <div style="width:230px;padding-left:5px;float:left" class="subMessage">or the major prize of one $2,000 Visa card*</div>
+                <div style="padding-left:5px;float:left;" class="veticalBar"> | </div>
+                <div style="padding-left:5px;float:left;"> <a class="moreInfo" target="_blank" href="/portal/articles/FAQ/Terms-and-conditions-direct-debit-and-paperless-billing-promotion/"> more info* </a> </div>
+            </div>
+       </div>
+       </apex:outPutPanel>
+    </apex:outPutPanel>
+    
+    <apex:outputPanel Id="optionPanel">
+        <apex:outputPanel rendered="{!showUpArrow}" >
+        
+            <apex:outputPanel rendered="{!showPaperLessBilling}">
+            <div class="{!paperlessPanelCSS}">
+            
+                <div style="padding-top:10px;">
+                <div style="padding-left:5px;float:left;width:170px;" class="{!paperLessMessageClass}"> {!paperLessMessage} </div>
+           
+                <apex:outputPanel style="float:left;width:70px;" Id="paperlessOption">   
+                    <apex:outputPanel rendered="{!IF(paperLessAccepted == true,false,true)}">
+                       <apex:commandButton styleClass="btnStyle" value="Switch Now" action="{!redirectPortalBillPreferences}"/>
+                    </apex:outputPanel>
+                    <div style="padding-left:20px;" >
+                        <apex:image height="30px;" width="30px;" value="{!$Resource.CheckBox}" rendered="{!IF(paperLessAccepted == true,true,false)}"/> 
+                    </div>
+                </apex:outputPanel>
+                
+                <apex:outputPanel style="padding-left:5px;float:left;" styleClass="veticalBar"> | </apex:outputPanel>
+                <apex:outputPanel style="padding-left:5px;float:left;"> <a onclick="closePaperLessBilling();" Class="closeOption"> close </a> </apex:outputPanel>
+                <br/>
+                </div>
+            </div>
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!showDirectDebit}">
+            <div class="{!directDebitPanelCSS}">
+                <div style="padding-top:10px;">
+                    <div style="padding-left:5px;float:left;width:170px;" class="{!directDebitMessageClass}"> {!directDebitMessage} </div>
+               
+                    <apex:outputPanel style="float:left;width:70px;" Id="directDebitOption">   
+                        <apex:outputPanel rendered="{!IF(directDebitSetup == true,false,true)}">
+                            <apex:commandButton styleClass="btnStyle" value="Set it up" action="{!redirectPortalDirectDebit_Select}"/>
+                        </apex:outputPanel>
+                        <div style="padding-left:20px;" >
+                            <apex:image height="30px;" width="30px;" value="{!$Resource.CheckBox}" rendered="{!IF(directDebitSetup == true,true,false)}"/> 
+                        </div>
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel style="padding-left:5px;float:left;" styleClass="veticalBar"> | </apex:outputPanel>
+                    <apex:outputPanel style="padding-left:5px;float:left;" > <a onclick="closeDirectDebit();" Class="closeOption"> close </a> </apex:outputPanel>
+                </div>
+            </div>
+            </apex:outputPanel>
+            
+        </apex:outputPanel>
+    </apex:outputPanel>
+    </apex:outputPanel>
+
+</apex:component>

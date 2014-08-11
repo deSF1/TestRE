@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>FAQ</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>FAQ</value>
+    </caseValues>
+    <fields>
+        <label><!-- Article Content --></label>
+        <name>Article_Content__c</name>
+    </fields>
+    <fields>
+        <label><!-- Article Purpose --></label>
+        <name>Article_Purpose__c</name>
+    </fields>
+    <fields>
+        <label><!-- Attachment #2 --></label>
+        <name>Attachment2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Attachment #3 --></label>
+        <name>Attachment3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Attachment #4 --></label>
+        <name>Attachment4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Attachment #5 --></label>
+        <name>Attachment5__c</name>
+    </fields>
+    <fields>
+        <label><!-- Attachment --></label>
+        <name>Attachment__c</name>
+    </fields>
+    <fields>
+        <help><!-- 1 – low
+5 – high --></help>
+        <label><!-- Business Priority --></label>
+        <name>Business_Priority__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5</masterLabel>
+            <translation><!-- 5 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Chat Answer --></label>
+        <name>Chat_Answer__c</name>
+    </fields>
+    <fields>
+        <label><!-- Public Site Links --></label>
+        <name>Related_Articles_Public_Site__c</name>
+    </fields>
+    <fields>
+        <help><!-- Add name of articles that are linked to this one --></help>
+        <label><!-- Related Articles --></label>
+        <name>Related_Articles__c</name>
+    </fields>
+    <fields>
+        <label><!-- mySouthEastWater Site Links --></label>
+        <name>Related_Articles_mySouthEastWater_Site__c</name>
+    </fields>
+    <fields>
+        <label><!-- Resources and comments --></label>
+        <name>Resources_and_comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Review Date --></label>
+        <name>Review_Date__c</name>
+    </fields>
+    <fields>
+        <name>ValidationStatus</name>
+        <picklistValues>
+            <masterLabel>Not Validated</masterLabel>
+            <translation><!-- Not Validated --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Validated</masterLabel>
+            <translation><!-- Validated --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>FAQ Layout</layout>
+        <sections>
+            <label><!-- Article Information --></label>
+            <section>Article Information</section>
+        </sections>
+        <sections>
+            <label><!-- Related Article Links --></label>
+            <section>Related Article Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

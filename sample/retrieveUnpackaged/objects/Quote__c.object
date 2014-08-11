@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>QuoteCreate</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Connection_Month__c</fullName>
+        <externalId>false</externalId>
+        <label>Connection Month</label>
+        <picklist>
+            <picklistValues>
+                <fullName>May - 2014</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jun - 2014</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jul - 2014</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Aug - 2014</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sep - 2014</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Oct - 2014</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nov - 2014</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dec - 2014</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jan - 2015</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Feb - 2015</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mar - 2015</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipName>Quotes</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Other_Rejected_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Rejected Reason</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Quoted_Price__c</fullName>
+        <externalId>false</externalId>
+        <label>Quoted Price</label>
+        <precision>10</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Rejected_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Rejected Reason</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Price</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <label>Quote</label>
+    <nameField>
+        <displayFormat>Q{0000000}</displayFormat>
+        <label>Quote Number</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Quotes</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

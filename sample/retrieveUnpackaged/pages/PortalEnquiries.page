@@ -1,0 +1,328 @@
+<apex:page sidebar="false" showHeader="true"
+    tabstyle="Portal_Enquiries__tab" id="thePage" action="{!CheckRedirectConfirmed}"
+    controller="PortalEnquiries_Controller" doctype="html-5.0">
+
+    <!--  
+    Type:       VF page
+    Purpose:    Submits General Enquiries, Complaints and Compliments
+    -----------------------------------------------------------------
+    History:
+        15-Mar-2012 M. Watson (Salesforce) - Created
+        19-May-2012 D.Yu					 Updated: Added components for general enquiries only	
+        23-May-2012	R.Dela Cruz			     Updated: Make Description field mandatory 
+        04-Jun-2012 D.Yu					 Updated: 5134 - change cancel to clear button
+        07-Jul-2012 D.Thong					 Updated: 5316
+        01-Oct-2012 J.Jayoma Update: TP# 392- Hide Live Web Chat Portal  
+    -->
+
+    <head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <style type="text/css">
+            label {
+                display: block;
+                margin-bottom: 5px; 
+                padding-top: 20px;
+                padding-right:35px;
+            }
+            
+            .caseField {
+                margin-top: 10px;
+                margin-bottom: 5px;
+                clear: both;                
+            }
+            
+            .owange{
+            	position: absolute;
+				left: -12px;
+				width: 16px;
+				top: 9px;
+				bottom: 1px;
+				background: url(PortalRequiredFieldIcon) no-repeat transparent;
+            }
+            .message .errorM3{
+            	width: 460px;
+            }
+            
+        </style>
+    </head>
+    <apex:form id="theForm">
+        <apex:inputHidden id="searchText" value="{!searchText}"></apex:inputHidden>
+        <div class="sideBarCellDiv">
+            <!--  sidebar -->                           
+            <c:PortalSidebar id="sidebar" groupName="Enquiries" currentAccRecordType="{!customer.RecordType.DeveloperName}" 
+                            currentDevName="{!sidebarDevName}" title="Enquiries"/>
+        </div>
+        
+        <div class="contentCellDiv">
+
+            <!-- Page Block Header -->
+           
+            <div class="pageBlockHeader">
+                <apex:outputPanel layout="block" styleclass="pageBlockTitle">
+                    {!pageBlockTitle}
+                </apex:outputPanel>
+            </div>
+           
+            <apex:pageBlock id="pageblock">
+                <div class="innerContentLHSDiv">
+                  <!--  PAGE MESSAGES -->
+                 <apex:outputPanel >
+	                 <div style="margin-top: 5px;">
+	                    <apex:pageMessages id="msg"/>
+	                </div>
+                 </apex:outputPanel>
+              	
+                 <apex:outputPanel id="subjectDesc" layout="block" rendered="{!blankDescription && blankSubject}" >
+                 	<div style="width:460px;">
+	                   <apex:pageMessage escape="false" strength="2" severity="error" summary="<h4>Error:</h4>Subject: You must enter a value<br/>Description: Please enter description of your {!enqType} below."/>
+                	</div>
+                 </apex:outputPanel>
+                 <apex:outputPanel id="subject" layout="block" rendered="{!blankSubject && !blankDescription}" >
+                 	<div style="width:460px;">
+	                   <apex:pageMessage escape="false" strength="2" severity="error" summary="<h4>Error:</h4>Subject: You must enter a value."/>
+                	</div>
+                 </apex:outputPanel>
+                 <apex:outputPanel id="description" layout="block" rendered="{!blankDescription && !blankSubject}" >
+                 	<div style="width:460px;">
+	                   <apex:pageMessage escape="false" strength="2" severity="error" summary="<h4>Error:</h4>Description: Please enter description of your {!enqType} below."/>
+                	</div>
+                 </apex:outputPanel>
+                
+             
+                <div style="position:relative; top:20px;">
+                         <c:PortalRequiredField styleclass="requiredFieldIndicatorRHSNoHeight"/>
+                     </div> <br/><br/><br/>
+                     <apex:outputText value="{!pageInfo}" escape="false" rendered="{!NOT(submitted)}"/>
+                    
+                     <apex:outputPanel id="caseFieldsPanel" rendered="{!NOT(submitted)}"> 
+                        <apex:actionRegion >
+                            <div class="caseField">
+                                <div style="width:102px!important;display:inline;">Select the account related to this enquiry (if applicable): </div>                       
+                                <br/><br/>
+                                Property<span style="padding-left:48px;"/>
+                                <apex:selectList value="{!caseRec.Billing_Account__c}"
+                                            style="width:338px;"
+                                            size="1" label="Property" id="billingaccountlist">
+                                    <apex:selectOptions value="{!billAcctOptionsWithNone}" />
+                                    <apex:actionSupport event="onchange" action="{!PopulateBillingAccount}"
+                                            rerender="buttons"
+                                            onsubmit="document.body.style.cursor='wait'"
+                                            oncomplete="document.body.style.cursor='default'"
+                                            focus=""/>
+                                </apex:selectList>
+                                   
+                            </div>
+                        </apex:actionRegion>
+
+<!-- 
+                        <div class="caseField">
+                            <label>Contact email address</label>
+                            <apex:outputText value="{!user.Contact.Email}" 
+                                        id="contactemailfield" label="Contact Email" />                                 
+                        </div>
+
+                        <div class="caseField">
+                            <label>Preferred phone number</label>
+                            <apex:outputText value="{!user.Contact.Preferred_Phone_Number__c}" 
+                                        id="contactphonefield" label="Contact Phone" />                                 
+                        </div>
+
+                        <div class="caseField">
+                            <label>Preferred contact type</label>
+                            <apex:outputText value="{!user.Contact.Preferred_Contact_Type__c}" 
+                                        id="contacttypefield" label="Contact Type" />                                   
+                        </div>
+ -->
+                        <br/>
+                        <apex:pageBlockSection id="subjectSection" rendered="{!NOT(submitted)}">
+                        	 <apex:pageBlockSectionItem >
+	                        	 <apex:outputLabel value="Subject" for="subjectfield"/>
+	                        	 <apex:outputPanel styleClass="requiredInput" style="margin-left:14px;" >
+	                        	 	<div style="margin-left: -15px;">
+		                        	 	<div class="requiredBlock" style="margin-left: -15px;margin-top:17px;"/> 
+		                        	 	 <apex:outputText ><b>In just a few words, what is your {!enqType} about:</b></apex:outputText>	               
+		                        	 	 <apex:inputField value="{!caseRec.Subject}"
+		                                        id="subjectfield" label="Subject" style="width:334px" styleClass="{!styleClassSub}">
+		                                		<script  type="text/javascript">
+								               		if ("{!searchText}" != null && document.getElementById('{!$Component.subjectfield}').value == ''){ 
+														document.getElementById('{!$Component.subjectfield}').value = "{!searchText}";
+													}
+								               	</script>
+		                                </apex:inputField>  
+	                                </div>
+	                        	</apex:outputPanel>
+                        	</apex:pageBlockSectionItem>            
+                        </apex:pageBlockSection>
+                        <div class="errorMsg" style="{!if(blankSubject, 'display:block;margin-left:100px;', 'display:none; margin-left:100px;')}">
+	                    	<div><apex:image value="{!$Resource.ListBulletCross_Orange}"></apex:image></div>
+	                    	&nbsp;
+	                    	<div style="margin-left: 20px; margin-top: -40px;"><strong>Error:</strong> You must enter a value</div>
+                    	</div>
+ 									                                   
+                        <apex:outputText rendered="{!enqType == 'enquiry'}" value="e.g. more time to pay, water charges, payment plan." style="font-size:85%; margin-left:120px;"/>
+					    <apex:outputText rendered="{!enqType == 'complaint'}" value="e.g. high bill, water quality, customer service support." style="font-size:85%; margin-left:120px;"/>
+					                    
+                        <div class="caseField" style="margin-top:15px;">
+ 
+	                        <apex:outputPanel styleClass="requiredInput" style="margin-left:14px;" >
+	                            <div class="requiredBlock" style="margin-top:-3px;"/>      
+		                        <apex:outputText value="Please enter the details of your {!enqType} below and select {!nextStep}."/>
+	                        </apex:outputPanel>
+	                    
+	                        <apex:outputPanel styleClass="requiredInput" layout="block">
+                            <apex:inputTextArea value="{!caseRec.Description}" 
+                                        id="descriptionfield" label="Description" 
+                                        cols="52" rows="8" styleClass="{!styleClassDesc}" style="width: 435px;"/>
+                             </apex:outputPanel>                     
+                        </div>
+                        
+                        <div style="clear:both"/>
+    
+                    </apex:outputPanel>
+                    <div class="errorMsg" style="{!if(blankDescription, 'display:block;', 'display:none;')}">
+                    	<div><apex:image value="{!$Resource.ListBulletCross_Orange}"></apex:image></div>
+                    	&nbsp;
+                    	<div style="margin-left: 20px; margin-top: -40px;"><strong>Error:</strong> Please enter description of your {!enqType}.</div>
+                    </div>
+
+                    <apex:outputPanel id="responsePanel" rendered="{!(submitted)}">
+                        <div class="caseField">
+                            <p>
+                                Thank you {!userContact.FirstName}, your {!enqType} has been submitted successfully. 
+                            </p>
+                            <p>
+                                Your case reference number is <b>{!casenumber}</b>.
+                            </p>      
+                        </div>
+                        
+                        <p/>
+                        <h3>Upload supporting documentation</h3>
+                        <p>You can also upload any supporting documentation to support your {!enqType}</p>
+                        <div class="caseField">
+                            <apex:inputFile id="caseAttachment" value="{!attachment.body}"
+                                        filename="{!attachment.Name}"
+                                        contentType="{!attachment.ContentType}"
+                                        fileSize="{!attachment.BodyLength}"
+                                        onchange=""/>
+                            <apex:commandButton value="Upload"
+                                        action="{!UploadAttachment}" styleClass="btn" style="margin-left: 10px"
+                                        id="uploadattachment"/> 
+                            <br/>
+                            <b>Note:</b> there is a 5MB limit for each attachment.           
+                        </div>
+
+                        <div class="caseField">                     
+                            <apex:outputPanel rendered="{!(hasAttachments)}">
+                                <b><u>Successfully attached</u></b><br/>
+                                <apex:repeat value="{!existingattachments}" var="currentattachment" id="attachRepeat">
+                                    <apex:outputLink value="/servlet/servlet.FileDownload?file={!currentattachment.Id}" target="_blank">
+                                        {!currentattachment.name}
+                                    </apex:outputLink>
+                                    <apex:actionregion >
+                                        <apex:commandLink action="{!DeleteAttachment}" title="Delete Attachment" style="margin-left:5px">
+                                            <apex:param name="tobeDeleted" value="{!currentattachment.Id}" assignTo="{!tobeDeleted}"/>
+                                            <apex:image value="{!URLFOR($Resource.Icons, 'Icons/Cross_Icon.png')}" style="vertical-align:middle;"/>
+                                        </apex:commandLink>
+                                    </apex:actionregion>
+                                    <br/>
+                                </apex:repeat>
+                            </apex:outputPanel>
+                        </div>
+                    </apex:outputPanel> 
+                    <apex:outputPanel rendered="{!enqType = 'enquiry' && partial && NOT(submitted) }" id="results">
+                    	<div class="cellText">
+                    		<label style="margin-left: 5px;"><h3 style="border-bottom: 0px;">Would these articles assist you?</h3></label>
+                    	</div>
+                    	<c:pkb_resultsEnquiries enqCon="{!enqCon}" enteredSearch="{!caseRec.Subject}" rowClass="borderDottedMedGreyBottom " id="searchComp"></c:pkb_resultsEnquiries>
+                    	<br/>
+                    	<div class="cellText">
+                    		<label style="margin-left: 5px;">If you wish to proceed with your enquiry, select submit.</label>
+                    	</div>
+    				</apex:outputPanel>
+                   <center style="margin-top:20px">
+                    	<apex:outputPanel rendered="{!enqType!='enquiry' && NOT(submitted)}">
+	                        <apex:commandButton value="Submit" 
+	                            id="submitbtn"
+	                            styleClass="btnGreen" action="{!submit}" 
+	                            status="loading"/> 
+	    					</apex:outputPanel>
+	    				<apex:outputPanel rendered="{!enqType=='enquiry' && partial && NOT(submitted)}">
+	    					<apex:commandButton value="Submit" 
+	                            id="submitbtnEnq"
+	                            styleClass="btnGreen" action="{!submit}" 
+	                            status="loading"/> 
+	    					</apex:outputPanel>
+    					<apex:outputPanel rendered="{!enqType=='enquiry' && NOT(partial) && NOT(submitted)}">
+	                        <apex:commandButton value="Next" 
+	                            id="partialsubmitbtn"
+	                            styleClass="btnGreen" action="{!SubmitWithArticle}" 
+	                            status="loading"/> 
+    					</apex:outputPanel>
+    					<apex:outputPanel rendered="{!enqType=='enquiry' && partial && NOT(submitted)}">
+	                        <apex:commandButton styleClass="btnClearGreenText"
+	                            value="Cancel" 
+	                            action="{!cancel}" 
+	                            immediate="true" id="cancelEnquiry"
+	                            /> 
+    					</apex:outputPanel>
+    					<apex:outputPanel rendered="{!NOT(partial) && NOT(submitted)}">
+	                        <apex:commandButton styleClass="btnClearGreenText"
+	                            value="Clear" 
+	                            onclick="javascript: clearFields('{!enqType}');"
+	                            id="cancelHome"
+	                            rerender="null"
+	                            /> 
+    					</apex:outputPanel>
+                       <apex:commandButton value="Home" action="{!home}" immediate="true" rendered="{!(submitted)}"/>
+				
+                    </center>
+    
+                </div>
+                <div class="innerContentRHSDiv">
+
+                    <!--  live chat -->
+                    <!-- TP#392 Added  LwcType attribute value for icon rendering-->
+                    <c:LiveChat LwcType="faults"/>
+                    
+                    <c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+                        divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+                        divStyle="width: 205px"/>
+                    
+                    <!--  quick links -->
+                    <div style="position: relative;"><c:PortalQuickLinks /></div>
+                </div>
+                <div style="clear:both"/>
+            </apex:pageBlock>
+        </div>
+
+        <!-- Action Status that are not position dependent -->
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+                    borderSize="1" height="50px" width="120px" margintop="-25px"
+                    marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+                    Message="Processing..." />
+            </apex:facet>
+        </apex:actionStatus>
+
+        <script type="text/javascript">
+    
+            var j$ = jQuery.noConflict();
+    
+            var previousOnload = window.onload;
+            window.onload = function() {
+                try {
+                    j$(":input:enabled:visible:first").focus();
+                } catch (e) {
+                }
+            }
+            
+        	function clearFields(enqType){
+        		window.location = '{!$Page.PortalEnquiries}?type='+enqType;
+        	}
+            
+        </script>
+    </apex:form>
+                        
+</apex:page>

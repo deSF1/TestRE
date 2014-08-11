@@ -1,0 +1,242 @@
+<apex:page sidebar="false" showHeader="true"
+    doctype="html-5.0"
+    tabstyle="PortalAccounts__tab" 
+    controller="PortalDirectDebitController"
+    id="thepage">
+
+    <!-- 
+    Type:       VF page
+    Purpose:    Direct Debit - Step 3 - Waits for the process to complete
+    ---------------------------------------------------------------------
+    History:
+        28-Mar-2012 D.Thong     Created
+        01-Jun-2012 D.Yu        Updated: Change home to back to direct debit link from portalmyaccounthomepage to PortalDirectDebit_Select
+        4-Jun-2012  D.Yu        Update: 5161 - Update header 
+        26-Aug-2013 N.Patterson TT10808 - show the due date and amount due for the payment plans
+        09-Dec-2013 B.Trinidad	US616 - Added outputPanel emailNotifMainPanel for email notification
+        19-Dec-2013 N.Patterson US616 - Updated button labels
+    -->
+
+
+    <html>
+        <!-- Head -->
+        <head>
+            <META HTTP-EQUIV="EXPIRES" CONTENT="-1" />
+            <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+            <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>        
+            <apex:stylesheet value="{!$Resource.PortalPayment_Styles}"/> 
+            <apex:stylesheet value="{!$Resource.PortalActionLinks_Styles}"/>
+            <style>
+            	.headerAlignRight {
+            		text-align: right;
+            		padding-right: 20px;
+            	}
+            </style>  
+        </head>
+        
+        <body>
+            <apex:form id="form">
+                <apex:inputhidden value="{!userInputFields.Customer_Account__c}" />
+                <apex:inputhidden value="{!userInputFields.Billing_Account__c}"/>
+                <apex:inputhidden value="{!userInputFields.Person__c}"/>
+                <apex:inputhidden value="{!userInputFields.DD_Account_Type__c}"/>
+                
+                <!--  sidebar -->
+                <div class="pbTransparent sideBarCellDiv" >
+                <!-- action status -->
+				<apex:actionStatus id="sending">
+			            <apex:facet name="start">
+			                <c:EnhancedActionStatus BackColor="#ffffff"
+			                                       borderColor="#6B6B6B"
+			                                       borderSize="1"
+			                                       height="50px"
+			                                       width="120px"
+			                                       margintop="-25px"
+			                                       marginleft="-60px"
+			                                       ImageUrl="{!$Resource.AjaxAnimation}"
+			                                       Message="Sending..."/>
+			            </apex:facet>
+        		</apex:actionStatus>
+                    <!--  sidebar -->                           
+                    <c:PortalSidebar id="sidebar" groupName="PaymentOptions" 
+                                currentAccRecordType="{!customer.RecordType.DeveloperName}" 
+                                currentDevName="PaymentOptions_SetUpADirectDebit"
+                                title="Payment options"/>
+                </div>
+        
+                <!-- Start of real page content here-->
+        
+                <apex:outputPanel id="wholePage" layout="block" styleClass="contentCellDiv" >
+    
+                    <apex:sectionheader subtitle="Manage direct debit"/>
+                    <div class="clear"/>
+    
+                    <apex:pageblock mode="edit" id="pb">
+
+                        <!--  HIDDEN FIELDS -->
+                        <apex:inputHidden value="{!notCompleted}" id="notcompletedflag"/>
+                        <apex:inputHidden value="{!ppComplete}" id="ppcompletedflag"/>
+                        <apex:inputHidden value="{!timeOut}" id="timeoutflag"/>
+
+                        <!--  PAGE MESSAGES -->
+                        <div style="margin: 10px 0px; text-align: left">
+                            <apex:pageMessages id="msg"  />
+                        </div>
+
+                        <apex:outputPanel id="statuses" >
+                            <apex:pagemessage id="submitting"
+                                summary="We are currently processing your request. This may take a few minutes for each account. Please do not shut down your browser or press the browser’s stop, refresh or back button while your request is being processed."
+                                rendered="{!submitting}"
+                                severity="info"
+                                strength="2"/>
+
+                        </apex:outputPanel>
+
+                        <!-- List of tasks waiting processing -->
+                        <apex:pageBlockTable id="taskListpbTable"
+                                headerClass="tableHeader"
+                                rowClasses="tableRowOdd,tableRowEven"
+                                value="{!portalTaskList}" var="task" >
+
+                            <!--  apex:column style="text-align: center; width: 30px;">
+                                <apex:image value="{!$Resource.PortalAjaxLoader}" 
+                                            rendered="{!IF(task.newTask.Status == 'In Progress' && submitting , true, false)}"/>
+                                <apex:image value="{!$Resource.PortalTickIcon}"  
+                                            rendered="{!IF(task.newTask.Status == 'Completed',true, false)}"/>
+                                <apex:image value="{!$Resource.ListBulletCross_Orange}" 
+                                            rendered="{!IF(task.newTask.Status != 'Completed' && not(submitting),true, false)}"/>
+                            </apex:column -->
+                            
+                            
+                            <!-- 
+                            Changed outputText value from 'Property/Account' to 'Account' and
+                                    outputText value from 'Message' to 'Status' and
+                                    outputText value from 'Success' to 'Direct Debit added/removed'  +_Inoy_+ -->
+                            
+                            <apex:column headervalue="Account" value="{!task.billingAccName}" style="width: 220px; padding-right: 20px"/>
+                            <apex:column headervalue="Status">
+                            	<!-- actionType:{!actionType}, Status:{!task.newTask.Status}, submitting:{!submitting}, task.hasPP:{!task.hasPP}, task.hasPPError:{!task.hasPPError}--> 
+                                <apex:image value="{!$Resource.PortalAjaxLoader}" rendered="{!IF((task.newTask.Status == 'In Progress' && submitting ) || (task.hasPP && task.hasPPError == null) || !ppComplete, true, false)}"/>
+                                <apex:image value="{!$Resource.PortalTickIcon}" rendered="{!IF(task.newTask.Status == 'Completed' && !(task.hasPP && task.hasPPError == null) && ppComplete ,true, false)}"/>
+                                &nbsp;<apex:outputText value="{!IF(actionType == 'Add/Amend','Adding ','Removing ')} direct debit" rendered="{!IF((task.newTask.Status == 'In Progress' && submitting) || (task.hasPP && task.hasPPError == null) || !ppComplete, true, false)}"/>
+                                <apex:outputText value=" and payment plan" rendered="{!IF(actionType != 'Add/Amend' && task.hasPP && ((task.newTask.Status == 'In Progress' && submitting) || task.hasPPError == null || !ppComplete) , true, false)}"/>
+	                            <apex:outputText value="Direct debit " rendered="{!IF(task.newTask.Status == 'Completed' && !(task.hasPP && task.hasPPError == null) && ppComplete,true, false)}"/>
+	                            <apex:outputText value=" and payment plan " rendered="{!IF(actionType != 'Add/Amend' && task.newTask.Status == 'Completed' && task.hasPP && task.hasPPError == false && ppComplete,true, false)}"/>
+	                            <apex:outputText value=" {!IF(actionType == 'Add/Amend','added','removed')}" rendered="{!IF(task.newTask.Status == 'Completed' && !(task.hasPP && task.hasPPError == null) && ppComplete,true, false)}"/>
+                                <apex:outputText value="Error {!IF(actionType == 'Add/Amend','adding','removing')} direct debit: {!task.newTask.Hidden_Messages__c}" 
+	                                        rendered="{!IF(task.newTask.Status != 'Completed' && not(submitting),true, false)}"/>
+                                <br/>
+                                <apex:outputPanel rendered="{!IF(task.hasPP && actionType == 'Cancel',true,false)}">
+                                	<!--  apex:image value="{!$Resource.PortalAjaxLoader}" rendered="{!IF(task.newTask.Status == 'In Progress' && submitting && actionType == 'Cancel', true, false)}"/ -->
+	                                <!-- apex:image value="{!$Resource.PortalTickIcon}" rendered="{!IF(task.newTask.Status == 'Completed' && !(task.hasPPError),true, false)}"/ -->
+	                                <apex:image value="{!$Resource.ListBulletCross_Orange}" rendered="{!IF(task.hasPPError == true && not(submitting) && ppComplete,true, false)}"/>
+	                                &nbsp;<!-- apex:outputText value="{!IF(actionType == 'Add/Amend','Adding ','Removing ')} payment plan" rendered="{!IF(task.newTask.Status == 'In Progress' && submitting && actionType == 'Cancel', true, false)}"/>
+	                                <apex:outputText value="Payment plan {!IF(actionType == 'Add/Amend','added','removed')}" rendered="{!IF(task.newTask.Status == 'Completed' && !(task.hasPPError),true, false)}"/ -->
+									<apex:outputText value="Error removing payment plan.  We have been notified of this issue."  
+	                                            rendered="{!IF(task.hasPPError == true && not(submitting) && ppComplete,true, false)}"/>
+                                </apex:outputPanel>
+                            </apex:column>
+                            
+                            <apex:column headervalue="Amount Due" style="width: 70px; padding-right: 5px; text-align:right" rendered="{!IF(actionType == 'Cancel' && !submitting, true, false)}">
+                            	<apex:outputText id="amountDue" value="${0, number,###,###,##0.00}" rendered="{!IF(task.hasPP, true, false)}">
+	                                <apex:param value="{!task.amountDue}" />
+	                            </apex:outputText>
+                            </apex:column>
+                            <apex:column headervalue="Due Date" headerclass="headerAlignRight" style="width: 100px; padding-right: 5px; text-align:right" rendered="{!IF(actionType == 'Cancel' && !submitting, true, false)}">
+                            	<apex:outputText id="newDueDate" value="{0, date, dd-MM-yyyy}" rendered="{!IF(task.amountDue > 0 && !task.hasPPError, true, false)}">
+	                                <apex:param value="{!task.newDueDate}" />
+	                            </apex:outputText>
+                            </apex:column>
+                        </apex:pageBlockTable>
+
+                        <div style="text-align: center; margin-top: 30px">
+                            <!--  <apex:outputLink value="{!$Page.PortalAccountDetailPage}"
+                                            styleClass="btn btnPrimary" 
+                                            rendered="{!not(submitting)}">
+                                Back to accounts
+                            </apex:outputLink> -->
+                            <apex:outputLink value="{!$Page.PortalDirectDebit_Select}"
+                                            styleClass="btn btnLink" 
+                                            rendered="{!not(submitting) && ppComplete}">
+                                Back to direct debit
+                            </apex:outputLink>
+                             
+                        </div>
+                        
+					 <!--START: email notification -->
+					 <apex:actionFunction action="{!hideEmailNotifPanel}" name="hideEmailNotifPanel_af" rerender="emailNotifMainPanel"/>
+					 <br/>
+					 <center>					 
+					 	<apex:outputPanel id="emailNotifMainPanel" rendered="{!not(submitting) && ppComplete}">
+							<apex:outputPanel id="emailNotifPanelId" rendered="{!IF(renderEmailNotifPanel==false,false,true)}">
+		                    	
+		                    		<apex:outputText value="{!$Label.EmailNotification}"/> 
+		                    			<br/> <br/>
+		                    		       	
+		                    		<apex:commandButton action="{!processEmail}" oncomplete="hideEmailNotifPanel_af();" styleClass="btnPrimary" rerender="wholePage" status="sending" value="Yes"/>
+		                    		<apex:commandButton action="{!hideEmailNotifPanel}" styleClass="btnPrimary" rerender="emailNotifMainPanel" value="No thanks"/>
+		                    		<script>
+		                    			rerenderHorizontalLink();
+		                    		</script>
+		                    </apex:outputPanel>
+                    	</apex:outputPanel>
+                    </center>
+                    <!--END: email notification -->
+                    
+                    </apex:pageblock>                  
+                </apex:outputPanel>
+                <!--  ACTION FUNCTIONS -->
+                <apex:actionFunction action="{!Redirect}" name="Redirect"/>  
+                <apex:actionFunction action="{!Timeout}" name="Timeout"/>
+   				<apex:actionFunction rerender="horizontalQuickLinkPanel" name="rerenderHorizontalLink"/>
+                <!-- POLLER -->
+                
+                <apex:actionPoller action="{!checkStatus}" interval="5" rendered="{!submitting || !ppComplete}" 
+                                    rerender="form" oncomplete="doRedirect();"/>   
+ 
+
+            </apex:form>
+
+            <apex:outputPanel Id="horizontalQuickLinkPanel" >
+            	
+                <c:PortalHorizontalQuickLinks Id="horizontalQuickLinkId" mode="directDebit"/>
+
+            </apex:outputPanel>
+
+            
+            <script type="text/javascript">
+                var previousOnload = window.onload;
+                window.onload = function() {
+                    // disable back button
+                    window.history.forward(1);
+                }
+
+                function doRedirect() {
+                    try {
+                        var notCompleteFlag = document.getElementById('{!$Component.form.pb.notcompletedflag}').value;
+                        var ppCompletedFlag = document.getElementById('{!$Component.form.pb.ppcompletedflag}').value;
+                        var timeoutFlag =  document.getElementById('{!$Component.form.pb.timeoutflag}').value;
+        				
+                        if (notCompleteFlag == 'false' && ppCompletedFlag == 'true') {
+                        	//alert ("Redirect notCompleteFlag=" + notCompleteFlag + " ppCompletedFlag:" + ppCompletedFlag);
+                            Redirect();
+                        }
+                        
+                        if (timeoutFlag == 'true') {
+                        	//alert ("Timeout notCompleteFlag=" + notCompleteFlag + " ppCompletedFlag:" + ppCompletedFlag);
+                            Timeout();
+                        }   
+                    } catch (e) {
+                        alert(e.toString());
+                    }
+                }
+
+            </script>
+        </body>
+        <head>
+            <META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
+            <META HTTP-EQUIV="EXPIRES" CONTENT="-1" />
+        </head>        
+    </html>
+    
+</apex:page>

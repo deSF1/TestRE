@@ -1,0 +1,30 @@
+<apex:component controller="QASPopupComponent_Controller" id="theComponent">
+    <!-- 
+    Type:       Apex Component
+    Purpose:    Display the QaS pop up page used in many pages
+    ---------------------------------------------------------------
+    History:
+    
+    27-Aug-2012 Davey Yu (Cloud Sherpas) ID#TP296 - Created
+    -->
+    
+    <apex:pageMessages id="cmpMsg" />
+    Please type in your address in the search box below.
+    <br/>
+    <div style="margin-top:5px; display:block">
+        <apex:commandLink onclick="showManual('manual');return false;" >Can't find Australian Address?</apex:commandLink>
+    </div>
+    <div style="margin-top:5px; display:block">
+        <apex:commandLink onclick="showManual('overseas');return false;" >Overseas Address?</apex:commandLink>
+    </div>
+    <p/>
+    
+    <table cellpadding="0" style="border-spacing: 0" id="theTable">
+        <tr>
+            <td>
+                <apex:iframe src="{!qasiFrameURL}" width="415" height="260" id="searchFrame"/>
+            </td>
+        </tr>
+    </table>
+    
+</apex:component>

@@ -1,0 +1,156 @@
+<apex:page cache="false"
+  standardStylesheets="false"
+  showHeader="false"
+  sidebar="false"
+  standardController="KnowledgeArticle"
+  extensions="pkb_Controller"
+  language="{!$CurrentPage.parameters.l}">
+	<html>
+		<head>
+		  <!--  <c:pkb_css /> -->
+		  <c:pkb_js pkbCon="{!pkbCon}" />
+		  <title>{!pageTitle}</title>
+		  <apex:includeScript value="{!$Resource.pkb_jquery_1_6_2}"/>
+		  <apex:includeScript value="{!$Resource.pkb_jquery_simplemodal_1_4_1}"/>
+		  <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+		  <apex:stylesheet value="{!$Resource.PortalHomePage_Styles}"/>
+		  <apex:stylesheet value="{!$Resource.SEWPortalStyles}"/>
+		  <apex:stylesheet value="{!$Resource.PortalPayment_Styles}"/>        
+		  <apex:outputText rendered="{!viewingArticle}">
+			<apex:variable var="typeName" value="{!SUBSTITUTE(pkbCon.theKad.articleTypeName, pkbCon.kavExtension, '')}" />
+			<apex:variable var="articleURL" value="{!pkbCon.currentSiteUrl}articles{!pkbCon.selectedLanguageURL}{!typeName}/{!pkbCon.theKad.urlName}" />
+			<meta property="og:title" content="{!pkbCon.theKad.title}"/> 
+			<meta property="og:type" content="article"/>
+			<meta property="og:url" content="{!articleURL}"/> 
+			<meta property="og:site_name" content="{!SUBSTITUTE(pkbCon.siteName,'_',' ')}" /> 
+		  </apex:outputText>
+		  <style type="text/css">
+		  	body {
+				font-family: Calibri, "Trebuchet MS", sans-serif;
+				background-color: #F3F2F0;
+			}
+			.btnPrimary:hover{
+				background-color: #3F8418;
+				color: white;
+			}
+			.btnPrimary{
+				background-color: #5DA22A;
+				color:white;
+				overflow: visible;
+				background-repeat: repeat-x;
+				border: 0 !important;
+				border-spacing: 0 !important;
+				background-image: none;
+				color: white;
+				display: inline;
+				font-family: Calibri, "Trebuchet MS", sans-serif;
+				font-weight: bold;
+				font-size: 11.25pt;
+				margin: 2px 3px 2px 0px;
+				border-radius: 3px;
+				-webkit-border-radius: 3px;
+				-moz-border-radius: 3px;
+				padding: 3px 8px;
+				-moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+				-webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+				box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+			}
+			.tableHeader {
+       			background-color: #EFF8FD;
+       		}
+		  </style>
+		  
+		</head>
+
+		<body>
+
+		<!--
+		HELPFUL DEBUG DATA
+
+		SITE ADMIN: {!pkbCon.siteAdmin.Email}, {!pkbCon.siteAdmin.Name}<br/>
+		ALL PARAMS: {!allSearchParams}<br/>
+		SITE/PAGE URL: {!pkbCon.currentSiteUrl}<br/>
+		FEEDBACK? : {!displayFeedback}<br/>
+		SESSION: {!$Api.Session_ID}<br/>
+		RSS URL: {!$Page.pkb_RSS}<br/>
+		CATEGORIES: {!selectedCategory}<br/>
+		KNOWLEDGE ARTICLE ID: {!theKad.Id}<br/>
+		KNOWLEDGE ARTICLE ID (FROM CONTROLLER): {!KnowledgeArticle.Id}<br/>
+		-->
+
+		<!--  HOME PAGE LAYOUT -->
+
+		  <div id="header">
+		<!-- 
+			<span style="margin-left: 5px;">
+			  <apex:outputLink value="{!pkbCon.currentSiteUrl}">
+				<apex:image value="{!$Resource.pkb_logo}" />
+				<apex:param name="{!pkbCon.languageParam}" value="{!pkbcon.selectedLanguage}" />
+			  </apex:outputLink>
+			</span>
+		 -->
+			</div>
+			<div class="contentCellDiv">
+			<!-- Page Block Header -->
+				<apex:sectionheader subtitle="Support"/>
+				<apex:pageBlock id="myAccountsPB">
+					<apex:outputPanel id="pageMessages" layout="block" >
+						<apex:pageMessages id="msgTop" />
+					</apex:outputPanel>
+						<center>
+							<div id="rightHeader">
+								<c:pkb_search pkbCon="{!pkbCon}" />
+							</div>
+							<br/>
+							<div>
+								<c:pkb_narrow pkbCon="{!pkbCon}" /> 
+							</div>
+						</center>
+						<br/><br/>
+						<div id="right_content">
+							<apex:outputText rendered="{!NOT(displayContactUs)}">
+								<apex:outputText rendered="{!NOT(viewingArticle)}">
+									<c:pkb_featured pkbCon="{!pkbCon}" rendered="{!NOT(searchExecuted)}" />
+									<c:pkb_popular pkbCon="{!pkbCon}" rendered="{!categorySearch}" />
+									<c:pkb_results pkbCon="{!pkbCon}" rendered="{!searchExecuted}" showHeaderInfo="true" />
+								</apex:outputText>
+						
+								<apex:outputText rendered="{!viewingArticle}">
+									<div id="articleView" >
+									  <c:pkb_articleview pkbCon="{!pkbCon}" showFeedbackYesNo="true" showBackLinks="true" />
+									</div>
+								</apex:outputText>
+							</apex:outputText>
+
+							<apex:outputText rendered="{!displayContactUs}">
+							  <c:pkb_results pkbCon="{!pkbCon}" rendered="{!searchExecuted}" showHeaderInfo="false" />
+							  <c:pkb_contactus_buttons_article pkbCon="{!pkbCon}" />          
+							</apex:outputText>
+						</div>
+						<div style="clear: both;"></div>
+						<div id="footer">
+							<apex:outputPanel styleClass="pkbPoweredBySFDC" style="float: right;" rendered="false">
+								<a href="http://www.salesforce.com/crm/customer-service-support/"><apex:image value="{!$Resource.pkb_footer}" alt="Customer Service Software"/>
+							<apex:outputPanel styleClass="pkbPoweredBySFDCText">salesforce.com</apex:outputPanel></a>
+							</apex:outputPanel>
+						</div>
+				
+					<div class="pbTransparent">
+						<c:pkb_Top3Articles pkbCon="{!pkbCon}"/>
+					</div>
+				</apex:pageBlock>
+			</div>
+		</body>
+		<div class="sideBarCellDiv" >
+			<div id="livechatdiv" style="margin: 20px 0;" >
+				<c:LiveChat />
+			</div>
+
+			<c:PortalKnowledgeSidebar rowClass="borderDottedWhiteBottom"
+				divClass="pbTransparent pbWhiteDottedHeader pbNoPad"
+				divStyle="width: 205px"
+				viewAll="false"/>
+		</div>
+	</html>
+	<site:previewAsAdmin />
+</apex:page>

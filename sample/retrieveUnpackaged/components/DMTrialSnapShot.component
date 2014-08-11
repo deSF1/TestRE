@@ -1,0 +1,494 @@
+<!-- 
+* @author Original: Adrian Recio Cloud Sherpas
+* @date Original: 2/3/2014
+* @description VF component that renders Digital Meter usage snap shots
+	History
+		17/3/2014	ejandusay	added info message,trial site only banner and hover over installation date
+		19/3/2014	ejandusay	changed label fonts
+-->
+<apex:component controller="DMTrialUsageGraphClass">
+
+    <!-- Component Attributes -->
+    <apex:attribute name="pageNameStr" description="My snapshot" type="String"/>
+    
+    <!-- chartJS Scripts -->
+    <apex:includeScript value="{!URLFOR($Resource.chartJs, 'js/jquery-2.0.3.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.chartJs, 'js/globalize.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.chartJs, 'js/modules/dx.module-core.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.chartJs, 'js/modules/dx.module-viz-core.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.chartJs, 'js/modules/dx.module-viz-gauges.js')}" />
+
+    <style>
+    div.tooltip {
+	    width: 195px;
+	    float: left;
+	    //padding-left:-10px;
+	  }
+	  div.tooltip:hover {
+	    //background: #D0D0D0	;
+	    text-decoration: none;
+	  } 
+	  div.tooltip span {
+	    display: none;
+	    padding: 2px 3px;
+	    margin-left: 8px;
+	    width: 191px;
+	    height: 94px;
+	  }
+	  div.tooltip:hover span {
+	    display: inline;
+	    position: absolute;
+	    border: 1px solid #cccccc;
+	    background: #D0D0D0;
+	    color: #000000;
+	    margin-top:-40px;
+	    margin-left: 30px;
+	  }
+    .usageGraph { 
+        background-color:white;
+        height: 335px;
+        width: 460px;
+        padding-top:7px;
+    }
+    
+    .disclaimer {
+        background-color:white;
+        height: 50px;
+        width: 350px;
+        padding-top:7px;
+        padding-left:7px;
+        
+    }
+    
+    .profileGraph {
+        background-color:white;
+        height: 260px;
+        width: 350px;
+        padding-top:7px;
+    }
+    
+    .blockUsage{
+        background-color:grey;
+        height: 257px;
+        width: 460px;
+        
+        opacity:0.5;
+        z-index:1000;
+        position:absolute;
+    }
+    
+    .blockProfile{
+        background-color:grey;
+        height: 152px;
+        width: 350px;
+        
+        opacity:0.5;
+        z-index:1000;
+        position:absolute;
+    }
+    
+    .usageLabel{
+        font-size:21px;
+        height:30px;
+        padding-left: 165px;
+        width: 260px;
+    }
+    
+    .profileLabel{
+        font-size:21px;
+        height:70px;
+        padding-left:2px;
+    }
+    
+    .mainPanel{
+
+        margin-top:15px;
+    }
+    </style>
+    
+    <apex:form >
+
+    <script>
+    
+        // @author Original: Adrian Recio Cloud Sherpas
+        // @date Original: 9/2/2014
+        // @description Render graphs on page load
+        
+        window.onload = function () {
+        	invokeWebService();           
+            //loadSnapShotDaily();                      
+            //loadSnapShotHBar();
+            //loadSnapShotWeekly();
+            //loadSnapShotGuage(); 
+        }
+        
+        // @author Original: Adrian Recio Cloud Sherpas
+        // @date Original: 9/2/2014
+        // @description Javscript method that renders guage chart using chartJs Library
+        
+        function renderGuage(){
+            
+            var mGuageSize = document.getElementById("{!$Component.maxGuageSize}").value
+            var weekAverage = document.getElementById("{!$Component.weekAverage}").value
+            var greenStart = document.getElementById("{!$Component.gGreenStart}").value
+            var greenEnd = document.getElementById("{!$Component.gGreenEnd}").value
+            var orangeStart = document.getElementById("{!$Component.gOrangeStart}").value
+            var orangeEnd = document.getElementById("{!$Component.gOrangeEnd}").value
+            var redStart = document.getElementById("{!$Component.gRedStart}").value
+            var redEnd = document.getElementById("{!$Component.gRedEnd}").value
+            // Use this alerts to show guage values for testing
+            /*alert("max guage size:" + mGuageSize);
+            alert("average usage:" + weekAverage);
+            alert("green start:" + greenStart);
+            alert("green end:" + greenEnd);
+            alert("orange start:" + orangeStart);
+            alert("orange end:" + orangeEnd);
+            alert("red start:" + redStart);
+            alert("red end:" + redEnd);*/
+            
+            // Set chart js guage property
+            // Refer to this site for chartJs Guage property/methods: http://chartjs.devexpress.com/Documentation/ApiReference/dxCircularGauge
+            
+            var c1 = $('<div style="width: 100%; height: 80%;" />').appendTo('#chartContainer');
+            
+            var options = {
+                geometry: {
+                    startAngle: 180, endAngle: 0
+                },
+                scale: {
+                    startValue: 0, endValue: mGuageSize,
+                    majorTick: {
+                        tickInterval: 25
+                    },
+                    label: {
+                        customizeText: function (arg) {
+                            return arg.valueText;
+                        }
+                    }
+                }
+            };
+
+            c1.dxCircularGauge($.extend(true, {}, options, {
+                title: {
+					text: 'Litres',
+					font: {size:18,weight:800},
+					position: 'bottom-center'
+					},
+                value: weekAverage,
+                valueIndicator: {
+                    type: 'rectangleNeedle',
+                    color: '#9B870C'
+                }, 
+                rangeContainer: {
+                  ranges: [
+                  { startValue: greenStart, endValue: greenEnd, color: "#509E2F" },
+                  { startValue: orangeStart, endValue: orangeEnd, color: "#E87722" },
+                  { startValue: redStart, endValue: redEnd, color: "#DF0101" }
+                  ],
+                  orientation: 'center',
+                  width: 30
+                }
+              
+            }));
+            
+        }
+        
+    </script>
+
+        <!-- Hidden variables for guage values -->
+        <apex:outputPanel Id="hiddenPanel">
+            <apex:inputHidden Id="maxGuageSize" value="{!maxGuageSize}"></apex:inputHidden> 
+            <apex:inputHidden Id="weekAverage" value="{!myWeekAverageUsage}"></apex:inputHidden>
+            <apex:inputHidden Id="gGreenStart" value="{!gGreenStart}"></apex:inputHidden>
+            <apex:inputHidden Id="gGreenEnd" value="{!gGreenEnd}"></apex:inputHidden>
+            <apex:inputHidden Id="gOrangeStart" value="{!gOrangeStart}"></apex:inputHidden>
+            <apex:inputHidden Id="gOrangeEnd" value="{!gOrangeEnd}"></apex:inputHidden>
+            <apex:inputHidden Id="gRedStart" value="{!gRedStart}"></apex:inputHidden>
+            <apex:inputHidden Id="gRedEnd" value="{!gRedEnd}"></apex:inputHidden>
+        </apex:outputPanel>
+        
+        <!-- Action functions -->
+        <apex:actionFunction name="invokeWebService" action="{!invokeWebService}" rerender="filter" status="status" oncomplete="loadSnapShotDaily();loadSnapShotWeekly();loadSnapShotGuage();loadSnapShotHBar();"></apex:actionFunction>
+        <apex:actionFunction name="loadSnapShotDaily"  rerender="dailyChartPanel" status="dailyLoader"></apex:actionFunction>
+        <apex:actionFunction name="loadSnapShotWeekly"  rerender="weeklyChartPanel" status="weeklyLoader"></apex:actionFunction>
+        <apex:actionFunction name="loadSnapShotGuage"  action="{!loadSnapShotGuage}" rerender="aTargetChartPanel,hiddenPanel" status="guageLoader" oncomplete="renderGuage();"></apex:actionFunction>
+        <apex:actionFunction name="loadSnapShotHBar" rerender="aProfileChartPanel" status="hBarLoader"></apex:actionFunction>
+         
+        <apex:actionFunction name="refreshByDateSS"  oncomplete="loadSnapShotDaily();loadSnapShotWeekly();loadSnapShotGuage();loadSnapShotHBar();" ></apex:actionFunction>          
+        <apex:actionFunction name="refreshMeterSS" action="{!resetMeter}" rerender="meterId,propertyNameId" oncomplete="loadSnapShotDaily();loadSnapShotHBar();loadSnapShotWeekly();loadSnapShotGuage();"></apex:actionFunction>
+            
+    <div style="margin-top:-10px;margin-bottom:-10px;">
+        <apex:outputPanel id="propertyNameId" layout="block" style="width:100%;">
+
+             <apex:sectionHeader title="{!pageNameStr}"
+                subtitle="{!PropertyName}"/>
+                <img style="height:70px;margin-left:180px;margin-top:-10px;" src="{!$Resource.TrialOnlyBanner}"/>
+          
+        </apex:outputPanel>
+        
+    </div>
+    
+    
+    <br/>
+    
+    <apex:actionStatus id="status">
+            <apex:facet name="start">
+            <c:ActionStatus BackColor="#ffffff"
+                                    borderColor="#6B6B6B"
+                                    borderSize="1"
+                                    height="50px"
+                                    width="60px"
+                                    margintop="-25px"
+                                    marginleft="-60px"
+                                    ImageUrl="{!$Resource.AjaxAnimation}"
+                                    Message=""/>
+            </apex:facet>
+        </apex:actionStatus>
+    
+    <div class="fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll">
+    <apex:outputPanel id="filter" layout="block" styleclass="filterPanel" style="padding:10px 10px !important;"> 
+        <apex:outputPanel Id="propertyPanel">               
+            <apex:panelGrid columns="4" >
+                <apex:panelGrid columns="1">
+                    <apex:outputText value="Property"></apex:outputText>
+                    <apex:selectList value="{!propertyId}" multiselect="false" size="1" onchange="refreshMeterSS();">
+                        <apex:selectOptions value="{!Property}"/>
+                    </apex:selectList>
+                </apex:panelGrid>
+                 
+                <apex:panelGrid columns="1">
+                    <apex:outputText value="Meter #"></apex:outputText> 
+                    <apex:selectList Id="meterId" value="{!meterNumber}" multiselect="false" size="1" onchange="invokeWebService();">
+                        <apex:selectOptions value="{!Meter}"/>
+                    </apex:selectList>
+                </apex:panelGrid> 
+                <apex:outputText escape="false"> Trial data available from : <br/> {!InstallDate}</apex:outputText>
+	                   <br/>
+	                  <div class="tooltip" style="display:inline;margin-left:-60px;">
+					    	  <img class="helpIcon" alt="" src="{!$Resource.qMark}"/>
+					    <span>This is the date that your daily usage data became availale during the trial. To view usage prior to this date simply select the <a href ="{!$Page.PortalWaterUsageList}">Water use</a> tab.</span>
+					</div>
+					 
+                
+                
+            </apex:panelGrid>
+        </apex:outputPanel> 
+    </apex:outputPanel>                 
+
+
+    <apex:outputPanel Id="mainChartPanel" layout="block" styleClass="mainPanel">
+    	<apex:pageMessage escape="false" strength="3" severity="info" summary="The availability and accuracy of this site and the data, information, materials and/or records presented on this page may vary throughout the trial. *<a href=/portal/articles/FAQ/Terms-of-Use-Digital-meter-trial>More information</a>"/>
+        
+            <apex:panelGrid columns="2" cellspacing="20px" >
+            
+                <apex:panelGrid columns="1" >
+                    <apex:outputPanel styleClass="usageGraph whiteBack sewRoundedCorner shadowAll" layout="block">
+                            <apex:panelGrid columns="2"> 
+                            <apex:outputPanel layout="block" styleClass="usageLabel">
+                                <apex:outputText style="font-size:5px;font-family:Arial;  "><b>Today's usage</b> </apex:outputText>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="block" >
+                                <apex:commandButton style="margin-left:-50px;" value="Explore" action="{!cntrlSubTab.redirectMyUsage}"></apex:commandButton>
+                            </apex:outputPanel>
+                            </apex:panelGrid>
+                            
+                            <apex:actionStatus id="dailyLoader">
+                                <apex:facet name="start">
+                                    <apex:outputPanel styleClass="blockUsage fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll" layout="block">
+                                        <apex:outputPanel layout="block" style="padding-top:15px;padding-right:15px;padding-left:15px;border-radius: 6px;margin-left:200px;margin-top:130px;position:absolute;width:100px;height:40px;background-color:white;">
+                                            <apex:outputPanel layout="block" style="float:left;">
+                                                <img src="{!$Resource.AjaxAnimation}"/>
+                                            </apex:outputPanel>
+                                            <apex:outputPanel layout="block" style="float:right;">
+                                                <apex:outputText value="Loading..."></apex:outputText>
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>   
+                                    </apex:outputPanel>
+                                </apex:facet>
+                            </apex:actionStatus>
+                            <br/>
+                            <br/>
+                           
+                            <!-- Daily Usage Chart-->
+                            
+                            <apex:outputPanel Id="dailyChartPanel">
+                            
+                            <apex:chart Id="dailyChartId" height="250" width="450" data="{!dataDaily}">
+                        
+                                <apex:axis type="Numeric" position="left" fields="actualVar,averageVar,sAveVar,pAveVar,myAveVar" title="Litres" minimum="0"/>
+                                <apex:axis id="hourAxis" type="Category" position="bottom" fields="intervalVar" title="Hours"/>
+                                
+                                <apex:barSeries title="Hourly Actual Usage" orientation="vertical" axis="bottom" xField="intervalVar" yField="actualVar"/>
+                                
+                            </apex:chart>
+                            
+                            <apex:outputText rendered="	{!showErrorDaily}"> Web service callout Failed</apex:outputText>
+                            </apex:outputPanel> 
+                            
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel styleClass="usageGraph whiteBack sewRoundedCorner shadowAll" layout="block">
+                        <apex:panelGrid columns="2">
+                        <apex:outputPanel layout="block" styleClass="usageLabel">
+                           
+                        	<apex:outputText style="font-size:19px;font-family:Arial;  "><b>Last week's usage</b> </apex:outputText>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="block">
+                            <apex:commandButton style="margin-left:-50px;" value="Explore" action="{!cntrlSubTab.redirectMyUsage}"></apex:commandButton>
+                        </apex:outputPanel>
+                        </apex:panelGrid>
+                        
+                        <apex:actionStatus id="weeklyLoader">
+                            <apex:facet name="start">
+                                <apex:outputPanel styleClass="blockUsage fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll" layout="block">
+                                    <apex:outputPanel layout="block" style="padding-top:15px;padding-right:15px;padding-left:15px;border-radius: 6px;margin-left:200px;margin-top:130px;position:absolute;width:100px;height:40px;background-color:white;">
+                                        <apex:outputPanel layout="block" style="float:left;">
+                                            <img src="{!$Resource.AjaxAnimation}"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel layout="block" style="float:right;">
+                                            <apex:outputText value="Loading..."></apex:outputText>
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>   
+                                </apex:outputPanel>
+                            </apex:facet>
+                        </apex:actionStatus>
+                        <br/>
+                        <br/>
+                        
+                        <!-- Weekly Usage Chart -->
+                         <apex:outputPanel Id="weeklyChartPanel">
+                            <apex:chart Id="weeklyChartId" height="250" width="450" data="{!dataWeekly}">
+                    
+                                <apex:axis type="Numeric" position="left" fields="actualVar,averageVar,sAveVar,pAveVar,myAveVar" title="Litres" minimum="0"/>
+                                <apex:axis type="Category" position="bottom" fields="intervalVar" title="Days"/>
+                                
+                                <apex:barSeries title="Daily Actual Usage" orientation="vertical" axis="bottom" xField="intervalVar" yField="actualVar"/>
+                         
+                            </apex:chart>
+                            <apex:outputText rendered="{!showErrorWeekly}"> Web service callout Failed</apex:outputText>
+                        </apex:outputPanel>
+                         
+                    </apex:outputPanel>
+                    
+                </apex:panelGrid>
+                
+                <apex:panelGrid columns="1">
+                	<!--  <apex:outputPanel styleClass="disclaimer whiteBack sewRoundedCorner shadowAll" layout="block" >
+                        <b>Please Note:</b>
+                   		<apex:outputText value=" The availability and accuracy of this site and the data, information, materials and/or records presented on this page may vary throughout the trial. " />
+                   		<apex:outputLink value="/articles/FAQ/Terms-of-Use-Digital-meter-trial">More information.</apex:outputLink>
+                   		<br/>
+                   		<br/>
+                   		<b>Questions or feedback regarding the trial?</b>
+                   		<br/>                  		
+                   		<apex:outputLink value="{!$Page.PortalEnquiries}">Email</apex:outputLink><apex:outputText value=" or call us on" />
+                   		<b> 1800 337 775 </b>
+                   		<br/>
+                   		(Monday to Friday, 8am to 5.30pm).
+                   		
+                    </apex:outputPanel>-->
+                	<!-- GRAPH ONE -->
+                    <apex:outputPanel Id="guagePanelId" styleClass="profileGraph fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll" layout="block" >
+                    
+                        <apex:panelGrid columns="2"> 
+                        <apex:outputPanel layout="block" styleClass="profileLabel">
+                            <apex:outputText ><b>How am I tracking?</b> </apex:outputText>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="block" styleClass="profileLabel">
+                            <apex:commandButton style="margin-left:97px;" value="Update" action="{!cntrlSubTab.redirectMyProfile}"></apex:commandButton>
+                        </apex:outputPanel> 
+                        </apex:panelGrid>
+                        
+                        <apex:actionStatus id="guageLoader">
+                            <apex:facet name="start">
+                                <apex:outputPanel styleClass="blockProfile fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll" layout="block">
+                                    <apex:outputPanel layout="block" style="padding-top:15px;padding-right:15px;padding-left:15px;border-radius: 6px;margin-left:90px;margin-top:75px;position:absolute;width:100px;height:40px;background-color:white;">
+                                        <apex:outputPanel layout="block" style="float:left;">
+                                            <img src="{!$Resource.AjaxAnimation}"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel layout="block" style="float:right;">
+                                            <apex:outputText value="Loading..."></apex:outputText>
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>   
+                                </apex:outputPanel>
+                            </apex:facet>
+                        </apex:actionStatus>
+                        
+                          
+                        <!-- Target Usage Chart -->
+                        <apex:outputPanel Id="aTargetChartPanel">
+                            <apex:outputPanel rendered="{!hideGuage}">                                               
+                                <div id="chartContainer" style="width:350px;height:200px;">
+                                </div>     
+                            </apex:outputPanel>
+                            <apex:outputText rendered="{!showErrorGuage}"> Web service callout Failed</apex:outputText>         
+                        </apex:outputPanel>
+                        
+                    </apex:outputPanel> 
+                    
+                    <!-- GRAPH ONE -->
+                    
+                    <!-- TWO GRAPH -->
+                    <apex:outputPanel Id="hBarPanelId" styleClass="profileGraph fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll" layout="block">
+                    
+                        <apex:panelGrid columns="2"> 
+                            <apex:outputPanel layout="block" styleClass="profileLabel">
+                            	<apex:outputText style="font-size:19px;font-family:Arial; "><b>Compare against suburb</b> </apex:outputText>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="block" styleClass="profileLabel" >
+                                <apex:commandButton style="margin-left:50px;" value="Update" action="{!cntrlSubTab.redirectMyProfile}"></apex:commandButton>
+                            </apex:outputPanel>
+                        </apex:panelGrid>
+                        
+                        <apex:actionStatus id="hBarLoader">
+                            <apex:facet name="start">
+                                <apex:outputPanel styleClass="blockProfile fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll" layout="block">
+                                    <apex:outputPanel layout="block" style="padding-top:15px;padding-right:15px;padding-left:15px;border-radius: 6px;margin-left:90px;margin-top:75px;position:absolute;width:100px;height:40px;background-color:white;">
+                                        <apex:outputPanel layout="block" style="float:left;">
+                                            <img src="{!$Resource.AjaxAnimation}"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel layout="block" style="float:right;">
+                                            <apex:outputText value="Loading..."></apex:outputText>
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>    
+                                </apex:outputPanel>
+                            </apex:facet>
+                        </apex:actionStatus>
+                        
+                        <!-- Suburb Usage Chart -->
+                      
+                        <apex:outputPanel Id="aProfileChartPanel">
+                            <apex:chart Id="aProfileChartId"  height="180" width="330" data="{!MyAverageSuburb}">
+                    
+                                <apex:axis type="Numeric" position="bottom" fields="actualVar" title="Litres" minimum="0"/>
+                                <apex:axis type="Category" position="left" fields="intervalVar" title="">
+                                	<apex:chartLabel font="bold 17px Arial"/>
+                                </apex:axis>
+                                
+                                <b><apex:barSeries gutter="150" title="Daily Actual Usage" orientation="horizontal" axis="left" xField="actualVar" yField="intervalVar"/></b>
+                         
+                            </apex:chart>
+                            <apex:outputText rendered="{!showErrorWeekly}"> Web service callout Failed</apex:outputText>
+                        </apex:outputPanel>
+                      
+                    </apex:outputPanel>
+                    
+                    <!-- TWO GRAPH -->
+                     <apex:outputPanel styleClass="disclaimer fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll" layout="block" >
+                   		<b>Questions or feedback regarding the trial?</b>
+                   		<br/>                  		
+                   		<apex:outputLink value="{!$Page.PortalEnquiries}">Email</apex:outputLink><apex:outputText value=" or call us on" />
+                   		<b> 1800 337 775 </b>
+                   		<br/>
+                   		(Monday to Friday, 8am to 5.30pm).
+                   	</apex:outputPanel> 
+                </apex:panelGrid>
+                
+             </apex:panelGrid>
+             
+
+    </apex:outputPanel>
+     
+    </div>
+   </apex:form>
+</apex:component>

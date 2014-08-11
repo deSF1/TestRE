@@ -1,0 +1,39 @@
+<apex:component >
+
+    <!--
+        Description: Required field
+
+        History:
+           27-Apr-2012 A.Vergara Changed "required" to "mandatory"
+            
+    -->
+
+	<style>
+		.requiredFieldIndicatorRHS {
+			float: right;
+		}
+		
+		.requiredFieldIndicatorRHSNoHeight {
+		    float: right;
+		    height: 0;
+		    position: relative;
+		    right: 3px;		
+		}
+	</style>
+
+	<apex:attribute name="styleclass" description="Style class"
+					type="String" required="false" default="requiredFieldIndicatorRHS"/>
+	<apex:attribute name="style" description="Style"
+					type="String" required="false" />
+	<apex:attribute name="text" description="The text to use"
+					type="String" required="false" default="Indicates a mandatory field"/>
+
+
+	<div class="{!styleclass}" style="{!style}">
+		<apex:image value="{!$Resource.PortalRequiredFieldIcon}" style="position:relative; top:-2px; margin-right: 5px;"/>
+			{!text}
+	</div>
+	<div class="clear"/>
+
+
+</apex:component>

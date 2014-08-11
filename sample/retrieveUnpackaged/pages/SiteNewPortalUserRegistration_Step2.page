@@ -1,0 +1,312 @@
+<apex:page controller="SiteNewPortalUserRegWizard_Controller" 
+            doctype="html-5.0"
+            action="{!CheckRedirectStep2}"
+            showHeader="false"
+            title="New User Registration">
+    <!--
+
+
+        Description: Site login paged rebranded for SEW
+                     This is step 2 - contact details
+
+        History:
+            15-Feb-2011 D.Thong (Salesforce)    Created
+            25-Apr-2012 A.Vergara - display required symbol, all fields are mandatory, fix alignment and label
+            16-Jul-2012 K.Noceda - Added a jquery script for preventing copy paste on email fields.
+                                   Removed the birthdate, driver's license field.
+            10-Sep-2012 I.Castilo - Added information text ("Phone numbers must contain digits only (no spaces or special characters).") to appear below the phone number selection but above the phone number entry box.
+            16-Apr-2013 N. Patterson - TT10610: Added Floodlight scripts into the page 
+            05-Sep-2013 N.Patterson    TT11538: Removed Floodlight scripts from the page
+            31-Oct-2013 N.Patterson    Update: US-154 - Improve the validation rules
+            18-Nov-2013 B.Trinidad	   Update: Added limitEmailTextfield() for limiting email to 80 characters
+    -->
+
+    <head>
+        <title>mySouthEastWater - New User Registration</title>
+        <link rel="shortcut icon"
+            href="https://southeastwater.secure.force.com/portal/favicon.ico" />
+
+        <!-- jquery -->
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}" />
+        <apex:stylesheet value="{!$Resource.PortalHomePage_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalIcons_Styles}"/>
+        <apex:stylesheet value="{!$Resource.SitePortalRegistration_Styles}" />
+
+        <style>
+            .bPageBlock .detailList .labelCol {
+                width: 30%;
+            }
+            
+            td.dataCol.last {padding-top: 10px;}
+            
+            td.dataCol.first {padding-top: 0px;}
+        </style>
+
+        <script type="text/javascript">
+        
+            function selPhone(){
+                if(document.getElementById('Home').checked == true){
+                    //alert('Home');
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidprefPhone').value = 'Home';
+                }
+                if(document.getElementById('Work').checked == true){
+                    //alert('Work');
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidprefPhone').value = 'Work';
+                }
+                if(document.getElementById('Mobile').checked == true){
+                    //alert('Mobile');
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidprefPhone').value = 'Mobile';
+                }
+                if(document.getElementById('Other').checked == true){
+                    //alert('Other');
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidprefPhone').value = 'Other';
+                }
+                //alert(document.getElementById('j_id0:SiteTemplate:theForm:hidprefPhone').value);
+            }
+            //US-154 - set the default value if it was previously set by the user (e.g. when the page reloads after an error message)
+            function setSelectedPhonePref(){
+                if(document.getElementById('j_id0:SiteTemplate:theForm:hidprefPhone').value == 'Home'){
+                    document.getElementById('Home').checked = true;
+                }
+                if(document.getElementById('j_id0:SiteTemplate:theForm:hidprefPhone').value == 'Work'){
+                    document.getElementById('Work').checked = true;
+                }
+                if(document.getElementById('j_id0:SiteTemplate:theForm:hidprefPhone').value == 'Mobile'){
+                    document.getElementById('Mobile').checked = true;
+                }
+                if(document.getElementById('j_id0:SiteTemplate:theForm:hidprefPhone').value == 'Other'){
+                    document.getElementById('Other').checked = true;
+                }
+                //alert(document.getElementById('j_id0:SiteTemplate:theForm:hidprefPhone').value);
+            }
+
+            var j$ = jQuery.noConflict();
+
+            var previousOnload = window.onload;
+            window.onload = function() {
+                window.scrollTo(0,0);
+                try {
+                    j$("input:text:visible:first").focus();
+                    //custnbrfield.focus();
+                    setSelectedPhonePref();//US-154 - set the default value if it was previously set by the user (e.g. when the page reloads after an error message)
+                } catch (e) {
+                }
+    
+            }
+
+            j$(document).ready(
+                function() { 
+                    var startYear=1900; 
+                    var endYear=2030; 
+                    var optionsString=''; 
+                    if(startYear<endYear){ 
+                        for(i=startYear;i<endYear+1;i++){ 
+                            optionsString += "<option value=\""+i+"\">"+i+"</option>"; 
+                        } 
+                        j$('#calYearPicker').html(optionsString); 
+                    } 
+                    j$('#sidebarDiv #hideMyParent').parent().parent().hide(); 
+                
+                j$('.preventCopyPaste').keypress(function(e){
+                    /*  
+                     if (!(e.which == 118 && e.ctrlKey) && !(e.which == 19)){
+                        alert(1);
+                        return true;
+                      }else if (!(e.which == 99 && e.ctrlKey) && !(e.which == 19)){
+                        alert(2);
+                        return true;
+                      }
+                      
+                      */
+                      //alert(e.which)
+                     if ((!(e.which == 118 && e.ctrlKey) && !(e.which == 19)) && (!(e.which == 99 && e.ctrlKey) && !(e.which == 19))){
+                        //alert(e.which + ", " + e.ctrlKey);
+                        return true;
+                      }
+                      
+                      //var strUserAgent = navigator.userAgent;
+                      //strUserAgent.match(/Chrome/)
+
+                      e.preventDefault();
+                      return false;
+                });
+                
+                j$('.preventCopyPaste2').bind("cut copy paste",function(e) {
+                    //alert('NO COPY PASTE');
+                    e.preventDefault();
+                });
+     
+                } 
+            );
+       </script>
+
+    </head>
+
+    <!-- Hidden fields -->
+
+    <apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+	        
+            <apex:outputPanel id="wholePage" layout="block" styleclass="bodyDiv brdPalette">
+                <apex:form forceSSL="true" id="theForm">
+                    <apex:inputHidden id="hidprefPhone" value="{!prefPhone}"></apex:inputHidden>
+                    <div class="contentCellDiv">
+
+                        <!--  TITLE -->
+                        <div style="margin-bottom: 10px"/>
+                        <apex:sectionheader title="mySouthEastWater"
+                                            subtitle="Registration"/>
+                        <div style="clear:both"/>
+
+                        <!--  MAIN PAGE CONTENT -->
+                        <apex:pageBlock id="pbcontent">
+                        
+                            <!-- Steps -->
+                            <div class="step2Image">
+                                <apex:panelGrid cellspacing="0" cellpadding="0" styleClass="stepInnerGrid">
+                                    <span class="step stepFirst">Step 1</span>
+                                    <span class="activeStep">Step 2</span>
+                                    <span class="step">Step 3</span>
+                                    <span class="stepIncomplete">Complete</span>
+                                </apex:panelGrid>
+                            </div>
+                           <!-- <c:PortalRequiredField /> -->
+                           <!-- page messages -->
+                            <div style="margin: 15px 0px">
+                                <apex:pageMessages escape="false"/>
+                            </div>
+
+                            <!-- Instructions -->
+                            
+                            <div style="margin: 30px 0px 15px; font-weight: bold">
+                                Let us know who you are:                    
+                            </div>
+                            
+                            <!--  Content -->
+
+                            <apex:pageBlockSection columns="1" >
+
+                                <apex:pageBlockSectionItem >
+                                    <apex:outputLabel value="First name" for="firstnamefield" />
+                                    <apex:inputField value="{!newUserToRegister.FirstName}" id="firstnamefield" required="true" label="First Name" />
+                                </apex:pageBlockSectionItem>
+
+                                <apex:pageBlockSectionItem >
+                                    <apex:outputLabel value="Last name" for="lastnamefield" />
+                                    <apex:inputField value="{!newUserToRegister.LastName}" id="lastnamefield" required="true" label="Last Name"/>
+                                </apex:pageBlockSectionItem>
+                                
+                                <apex:pageBlockSectionItem >
+                                    <apex:outputLabel value="Preferred phone" for="phonefield" />
+                                    <apex:outputPanel id="Opanel1">
+                                                <input type="radio" name="phoneType" id="Home" onclick="selPhone();"/><apex:outputLabel value="Home"/>
+                                                <input type="radio" name="phoneType" id="Work" onclick="selPhone();"/><apex:outputLabel value="Work" />
+                                                <input type="radio" name="phoneType" id="Mobile" onclick="selPhone();"/><apex:outputLabel value="Mobile" />
+                                                <input type="radio" name="phoneType" id="Other" onclick="selPhone();"/><apex:outputLabel value="Other" />
+                                    </apex:outputPanel>                      
+                                </apex:pageBlockSectionItem>
+                                
+                                <apex:pageBlockSectionItem >
+                                <apex:outputLabel />
+                                <apex:outputLabel value="Phone numbers must contain digits only (no spaces or special characters)."/>
+                                </apex:pageBlockSectionItem>
+                                
+                                <apex:pageBlockSectionItem >
+                                <apex:outputLabel />
+                                <!-- US-154 - Added script to stop invalid characters being entered -->
+                                <apex:inputField value="{!newUserToRegister.Phone}" id="phonefield" required="true" label="Phone" onkeypress="validate(event)">
+                                <script>
+                                	function validate(evt) {
+									  var theEvent = evt || window.event;
+									  var key = theEvent.keyCode || theEvent.which;
+									  var keyEntered = String.fromCharCode( key );
+									  var regex = /[0-9]|\./;
+									  if( !regex.test(keyEntered) && !(key == 8 || key == 37 || key == 39  || key == 46 )) {
+									    theEvent.returnValue = false;
+									    if(theEvent.preventDefault) theEvent.preventDefault();
+									  }
+									}
+                                </script>
+                                </apex:inputField>
+                                </apex:pageBlockSectionItem>
+
+                            </apex:pageBlockSection>
+
+                            <div style="margin: 30px 0px 15px; font-weight: bold">
+                                Enter your email address:
+                            </div>
+                            <apex:pageBlockSection id="pbsEmail" columns="1" >
+
+                                <apex:pageBlockSectionItem id="pbsiEmail" >
+                                    <apex:outputLabel value="Email" for="emailfield" />
+                                    <apex:outputPanel >
+                                    <apex:inputField value="{!newUserToRegister.Email}" id="emailfield" label="Email" styleClass="preventCopyPaste2"/> 
+                                    <span style="padding-left: 13px">This field cannot be copied or pasted</span><br/><br/>
+                                    <div class="errorMsg">
+                                        <span style="margin-top: 20px">
+                                        <apex:outputText value="{!inputTextErrorMessage2}" rendered="{!LEN(inputTextErrorMessage2)>0}"/>
+                                        </span>
+                                    </div>
+                                    </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                            </apex:pageBlockSection>
+                            
+                            <div style="margin: 30px 0px 15px; font-weight: bold">
+                                Please confirm your email address below:
+                            </div>
+                            <apex:pageBlockSection columns="1" >
+                            
+                                <apex:pageBlockSectionItem >
+                                    <apex:outputLabel value="Email" for="confemailfield" />
+                                    <apex:outputPanel >
+                                    <span style="padding-left: 1px"><apex:inputText value="{!confEmailAddress}" id="confemailfield" label="Email" required="true" styleClass="preventCopyPaste2"/></span>
+                                    <span style="padding-left: 13px">This field cannot be copied or pasted</span><br/>
+                                    <div class="errorMsg" style="margin-top:10px">
+                                        <span style="padding-top:10px">
+                                        <apex:outputText value="{!inputTextErrorMessage}" rendered="{!LEN(inputTextErrorMessage)>0}"/>
+                                        </span>
+                                    </div>
+                                    </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                <br/>
+                                <br/>
+                                <script>
+                                function limitEmailTextfield() {					            	
+						            	var emailField = document.getElementById('{!$Component.SiteTemplate.theForm.pbcontent.pbsEmail.pbsiEmail.emailfield}');
+						            	emailField.setAttribute("maxlength", 80);						       
+						            }
+						            limitEmailTextfield();
+						       </script>
+                                <apex:pageBlockSectionItem >
+                                    <!-- <apex:outputLabel /> -->
+                                    <apex:outputPanel >
+                                        <span style="padding-left: 200px">
+                                        <apex:commandButton value="Next"
+                                        action="{!CheckContactDetails}"
+                                        styleClass="btnGreen" 
+                                        style="width: 80px"
+                                        id="nextbtn"/>&nbsp;<apex:outputLink value="/portal/SiteNewPortalUserRegisTration_Step1" target="_parent">Cancel</apex:outputLink>
+                                        </span>
+                                    </apex:outputPanel> 
+                                        
+                                </apex:pageBlockSectionItem>
+                            </apex:pageBlockSection>
+                            <p/> 
+                        </apex:pageBlock>
+                    </div>
+                    <div class="sideBarCellDiv pbTransparent pbNoLeftPad">
+                        <c:SiteNewPortalUserRegistrationSideBar />
+                    </div>
+                    
+                    <div class="clear"/>
+
+                    <!--  called from c:SiteNewPortalUserRegistrationSideBar  -->
+                    <apex:actionFunction action="{!GotoRequestAssist}" name="RequestAssist" immediate="true"/>
+
+                </apex:form>
+            </apex:outputPanel>
+        </apex:define>
+    </apex:composition>
+
+</apex:page>

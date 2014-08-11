@@ -1,0 +1,36 @@
+<!-- 
+* @author Original: Adrian Recio Cloud Sherpas
+* @date Original: 2/3/2014
+* @description Main page for digital meter trial smart solution setup
+-->
+
+<apex:page sideBar="false" action="{!profileBlock}" controller="DMTrialMainCC">
+
+<c:DMTrialSubTab activeTab="Solution"></c:DMTrialSubTab>
+	
+	
+	<head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <apex:stylesheet value="{!$Resource.PortalIcons_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalActionLinks_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalHomePage_Styles}"/> 
+    </head>
+    <apex:panelGrid columns="2">
+	<apex:panelGrid columns="1">
+		<apex:outputPanel layout="block" style="">
+			 <c:DMTrialSmartSolutions pageNameStr="My Smart Solutions"></c:DMTrialSmartSolutions> 
+		</apex:outputPanel>
+	</apex:panelGrid>
+	
+	<apex:outputPanel layout="block" style="margin-top:-79px !important; margin-left: 20px; width:225px;">
+			<c:LiveChat />
+			<apex:form >
+			<c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+					divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+					divStyle="width: 205px"/>
+			</apex:form>
+			<c:PortalQuickLinks mode="DMT" />
+	</apex:outputPanel>
+	</apex:panelGrid>				
+</apex:page>

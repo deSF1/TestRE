@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Classification Code</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Classification Codes</value>
+    </caseValues>
+    <fields>
+        <help><!-- Check if the agent&apos;s comments should be displayed at the end of the message --></help>
+        <label><!-- Append Comments --></label>
+        <name>Append_Comments__c</name>
+    </fields>
+    <fields>
+        <help><!-- 0 - Alert will result in this warning being displayed in the Alerts section on the customer --></help>
+        <label><!-- Customer Care Check Type --></label>
+        <name>Customer_Care_Check_Type__c</name>
+        <picklistValues>
+            <masterLabel>0 - Alert</masterLabel>
+            <translation><!-- 0 - Alert --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1 - Warning</masterLabel>
+            <translation><!-- 1 - Warning --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2 - Informational</masterLabel>
+            <translation><!-- 2 - Informational --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3 - Not checked</masterLabel>
+            <translation><!-- 3 - Not checked --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Enable Outbound Messaging --></label>
+        <name>Enable_Outbound_Messaging__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- End Date --></label>
+        <name>End_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- External Id --></label>
+        <name>External_Id__c</name>
+    </fields>
+    <fields>
+        <help><!-- Identifies if the classification has a billing impact --></help>
+        <label><!-- Has Billing Impact --></label>
+        <name>Has_Billing_Impact__c</name>
+    </fields>
+    <fields>
+        <help><!-- Identifies if the classification code is active for use --></help>
+        <label><!-- Is Active --></label>
+        <name>Is_Active__c</name>
+    </fields>
+    <fields>
+        <help><!-- Identifies if the classification is assigned at Billing Account level --></help>
+        <label><!-- Is Billing Account Level --></label>
+        <name>Is_Billing_Account_Level__c</name>
+    </fields>
+    <fields>
+        <help><!-- Identifies if the classification is assigned at the Customer level --></help>
+        <label><!-- Is Customer Level --></label>
+        <name>Is_Customer_Level__c</name>
+    </fields>
+    <fields>
+        <help><!-- Flag which indicates whether this classification is mastered in Salesforce - that is, it is allowed to be directly added to customer records, rather than via HiAffinity. --></help>
+        <label><!-- Mastered in Salesforce? --></label>
+        <name>Mastered_in_Salesforce__c</name>
+    </fields>
+    <fields>
+        <label><!-- Message --></label>
+        <name>Message__c</name>
+    </fields>
+    <fields>
+        <help><!-- Short Description for the customer classification --></help>
+        <label><!-- Short Description --></label>
+        <name>Short_Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sort Order --></label>
+        <name>Sort_Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Account</masterLabel>
+            <translation><!-- Account --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Credit Management</masterLabel>
+            <translation><!-- Credit Management --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Health &amp; Medical</masterLabel>
+            <translation><!-- Health &amp; Medical --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Legal Credit Management</masterLabel>
+            <translation><!-- Legal Credit Management --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Miscellaneous</masterLabel>
+            <translation><!-- Miscellaneous --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Miscellaneous Charges</masterLabel>
+            <translation><!-- Miscellaneous Charges --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pension &amp; Concession</masterLabel>
+            <translation><!-- Pension &amp; Concession --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Privacy</masterLabel>
+            <translation><!-- Privacy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Security</masterLabel>
+            <translation><!-- Security --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sensitive Information</masterLabel>
+            <translation><!-- Sensitive Information --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tenancy</masterLabel>
+            <translation><!-- Tenancy --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Classification Code Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <namedFilters>
+        <errorMessage><!-- Only classifications mastered in Pulse may be added here. All other classifications are controlled by HiAffinity. --></errorMessage>
+        <informationalMessage><!-- Note: This lookup is filtered to *only* display classifications that are mastered in Pulse. --></informationalMessage>
+        <name>nf_01I90000000FcM0EAK_00N90000001kXfqEAE</name>
+    </namedFilters>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- This classification code is prohibited from being enabled for Outbound Messaging or being Mastered in PULSE --></errorMessage>
+        <name>Prevent_Outbound_Messaging</name>
+    </validationRules>
+</CustomObjectTranslation>

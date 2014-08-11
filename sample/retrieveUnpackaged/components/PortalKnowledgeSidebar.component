@@ -1,0 +1,118 @@
+<apex:component controller="PortalKB_CategoryController">
+    <!--
+        Description: Presents the knowledge sidebar
+        History:
+            06-Apr-2012 D.Thong (Salesforce)    Created
+            02-May-2012 Ji Zhang (Coretec Solution) Add Controller that returns the page category from
+                                                    PortalPageCategory custom settings based on the current page name
+            25-Nov-2013 A. Recio (Cloudsherpas) Added knowledge article functionality to make sure Security Notice is the 1st article displayed in the list.
+            04-Dec-2013 A. Recio (Cloudsherpas) Remove function to set security notice as 1st article.
+            12-Dec-2013 A. Recio (Cloudsherpas) Added competition component
+            09-Feb-2013 A. Recio (Cloudsherpas) Added hide digital meter tab component
+            01-Apr-2014 ejandusay(Cloud Sherpas)Updated to not display digital meter articles when user doesn't have DM access
+    -->
+    
+    <c:PortalCompetitionComponent Id="competitionComponentId"></c:PortalCompetitionComponent> 
+    <c:DMTrialHideDigitalMeterTab ></c:DMTrialHideDigitalMeterTab>
+    
+    <!--<apex:attribute name="dataCategory" description="The data category" type="string"/>-->
+    <apex:attribute name="title" description="the title" type="string" default="FAQs"/>
+    <apex:attribute name="articleTypes" description="article types" type="string"/>
+    <apex:attribute name="nbrOfItems" description="The number of articles to present" type="integer" default="4"/> 
+    <apex:attribute name="sortBy" description="Sort order - mostViewed, lastUpdated, title" type="string" default="mostViewed"/>
+    <apex:attribute name="divClass" description="The container style class" type="string" />
+    <apex:attribute name="divStyle" description="The container style" type="string" />
+    <apex:attribute name="rowClass" description="The individual row class" type="string"/>
+    <apex:attribute name="viewAll" description="View all?" type="boolean" default="true"/>
+
+    <script type="text/javascript">
+        var hasMore=false;
+    </script>
+
+    <div id="faqDiv" class="{!divClass}" style="margin-top:28px;{!divStyle}">
+        <apex:pageBlock id="faqPB">
+            <apex:facet name="header">
+                <span class="largeFontSize">
+                    {!title} 
+                </span> 
+                <a href="pkb_Home?c=Categories%3ABilling"><div style="float: right" class="helpIconSmall"/></a>
+                <div class="clear" style="padding-top: 5px"/>
+            </apex:facet>
+            <!-- TODO: add attributes -->
+            
+            <!-- Display security notice before any article first -->
+            
+            <!-- <knowledge:articleList articleVar="article" pageSize="1">
+	            <a onclick="pullSecurityNoticeArticle_{!$Setup.SecurityNotice__c.Security_Notice_Article_Id__c}();return false;"
+	                        class="{!rowClass}" 
+	                        style="display: block"
+	                        target="_new">
+	                    Security Notice
+	            </a>
+	            <script>
+	            	function pullSecurityNoticeArticle_{!$Setup.SecurityNotice__c.Security_Notice_Article_Id__c}(){
+	            		window.open('{!URLFOR($Action.KnowledgeArticle.View,$Setup.SecurityNotice__c.Security_Notice_Article_Id__c,['popup' = 'true'])}', '_blank', 'menubar=no,status=no,resizable=yes,scrollbars=yes,location=no,height=480,width=640');
+	            	}
+	            </script>
+            </knowledge:articleList> -->
+            <knowledge:articleList articleVar="article"
+                    articleTypes="{!articleTypes}"
+                    sortBy="{!sortBy}"
+                    categories="{!dataCategory}"
+                    hasMoreVar="more"
+                    pageSize="{!nbrOfItems}" 
+                    rendered="{!propertyIsPresent}">
+
+	                <a onclick="openKBArticle_{!article.id}(); return false;"
+	                        class="{!rowClass}" 
+	                        style="display: block"
+	                        target="_new">
+	                    {!article.title}
+	                </a>
+	                <script type="text/javascript">
+	                    // is there more?
+	                    hasMore = {!more};						
+	                    function openKBArticle_{!article.id}() {
+	                        window.open('{!URLFOR($Action.KnowledgeArticle.View,article.id,['popup' = 'true'])}', '_blank', 'menubar=no,status=no,resizable=yes,scrollbars=yes,location=no,height=480,width=640')
+	                    }
+	                </script>
+            </knowledge:articleList>
+            <apex:repeat var="a" value="{!articleListOrdered}" rendered="{!displayFilteredList}">
+            	<a onclick="openKBArticle_{!a.knowledgeArticleId}(); return false;"
+	                        class="{!rowClass}" 
+	                        style="display: block"
+	                        target="_new">
+	                    {!a.Title}
+	                </a>
+				<script type="text/javascript">
+	                    // is there more?						
+	                    function openKBArticle_{!a.knowledgeArticleId}() {
+	                        window.open('apex/PortalKB_FAQ?id={!a.knowledgeArticleId}&popup=true', '_blank', 'menubar=no,status=no,resizable=yes,scrollbars=yes,location=no,height=480,width=640')
+	                    }
+	                </script>
+            
+            </apex:repeat>            
+            <!-- view all button -->
+            <apex:outputPanel rendered="{!viewAll}">
+                <apex:outputLink id="viewallBtn"
+                        value="{!$Page.pkb_Home}?c={!dataCategory}"
+                        style="margin-top: 10px; padding: 5px 10px !important; display: block"
+                        styleClass="btn btnLink"
+                        target="_new">
+                    View all {!title}
+                </apex:outputLink>
+            </apex:outputPanel>            
+
+            <script type="text/javascript">
+                if ({!viewAll}) {
+                    if (hasMore) 
+                        document.getElementById('{!$Component.viewallBtn}').style.display = 'block';
+                    else
+                        document.getElementById('{!$Component.viewallBtn}').style.display = 'none';
+                }
+            </script>
+
+        </apex:pageBlock>
+    </div>
+
+</apex:component>

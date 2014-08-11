@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Role</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Accountant</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Administration</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Applicant</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Asset Management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Board Member</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Builder</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Development</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CEO/MD</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Client Manager</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Commissioner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Committee or Reference Group Member</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Communications</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Community Development</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Community Engagement</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Consultant</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Contractor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Conveyancer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Council</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cultural Liaison</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Developer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Enforcement</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Engineering Works</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Environment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Environment Health and Management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Executive Team</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Finance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Government Agency</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Health</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Human Resources</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Incident - Key Contact</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Incident Procedure Key Contact</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Information Technology</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LGA Primary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LGA Secondary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mayor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Media</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nominee</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Open Space &amp; Environment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Operations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Owner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Planning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plumber</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Policy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pricing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Procurement</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Project Manager</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Real Estate Agent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recycled Water</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Regulation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Research</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sewerage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Solicitor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Spokesperson</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Strategy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Strategy Development</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Surveyor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Trade Waste</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>WaterMAP Contact - Primary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>WaterMAP Contact - Secondary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>WaterMAP Site Manager</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Water Quality</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Works Approval</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+</CustomObject>

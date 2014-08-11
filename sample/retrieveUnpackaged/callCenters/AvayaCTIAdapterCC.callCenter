@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CallCenter xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <displayName>Avaya Call Center CC Adapter</displayName>
+    <displayNameLabel>Display Name</displayNameLabel>
+    <internalNameLabel>Internal Name</internalNameLabel>
+    <sections>
+        <items>
+            <label>Description</label>
+            <name>reqDescription</name>
+            <value>Avaya CTI Adapter for Salesforce</value>
+        </items>
+        <items>
+            <label>CTI Connector ProgId</label>
+            <name>reqProgId</name>
+            <value>AvayaCTIAdapter.AvayaCTIAdapterBase.1</value>
+        </items>
+        <items>
+            <label>Version</label>
+            <name>reqVersion</name>
+            <value>3.0</value>
+        </items>
+        <label>General Information</label>
+        <name>reqGeneralInfo</name>
+    </sections>
+    <sections>
+        <items>
+            <label>TLink A</label>
+            <name>HostA</name>
+            <value>AVAYA#SEWL#CSTA#PHOAVAES1</value>
+        </items>
+        <items>
+            <label>TLink B</label>
+            <name>HostB</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>AES User</label>
+            <name>AGENT</name>
+            <value>salesforce</value>
+        </items>
+        <items>
+            <label>AES Pwd</label>
+            <name>PASSWORD</name>
+            <value>Int3gr@t3</value>
+        </items>
+        <label>CTI Server Information</label>
+        <name>ServerInfo</name>
+    </sections>
+    <sections>
+        <items>
+            <label>Outside Prefix</label>
+            <name>reqOutsidePrefix</name>
+            <value>0</value>
+        </items>
+        <items>
+            <label>Long Distance Prefix</label>
+            <name>reqLongDistPrefix</name>
+            <value>0</value>
+        </items>
+        <items>
+            <label>International Prefix</label>
+            <name>reqInternationalPrefix</name>
+            <value>0011</value>
+        </items>
+        <label>Dialing Options</label>
+        <name>reqDialingOptions</name>
+    </sections>
+    <sections>
+        <items>
+            <label>Is Call Center? (Y/N/S)</label>
+            <name>isCallCenter</name>
+            <value>Y</value>
+        </items>
+        <items>
+            <label>Number of Lines</label>
+            <name>numLines</name>
+            <value>2</value>
+        </items>
+        <items>
+            <label>Station Length</label>
+            <name>stationLength</name>
+            <value>4</value>
+        </items>
+        <items>
+            <label>Enable New Line? (L/D/N)</label>
+            <name>newLineEnable</name>
+            <value>N</value>
+        </items>
+        <items>
+            <label>Poll Interval</label>
+            <name>pollTime</name>
+            <value>15</value>
+        </items>
+        <items>
+            <label>Ready Type? (Auto/Manual)</label>
+            <name>readyType</name>
+            <value>A</value>
+        </items>
+        <items>
+            <label>Not Ready Enabled? (Y/N)</label>
+            <name>AUXEnabled</name>
+            <value>Y</value>
+        </items>
+        <items>
+            <label>Wrapup Enabled? (Y/N)</label>
+            <name>wrapupEnabled</name>
+            <value>N</value>
+        </items>
+        <items>
+            <label>Auto-answer Incoming Calls? (Y/A/N)</label>
+            <name>autoAnswer</name>
+            <value>N</value>
+        </items>
+        <items>
+            <label>Click-to-Conference Enabled? (Y/N)</label>
+            <name>clickToConference</name>
+            <value>Y</value>
+        </items>
+        <label>Call Center</label>
+        <name>CallCenter</name>
+    </sections>
+    <sections>
+        <items>
+            <label>Call Log Enabled? (Y/N)</label>
+            <name>callLogEnabled</name>
+            <value>N</value>
+        </items>
+        <items>
+            <label>Call Log on Incomplete Calls? (Y/N)</label>
+            <name>callLogAlways</name>
+            <value>N</value>
+        </items>
+        <items>
+            <label>Preserve Call Log Related Data Selection? (Y/N)</label>
+            <name>callLogSelect</name>
+            <value>N</value>
+        </items>
+        <items>
+            <label>Link Call Log to Task? (Y/N)</label>
+            <name>callLogTask</name>
+            <value>N</value>
+        </items>
+        <items>
+            <label>Auto-complete Linked Task? (Y/N)</label>
+            <name>callLogTaskComplete</name>
+            <value>N</value>
+        </items>
+        <items>
+            <label>Use Custom Call Log Fields? (Y/N)</label>
+            <name>callLogCustom</name>
+            <value>N</value>
+        </items>
+        <items>
+            <label>Force Call Log Save? (Y/N)</label>
+            <name>callLogForce</name>
+            <value>N</value>
+        </items>
+        <label>Call Log Settings</label>
+        <name>CallLog</name>
+    </sections>
+    <sections>
+        <items>
+            <label>Transfer Button Enabled? (Y/N)</label>
+            <name>transferEnabled</name>
+            <value>Y</value>
+        </items>
+        <items>
+            <label>Conference Button Enabled? (Y/N)</label>
+            <name>conferenceEnabled</name>
+            <value>Y</value>
+        </items>
+        <items>
+            <label>Drop Last Party Button Label</label>
+            <name>dropButtonLabel</name>
+            <value>Drop</value>
+        </items>
+        <items>
+            <label>First New Button Type</label>
+            <name>newButton1Type</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>First New Button Label</label>
+            <name>newButton1Label</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Second New Button Type</label>
+            <name>newButton2Type</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Second New Button Label</label>
+            <name>newButton2Label</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Third New Button Type</label>
+            <name>newButton3Type</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Third New Button Label</label>
+            <name>newButton3Label</name>
+            <value xsi:nil="true"/>
+        </items>
+        <label>Button Settings</label>
+        <name>CustomizedButtons</name>
+    </sections>
+    <sections>
+        <items>
+            <label>My Report Label</label>
+            <name>UrlReportLabel</name>
+            <value>My Calls</value>
+        </items>
+        <items>
+            <label>URL Report</label>
+            <name>UrlReportLink</name>
+            <value>/00O900000021I1c?isdtp=vw</value>
+        </items>
+        <items>
+            <label>Login Agent ID</label>
+            <name>LoginNameLabel</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Login Agent Password</label>
+            <name>LoginPwdLabel</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Login Extension</label>
+            <name>LoginExtLabel</name>
+            <value>Channel</value>
+        </items>
+        <items>
+            <label>Login Queue Extension</label>
+            <name>LoginQueueLabel</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Login AES Username</label>
+            <name>LoginCTNameLabel</name>
+            <value>salesforce</value>
+        </items>
+        <items>
+            <label>Login AES Password</label>
+            <name>LoginCTPwdLabel</name>
+            <value>Int3gr@t3</value>
+        </items>
+        <items>
+            <label>Ready Label</label>
+            <name>ReadyLabel</name>
+            <value>Available</value>
+        </items>
+        <items>
+            <label>Not Ready Label</label>
+            <name>NotReadyLabel</name>
+            <value>Not Ready</value>
+        </items>
+        <items>
+            <label>Not Ready New Reason Label</label>
+            <name>NewReasonLabel</name>
+            <value>AUX</value>
+        </items>
+        <items>
+            <label>Wrapup Label</label>
+            <name>WrapupLabel</name>
+            <value>ACW</value>
+        </items>
+        <items>
+            <label>On Call Label</label>
+            <name>OnCallLabel</name>
+            <value>On Call</value>
+        </items>
+        <items>
+            <label>Log Out Label</label>
+            <name>LogoutLabel</name>
+            <value>Log Out</value>
+        </items>
+        <label>Label Settings</label>
+        <name>CustomizedLabels</name>
+    </sections>
+    <sections>
+        <items>
+            <label>Wrapup Reason Enabled? (Y/N)</label>
+            <name>WrapupReasonEnabled</name>
+            <value>N</value>
+        </items>
+        <items>
+            <label>Logout Reason Enabled? (Y/N)</label>
+            <name>LogoutReasonEnabled</name>
+            <value>Y</value>
+        </items>
+        <items>
+            <label>Not Ready Reason Enabled? (Y/N)</label>
+            <name>AUXReasonEnabled</name>
+            <value>Y</value>
+        </items>
+        <label>Reason Codes Enabled</label>
+        <name>ReasonCodesEnabled</name>
+    </sections>
+    <sections>
+        <items>
+            <label>Wrap-up 1</label>
+            <name>Wrapup1</name>
+            <value>Call Successful</value>
+        </items>
+        <items>
+            <label>Wrap-up 2</label>
+            <name>Wrapup2</name>
+            <value>Escalated</value>
+        </items>
+        <items>
+            <label>Wrap-up 3</label>
+            <name>Wrapup3</name>
+            <value>Disconnected</value>
+        </items>
+        <items>
+            <label>Wrap-up 4</label>
+            <name>Wrapup4</name>
+            <value>Left Voicemessage</value>
+        </items>
+        <items>
+            <label>Wrap-up 5</label>
+            <name>Wrapup5</name>
+            <value>Hung Up</value>
+        </items>
+        <items>
+            <label>Wrap-up 6</label>
+            <name>Wrapup6</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Wrap-up 7</label>
+            <name>Wrapup7</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Wrap-up 8</label>
+            <name>Wrapup8</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Wrap-up 9</label>
+            <name>Wrapup9</name>
+            <value xsi:nil="true"/>
+        </items>
+        <label>Wrapup Reason Codes</label>
+        <name>WrapupReasonCodes</name>
+    </sections>
+    <sections>
+        <items>
+            <label>Logout 1</label>
+            <name>Logout1</name>
+            <value>Lunch</value>
+        </items>
+        <items>
+            <label>Logout 2</label>
+            <name>Logout2</name>
+            <value>Training</value>
+        </items>
+        <items>
+            <label>Logout 3</label>
+            <name>Logout3</name>
+            <value>Meeting</value>
+        </items>
+        <items>
+            <label>Logout 4</label>
+            <name>Logout4</name>
+            <value>Admin work</value>
+        </items>
+        <items>
+            <label>Logout 5</label>
+            <name>Logout5</name>
+            <value>Break / Dispatch Relief</value>
+        </items>
+        <items>
+            <label>Logout 6</label>
+            <name>Logout6</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Logout 7</label>
+            <name>Logout7</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Logout 8</label>
+            <name>Logout8</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Logout 9</label>
+            <name>Logout9</name>
+            <value xsi:nil="true"/>
+        </items>
+        <label>Logout Reason Codes</label>
+        <name>LogoutReasonCodes</name>
+    </sections>
+    <sections>
+        <items>
+            <label>Not Ready 1</label>
+            <name>AUX1</name>
+            <value>Lunch</value>
+        </items>
+        <items>
+            <label>Not Ready 2</label>
+            <name>AUX2</name>
+            <value>Training</value>
+        </items>
+        <items>
+            <label>Not Ready 3</label>
+            <name>AUX3</name>
+            <value>Meeting</value>
+        </items>
+        <items>
+            <label>Not Ready 4</label>
+            <name>AUX4</name>
+            <value>Admin work</value>
+        </items>
+        <items>
+            <label>Not Ready 5</label>
+            <name>AUX5</name>
+            <value>Break / Dispatch Relief</value>
+        </items>
+        <items>
+            <label>Not Ready 6</label>
+            <name>AUX6</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Not Ready 7</label>
+            <name>AUX7</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Not Ready 8</label>
+            <name>AUX8</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Not Ready 9</label>
+            <name>AUX9</name>
+            <value xsi:nil="true"/>
+        </items>
+        <label>Not Ready Reason Codes</label>
+        <name>AUXReasonCodes</name>
+    </sections>
+    <sections>
+        <items>
+            <label>Pop on Transfer and Conference? (Y/N/D)</label>
+            <name>TranPop</name>
+            <value>Y</value>
+        </items>
+        <items>
+            <label>ANI</label>
+            <name>ANI</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>DNIS</label>
+            <name>DNIS</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Digits</label>
+            <name>Digits</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Show Digits? (Y/N)</label>
+            <name>DigitsShow</name>
+            <value>Y</value>
+        </items>
+        <items>
+            <label>Digits Label</label>
+            <name>DigitsLabel</name>
+            <value>Digits</value>
+        </items>
+        <items>
+            <label>UUI 1</label>
+            <name>UUI1</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>UUI 2</label>
+            <name>UUI2</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>UUI 3</label>
+            <name>UUI3</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>UUI Separator</label>
+            <name>UUISep</name>
+            <value>:</value>
+        </items>
+        <items>
+            <label>UUI Data</label>
+            <name>UUIData</name>
+            <value>;</value>
+        </items>
+        <items>
+            <label>Show UUI Data? (Y/N)</label>
+            <name>UUIDataShow</name>
+            <value>Y</value>
+        </items>
+        <items>
+            <label>Show Full UUI? (Y/N)</label>
+            <name>UUIShow</name>
+            <value>Y</value>
+        </items>
+        <items>
+            <label>UUI Label</label>
+            <name>UUILabel</name>
+            <value>UUI</value>
+        </items>
+        <label>ScreenPop</label>
+        <name>ScreenPop</name>
+    </sections>
+    <version>3</version>
+</CallCenter>

@@ -1,0 +1,386 @@
+<apex:page sidebar="false" showHeader="true"
+    doctype="html-5.0"
+    action="{!CheckRedirectConfirmed}"
+    tabstyle="Water_Usage__tab" controller="PortalWaterUsageList_Controller">
+  <!-- 
+    Type:       VF page
+    Purpose:    Displays Water Use
+    ---------------------------------------------------------------
+    History:
+
+    23-May-2012 DYU
+        UPDATE: Added validation for invalid selected timeframe
+    23-May-2012 RDELACRUZ
+        UPDATE: Commented validation for invalid selected timeframe
+    24-May-2012 AVERGARA
+        UPDATE: added validation for invalid selected timeframe, show hide of tables
+    04-Jun-2012 DYu
+        UPDATE: 5145: Update invalid timeframe error message
+    26-Jun-2012 DYU
+        UPDATE: 5229: format displayed value of daily average litres with comma    
+ -->
+    
+    
+    <head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <apex:stylesheet value="{!$Resource.PortalIcons_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalActionLinks_Styles}"/>
+    </head> 
+
+    <script type="text/javascript">
+       var previousOnload = window.onload;
+       window.onload = function() {
+            if (previousOnload) {
+                previousOnload();
+            }
+            PerformPopulateMeterReads();
+       }
+    </script>
+
+    <apex:form id="theForm">
+
+        <apex:sectionheader title="Water use"
+                            subtitle="{!selectedBillingAccount.Property__r.Street_Address_Proper__c}, {!selectedBillingAccount.Property__r.Suburb_Proper__c} {!selectedBillingAccount.Property__r.Postal_Code__c}"/>
+        <div style="clear:both"/>
+
+        <apex:inputHidden value="{!customerType}" id="custType"/>
+
+        <apex:outputPanel styleclass="pbTransparent pbNoLeftPad fullPageTableOuterDiv">
+            <apex:pageblock id="pb" >
+                <!--  HORIZONTAL SUBTAB -->
+                <c:PortalSubTab groupName="Usage"
+                                currentDevName="Usage_List"
+                                currentAccRecordType="{!customer.RecordType.DeveloperName}"/> 
+                
+                <apex:outputPanel id="waterUsageTable" 
+                                    layout="block"
+                                    styleClass="fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll">
+
+                    <!--  FILTERS -->
+                    <apex:outputPanel id="filter" layout="block" styleclass="filterPanel">
+                        <apex:panelGrid columns="3">
+                            <apex:outputPanel ><apex:outputlabel >Property</apex:outputlabel></apex:outputPanel>
+                            <apex:outputPanel ><apex:outputlabel >Select meter</apex:outputlabel></apex:outputPanel>
+                            <apex:outputPanel ><apex:outputlabel >Select timeframe (financial year)</apex:outputlabel></apex:outputPanel>
+                            <apex:outputPanel >                     
+                                <apex:selectList size="1" label="Property" value="{!selectedbillingaccountid}"
+                                                id="billingaccountlist" style="width:350px">
+                                    <apex:actionSupport event="onchange" rerender="theForm" status="loading"
+                                                        action="{!PopulateSelectedBillingAccountandMeter}"/>
+                                    <apex:selectOptions value="{!activeBillAcctOptions}"/>
+                                </apex:selectList>
+                            </apex:outputPanel>
+                            <apex:outputPanel >                     
+                                <apex:selectList size="1" label="Meter" value="{!selectedmeterid}"
+                                                id="meterlist">
+                                    <apex:actionSupport event="onchange" rerender="theForm" status="loading"
+                                                        action="{!PopulateMeterReads}"/>
+                                    <apex:selectOptions value="{!meterOptions}"/>
+                                </apex:selectList>
+                            </apex:outputPanel>
+                            <apex:outputPanel > 
+                                <apex:actionRegion >                    
+                                    <apex:selectList value="{!startYear}" 
+                                                    size="1" label="Period (Start)" 
+                                                    id="fystartlist">
+                                        <apex:selectOptions value="{!finYearOptions}"/>
+                                        <apex:actionSupport event="onchange" rerender="theForm" status="loading"/>
+                                    </apex:selectList>
+                                    <apex:outputLabel style="margin: 0px 5px;">to</apex:outputLabel>
+                                    <apex:selectList value="{!endYear}" 
+                                                    size="1" label="Period (End)" 
+                                                    id="fyendlist">
+                                        <apex:selectOptions value="{!finYearOptions}"/>
+                                        <apex:actionSupport event="onchange" rerender="theForm" status="loading"/>
+                                    </apex:selectList>
+                                </apex:actionRegion>                    
+                            </apex:outputPanel>
+                        </apex:panelGrid>
+                    </apex:outputPanel>
+        
+                    <!--  PAGE MESSAGES -->
+                    <div style="text-align: left">
+                        <apex:pageMessages id="msg" />
+                    </div>
+                       
+                     <!-- PAGE MESSAGE WHEN TIMEFRAME SELECTED IS INVALID -->
+                     <apex:outputPanel id="detailedReasonAndattachment" layout="block">
+                         <apex:pageBlockSection id="detailedReason" columns="1" collapsible="false" rendered="{!invalidResult}">
+                              <apex:pageMessage strength="3" severity="error" summary="Please select a timeframe where the financial year in the first field either matches or precedes the second field."/>
+                         </apex:pageBlockSection>
+                     </apex:outputPanel>
+        
+                    <apex:pageMessage rendered="{!selectedMeter.Meter_Type__c=='L'}"
+                            strength="2" severity="info"
+                            summary="Your property receives water through a shared water meter (main meter). Your share of daily consumption from this main meter is displayed."/>
+        
+                    <!--  CONTENT -->
+
+
+                    <apex:pageBlockTable id="pbTableWaterUsage"
+                            headerClass="tableHeader"
+                            rowClasses="tableRowOdd,tableRowEven"
+                            columnClasses="tableCol"
+                            value="{!displayedMeterReads}" var="read" 
+                            onrowclick="CallSetRowIndex(this.rowIndex)"
+                            rendered="{!NOT(noMeterReads)}"
+                            >
+                            
+<!-- Remove per Dave Craddock - 7 May 2012
+                        <apex:column headervalue="Billing period" value="{!read.billingPeriod}" style="white-space: nowrap"/> 
+-->
+                        <apex:column style="white-space: nowrap">
+                            <apex:facet name="header">
+                                Reading date
+                            </apex:facet>
+                            <apex:outputText value="{0,date,d MMMM yyyy}">
+                                <apex:param value="{!read.reading.readdate}" /> 
+                            </apex:outputText>
+                        </apex:column>
+                        
+                        <apex:column value="{!read.typeOfReading}" >
+                            <apex:facet name="header">
+                                Reading type
+                            </apex:facet>
+                        </apex:column>
+
+                        <apex:column style="text-align:left;" headerClass="headerRowLeft">
+                            <apex:facet name="header">
+                                Meter reading (kL)
+                            </apex:facet>
+                            <apex:outputText value="{0,number, ###,###}" styleClass="largeFontSize midGrey resetLineHeight">
+                                <apex:param value="{!read.readings}" /> 
+                            </apex:outputText>
+                        </apex:column>
+        
+                        <apex:column style="text-align:left;" headerClass="headerRowLeft">
+                            <apex:facet name="header">
+                                Kilolitres used
+                            </apex:facet>
+                            <apex:outputText value="{0,number, ###,###}" styleClass="largeFontSize midGrey resetLineHeight">
+                                <apex:param value="{!read.consumption}" /> 
+                            </apex:outputText> 
+                        </apex:column>
+        
+                        <apex:column style="text-align:left;" headerClass="headerRowLeft">
+                            <apex:facet name="header">
+                                Daily average litres
+                            </apex:facet>
+<!--                            <apex:actionRegion >
+                                <apex:commandLink action="{!NoOp}" 
+                                                    rerender="littleManBox"
+                                                    status="loading">
+                                    <apex:outputText value="{0,number,#,###,###}" >    
+                                    <apex:param name="selectedAvgDailyConsumption"
+                                                    assignTo="{!selectedAvgDailyConsumption}"
+                                                    value="{!read.reading.averageConsumption}"/>
+                                                    </apex:outputText>                     
+                                                    {!read.reading.averageConsumption}
+                                                    
+                                </apex:commandLink>  
+                            </apex:actionRegion>-->
+                            <apex:outputText value="{0,number, ###,###}" styleClass="largeFontSize grey resetLineHeight">
+                                <apex:param value="{!read.reading.averageConsumptionDecimal}"/> 
+                            </apex:outputText>
+                        </apex:column>
+        
+                        <apex:column style="text-align:left;" headerClass="headerRowLeft">
+                            <apex:facet name="header">
+                                Days in billing period
+                            </apex:facet>
+                            <apex:outputText value="{!read.reading.noOfDays}"
+                                            styleClass="largeFontSize midGrey resetLineHeight"/>
+                        </apex:column>
+                    </apex:pageBlockTable>
+
+                    <apex:outputPanel layout="block" style="padding:15px 15px; font-style: italic" rendered="{!noMeterReads && NOT(firstTime)}">
+                        No meter readings to display
+                    </apex:outputPanel>
+                    <br>
+                    <apex:outputPanel layout="block" rendered="{!noMeterReads=false}"
+                            style="margin: 10px 12px">
+                        <apex:commandButton onclick="window.location='{!$Page.PortalSubmitMeterRead}?billacctid={!selectedbillingaccountid}'; return false;"
+                                styleClass="btnLightGrey" 
+                                value="+  Submit meter read"/>
+                    </apex:outputPanel>
+                    </br>
+                    <apex:outputPanel layout="block"
+                                styleClass="borderDottedMedGreyBottom"
+                                style="width: 100%"/>   
+
+                    <a name="comparison"/>                                
+
+                    <apex:outputPanel id="littleManBox"
+                            rendered="{!selectedRowIndex > 0 && customerType == 'Residential'}">
+
+                        <apex:sectionheader title="" rendered="{!noMeterReads=false}"
+                            subtitle="What's my water use?"/>
+                        <div style="clear:both; margin-top:10px"/>
+                        
+                        <apex:outputPanel styleClass="pbTransparent" rendered="{!noMeterReads=false}">
+                            <apex:pageBlock >
+                                <apex:outputPanel styleClass="largeFontSize blue resetLineHeight"
+                                        style="float: left; width: 220px; margin-left: 15px;">
+                                    Your household's average water use per day was 
+                                    <span style="font-weight: bold;">{!selectedAvgDailyConsumptionAry[0]} litres</span>. 
+                                    <p class="smallFontSize">For the reading date <br/>
+                                        <apex:outputText value="{0,date,d MMMM yyyy}">
+                                            <apex:param value="{!selectedDate}" /> 
+                                        </apex:outputText>
+                                    </p>
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel style="float: left; width: 280px; margin-left: 15px; position: relative; top: -9px">
+                                    <p style="text-align: justify">
+                                        It's easy to work out how much water each person (on average) uses.
+                                    </p>
+                                    <p style="text-align: justify">
+                                        Simply divide your household's average daily water use by the number of people in your household.
+                                    </p>
+                                    <p style="text-align: justify">
+                                        For example, a household using 300 litres per day equates to 150 litres per person if there are two people living there.
+                                    </p>
+
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel style="float: left; width: 300px; margin-left: 30px">
+                                    <table cellpadding="0" cellspacing="0" style="border: collapse"> 
+                                        <theader >
+                                            <tr >
+                                                <td style="line-height: 2; font-weight: bold; white-space: nowrap; padding-right: 30px" class="borderDottedBlueBottom">
+                                                    Number of occupants
+                                                </td>
+                                                <td style="font-weight: bold; white-space: nowrap" class="borderDottedBlueBottom">
+                                                    Average litres per person per day
+                                                </td>
+                                            </tr>
+                                        </theader>
+                                        <tbody class="largeFontSize blue">
+                                            <tr>
+                                                <td class="borderDottedBlueBottom">
+                                                    <apex:outputText value="1 " styleClass="midBlue"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                </td>
+                                                <td class="borderDottedBlueBottom">
+                                                    <apex:outputText value="{!selectedAvgDailyConsumptionAry[0]}"
+                                                            styleClass="blue"/>
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td class="borderDottedBlueBottom">
+                                                    <apex:outputText value="2 " styleClass="midBlue"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                </td>
+                                                <td class="borderDottedBlueBottom">
+                                                    <apex:outputText value="{!selectedAvgDailyConsumptionAry[1]}"
+                                                            styleClass="blue"/>
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td class="borderDottedBlueBottom ">
+                                                    <apex:outputText value="3 " styleClass="midBlue"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                </td>
+                                                <td class="borderDottedBlueBottom ">
+                                                    <apex:outputText value="{!selectedAvgDailyConsumptionAry[2]}"
+                                                            styleClass="blue"/>
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td class="borderDottedBlueBottom ">
+                                                    <apex:outputText value="4 " styleClass="midBlue"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                </td>
+                                                <td class="borderDottedBlueBottom ">
+                                                    <apex:outputText value="{!selectedAvgDailyConsumptionAry[3]}"
+                                                            styleClass="blue"/>
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td class="borderDottedBlueBottom ">
+                                                    <apex:outputText value="5 " styleClass="midBlue"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                </td>
+                                                <td class="borderDottedBlueBottom ">
+                                                    <apex:outputText value="{!selectedAvgDailyConsumptionAry[4]}"
+                                                            styleClass="blue"/>
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td class="borderDottedBlueBottom ">
+                                                    <apex:outputText value="6 " styleClass="midBlue"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/waterconsumptionman.png')}"/>
+                                                </td>
+                                                <td class="borderDottedBlueBottom ">
+                                                    <apex:outputText value="{!selectedAvgDailyConsumptionAry[5]}"
+                                                            styleClass="blue"/>
+                                                </td>
+                                            </tr> 
+                                        </tbody>                                        
+                                    </table>
+                                </apex:outputPanel>
+                            </apex:pageBlock>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                    <div style="clear: both"/>
+                </apex:outputPanel>             
+            </apex:pageblock>
+
+        </apex:outputPanel>
+
+        <!-- Action Status that are not position dependent -->
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+                    borderSize="1" height="50px" width="120px" margintop="-25px"
+                    marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+                    Message="Processing..." />
+            </apex:facet>
+        </apex:actionStatus>
+
+        <!--  ACTION FUNCTIONS -->
+        <apex:actionFunction name="PerformPopulateMeterReads"
+            action="{!PopulateMeterReads}" status="loading"
+            rerender="theForm" />
+
+        <apex:actionRegion >
+            <apex:actionFunction name="SetRowIndex"
+                action="{!NoOp}" status="loading"
+                rerender="theForm"/>
+                
+            <apex:inputHidden value="{!selectedRowIndex}" id="selectedRowIndex"/>   
+        </apex:actionRegion>
+            
+        <script type="text/javascript">
+            function CallSetRowIndex(rowIndex) {
+                // sets the row index based on row click of the table
+                // then calls the SetRowIndex() action function to rerender the page
+                if (document.getElementById('{!$Component.custType}').value == 'Residential') {
+                    document.getElementById('{!$Component.selectedRowIndex}').value = rowIndex;
+                    SetRowIndex();
+                    window.location='#comparison';
+                }
+            }
+        </script>   
+    </apex:form>
+    <div style="margin-left: 15px;">
+        <!--<c:PortalWaterUsageActionLinks />-->
+        <c:PortalHorizontalQuickLinks mode="waterUseList"/>
+    </div>
+
+</apex:page>

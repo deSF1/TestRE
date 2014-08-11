@@ -1,0 +1,1022 @@
+<!--
+    Type:      Component
+    Purpose:   SEW Events Map
+     
+    Used By:   SEWEventsSingleLocation, SEWEventsLocation
+    ---------------------------------------------------------------
+    History:
+
+    07/04/2014 ejandusay(Cloud Sherpas)         Created
+    08/04/2014 ejandusay(Cloud Sherpas)         Modified map to adjust the center if it is a single location
+    14/04/2014 ejandusay(Cloud Sherpas)         Added filter for events displayed on public site
+    15/04/2014 ejandusay(Cloud Sherpas)         added function to get image values dynamically
+    22/04/2014 ejandusay(Cloud Sherpas)         adjustted getImage function;it is now based on event type
+    28/04/2014 ejandusay(Cloud Sherpas)         added last updated timestamp,resolution and status fields on markers;
+                                                added status on pageblockTable;
+    30/04/2014 ejandusay(Cloud Sherpas)         added collapsible effect on table along with focus on event
+    06/05/2014 ejandusay(Cloud Sherpas)         added search filter address convertion to geolocation
+    07/05/2014 ejandusay(Cloud Sherpas)         added jquery for collapsing rows one at a time
+    12/05/2014 NPatterson                       Revamped the interface
+    04/06/2014 NPatterson                       Revamped the interface (again!)
+    13/06/2014 NPatterson                       Defect fixes
+    27/06/2014 ejandusay(Cloud Sherpas)         removed start and est date from event right side info display
+    02/07/2014 ejandusay(Cloud Sherpas)         fixed apostrophe bug
+
+-->
+<apex:component controller="SEWEventsLocationController" id="theComponent"> 
+
+    <apex:attribute name="componentValue" description="Attribute on the component."
+                  type="String" required="required" assignTo="{!isSingleLocation}"/>
+    <apex:attribute name="fromPublicSite" description="Called from the public site page"
+                  type="String" default="false" assignTo="{!isPublicSite}"/>  
+              
+    <head >
+        <script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false" type="text/javascript"></script>
+        <script src="/soap/ajax/23.0/connection.js" type="text/javascript" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
+        <script src="{!$Resource.SEWRegionPolygonPoints}" type="text/javascript"/>
+        <script src="{!$Resource.InfoBoxJS}" type="text/javascript"/>
+        <script type="text/javascript">
+            var $ = jQuery.noConflict();
+            function callActionFunction(a,b){
+                callaction(a,b);
+
+            }
+        </script>
+        <!-- style for customPopup and for the event table -->
+        
+        
+        
+        
+        <!-- javascript for expanding rows -->
+        <script type="text/javascript">  
+            window.onresize=function(){
+               resizePage();
+               };
+            
+            $(document).ready(function(){
+                adjustReport();
+            });
+            
+            function adjustReport(){
+                $("#report tr:odd").addClass("odd");
+                $("#report tr:not(.odd)").hide();
+                $("#report tr:first-child").show();
+                
+                $("#report tr.odd").click(function(){     
+                    if($(this).next("tr").is(':visible')){
+                        $(this).next("tr").toggle();
+                        $(this).toggleClass("bottomBorder", true);
+                        $(this).find(".arrow").toggleClass("up");
+                        getLocations(0,'',0,0);
+                    }else{
+                        $("#report tr:not(.odd)").hide();
+                        $(this).next("tr").toggle();
+                        $(this).toggleClass("bottomBorder",false);
+                        $(".arrow").toggleClass("up",false);
+                        $(this).find(".arrow").toggleClass("up");
+    
+                        
+                    }
+                   
+    
+                });
+                //$(this).toggleClass("bottomBorder");
+            }
+        
+            
+        </script>  
+    
+        
+        <apex:form id="jsFORM">
+            <script>
+                var mapStyle=[{"featureType":"water","elementType":"geometry","stylers":[{"color":"#a2daf2"}]},{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"color":"#f7f1df"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#bde6ab"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi.medical","elementType":"geometry","stylers":[{"color":"#fbd3da"}]},{"featureType":"poi.business","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffe15f"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efd151"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"black"}]},{"featureType":"transit.station.airport","elementType":"geometry.fill","stylers":[{"color":"#cfb2db"}]}];
+                
+                function resetFilter(){
+                    document.getElementById('publicPage:component:theComponent:theForm:theRepeatCheckBox:0:checkBox').checked = true;
+                    document.getElementById('publicPage:component:theComponent:theForm:theRepeatCheckBox:1:checkBox').checked = true;
+                    document.getElementById('publicPage:component:theComponent:theForm:theRepeatCheckBox:2:checkBox').checked = true;
+                    document.getElementById('publicPage:component:theComponent:theForm:theInProgressFlag').checked = true; 
+                    document.getElementById('publicPage:component:theComponent:theForm:theResolvedFlag').checked = false;
+                }
+        
+                var map = null;
+                //  30/04/2014  ejandusay   added script for expand row functionality
+                function switchMenu(counter,street,city,state,country,eventLat,eventLong) 
+                {   
+                    var loc = street + ' ' + city + ' ' + state + ' ' + country;
+                    if(counter == 1){
+                        getLocations(1,loc,eventLat,eventLong);
+                    }else{
+                        getLocations(0,loc,eventLat,eventLong);
+                    }
+        
+                }
+        
+                function showFilter(ob){
+                    var popUpVar = document.getElementById(ob);
+                    if(popUpVar.style.display != 'none'){
+                        popUpVar.style.display = 'none';
+                    }else{
+                        popUpVar.style.display='';
+                    }
+                    
+                }
+                   
+                jQuery(document).ready(function() { 
+                    getLocations(0,'',0,0);
+                
+                });
+        
+                //function to get the image value   
+                function getImage(eventType){
+                    if(eventType == 'Water burst'){
+                        var eventImage = "{!$Resource.IconWaterBurstSmall}";
+                    }else if (eventType == 'Scheduled works'){
+                        var eventImage = "{!$Resource.IconScheduledWorksSmall}";               
+                    }else if (eventType == 'Emergency works'){
+                        var eventImage = "{!$Resource.IconEmergencyWorkSmall}";               
+                    }else if (eventType == 'Discoloured water'){
+                        var eventImage = "{!$Resource.IconDiscolouredWaterSmall}";               
+                    }else if (eventType == 'Emergency response truck'){
+                        var eventImage = "{!$Resource.IconEmergencyResponseTruckSmall}";               
+                    }
+        
+                    return eventImage;
+                }
+        
+                //function for search filter
+                function getLocs(){
+                    var geocoder;
+                    var address = document.getElementById('publicPage:component:theComponent:theSearchForm:searchString').value;
+                    //check if search text is null
+                    //if not null, convert address to geolocations
+                    if(address != '' && !needToClearField){
+                        address += ',Australia';
+                        geocoder = new google.maps.Geocoder();
+                        geocoder.geocode( { 'address': address}, function(results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            var longi = results[0].geometry.location.lng();
+                            var lati = results[0].geometry.location.lat();
+                            callActionFunction(longi,lati);
+            
+                        }
+                        else {
+                            alert("Geocode was not successful for the following reason: " + status);
+                            }
+                        });
+                    }else{
+                        callActionFunction(null,null);
+                    
+                    }
+        
+                    
+        
+                }
+
+                
+                //build markers for the map according to SEW Events object
+                function getLocations(counter,eventLocal,eveLat,eveLong){
+                    //alert(counter);
+                    var minimum = {!$Setup.SystemSettings__c.Minimum_map_zoom__c};
+                    var maximum = {!$Setup.SystemSettings__c.Maximum_map_zoom__c};
+                    
+                    map = new google.maps.Map(document.getElementById('map'), {
+                      center: new google.maps.LatLng(-38.138432, 145.577457 ),
+                      streetViewControl: true,
+                      mapTypeControl: true,
+                      panControl: true,
+                      zoomControl: true,
+                      mapTypeId: google.maps.MapTypeId.ROADMAP,
+                      styles: mapStyle
+                    });
+                        if('{!componentValue}' != ''){
+                            map.setZoom(maximum);               
+                        }else{
+                            map.setZoom(minimum);
+                        }
+                        
+                    var opt = { minZoom: minimum, maxZoom: maximum };
+                    map.setOptions(opt);
+        
+                    var infowindow = new google.maps.InfoWindow({
+                        maxWidth: 250,
+                        pixelOffset: new google.maps.Size(10,10) 
+                    });
+                    
+                    var poly = new google.maps.Polygon({
+                      paths: paths,
+                      strokeWeight: 2,
+                      fillColor: '#000000', 
+                      fillOpacity: 0,
+                        strokeColor: '#000000',
+    strokeOpacity: 0.5
+
+                    });
+                
+                    poly.setMap(map);
+
+                    var strictBounds = new google.maps.LatLngBounds(
+                        new google.maps.LatLng(-36.958755, 143.347046),
+                        new google.maps.LatLng(-39.176998, 147.994263) 
+                    );
+                    
+                    // Listen for the dragend event
+                   google.maps.event.addListener(map, 'dragend', function() {
+                     if (strictBounds.contains(map.getCenter())) return;
+                
+                     // We're out of bounds - Move the map back within the bounds
+                
+                     var c = map.getCenter(),
+                         x = c.lng(),
+                         y = c.lat(),
+                         maxX = strictBounds.getNorthEast().lng(),
+                         minY = strictBounds.getNorthEast().lat(),
+                         minX = strictBounds.getSouthWest().lng(),
+                         maxY = strictBounds.getSouthWest().lat();
+                
+                     if (x < minX) x = minX;
+                     if (x > maxX) x = maxX;
+                     if (y < minY) y = minY;
+                     if (y > maxY) y = maxY;
+                
+                     map.setCenter(new google.maps.LatLng(y, x));
+                   });
+            
+                    google.maps.event.addListener(map, 'click', function() {
+                          infowindow.close();
+                          ib.close();
+                        });
+                    var marker;
+                    var i;
+                    //bounds is used to make sure all markers fit in map
+                    var bounds = new google.maps.LatLngBounds();
+                    var imageSize = new google.maps.Size (30, 40);
+                    
+                    // setup InfoWindow
+                    var boxText = document.createElement("div");
+                    boxText.style.cssText = "border: 0px solid black; margin-top: 0px; background: transparent; padding: 0px;";
+
+                    var myOptions = {
+                        content: boxText
+                        ,disableAutoPan: false
+                        ,maxWidth: 0
+                        ,pixelOffset: new google.maps.Size(-182, -15)
+                        ,zIndex: null
+                        ,boxStyle: { 
+                              background: "transparent"
+                              ,opacity: 1.0
+                              ,width: "370px"
+                              ,border: "0px"
+                             }
+                        ,closeBoxMargin: "33px 17px 0px 0px"
+                        ,closeBoxURL: "{!$Resource.XWhiteBackground}"
+                        ,infoBoxClearance: new google.maps.Size(1, 1)
+                        ,isHidden: false
+                        ,pane: "floatPane"
+                        ,enableEventPropagation: false
+                    };
+                    var ib = new InfoBox(myOptions);
+                    
+                    
+                    
+                    //apex repeat to loop within SEW Events object
+                     <apex:repeat value="{!locList}" var="ss" id="theRepeat">
+        
+                        var latitude;
+                        var longitude;
+                        var post;
+                        var startDateString;
+                        var endDateString;
+                        var resolutionString;
+                    //var statusString;
+                        
+                        var image =  {url: '{!ss.iconStaticResource}',
+                                                           scaledSize: imageSize
+                                                      };
+        
+                        //if coordinates are given,plot directly in map with given coordinates
+                        if('{!ss.eventLoc.Coordinates__Longitude__s}' != 0 && '{!ss.eventLoc.Coordinates__Latitude__s}' != 0){
+                                 post = new google.maps.LatLng('{!ss.eventLoc.Coordinates__Latitude__s}','{!ss.eventLoc.Coordinates__Longitude__s}');
+                                 //assigning markers         
+                                  marker = new google.maps.Marker({
+                                    position: post,
+                                    map: map,
+                                    icon:image,
+                                    animation: google.maps.Animation.DROP,
+                                    title: '{!ss.publicName}'
+                                  }); 
+                            /*if('{!ss.formattedStartDate}' != ''){
+                                        startDateString = '<b>Start Date: </b>'+
+                                                '{!ss.formattedStartDate}';
+                                    }else{
+                                        startDateString = '';
+                                    }
+                                    if('{!ss.formattedEndDate}' != ''){
+                                        endDateString = '<b>End Date: </b>'+
+                                                '{!ss.formattedEndDate}';
+                                    }else{
+                                        endDateString = '';
+                                    }
+                                    if('{!ss.eventLoc.Resolution__c}' != ''){
+                                        resolutionString = '<b>Resolution: </b>'+
+                                                            '{!ss.eventLoc.Resolution__c}';
+                                    }else{
+                                        resolutionString = '';
+                                    }
+                                    if('{!ss.eventLoc.Public_Status__c}' != ''){
+                                        statusString = '<b>Status: </b>'+
+                                                        '{!ss.eventLoc.Public_Status__c}';
+                                    }else{
+                                        statusString = '';
+                                    }*/
+                                    
+                                    
+                                    marker.html = '{!ss.InfoBoxText}';                             
+                                    bounds.extend(marker.position);       
+                                    //add listener
+                                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                                          return function() {
+                                              /*infowindow.setContent(this.html);
+                                            infowindow.open(map, this);*/
+                                              ib.setContent(this.html);
+                                              ib.open(map, this);
+                                            }
+                                          })(marker,i));
+                                
+                                if('{!componentValue}' != ''){
+                                    map.setCenter(post);
+                                }else if(counter != 1){
+                                    map.fitBounds(bounds);    
+                                    map.setZoom(minimum);
+                                }
+                                if(counter ==1){
+                                    post = new google.maps.LatLng(eveLat,eveLong);
+                                    map.setCenter(post);
+                                    map.setZoom(maximum);
+                                }
+        
+                            //if coordinates are not give, check for street and city
+                            }else if (('{!ss.eventLoc.Street_Name__c}' != null || '{!ss.eventLoc.Street_Type__c}' != null) && '{!ss.eventLoc.City__c}' != null) {
+                                 var geocoder = new google.maps.Geocoder();
+                                    var address2 = eventLocal;
+                                    var address = '{!ss.eventLoc.Street_Name__c}' + ' ' + '{!ss.eventLoc.Street_Type__c}' + ' ' +'{!ss.eventLoc.City__c}' + ', Australia';
+                                 
+                                //call google geocoder service to convert address to a geolocation value 
+                                geocoder.geocode({ 'address': address}, function (results, status) {
+                                    if (status == google.maps.GeocoderStatus.OK) { 
+                                            latitude = results[0].geometry.location.lat();
+                                            longitude = results[0].geometry.location.lng();
+                                            post = new google.maps.LatLng(latitude,longitude);
+        
+                                            var image =  new google.maps.Icon({url: '{!ss.iconStaticResource}',
+                                                                           scaledSize: imageSize
+                                                                          });
+        
+                                            //assigning markers     
+                                              marker = new google.maps.Marker({
+                                                position: post,
+                                                map: map,
+                                                icon:image,
+                                                title: '{!ss.eventAction.Public_Type__c}'
+                                              }); 
+                                        /*
+                                              if('{!ss.formattedStartDate}' != ''){
+                                                    startDateString = '<b>Start Date: </b>'+
+                                                            '{!ss.formattedStartDate}';
+                                                }else{
+                                                    startDateString = '';
+                                                }
+                                                if('{!ss.formattedEndDate}' != ''){
+                                                    endDateString = '<b>End Date: </b>'+
+                                                            '{!ss.formattedEndDate}';
+                                                }else{
+                                                    endDateString = '';
+                                                }
+                                                if('{!ss.eventLoc.Resolution__c}' != ''){
+                                                    resolutionString = '<b>Resolution: </b>'+
+                                                                        '{!ss.eventLoc.Resolution__c}';
+                                                }else{
+                                                    resolutionString = '';
+                                                }
+                                                if('{!ss.eventLoc.Public_Status__c}' != ''){
+                                                    statusString = '<b>Status: </b>'+
+                                                                    '{!ss.eventLoc.Public_Status__c}';
+                                                }else{
+                                                    statusString = ''; 
+                                                }*/
+                                           
+                                          marker.html = '{!ss.InfoBoxText}';                         
+                                          bounds.extend(marker.position);      
+                                        //add listeners
+                                          google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                                              return function() {
+                                                  /*infowindow.setContent(this.html);
+                                                infowindow.open(map, this);*/
+                                                  ib.setContent(this.html);
+                                                    ib.open(map, this);
+                                                }
+                                              })(marker,i));
+                                    
+                                            if('{!componentValue}' != ''){
+                                                map.setCenter(post);
+                                            }else if(counter != 1){
+                                                map.fitBounds(bounds);
+                                            }
+                                    }
+                                });
+                                if(counter ==1){
+                                    geocoder.geocode({ 'address': address2}, function (results, status) {
+                                        if (status == google.maps.GeocoderStatus.OK) { 
+                                            latitude = results[0].geometry.location.lat();
+                                            longitude = results[0].geometry.location.lng();
+                                            post = new google.maps.LatLng(latitude,longitude);
+                                            map.setCenter(post);
+                                            map.setZoom(maximum);
+                                        }
+                                    });
+                                }       
+                                
+                            }   
+                     </apex:repeat>
+                }
+            </script>
+        </apex:form>
+        
+        <style type="text/css">
+            body { font-family:Arial, Helvetica, Sans-Serif; font-size:0.8em;}
+            #report { border-collapse:collapse; width: 100%;}
+            #report h4 { margin:0px; padding:0px;}
+            #report img { float:left;}
+            #report ul { margin:10px 0 10px 40px; padding:0px;}
+            #report th { background:#7CB8E2 repeat-x scroll center left; color:#fff; padding:7px 15px; text-align:left;}
+            #report td { background:#F9F8F6 none repeat-x scroll center left; color:#000; padding:7px 8px; text-align:left; font-size: 0.9em;}
+            #report td.iconCell { width: 30px}
+            #report tr.odd td { background:#F9F8F6 repeat-x scroll center left; cursor:pointer; }
+            #report div.arrow { position: relative; width: 22px; height: 40px;}
+            #report div.arrow:after {content: ""; position: absolute; top: 7px; left: 0; width: 20px; height: 20px; border-top: 0px !important; border-left: 0px !important; border: 5px solid; 
+                                    -moz-border-radius: 5px 5px 5px 5px; border-radius: 5px 5px 5px 5px; -webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg); -ms-transform: rotate(-45deg);
+                                    -o-transform: rotate(-45deg); transform: rotate(-45deg);}
+            <apex:repeat var="et" value="{!EventTypeList}">
+                #report div.c{!et.eventTypeSetting.Event_Colour__c}:after {border-color: #{!et.eventTypeSetting.Event_Colour__c}}
+            </apex:repeat>
+            #report div.up:after { -webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg);
+                                    -o-transform: rotate(45deg); transform: rotate(45deg);}
+    
+    
+            .customPopup{
+                background: url('{!$Resource.FilterBox}') no-repeat;
+                padding: 10px;
+                position: absolute;
+                z-index: 9999;
+                width: 384px;
+                height: 242px;
+                top: 45px;
+                right: 0px;
+                background-size: contain;
+            }
+        </style>
+        <!-- style for map --> 
+        <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+                font-family: omnes;
+                font-size: 1.0em;
+                height: 100%; 
+            }
+            #{!$Component.header}
+            {
+                height: 60px;
+            }
+            
+            #divContent
+            {
+                min-height: 100%; 
+                height: auto !important; /*Cause footer to stick to bottom in IE 6*/
+                height: 100%; 
+                margin: 0 auto -50px; /*Allow for footer height*/
+                vertical-align:bottom;
+            }
+                
+            #{!$Component.footer}, #divPush
+            {
+                height: 50px; /*Push must be same height as Footer */
+            }
+            
+            #map {
+              font-family: Arial;
+              font-size:12px;
+              line-height:normal !important;
+              width:100%;
+              background:transparent;
+              
+            }
+            .button_map {
+                position: absolute;
+                left:20px;
+                margin-top: 5px;
+                height: 17px;
+                width: 80px;
+                z-index: 1;
+                color: #000;
+                line-height: 20px;
+                font-size: 12px;
+                padding: 0px 5px;
+                border: 1px solid #a9bbdf;
+                background: #fdfdfd;
+                font-weight: bold;
+                   -moz-user-select: -moz-none;
+                   -khtml-user-select: none;
+                   -webkit-user-select: none;
+                   user-select: none;
+                cursor: hand;
+                -moz-box-shadow: 0 0 10px 7px #999;
+                -webkit-box-shadow: 0 0 10px 7px #999;
+            }
+            #wrapper {
+                position: relative;
+            }
+            .headerText {
+                color: #FFFFFF;
+                font-size: 3em;
+                text-align: center;
+            }
+            .colourBar{
+                width: 7px;
+                padding: 0px !important;
+            }
+            .eventType {
+                font-weight: bold;
+                font-size: 0.9em;
+            }
+            .bottomBorder{
+                border-bottom: 1px solid #DDDDDD;
+            }
+            .gapsLabel, .gapsValue{
+                padding: 3px 0px;
+            }
+            .gapsLabel {
+                width: 82px;
+                font-weight: bold;
+                float: left;
+            }
+            .headerValues {
+                height:100px; 
+                border-bottom: 3px solid #555555; 
+                background: #0082BC url('{!$Resource.SEWLiveLogo}') no-repeat left; 
+                background-size: 1461px;
+                padding-right: 30px;
+            }
+            .borderless {
+                display: block;
+            }
+            
+            .searchString {
+                min-width: 250px;
+                position: relative;
+                top: -15px;
+                border: 0px !important;
+                outline: none !important;
+                padding-left: 10px;
+            }
+            @font-face {
+                font-family: omnes;
+                src: url('{!$Resource.FontOmnesRegularEOT}?') format('eot'), url('{!$Resource.FontOmnesRegularWOFF}') format('woff'), url('{!$Resource.FontOmnesRegularTTF}') format('truetype');
+                font-size: 1.1em;
+            }
+            @font-face {
+                font-family: omnes;
+                src: url('{!$Resource.FontOmnesSemiBoldEOT}?') format('eot'), url('{!$Resource.FontOmnesSemiBoldWOFF}') format('woff'), url('{!$Resource.FontOmnesSemiBoldTTF}') format('truetype');
+                font-weight:bold;
+            }
+            .left {
+                float:left;
+            }
+            .right {
+                float:right;
+            }            
+            .rounded {
+                -webkit-border-radius:5px;
+                -moz-border-radius:5px;
+                border-radius:5px;
+            }
+            .roundedField {
+                -webkit-border-radius:11px;
+                -moz-border-radius:11px;
+                border-radius:11px;
+            }
+            .wrap {
+                position:relative;
+                padding:5px 6px 6px 7px; /* readjust in jsfiddle*/
+            /*background: -webkit-gradient(linear, left top, left bottom, from(#027AB9), to(#28B2D2));
+                background: -moz-linear-gradient(top,  #027AB9,  #28B2D2);
+                background: -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#027AB9', EndColorStr='#28B2D2')"; /* IE8 */
+                background: #0082BC url('{!$Resource.ShadedBackground}') repeat-x left;
+                background-size: auto;
+                overflow:hidden;
+                border: 1px #2F6087;
+                top: 15%;
+            }
+            .searchLabel{
+                color: #FFFFFF;
+                font-size: 0.9em;
+            }
+            .search {
+                width:360px;
+                position:relative; top:2px; /* readujst in jsfiddle */
+                padding:8px 5px 8px 34px;
+                border:0px;
+                background:white url('{!$Resource.MagnifyingGlass}') 10px center no-repeat;
+                box-shadow: 3px 3px 4px #888888 inset;
+            }
+            .searchpanel{
+                display: table;
+                width: 100%;
+                table-layout: auto;
+            }
+            .column-left{ 
+                display: table-cell;
+                float: left;
+            }
+            .column-right{ 
+                display: table-cell; 
+                width: 300px;
+            }
+            .menuContainer{
+                width: 300px; 
+                position: relative;
+            }
+            .menuStyle {
+                border:0px solid #0082BC; 
+                width: 300px; 
+                position: absolute; 
+                right: 0; 
+                height: 50px; 
+                background: #FFFFFF;
+                overflow-y: auto;
+            }
+            .menuicon {
+                height: 40px;
+            }
+            #menuTop {
+                background: #0082BC; 
+                text-align: left; 
+                color: #FFFFFF
+            }
+            #menuheader {
+                overflow: hidden;
+                background: #0082BC;
+                width: 100%;
+            }
+            #lastrefreshed {
+                padding: 15px 0 0 10px !important;
+                float: left;
+            }
+            .menuButton {
+                padding: 4px !important;
+                height: 45px;
+                width: 51px;
+            }
+            .buttonSection{
+                float: right;
+            }
+        </style>
+    </head>
+    <body >
+        
+        <div id="divContent">
+            
+                <apex:outputPanel id="header" layout="block" rendered="{!fromPublicSite}" styleclass="headerValues">
+                    <script>
+                        var needToClearField = true;
+                        
+                        function clearField(obj)
+                        {
+                            if(needToClearField)
+                            {
+                                obj.value = '';
+                                needToClearField = false;
+                            }
+                        }
+                        
+                        function checkFieldEntered(obj)
+                        {
+                            if(obj.value == '')
+                            {
+                                obj.value = '{!defaultSearchString}';
+                                needToClearField = true;
+                            }
+                        }
+                    
+                    </script>
+                    <div class="wrap right rounded">
+                        <span class="searchLabel">Find out what's happening in your area</span><br/>
+                        <apex:form id="theSearchForm" onsubmit="getLocs(); return false;">
+                        <apex:inputText id="searchString" styleclass="search left roundedField" value="{!searchString}" onfocus="clearField(this);" onblur="checkFieldEntered(this)"/>
+                        </apex:form>
+                    </div>
+                </apex:outputPanel>
+                <apex:form id="theForm" >
+                    <div class="searchpanel">
+                        <div id="map" class="column-left">
+                        </div>
+                        
+                        <apex:outputPanel id="menusection" rendered="{!fromPublicSite}" layout="block" styleclass="column-right">
+                            <div id="menuContainer" class="menuContainer">
+                            <div id="menu" class="menuStyle">
+                                <div id="menuTop">
+                                    <div id="menuheader">
+                                        <div id="lastrefreshed">
+                                            Last refreshed: 
+                                            <script>
+                                            //alert("Time start");
+                                                var currentTime = new Date()
+                                                var hours = currentTime.getHours()
+                                                var minutes = currentTime.getMinutes()
+                                                var outputHours = hours;
+                                                if (hours > 12) {
+                                                    outputHours = hours - 12;
+                                                }
+                                                if (minutes < 10){
+                                                    minutes = "0" + minutes
+                                                }
+                                            //alert(hours + ":" + minutes);
+                                                document.write(outputHours + ":" + minutes + " ")
+                                                if(hours > 11){
+                                                    
+                                                    document.write("PM")
+                                                } else {
+                                                    document.write("AM")
+                                                }
+                                            </script>
+                                        </div>
+                                        <div class="buttonSection">
+                                            <apex:image id="theRefreshImage" value="{!$Resource.ButtonRefreshSmall}" onclick="javascript:window.location.reload()" styleClass="menuButton" onmouseover="this.src='{!$Resource.ButtonRefreshMouseOverSmall}'" onmouseout="this.src='{!$Resource.ButtonRefreshSmall}'"/>
+                                            <apex:image id="theFilterImage" value="{!$Resource.ButtonFilterSmall}" onclick="showFilter('{!$Component.popUpPanel}')" styleClass="menuButton" onmouseover="this.src='{!$Resource.ButtonFilterMouseOverSmall}'" onmouseout="this.src='{!$Resource.ButtonFilterSmall}'"/>
+                                        </div>
+                                    
+                                        <apex:actionFunction name="callaction" reRender="jsFORM,eventlist" status="status" action="{!queryPublishedLocations}" oncomplete="getLocations(0,'',0,0);adjustReport();return false;">
+                                            <apex:param name="paramValue" value="" assignTo="{!longitude}"/>
+                                            <apex:param name="paramValue2" value="" assignTo="{!latitude}"/>  
+                                        </apex:actionFunction>
+                                    </div>
+                                    <apex:outputPanel id="eventlist">
+                                    <table id="report">
+                                        <tr style="height: 0px !important;">
+                                            <td colspan="4" style="padding: 0 !important; height: 0px !important;"></td>
+                                        </tr>
+            							
+                                        <apex:repeat var="e" value="{!locList}" id="theRepeatInline">
+            
+                                            <tr class="bottomBorder" onclick="switchMenu(1,'{!e.eventLoc.Street_Name__c} {!e.eventLoc.Street_Type__c}','{!e.eventLoc.City__c}','{!e.eventLoc.State__c}','{!e.eventLoc.Country__c}','{!e.eventLoc.Coordinates__latitude__s}','{!e.eventLoc.Coordinates__longitude__s}')">
+                                                <td class="colourBar" style="background: #{!e.eventColour}"/>
+                                                <td class="iconCell">
+                                                    <img src="{!e.iconStaticResource}" class="menuicon" />
+                                                </td>
+                                                <td><div class="eventType" style="color: #{!e.eventColour}">{!e.publicName}</div>{!e.eventLoc.City__c}</td>
+                                                <td><div class="arrow c{!e.eventColour}" onclick="switchMenu(1,'{!e.eventLoc.Street_Name__c} {!e.eventLoc.Street_Type__c}','{!e.eventLoc.City__c}','{!e.eventLoc.State__c}','{!e.eventLoc.Country__c}','{!e.eventLoc.Coordinates__latitude__s}','{!e.eventLoc.Coordinates__longitude__s}')"/></td>
+                                            </tr>
+                                            <tr class="bottomBorder">
+                                                <td class="colourBar" style="background: #{!e.eventColour}"/>
+                                                <td colspan="3">
+                                                    <div style="border: 0px solid; padding: 0 10px;" id="theDivDetails">
+                                                        
+                                                        <apex:outputText rendered="{!IF(e.eventLoc.Public_Status__c != '',true,false)}">
+                                                            <div class="gapsLabel">Status:</div>
+                                                            <div class="gapsValue">{!e.eventLoc.Public_Status__c}&nbsp;</div> 
+                                                        </apex:outputText>
+                                                        <!-- apex:outputText rendered="{!IF(e.eventLoc.City__c != '',true,false)}">
+                                                            <div class="gapsLabel">Where:</div>
+                                                            <div class="gapsValue">{!e.eventLoc.City__c}&nbsp;</div> 
+                                                        </apex:outputText -->
+                                                        <apex:outputText >
+                                                            <div class="gapsValue"><apex:outputText value="{!e.eventAction.Message__c}"/></div>
+                                                        </apex:outputText>
+                                                        <div class="gapsValue"><apex:outputText value="{!e.eventAction.Alternative_Water_Supply__c}" rendered="{!IF(e.eventAction.Alternative_Water_Supply__c != '',true,false)}" />
+                                                        </div>
+                                                        <div class="gapsLabel">Resolution:</div>
+                                                        <div class="gapsValue"><apex:outputText rendered="{!if(e.DisplayResolution,true,false)}" escape="false" value="{!e.eventAction.Resolution__c}"/>&nbsp;</div>
+                                                        
+                                                        <apex:outputText rendered="{!IF(e.eventAction.Public_Type__c == 'Scheduled works',true,false)}" >
+                                                            <div class="gapsLabel">Start:</div>
+                                                            <div class="gapsValue">{!e.formattedStartDate}&nbsp;</div>
+                                                        </apex:outputText>
+                                                        <apex:outputText rendered="{!IF(e.eventAction.Public_Type__c != 'Discoloured water',true,false)}" >
+                                                            <div class="gapsLabel">Est end:</div>
+                                                            <div class="gapsValue">{!e.formattedEndDate}&nbsp;</div>
+                                                        </apex:outputText>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </apex:repeat>
+                                        
+                                    </table>
+                                        
+                                    </apex:outputPanel>
+                                </div>
+                                <div style="bottom:0px; position: absolute;">
+                                            
+                                        </div>
+                            </div>
+                   
+                            <apex:outputPanel styleClass="customPopup" layout="block" style="display:none;" id="popUpPanel">
+                                <style>
+                                    #filterBox {
+                                        position: relative;
+                                        top: 27px;
+                                        left: 19px;
+                                        width: 90%;
+                                    }
+                                    .filterHeader {
+                                        font-size: 1.3em;
+                                        font-weight: bold;
+                                        padding-bottom: 10px;
+                                    }
+                                    .columnHeader {
+                                        font-size: 1.0em;
+                                        font-weight: bold;
+                                        padding-bottom: 8px;
+                                    }
+                                    .filterColumnLeft{
+                                        float: left;
+                                        width: 60%;
+                                    }
+                                    .filterColumnRight{
+                                        float: right;
+                                        width: 40%;
+                                    }
+                                    .filterRow {
+                                        font-size: 1.0em;
+                                        padding-bottom: 8px;
+                                    }
+                                    .filterButton {
+                                        font-size: 0.8em !important;
+                                        font-weight: normal !important;
+                                        padding: 4px 14px !important;
+                                    }
+                                    .filterIcons {
+                                        height: 18px;
+                                    }
+                                </style>
+                                <div id="filterBox">
+                                    
+                                    <img src="{!$Resource.XWhiteBackground}" style="float: right; height: 14px;" onclick="showFilter('{!$Component.popUpPanel}')"/>
+                                    <div class="filterHeader">
+                                        Event Filters
+                                    </div>
+                                    <div class="filterColumnLeft">
+                                        <div class="columnHeader">Types</div>
+                                        <apex:repeat value="{!EventTypeList}" var="f" id="theRepeatCheckBox">
+                                            <div class="filterRow">
+                                                <apex:inputCheckbox value="{!f.checkedFlag}" id="checkBox"/>
+                                                <img id="theImage{!f.eventTypeSetting.Sort_Number__c}" src="{!f.imageURL}" class="filterIcons"/>
+                                                &nbsp;{!f.eventTypeSetting.Public_Name__c}  
+                                            </div>
+                                        </apex:repeat>
+                                    </div>
+                                    <div class="filterColumnRight">
+                                        <div class="columnHeader">Status</div>
+                                        <div class="filterRow">
+                                            <apex:inputCheckbox value="{!inProgressFlag}" id="theInProgressFlag"/>  &nbsp;In Progress
+                                        </div>
+                                        <div class="filterRow">
+                                            <apex:inputCheckbox value="{!resolvedFlag}" id="theResolvedFlag"/>  &nbsp;Resolved
+                                        </div>
+                                        <div class="filterRow">
+                                            <apex:commandButton value="Apply" onclick="getLocs();return false;" styleClass="filterButton" />&nbsp;
+                                            <apex:commandButton value="Reset" onclick="resetFilter();return false;" styleClass="filterButton"/>
+                                        </div>
+                                        <apex:actionStatus id="status">
+                                            <apex:facet name="start">
+                                            <c:ActionStatus BackColor="#ffffff"
+                                                                    borderColor="#6B6B6B"
+                                                                    borderSize="1"
+                                                                    height="50px"
+                                                                    width="60px"
+                                                                    margintop="-25px"   
+                                                                    marginleft="-60px"
+                                                                    ImageUrl="{!$Resource.AjaxAnimation}"
+                                                                    Message=""/>
+                                            </apex:facet>
+                                        </apex:actionStatus> 
+                                    </div>
+                                </div>  
+                                
+                                     
+                                
+                                
+                            </apex:outputPanel>
+                        </div>
+                    </apex:outputPanel>
+                    
+                </div>
+                </apex:form>
+                  
+                <div id="adivPush"></div>
+            </div>
+            <style>
+                #footerPanel {
+                    background-color: #0082BC;
+                    width=100%;
+                    border: 0px;
+                    height: 50px;
+                    overflow: hidden;
+                }
+                #footerKey {
+                    background-color: #FFFFFF;
+                    width: auto;
+                    -moz-border-radius: 20px; 
+                    border-radius: 20px;
+                    height: 30px;
+                    margin: 12px 300px 0px 22px;
+                }
+                #footerSocial {
+                    background-color: transparent;
+                    float: right;
+                    width: 300px;
+                    color: #FFFFFF;
+                    margin: 0 auto;
+                    position: static;
+                    padding: 7px;
+                }
+                .footerKeyItem {
+                    margin-left: 20px;
+                    margin-top: 3px;
+                    float: left;
+                    padding: 0px 5px;
+                    font-size: 0.95em;
+                    cursor:pointer;
+                }
+                .footerKeyItemImg {
+                    height: 25px;
+                    vertical-align: middle;
+                }
+                #sewRegion {
+                    color: #454648;
+                }
+            </style>
+            <apex:outputPanel id="footer" layout="block" rendered="{!fromPublicSite}" styleclass="bottom:0px">
+                <div id="footerPanel">
+                    <div id="footerSocial">
+                        <div style=" font-size: 0.9em; padding-left: 85px;">
+                            Follow us on twitter <a title="LinkedIn" href="http://twitter.com/southeastwater" target="_new" >
+                                    <img src="{!$Resource.TwitterBlue}" style="height: 16px;" />
+                                </a>
+                        </div>
+                        <div style=" font-size: 0.9em; padding-left: 110px;">
+                                <a href="http://southeastwater.com.au/Other/Pages/ContactUs.aspx" style="color: #FFFFFF !important">Contact us</a>
+                        </div>
+                    </div>
+                    <div id="footerKey">
+                        <div class="footerKeyItem" style="font-size: 1.0em !important">Key</div>
+                        <apex:repeat var="et" value="{!EventTypeList}" id="theEventLegend">
+                            <!-- div style="position:absolute; bottom:21px;">
+                                <img src="{!$Resource.KeyInformationBox}" />
+                            </div -->
+                            <div style="color: #{!et.eventTypeSetting.Event_Colour__c} " class="footerKeyItem" onClick="setDetails('{!$Resource.KeyInformationBox}','200px','340px','{!et.eventTypeSetting.Name}', '#{!et.eventTypeSetting.Event_Colour__c}', '{!et.HelpBodyAsHTML}', '#FFFFFF', '{!et.eventTypeSetting.Help_Link_URL__c}', '{!et.HelpURLTextAsHTML}', '#{!et.eventTypeSetting.Event_Colour__c}', true); loadMsgBox((this.offsetLeft-97)+'px', (this.offsetTop-183)+'px')">
+                                <img src="{!et.imageURL}" class="footerKeyItemImg"/>&nbsp;&nbsp; 
+                                {!et.eventTypeSetting.Public_Name__c}
+                                    
+                            </div>
+                        </apex:repeat>
+                        
+                        <div class="footerKeyItem" >
+                            <img src="{!$Resource.ServiceRegionLine}" style="height:3px !important"/>&nbsp;&nbsp;
+                            Service area
+                        </div>
+                    </div>
+                    
+                </div>
+            </apex:outputPanel>
+          <c:PopupMessage ></c:PopupMessage> 
+    </body>  
+    <script>
+        function resizePage(){
+            var body = document.body;
+            var html = document.documentElement;
+            screenHeight = Math.max( body.scrollHeight, body.offsetHeight, 
+                          html.clientHeight, html.scrollHeight, html.offsetHeight );
+            var mapHeight = screenHeight - 60 - 100;
+            document.getElementById('map').style.height=mapHeight+"px";
+            document.getElementById('menu').style.height=mapHeight+"px";
+            var menuHack = document.getElementById('menu');
+        //alert('menuHack' + menuHack.offsetParent.offsetTop);
+            if (menuHack != null && menuHack.offsetParent.offsetTop > 103 || menuHack != null && menuHack.offsetParent.offsetTop < 101) {
+                topValue = (-1 * mapHeight) + 'px';
+                //alert('topValue' + topValue + ' document.getElementById(menuContainer).style.top:' + document.getElementById('menuContainer'));
+                document.getElementById('menuContainer').style.top = topValue;
+            }
+            
+            // first time to page load
+                if(localStorage.getItem("firstTime")==null){
+                    setDetails('{!$Resource.FirstTimeWelcomeMessage}','688px','610px','', '', '', '', '', '', '', false); 
+                    loadMsgBox('170px', '83px');
+                    localStorage.setItem("firstTime","done");
+                }
+            delete body;
+            delete html;
+        }
+        resizePage();
+    </script>
+</apex:component>

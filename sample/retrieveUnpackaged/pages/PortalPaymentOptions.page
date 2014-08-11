@@ -1,0 +1,146 @@
+<apex:page sidebar="false" showHeader="true"
+            doctype="html-5.0"
+            tabstyle="Portal_Payment_Options__tab" action="{!CheckRedirectConfirmed}"
+            controller="PortalPageWithAccounts_Virtual_Con"> 
+    <!-- 
+    Type:       VF page
+    Purpose:    Payment Options
+    ---------------------------------------------------------------
+    History:
+        28-Mar-2011 - Dennis Thong - Created
+        14-May-2012 - Avergara - Removed arrow for buttons
+         4-Jun-2012 - D.Yu       Update: 5161 - Update link text
+        28-Jun-2012 - Matt Watson - TT 5320, copy change "Credit card options" -> "Credit card"        
+    -->
+
+    <head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalIcons_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalActionLinks_Styles}"/>
+        
+        <style type="text/css">
+            .cell {
+                clear: both;
+                width: 50%;
+                vertical-align: top;
+                padding-bottom: 25px;
+                padding-left: 5px;
+            }
+            .cellHeaderText {
+                font-weight: bold;
+                font-size: 15pt;
+                float: left;
+                padding-top: 10px;
+            }
+            
+            .cellHeaderIcon {
+                float: left;
+                margin-right: 10px;
+                width: 45px;
+            }
+            .cellText, .cellBtn {
+                margin: 10px 15px 15px 55px;
+                clear: both;
+                width: 250px;
+            }
+            .cellText {
+                height: 75px;
+            }
+            .cellBtn {
+                width: 150px;
+                padding: 5px 20px 5px 7px !important;       
+                display: block; 
+            }
+            
+        </style>
+            <script type="text/javascript">
+                window.onload = new function() { checkUser(); };
+                function checkUser(){
+                    //alert('TEST');
+                    checkUserConfirm();
+                }
+            </script>
+    </head>
+
+    <apex:form id="theForm">
+        <apex:actionFunction name="checkUserConfirm" action="{!CheckRedirectConfirmed}" />
+        <div class="pbTransparent sideBarCellDiv">
+            <!--  sidebar -->                           
+            <c:PortalSidebar id="sidebar" groupName="PaymentOptions" 
+                    currentAccRecordType="{!customer.RecordType.DeveloperName}" 
+                    currentDevName="PaymentOptions_PaymentOptions"
+                    title="Payment options"/>
+        </div>
+        <div class="contentCellDiv">
+            <!-- Page Block Header -->
+            <apex:sectionheader subtitle="Which payment option is right for you?"/> 
+            
+            <div class="clear" />
+            
+            <apex:pageBlock >
+                <apex:panelGrid cellspacing="0" 
+                            cellpadding="0"
+                            style="width: 100%; padding-top: 15px"
+                            columns="2" columnClasses="cell">
+
+                    <apex:panelgroup >
+                        <div class="directDebitIconSmall cellHeaderIcon"/>
+                        <div class="cellHeaderText">Direct debit</div>
+                        <div class="cellText">
+                            Pay by direct debit out of any bank account including your credit card. You will be charged the exact amount of your bill each quarter.
+                        </div>
+                        <apex:outputLink styleClass="btn btnLink cellBtn"
+                                value="{!$Page.PortalDirectDebit_Select}" >
+                            Manage direct debit
+                        </apex:outputLink>
+                    </apex:panelgroup>
+
+                    <apex:panelgroup rendered="{!customertype == 'Residential'}">
+                        <div class="paymentPlanIconSmall cellHeaderIcon"/>
+                        <div class="cellHeaderText">Payment plan</div>
+                        <div class="cellText">
+                            Make a payment every fortnight or month, to cover your total charges over a 6 month or 12 month period.
+                        </div>
+                        
+                        <apex:outputLink styleClass="btn btnLink cellBtn"  value="{!$Page.PortalPaymentPlan_Select}">
+                            Manage payment plan                      
+                        </apex:outputLink>
+                    </apex:panelgroup>
+
+                    <apex:panelgroup >
+                        <div class="creditCardIconSmall cellHeaderIcon"/>
+                        <div class="cellHeaderText">Credit card</div>
+                        <div class="cellText">
+                            Fast and secure, pay your bill now by Visa or MasterCard.    
+                        </div>
+                        <apex:outputLink styleClass="btn btnLink cellBtn" 
+                                            value="{!$Page.PortalCCPayment}">
+                            Pay now
+                        </apex:outputLink>
+                    </apex:panelgroup>
+
+
+                    <apex:panelgroup >
+                        <div class="paymentOptionsIconSmall cellHeaderIcon"/>
+                        <div class="cellHeaderText">More options</div>
+                        <div class="cellText">
+                            Make bill payments through BPAY, Centrelink or simply post a cheque. 
+                        </div>
+                         <apex:outputLink styleClass="btn btnLink cellBtn" 
+                                            value="{!$Site.CurrentSiteUrl}articles/FAQ/How-can-I-pay-my-bill/?q=payment+options&l=en_US&fs=Search&pn=1">
+                            View more options
+                        </apex:outputLink>
+                    </apex:panelgroup>
+
+                </apex:panelGrid>
+            </apex:pageBlock>           
+            
+            
+        </div>
+    </apex:form>
+
+    <div >
+        <c:PortalHorizontalQuickLinks mode="paymentOptions"/>
+    </div>
+</apex:page>

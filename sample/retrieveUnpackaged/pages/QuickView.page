@@ -1,0 +1,1917 @@
+<apex:page id="thePage" standardController="Account" extensions="QuickViewExCon">
+<!-- 
+    Type:       VF page
+    Purpose:    Quick view for Credit Profile Management
+    ---------------------------------------------------------------
+    History:  
+    
+        D.YU    (CloudSherpas) TP398 Created
+    20-Nov-2012 DYU         TP528 - Added new fields in Activity List Status and Interaction Type
+                                  - Rename Activity History Tab to Activities
+    21-Nov-2012 DYU         TP416 - Added new related list QOS   
+    21-Nov-2012 J.Jayoma    TP552 - Added DPID for Billing Account and Customer 
+    22-Nov-2012 DYU         TP540 - Include livelink related list tab for customer and billing account
+    22-Nov-2012 J.Jayoma    TP552 - Added jquery script to hide the change and view hierarchy link 
+    26-Nov-2012 DYU         TP415 - Added new related list Recovery History
+    03-Dec-2012 DYU         TP493 - Added new button Missed Payment
+    28/
+    29-Oct-2013 G.Tsaousidis        SCRUM-Vulnerable Customer Stream
+                                    Adding in View changes for the Financial Hardship tabs, buttons etc
+    16-Dec-2013 G.Tsaousidis        As above
+    23-
+    24-Jan-2014	G.Tsaousidis		SCRUM-Vulnerable Customer Stream
+    								Included business requirements for US-751
+    								- Active FH Flag
+    								- SEW Customer Assist Officer name and extension
+    								                                 
+   
+ -->   
+ 
+    <apex:includeScript value="/support/console/24.0/integration.js"/>
+    <!-- Added this jquery reference to be used for TP552 by: J.Jayoma -->
+    <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}"/>
+     
+    <style>
+        .testhigh{background-color:#E3F3FF;}
+        .myActiveTab { background-color: #236FBD; color:white; background-image:none; font-size: 14px; font-weight: bold; }
+        .myInactiveTab { background-color: #E3F3FF ; color:black; background-image:none; font-size: 10px;}
+        .whiteBG { background-color: white; }
+        .pbButton {display: none;}
+    </style>
+    
+    <script type="text/javascript">
+        var currentRec = 0;
+       
+        
+        function setTabTitle() {
+            if(sforce.console.isInConsole()){
+                sforce.console.setTabTitle('QuickView');
+            }
+        }
+
+        var previousOnload = window.onload;
+
+        window.onload = function() {
+            if (previousOnload) {
+                previousOnload();
+                setTabTitle();
+            }
+            setTabTitle();
+        }
+       
+        //Sort Contact List
+        function sortContactList(direction, fieldName, currentExpression, recCount){
+            if(recCount > 0){
+                billingExpression = fieldName;
+                if(currentExpression != fieldName){
+                    billingOrder = 'ASC';
+                }else{
+                    if(direction == 'ASC')
+                        billingOrder = 'DESC';
+                    else
+                        billingOrder = 'ASC';
+                }
+                sortContacts(billingExpression, billingOrder);
+            }
+        }
+        
+        //Sort billing account list default by status asc
+        function sortBillingList(direction, fieldName, currentExpression, recCount){
+            if(recCount > 0){
+                expressionBill = fieldName;
+                if(currentExpression != fieldName){
+                    orderBill = 'ASC';
+                }else{
+                    if(direction == 'ASC')
+                        orderBill = 'DESC';
+                    else
+                        orderBill = 'ASC';
+                }
+                sortBilling(expressionBill, orderBill);
+            }
+        }
+        
+        //Sort related classifications list default by created date desc
+        function sortClassificationList(direction, fieldName, currentExpression, recCount){
+            if(recCount > 0){
+                expressionClass = fieldName;
+                if(currentExpression != fieldName){
+                    orderClass = 'ASC';
+                }else{
+                    if(direction == 'ASC')
+                        orderClass = 'DESC';
+                    else
+                        orderClass = 'ASC';
+                }
+                sortClassification(expressionClass, orderClass);
+            }
+        }
+        
+        //Sort related case list default by created date desc
+        function sortCaseList(direction, fieldName, currentExpression, recCount){
+            if(recCount > 0){
+                expressionCase= fieldName;
+                if(currentExpression != fieldName){
+                    orderCase = 'ASC';
+                }else{
+                    if(direction == 'ASC')
+                        orderCase = 'DESC';
+                    else
+                        orderCase = 'ASC';
+                }
+                sortCases(expressionCase, orderCase);
+            }
+        }
+        
+        //Sort related activity histories default by created date desc
+        function sortActivityList(direction, fieldName, currentExpression, recCount){
+            if(recCount > 0){
+                expressionActivities= fieldName;
+                if(currentExpression != fieldName){
+                    orderActivities = 'ASC';
+                }else{
+                    if(direction == 'ASC')
+                        orderActivities = 'DESC';
+                    else
+                        orderActivities = 'ASC';
+                }
+                sortActivities(expressionActivities, orderActivities);
+            }
+        }
+        
+        //22-Nov-2012 Added by DYU TP540 - Sort related activity histories default by created date desc
+        function sortLiveLinkList(direction, fieldName, currentExpression, recCount){
+            if(recCount > 0){
+                expressionLink= fieldName;
+                if(currentExpression != fieldName){
+                    orderLink = 'ASC';
+                }else{
+                    if(direction == 'ASC')
+                        orderLink = 'DESC';
+                    else
+                        orderLink = 'ASC';
+                }
+                sortLiveLink(expressionLink, orderLink);
+            }
+        }
+        
+        //Handles the enter keystroke when searching billing accounts
+        function noenter(e){       
+            if(window.event){     
+                key = window.event.keyCode;     //IE               
+            } 
+            else{    
+                key = e.which;     //firefox               
+            }               
+            if(key == 13) {  
+                            
+                var goBtn=document.getElementById('{!$Component.theForm.BillingAccountSearchButton}');                                                           
+                goBtn.click();                     
+                return false;               
+            } else{                    
+                return true;               
+            }          
+        }  
+        
+        //Refresh the console toolbar component to get new record id attribute   
+        function refreshComponent(){
+            refreshComp();
+        }
+        
+        //Highlight the selected record when search for billing accounts from the billing account list
+        function highlightTab(){
+            var column1 = 'thePage:theForm:pb2:pbt2:'+currentRec+':col1';
+            var column2 = 'thePage:theForm:pb2:pbt2:'+currentRec+':col2';
+            var column3 = 'thePage:theForm:pb2:pbt2:'+currentRec+':col3';
+            var column4 = 'thePage:theForm:pb2:pbt2:'+currentRec+':col4';
+            var column5 = 'thePage:theForm:pb2:pbt2:'+currentRec+':col5';
+            
+            document.getElementById(column1).className="testhigh";
+            document.getElementById(column2).className="testhigh";
+            document.getElementById(column3).className="testhigh";
+            document.getElementById(column4).className="testhigh";
+            document.getElementById(column5).className="testhigh";
+        }
+        
+        function populateObjectType(label, val, bid, acid){
+            document.getElementById(val).value = label;
+            if(document.getElementById(val).value != ''){
+                if(document.getElementById(val).value == 'Customer'){
+                    accountid = acid;
+                    refreshRelatedListByCustomer(accountid);
+                    
+                }
+                if(document.getElementById(val).value == 'Billing Account'){
+                    billingid = bid;
+                    refreshRelatedListByBilling(billingid);
+                }
+            }
+        }
+    
+    </script>
+    <apex:form id="theForm"> 
+        <!-- Action Functions -->
+        <apex:actionFunction name="getBillingAccounts" action="{!getBillingAccountsByName}" status="loading" rerender="mainPanel, pb2, pb3, detailList, pbClassification, pbCases, pbActivities, variablesPanel" oncomplete="javascript:refreshComponent();return false;">
+            <apex:param name="billName" value="billingName" assignTo="{!billName}"/>
+        </apex:actionFunction>
+        <apex:actionFunction name="getBillingAccountsList" action="{!getBillingAccounts}" status="loading" rerender="mainPanel, pb2, pb3, detailList, pbClassification, pbCases, pbActivities, variablesPanel" oncomplete="javascript:highlightTab();">
+            <apex:param name="billId" value="billingId" assignTo="{!billId}"/>
+        </apex:actionFunction>
+        <apex:actionFunction name="sortContacts" action="{!refreshContacts}" status="loading" rerender="pb3">
+            <apex:param name="expression" value="expression" assignTo="{!sortExpressionCon}"/>
+            <apex:param name="order" value="order" assignTo="{!sortDirectionCon}"/>
+        </apex:actionFunction>
+        <apex:actionFunction name="sortBilling" action="{!refresh}" status="loading" rerender="pb2">
+            <apex:param name="expressionBill" value="expressionBill" assignTo="{!sortExpression}"/>
+            <apex:param name="orderBill" value="orderBill" assignTo="{!sortDirection}"/>
+        </apex:actionFunction>
+        <apex:actionFunction name="sortClassification" action="{!refreshClassifications}" status="loading" rerender="pbClassification">
+            <apex:param name="expressionClass" value="expressionClass" assignTo="{!sortExpressionCustClass}"/>
+            <apex:param name="orderClass" value="orderClass" assignTo="{!sortDirectionCustClass}"/>
+        </apex:actionFunction>
+         <apex:actionFunction name="sortCases" action="{!refreshCases}" status="loading" rerender="pbCase">
+            <apex:param name="expressionCase" value="expressionCase" assignTo="{!sortExpressionCase}"/>
+            <apex:param name="orderCase" value="orderCase" assignTo="{!sortDirectionCase}"/>
+        </apex:actionFunction>
+        <apex:actionFunction name="sortActivities" action="{!refreshActivities}" status="loading" rerender="pbActivities">
+            <apex:param name="expressionActivities" value="expressionActivities" assignTo="{!sortExpressionActivities}"/>
+            <apex:param name="orderActivities" value="orderActivities" assignTo="{!sortDirectionActivities}"/>
+        </apex:actionFunction>
+        <apex:actionFunction name="sortLiveLink" action="{!refreshLiveLinks}" status="loading" rerender="pbliveLinks">
+            <apex:param name="expressionLink" value="expressionLink" assignTo="{!sortExpressionLiveLink}"/>
+            <apex:param name="orderLink" value="orderLink" assignTo="{!sortDirectionLiveLink}"/>
+        </apex:actionFunction>
+        <apex:actionFunction name="refreshComp" rerender="consoleComp" oncomplete="return true;"/>
+        <apex:actionFunction name="refreshRelatedListByCustomer" status="loading" action="{!displayByObjectType}" rerender="detailList, variablesPanel">
+            <apex:param name="accountid" value="accountid" assignTo="{!accid}"/>
+        </apex:actionFunction>
+        <apex:actionFunction name="refreshRelatedListByBilling" status="loading" action="{!displayByObjectType}" rerender="detailList, variablesPanel">
+            <apex:param name="billingid" value="billingid" assignTo="{!billid}"/>
+        </apex:actionFunction>
+        
+        <!-- Action functions for Callout Behaviour -->
+        <apex:actionFunction name="refreshCases" action="{!refreshCases}" rerender="casePanel" status="loading"/>
+        <apex:actionFunction name="refreshClassifications" action="{!refreshClassifications}" rerender="classPanel" status="loading"/>
+        <apex:actionFunction name="refreshActivities" action="{!refreshActivities}" rerender="activitiesPanel" status="loading"/>
+        <apex:actionFunction name="refreshLiveLinks" action="{!refreshLiveLinks}" rerender="pbliveLinks" status="loading"/>
+        
+        <!--  Action function added in for Financial Hardship 6-Dec-2013 GT -->
+        <apex:actionFunction name="refreshFinancialHardships" action="{!refreshFinancialHardships}" rerender="pnlFinancialHardship" status="loading" />
+                
+        <!-- Input Hidden -->
+        <apex:inputHidden id="hiddenObjectType" value="{!selectedObjectType}"/>
+        
+        <!-- Main Panel -->
+        <apex:outputPanel id="mainPanel">
+           
+           <!-- Console Toolbar Component -->
+            <apex:outputPanel id="consoleComp">
+                <c:ConsoleToolBarQuickView recordId="{!currentRecordId}" billid="{!billid}" rendered="{!If(bacct.Id != null || acct.id !=null, true, false)}"/>
+            </apex:outputPanel> 
+            
+            <!-- Customer and Billing Account Buttons  -->
+            <apex:outputPanel layout="block" rendered="{!IF(bacct.Id != null || acct.id !=null, true, false)}" style="background-color:#F0F0F0;">
+                <center>
+                        <apex:commandButton value="Payment Plan" onclick="openPaymentPlan();return false;" rendered="{!IF(billid != null, true, false)}"></apex:commandButton>
+                        <apex:commandButton value="Direct Debit" onclick="openDirectDebit();return false;"></apex:commandButton>
+                        <apex:commandButton value="Manage Addresses" onclick="openManageAddress();return false;"></apex:commandButton>
+                        <apex:commandButton value="Quick Notes" onclick="openQuickNotes();return false;"></apex:commandButton>
+                        <apex:commandButton value="Customer Verification" onclick="openCustomerVerification();return false;"></apex:commandButton>
+                        <apex:commandButton value="Payment History" onclick="openPaymentHistory();return false;" rendered="{!IF(billid != null, true, false)}"></apex:commandButton>
+                        <apex:commandButton value="CC Payment" onclick="openCCPayment();return false;" rendered="{!IF(billid != null, true, false)}"></apex:commandButton>
+                        <apex:commandButton value="More Time to Pay" onclick="openMoreTimeToPay();return false;" rendered="{!IF(billid != null, true, false)}"></apex:commandButton>
+                        <apex:commandButton value="Refresh" onclick="openRefresh();return false;" rendered="{!IF(billid != null, true, false)}"></apex:commandButton>
+                        <!-- Added by DYU TP293 - Open Missed Payment page -->
+                        <apex:commandButton value="Missing Payments" onclick="openMissedPayments();return false;" rendered="{!IF(billid != null, true, false)}"></apex:commandButton>
+                </center>
+            </apex:outputPanel>
+            
+            <!-- Page Messages -->
+            <apex:pagemessages />
+            <script type="text/javascript">
+                    
+                //open payment plan
+                function openPaymentPlan(){
+                    if(sforce.console.isInConsole()){
+                        sforce.console.getEnclosingPrimaryTabId(openPaymentPlanSubTab{!bacct.Id});
+                    }else{
+                        window.open('/apex/ManagePaymentPlan?customerId={!bacct.Customer__r.Id}&billAcctId={!bacct.Id }');
+                    }
+                }
+                        
+                var openPaymentPlanSubTab{!bacct.Id} = function openPaymentPlanSubTab{!bacct.Id}(result) {
+                    if(result.id != null){
+                        var primaryTabId = result.id;
+                        sforce.console.openSubtab(primaryTabId , '/apex/ManagePaymentPlan?customerId={!bacct.Customer__r.Id}&billAcctId={!bacct.Id }&isdtp=vw', true,
+                            'Loading...', null, null, 'subtab{!bacct.Id}');
+                    }
+                }; 
+                
+                //Open Direct Debit
+                function openDirectDebit(){
+                    if(sforce.console.isInConsole()){
+                        if('{!billid}' != ''){
+                            sforce.console.getEnclosingPrimaryTabId(openDirectDebitSubTab{!bacct.Id});
+                        }else{
+                            if('{!accid}' != '')
+                                sforce.console.getEnclosingPrimaryTabId(openDirectDebitSubTabCust{!acct.Id});
+                        }
+                    }else{
+                        if('{!billid}' != ''){
+                            window.open('/apex/DirectDebit?customerId={!bacct.Customer__r.Id}&billAcctId={!bacct.Id}');
+                        }else{
+                            if('{!accid}' != '')
+                               window.open('/apex/DirectDebit?customerId={!acct.Id}');
+                        }
+                    }
+                }
+                
+                var openDirectDebitSubTab{!bacct.Id} = function openDirectDebitSubTab{!bacct.Id}(result) {
+                    var primaryTabId = result.id;
+                    sforce.console.openSubtab(primaryTabId , '/apex/DirectDebit?customerId={!bacct.Customer__r.Id}&billAcctId={!bacct.Id}&isdtp=vw', true,
+                        'Loading...', null, null, 'subtab{!bacct.Id}');
+                }; 
+                
+                 var openDirectDebitSubTabCust{!acct.Id} = function openDirectDebitSubTabCust{!acct.Id}(result) {
+                    var primaryTabId = result.id;
+                    sforce.console.openSubtab(primaryTabId , '/apex/DirectDebit?customerId={!acct.Id}&isdtp=vw', true,
+                        'Loading...', null, null, 'subtab{!acct.Id}');
+                }; 
+                
+                //Open Manage Address 
+                function openManageAddress(){
+                    if(sforce.console.isInConsole()){
+                        if('{!billid}' != ''){
+                            sforce.console.getEnclosingPrimaryTabId(openManageAddressSubTab{!bacct.Id});
+                        }else{
+                            if('{!accid}' != '')
+                                sforce.console.getEnclosingPrimaryTabId(openManageAddressSubTabCust{!acct.Id});
+                        }
+                    }else{
+                        if('{!billid}' != ''){
+                            window.open('/apex/AccountMassBAcctAddressUpdateRedirect?id={!bacct.customer__r.Id}&billing={!bacct.Id}')
+                        }else{
+                            if('{!accid}' != '')
+                                window.open('/apex/AccountMassBAcctAddressUpdateRedirect?id={!acct.Id}');
+                        }
+                    }
+                }
+                
+                var openManageAddressSubTab{!bacct.Id} = function openManageAddressSubTab{!bacct.Id}(result) {
+                    var primaryTabId = result.id;
+                    sforce.console.openSubtab(primaryTabId , '/apex/AccountMassBAcctAddressUpdateRedirect?id={!bacct.customer__r.Id}&billing={!bacct.Id}&isdtp=vw', true,
+                        'Loading...', null, null, 'subtab{!bacct.Id}');
+                }; 
+                
+                 var openManageAddressSubTabCust{!acct.Id} = function openManageAddressSubTabCust{!acct.Id}(result) {
+                    var primaryTabId = result.id;
+                    sforce.console.openSubtab(primaryTabId , '/apex/AccountMassBAcctAddressUpdateRedirect?id={!acct.Id}&isdtp=vw', true,
+                        'Loading...', null, null, 'subtab{!acct.Id}');
+                }; 
+                
+                //Open Quick Notes
+                function openQuickNotes(){
+                    if(sforce.console.isInConsole()){
+                        if('{!billid}' != ''){
+                            sforce.console.getEnclosingPrimaryTabId(openQuickNotesSubTab{!bacct.Id});
+                        }else{
+                            if('{!accid}' != '')
+                                sforce.console.getEnclosingPrimaryTabId(openQuickNotesSubTabCust{!acct.Id});
+                        }
+                    }else{
+                        if('{!billid}' != ''){
+                            window.open('/apex/QuickNotes?customerId={!bacct.Customer__r.Id}&billAcctId={!bacct.Id}')
+                        }else{
+                            if('{!accid}' != '')
+                                window.open('/apex/QuickNotes?customerId={!acct.Id}')
+                        }
+                    }
+                }
+                
+                var openQuickNotesSubTab{!bacct.Id} = function openQuickNotesSubTab{!bacct.Id}(result) {
+                    var primaryTabId = result.id;
+                    sforce.console.openSubtab(primaryTabId , '/apex/QuickNotes?customerId={!bacct.Customer__r.Id}&billAcctId={!bacct.Id}&isdtp=vw', true,
+                        'Loading...', null, null, 'subtab{!bacct.Id}');
+                }; 
+                
+                var openQuickNotesSubTabCust{!acct.Id} = function openQuickNotesSubTabCust{!acct.Id}(result) {
+                    var primaryTabId = result.id;
+                  
+                    sforce.console.openSubtab(primaryTabId , '/apex/QuickNotes?customerId={!acct.Id}&isdtp=vw', true,
+                        'Loading...', null, null, 'subtab{!acct.Id}');
+                };
+                
+                //Open Customer Verification
+                function openCustomerVerification(){
+                    if(sforce.console.isInConsole()){
+                            if('{!billid}' != ''){
+                                sforce.console.getEnclosingPrimaryTabId(openCustomerVerificationSubTab{!bacct.Id});
+                            }else{
+                                if('{!accid}' != '')
+                                    sforce.console.getEnclosingPrimaryTabId(openCustomerVerificationSubTabCust{!acct.Id});
+                            }
+                    }else{
+                        if('{!billid}' != ''){
+                            window.open('/apex/CustomerVerificationPage?id={!bacct.Customer__r.id}&billAccId={!bacct.Id}');
+                        }else{
+                            if('{!accid}' != '')
+                                window.open('/apex/CustomerVerificationPage?id={!acct.id}');
+                        }
+                    }
+                }
+                
+                var openCustomerVerificationSubTab{!bacct.Id} = function openCustomerVerificationSubTab{!bacct.Id}(result) {
+                    var primaryTabId = result.id;
+                    sforce.console.openSubtab(primaryTabId , '/apex/CustomerVerificationPage?id={!bacct.Customer__r.id}&billAccId={!bacct.Id}&isdtp=vw', true,
+                        'Loading...', null, null, 'subtab{!bacct.Id}');
+                };
+                
+                var openCustomerVerificationSubTabCust{!acct.Id} = function openCustomerVerificationSubTabCust{!acct.Id}(result) {
+                    var primaryTabId = result.id;
+                    sforce.console.openSubtab(primaryTabId , '/apex/CustomerVerificationPage?id={!acct.id}&isdtp=vw', true,
+                        'Loading...', null, null, 'subtab{!acct.Id}');
+                };
+                
+                //Open Payment History
+                function openPaymentHistory(){
+                    if(sforce.console.isInConsole()){
+                        sforce.console.getEnclosingPrimaryTabId(openPaymentHistorySubTab{!bacct.Id});
+                    }else{
+                        window.open('/apex/PaymentHistory?id={!bacct.Id}');
+                    }
+                }
+                
+                var openPaymentHistorySubTab{!bacct.Id} = function openPaymentHistorySubTab{!bacct.Id}(result) {
+                    var primaryTabId = result.id;
+                    sforce.console.openSubtab(primaryTabId , '/apex/PaymentHistory?id={!bacct.Id}&isdtp=vw', true,
+                        'Loading...', null, null, 'subtab{!bacct.Id}');
+                }; 
+                
+                //Open CC Payment
+                function openCCPayment(){
+                    if(sforce.console.isInConsole()){
+                        sforce.console.getEnclosingPrimaryTabId(openCCPaymentSubTab{!bacct.Id});
+                    }else{
+                        window.open('/apex/CreditCardPayment?customerId={!bacct.Customer__r.Id}&billAcctId={!bacct.Id }');
+                    }
+                }
+                
+                var openCCPaymentSubTab{!bacct.Id} = function openCCPaymentSubTab{!bacct.Id}(result) {
+                    var primaryTabId = result.id;
+                    sforce.console.openSubtab(primaryTabId , '/apex/CreditCardPayment?customerId={!bacct.Customer__r.Id}&billAcctId={!bacct.Id }&isdtp=vw', true,
+                        'Loading...', null, null, 'subtab{!bacct.Id}');
+                }; 
+              
+                //Open Refresh button
+                function openRefresh(){
+                    if(sforce.console.isInConsole()){
+                        sforce.console.getEnclosingPrimaryTabId(openRefreshSubTab{!bacct.Id});
+                    }else{
+                        window.open('/apex/BillingAccountRefresh?id={!bacct.Id }');
+                    }
+                }
+                
+                var openRefreshSubTab{!bacct.Id} = function openRefreshSubTab{!bacct.Id}(result) {
+                    var primaryTabId = result.id;
+                    sforce.console.openSubtab(primaryTabId , '/apex/BillingAccountRefresh?id={!bacct.Id }&isdtp=vw', true,
+                        '{!bacct.Name}', null, null, 'subtab{!bacct.Id}');
+                }; 
+                
+                function openMoreTimeToPay() {
+                    if(sforce.console.isInConsole()){
+                        sforce.console.getEnclosingPrimaryTabId(openMoreTimeToPay{!bacct.id});
+                    }else{
+                        window.open('{!quickCaseURLPrefixButton}&RecordType='+'{!getMoreTimeToPayType}');
+                    }
+                }   
+        
+                var openMoreTimeToPay{!bacct.id} = function openMoreTimeToPay{!bacct.id}(result) {
+                    sforce.console.openSubtab(result.id ,'{!quickCaseURLPrefixButton}&RecordType='+'{!getMoreTimeToPayType}', true,
+                    '', null);
+                };
+                
+                //03-12-2012 Added by DYU TP293 - Open Missed Payment page
+                function openMissedPayments(){
+                     if(sforce.console.isInConsole()){
+                        sforce.console.getEnclosingPrimaryTabId(openMissedPaymentsTab{!bacct.id});
+                     }else{
+                        window.open('/apex/MissedPaymentsPlan?id={!bacct.Id }');
+                     }
+                }
+                
+                
+                var openMissedPaymentsTab{!bacct.id} = function openMissedPaymentsTab{!bacct.id}(result) {
+                    var primaryTabId = result.id;
+                    sforce.console.openSubtab(primaryTabId , '/apex/MissedPaymentsPlan?id={!bacct.Id }&isdtp=vw', true,
+                        'Loading...', null, null, 'subtab{!bacct.Id}');
+                };
+             
+            </script>
+            <!-- Start Of Quick View TOP PANE-->
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <!--  Start of Customer Pane -->
+                    <td valign="top" style="border: #036 solid 2px; border-left: none; border-bottom:none; margin: 5px 10px; width: 30%; max-width:30%;">
+                        <br></br>
+                        <h1>
+                            <U><apex:outputText value="Customer" style="font-size: 1.2em;"/></U>
+                        </h1>
+                        <table>
+                            <tr>
+                                <td style="text-align: right; font-weight:bold;">
+                                    <apex:outputLabel value="Customer Name: "/>
+                                </td>
+                                <td style="text-align: center;"/>
+                                <td style="text-align: left;">
+                                    <apex:outputPanel rendered="{!IF(billid != null, true, false)}">
+                                        <A onClick="testOpenSubtabCustomer{!bacct.Customer__r.id}();return false;" style="cursor:pointer;" href="/{!bacct.Customer__r.Id}" id="{!bacct.Customer__r.Id}" 
+                                        onblur="LookupHoverDetail.getHover('{!bacct.Customer__r.Id}').hide();" 
+                                        onfocus="LookupHoverDetail.getHover('{!bacct.Customer__r.Id}', '/{!bacct.Customer__r.Id}/m?retURL=%2F{!bacct.Customer__r.Id}&isAjaxRequest=1').show();" 
+                                        onmouseout="LookupHoverDetail.getHover('{!bacct.Customer__r.Id}').hide();" 
+                                        onmouseover="LookupHoverDetail.getHover('{!bacct.Customer__r.Id}', '/{!bacct.Customer__r.Id}/m?retURL=%2F{!bacct.Customer__r.Id}&isAjaxRequest=1').show();hideLink();">{!bacct.Customer__r.Name}</A>   
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!IF(accid != null, true, false)}">
+                                        <A onClick="testOpenSubtabByCustomer{!acct.Id}();return false;" style="cursor:pointer;" href="/{!acct.Id}" id="{!acct.Id}" 
+                                        onblur="LookupHoverDetail.getHover('{!acct.Id}').hide();" 
+                                        onfocus="LookupHoverDetail.getHover('{!acct.Id}', '/{!acct.Id}/m?retURL=%2F{!acct.Id}&isAjaxRequest=1').show();" 
+                                        onmouseout="LookupHoverDetail.getHover('{!acct.Id}').hide();" 
+                                        onmouseover="LookupHoverDetail.getHover('{!acct.Id}', '/{!acct.Id}/m?retURL=%2F{!acct.Id}&isAjaxRequest=1').show();hideLink();">{!acct.Name}</A>  
+                                    </apex:outputPanel>
+                                    <script type="text/javascript">
+                                    
+                                        /* Added to hide the change and view hierarchy link for TP 552 by: J.Jayoma  */                                    
+                                        var j$ = jQuery.noConflict(); 
+                                       
+                                        function hideLink(){
+                                            var refreshId = setInterval(function() {
+                                                                                            
+                                                j$('td a:contains("[Change]")').hide(); 
+                                                j$('td a:contains("[View Hierarchy]")').hide();                                                                                 
+                                                    
+                                             }, 1);                                                                   
+                                        }  
+                                    
+                                      function testOpenSubtabCustomer{!bacct.customer__r.id}() {
+                                          if(sforce.console.isInConsole()){
+                                              sforce.console.getEnclosingPrimaryTabId(openSubtabCustomer{!bacct.customer__r.id});
+                                          }
+                                      }
+                                      var openSubtabCustomer{!bacct.customer__r.id} = function openSubtabCustomer{!bacct.customer__r.id}(result) {
+                                          var primaryTabId = result.id;
+                                          sforce.console.openSubtab(primaryTabId , '/{!bacct.Customer__r.Id}', true,
+                                                '{!bacct.Customer__r.Name}', null, null, 'subtab{!bacct.Customer__r.Id}');
+                                          
+                                      };
+                                      
+                                      function testOpenSubtabByCustomer{!acct.id}() {
+                                          if(sforce.console.isInConsole()){
+                                              sforce.console.getEnclosingPrimaryTabId(openSubtabByCustomer{!acct.id});
+                                          }
+                                      }
+                                      var openSubtabByCustomer{!acct.id} = function openSubtabByCustomer{!acct.id}(result) {
+                                            var primaryTabId = result.id;
+                                            sforce.console.openSubtab(primaryTabId , '/{!acct.Id}', true,
+                                                '{!acct.Name}', null, null, 'subtab{!acct.Id}');
+                                          
+                                      };
+                                      
+                                    </script>
+                                </td>
+                            </tr>
+                           <tr>
+                                <td style="text-align: right; font-weight:bold;">
+                                    <apex:outputLabel value="Customer Mailing Address: " for="customerAddress"/>
+                                </td>
+                                <td style="text-align: center;"/>
+                                <td style="text-align: left; break-word: word-wrap;">
+                                    <apex:outputPanel rendered="{!If(billid != null, true, false)}">
+                                        {!bacct.customer__r.BillingStreet}&nbsp;{!bacct.customer__r.BillingCity}
+                                        <br></br>{!bacct.customer__r.BillingState}&nbsp;{!bacct.customer__r.BillingPostalCode}&nbsp;
+                                        {!bacct.customer__r.BillingCountry}
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!If(accid != null, true, false)}">
+                                        {!acct.BillingStreet}&nbsp;{!acct.BillingCity}
+                                        <br></br>{!acct.BillingState}&nbsp;{!acct.BillingPostalCode}&nbsp;
+                                        {!acct.BillingCountry}
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            
+                            <!-- Added for 522 By:J.Jayoma -->
+                            <tr>
+                                <td style="text-align: right; font-weight:bold;">
+                                    <apex:outputLabel value="Mailing Address DPID: " for="DPID"/>
+                                </td>
+                                <td style="text-align: center;"/>
+                                <td style="text-align: left; break-word: word-wrap;">
+                                    <apex:outputPanel rendered="{!If(billid != null, true, false)}">
+                                        {!bacct.Customer__r.Billing_Address_DPID__c}
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!If(accid != null, true, false)}">
+                                        {!acct.Billing_Address_DPID__c}
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td style="text-align: right; font-weight:bold;">
+                                    <apex:outputLabel value="All Accounts Balance: " for="customerAccountBalance"/>
+                                </td>
+                                <td style="text-align: center;"/>
+                                <td style="text-align: left; white-space: nowrap;">
+                                    <apex:outputPanel rendered="{!IF(billid != null && bacct.Customer__r.Total_Balance__c > 0, true, IF(accid != null && acct.Total_Balance__c > 0, true, false))}"> 
+                                        <span>$</span><apex:outputText value="{0, number, ###,###,###,##0.00}" id="customerAccountBalance">
+                                               <apex:param value="{!IF(billid != null, bacct.Customer__r.Total_Balance__c, IF
+                                               (accid != null, acct.Total_Balance__c,0))}"/>
+                                       </apex:outputText> 
+                                     </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right; font-weight:bold;">
+                                    <apex:outputLabel value="Overdue Flag: " for="customerOverdue"/>
+                                </td>
+                                <td style="text-align: center;"/>
+                                <td style="text-align: left;">
+                                    <apex:image url="{!URLFOR($Resource.redFlag)}" rendered="{!IF(billid != null && bacct.Customer__r.Overdue_Balance_All_Accounts__c > 0, true, IF(accid != null && acct.Overdue_Balance_All_Accounts__c > 0, true, false))}"/> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right; font-weight:bold;">
+                                    <apex:outputLabel value="All A/C Overdue Balance: " for="customerOverdueBalance"/>
+                                </td>
+                                <td style="text-align: center;"/>
+                                <td style="text-align: left; white-space: nowrap;">
+                                    <apex:outputPanel rendered="{!IF(billid != null && bacct.Customer__r.Overdue_Balance_All_Accounts__c > 0, true, IF(accid != null && acct.Overdue_Balance_All_Accounts__c > 0, true, false))}">
+                                        <span>$</span><apex:outputText value="{0, number, ###,###,###,##0.00}" id="customerOverdueBalance">
+                                               <apex:param value="{!IF(billid != null, bacct.Customer__r.Overdue_Balance_All_Accounts__c, IF(accid != null, acct.Overdue_Balance_All_Accounts__c, 0))}" />
+                                         </apex:outputText>
+                                     </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:200px; text-align: right; font-weight:bold;">
+                                    <apex:outputLabel value="# of Active Billing A/C: " for="customerActiveBilling"/>
+                                </td>
+                                <td style="text-align: center;"/>
+                                <td style="text-align: left; white-space: nowrap;">
+                                     <apex:outputPanel rendered="{!IF(billid != null || accid != null, true, false)}">
+                                         <apex:outputText value="{0, number}" id="customerActiveBilling">
+                                               <apex:param value="{!IF(billid != null, bacct.Customer__r.Number_of_Active_Billing_Accounts__c, IF(accid != null, acct.Number_of_Active_Billing_Accounts__c, 0))}" />
+                                         </apex:outputText>
+                                     </apex:outputPanel>
+                                </td> 
+                            </tr>   
+                            
+                            <!-- ActiveFinancialHardship 
+                            	@VCS - US-751 23-24/Jan/2014 [gt]
+                            -->
+                           	<tr>
+                                <td style="text-align: right; font-weight:bold;">
+                                    <apex:outputLabel value="Active Financial Hardship Flag: " />
+                                </td>
+                                <td style="text-align: center;"/>
+                                <td style="text-align: left;">
+                                    <apex:image url="{!URLFOR($Resource.greenFlag)}" rendered="{!IF((ActiveFHCustomerFlag=true), true, false)}"/>
+                                </td>
+                            </tr>       
+                        </table>
+                    </td> 
+                    <!-- End of Customer Pane -->
+                    
+                    <!-- Start of Billing Accounts List Pane -->
+                    <td rowspan="2" valign="top" style="border: #036 solid 2px; border-left: none; margin: 5px 10px; height: 350px; max-height: 350px; width: 30%; max-width: 30%;">
+                        <br></br>
+                        <h1>
+                            <U><apex:outputText value="Billing Accounts List" style="font-size: 1.2em;"/></U>
+                        </h1>
+                        <apex:pageblock id="pb2">
+                            <apex:pageblockTable value="{!accounts}" 
+                                    var="b" id="pbt2">
+                                <apex:column id="col1" width="70px">
+                                    <apex:facet name="header">
+                                        <apex:commandLink value="Billing Act" onclick="javascript:sortBillingList('{!sortDirection}', 'Name', '{!sortExpression}', {!noOfRecords});return false;">
+                                             <apex:image value="/s.gif" styleClass="{!IF(sortExpression == 'Name', if(sortDirection='ASC','sortAsc','sortDesc'),'')}"/>
+                                        </apex:commandLink>
+                                    </apex:facet>
+                                    <A onclick="searchBillingAccountFromList('{!b.billAcct.id}', {!b.recordNumber}, '{!b.billAcct.HiAF_Account_Number__c}')" HREF="#">{!b.billAcct.HiAF_Account_Number__c}</A>
+                                </apex:column>
+                                <apex:column id="col2" width="70px">
+                                    <apex:facet name="header">
+                                        <apex:commandLink value="Property Address" onclick="javascript:sortBillingList('{!sortDirection}', 'Property_Address__c', '{!sortExpression}', {!noOfRecords});return false;">
+                                             <apex:image value="/s.gif" styleClass="{!IF(sortExpression == 'Property_Address__c', if(sortDirection='ASC','sortAsc','SortDesc'),'')}"/>
+                                        </apex:commandLink>
+                                    </apex:facet>
+                                    <A HREF="#" onClick="testOpenSubtabProperty{!b.billAcct.Property__r.Id}();return false;" style="cursor:pointer;" href="/{!b.billAcct.Property__r.Id}" id="{!b.billAcct.Property__r.Id}" 
+                                        onblur="LookupHoverDetail.getHover('{!b.billAcct.Property__r.Id}').hide();" 
+                                        onfocus="LookupHoverDetail.getHover('{!b.billAcct.Property__r.Id}', '/{!b.billAcct.Property__r.Id}/m?retURL=%2F{!b.billAcct.Property__r.Id}&isAjaxRequest=1').show();" 
+                                        onmouseout="LookupHoverDetail.getHover('{!b.billAcct.Property__r.Id}').hide();" 
+                                        onmouseover="LookupHoverDetail.getHover('{!b.billAcct.Property__r.Id}', '/{!b.billAcct.Property__r.Id}/m?retURL=%2F{!b.billAcct.Property__r.Id}&isAjaxRequest=1').show();"><apex:outputText escape="false" value="{!b.billAcct.Property_Address__c}"/></A>
+                                    <script type="text/javascript">
+                                      function testOpenSubtabProperty{!b.billAcct.Property__r.Id}() {
+                                          if(sforce.console.isInConsole()){
+                                              sforce.console.getEnclosingPrimaryTabId(openSubtabProperty{!b.billAcct.Property__r.Id});
+                                          }
+                                          else{
+                                              window.open("/{!bacct.Customer__r.Id}");
+                                          }
+                                      }
+                                      var openSubtabProperty{!b.billAcct.Property__r.Id} = function openSubtabProperty{!b.billAcct.Property__r.Id}(result) {
+                                          var primaryTabId = result.id;
+                                          sforce.console.openSubtab(primaryTabId , '/{!b.billAcct.Property__r.Id}', true,
+                                              '{!b.billAcct.Property__r.Name}', null, null, 'subtab{!b.billAcct.Property__r.Id}');
+                                      };
+                                    </script>
+                                </apex:column>
+                                 <apex:column id="col3" width="70px">
+                                    <apex:facet name="header">
+                                        <apex:commandLink value="Balance" onclick="javascript:sortBillingList('{!sortDirection}', 'Balance__c', '{!sortExpression}', {!noOfRecords});return false;">
+                                             <apex:image value="/s.gif" styleClass="{!IF(sortExpression == 'Balance__c', if(sortDirection='ASC','sortAsc','sortDesc'),'')}"/>
+                                        </apex:commandLink>
+                                    </apex:facet>
+                                    $<apex:outputText value="{0, number, ###,###,###,##0.00}">
+                                        <apex:param value="{!b.billAcct.Balance__c}" />
+                                    </apex:outputText>
+                                </apex:column>  
+                                <apex:column id="col4" width="70px">
+                                    <apex:facet name="header">
+                                        <apex:commandLink value="Overdue" onclick="javascript:sortBillingList('{!sortDirection}', 'Overdue_Amount_Formula__c', '{!sortExpression}', {!noOfRecords});return false;">
+                                             <apex:image value="/s.gif" styleClass="{!IF(sortExpression == 'Overdue_Amount_Formula__c', if(sortDirection='ASC','sortAsc','sortDesc'),'')}"/>
+                                        </apex:commandLink>
+                                    </apex:facet>
+                                    $<apex:outputText value="{0, number, ###,###,###,##0.00}">
+                                        <apex:param value="{!b.billAcct.Overdue_Amount_Formula__c}" />
+                                    </apex:outputText>
+                                </apex:column>  
+                                <apex:column id="col5" width="70px">
+                                    <apex:facet name="header">
+                                        <apex:commandLink value="Status" onclick="javascript:sortBillingList('{!sortDirection}', 'Status__c', '{!sortExpression}', {!noOfRecords});return false;">
+                                            <apex:image value="/s.gif" styleClass="{!IF(noOfRecords > 0 && sortExpression == 'Status__c', if(sortDirection='ASC','sortAsc','sortDesc'),'')}" />
+                                        </apex:commandLink>
+                                    </apex:facet>                              
+                                    <apex:outputText escape="false" value="{!b.billAcct.Status__c}" />
+                                </apex:column>
+                            </apex:pageblockTable>
+                            <apex:panelGrid columns="6">
+                                <apex:commandButton rendered="{!If(noOfRecords > 5, true, false)}" value="|<" action="{!accountsSetCon.first}" status="fetchStatus" reRender="pb2" immediate="true" disabled="{!!accountsSetCon.hasPrevious}" title="First Page"/>
+                                <apex:commandButton rendered="{!If(noOfRecords > 5, true, false)}" value="<"  action="{!accountsSetCon.previous}"  status="fetchStatus" reRender="pb2" immediate="true" disabled="{!!accountsSetCon.hasPrevious}" title="Previous Page"/>
+                                <apex:commandButton rendered="{!If(noOfRecords > 5, true, false)}" value=">"  action="{!accountsSetCon.next}" status="fetchStatus" reRender="pb2" disabled="{!!accountsSetCon.hasNext}" title="Next Page" immediate="true"/>
+                                <apex:commandButton rendered="{!If(noOfRecords > 5, true, false)}" value=">|" action="{!accountsSetCon.last}" status="fetchStatus" reRender="pb2" disabled="{!!accountsSetCon.hasNext}" title="Last Page" immediate="true"/>
+                                <apex:outputText rendered="{!If(noOfRecords > 0, true, false)}">{!(accountsSetCon.pageNumber * size)+1-size}-{!IF((accountsSetCon.pageNumber * size)>noOfRecords, noOfRecords,(accountsSetCon.pageNumber * size))} of {!noOfRecords}</apex:outputText>
+                                <apex:outputPanel rendered="{!If(noOfRecords > 5, true, false)}" style="color:#4AA02C;font-weight:bold">
+                                    <apex:actionStatus id="fetchStatus" startText="Fetching..." stopText=""/>
+                                </apex:outputPanel>
+                           </apex:panelGrid>
+                         </apex:pageblock>
+                    </td>
+                    <!-- End of Billing Accounts List Pane -->
+                    
+                    <!-- Start of Billing Account Detail Pane -->
+                    <td rowspan="2" valign="top" style="border: #036 solid 2px; border-left: none; border-right: none; margin: 5px 10px; width: 40%; max-width: 40%;">
+                        <br></br>
+                        <h1>
+                            <U><apex:outputText value="Billing Account Detail" style="font-size: 1.2em;"/></U> 
+                        </h1>
+                       <apex:inputText id="searchtext" onkeypress="return noenter(event)"/>
+                        <apex:commandButton id="BillingAccountSearchButton" value="GO" onClick="searchBillingAccountByName();return false;"/>
+                        <script type="text/javascript">
+                            
+                            function searchBillingAccountByName(){
+                                var searchText = document.getElementById('{!$Component.theForm.searchtext}');
+                               
+                                if(searchText.value != ''){
+                                    billingName = searchText.value;
+                                    
+                                    getBillingAccounts(billingName);
+                                }
+                            }
+                            
+                            
+                            function searchBillingAccountFromList(billId, recordNumber, billName){
+                                currentRec = recordNumber;
+                                document.getElementById('{!$Component.theForm.searchtext}').value = billName;
+                                if(billId != null)
+                                    getBillingAccountsList(billId);
+                            }
+                            
+                        </script>
+                        <apex:outputPanel layout="block" id="billingPanel">
+                            <table style="width:100%; max-width:100%">
+                                <tr>
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width: 25%; table-layout:fixed;">
+                                        <apex:outputLabel value="Billing Account # "/>                                    
+                                    </td>
+                                    <td style="text-align: left; white-space: nowrap; width: 25%; max-width: 25%; table-layout:fixed;">
+                                        <apex:outputPanel rendered="{!IF(billId != null || pid != null, true, false)}">
+                                        <A onClick="testOpenSubtab{!bacct.id}();return false;" style="cursor:pointer;" href="/{!bacct.id}" id="{!bacct.id}" 
+                                        onblur="LookupHoverDetail.getHover('{!bacct.id}').hide();" 
+                                        onfocus="LookupHoverDetail.getHover('{!bacct.id}', '/{!bacct.id}/m?retURL=%2F{!bacct.id}&isAjaxRequest=1').show();" 
+                                        onmouseout="LookupHoverDetail.getHover('{!bacct.id}').hide();" 
+                                        onmouseover="LookupHoverDetail.getHover('{!bacct.id}', '/{!bacct.id}/m?retURL=%2F{!bacct.id}&isAjaxRequest=1').show();"><b>{!bacct.HiAF_Account_Number__c}</b></A>   
+                                        </apex:outputPanel>
+                                        <script type="text/javascript">
+                                            function testOpenSubtab{!bacct.id}() {
+                                                if(sforce.console.isInConsole()){
+                                                    sforce.console.getEnclosingPrimaryTabId(openSubtab{!bacct.id});
+                                                }else{
+                                                    window.open("/{!bacct.id}");
+                                                }
+                                            }
+                                            var openSubtab{!bacct.id} = function openSubtab{!bacct.id}(result) {
+                                                var primaryTabId = result.id;
+                                                sforce.console.openSubtab(primaryTabId , '/{!bacct.id}', true,
+                                                  '{!bacct.HiAF_Account_Number__c}', null, null, 'subtab{!bacct.id}');
+                                            };
+                                        </script>
+                                    </td>
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width: 25%; table-layout:fixed;">                                
+                                        <apex:outputLabel value="Account Balance: " for="BillingAccountBalance"/>                                                                
+                                    </td>                             
+                                    <td style="text-align: left; white-space: nowrap; width: 25%; max-width: 25%; table-layout:fixed;">
+                                        <apex:outputPanel rendered="{!IF((billId != null || pid != null) && bacct.id != null, true, false)}">
+                                            <span>$</span><apex:outputText value="{0, number, ###,###,###,##0.00}">
+                                                   <apex:param value="{!bacct.Balance__c}" />
+                                            </apex:outputText>
+                                        </apex:outputPanel>
+                                    </td>       
+                                          
+                                </tr>
+                                <tr>      
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width: 25%; table-layout:fixed;">
+                                        <apex:outputLabel value="Role: " for="BillingAccountRole"/>                               
+                                    </td>                                           
+                                    <td style="text-align: left; white-space: nowrap; width: 25%; max-width: 25%; table-layout:fixed;">                         
+                                        <apex:outputText id="BillingAccountRole" value="{!bacct.Role__c}" rendered="{!If(billId != null || pid != null, true, false)}"/>
+                                    </td>    
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width:25%; table-layout:fixed;">
+                                          <apex:outputLabel value="Overdue?: " for="BillingAccountOverdue"/>
+                                    </td>
+                                    <td style="text-align: left;">
+                                        <apex:image url="{!URLFOR($Resource.redFlag)}" rendered="{!IF((billId != null || pid != null) && bacct.OverdueFlags__c > 0, true, false)}"/> 
+                                    </td>                      
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width: 25%; table-layout:fixed;">                                
+                                        <apex:outputLabel value="Status: "/>                       
+                                    </td>                                        
+                                    <td style="text-align: left; white-space: nowrap; width: 25%; max-width: 25%; table-layout:fixed;">
+                                        <apex:outputPanel rendered="{!IF(bacct.Status__c == 'Closed', true, false)}">
+                                            <apex:outputText value="{!bacct.Status__c}" rendered="{!If(billId != null || pid != null, true, false)}" style="background-color: Red; color: white; font-weight: bold;"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF(bacct.Status__c == 'Active', true, false)}">
+                                             <apex:outputText value="{!bacct.Status__c}" rendered="{!If(billId != null || pid != null, true, false)}"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF(bacct.Status__c == 'Pending', true, false)}">
+                                            <apex:outputText value="{!bacct.Status__c}" rendered="{!If(billId != null || pid != null, true, false)}" style="background-color: Red; color: white; font-weight: bold;"/>
+                                        </apex:outputPanel>
+                                    </td>     
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width:25%; table-layout:fixed;">                       
+                                        <apex:outputLabel value="Overdue Amount: " for="BillingAccountOverdueAmt"/>                     
+                                    </td>                                  
+                                    <td style="text-align: left; white-space: nowrap; width: 25%; max-width:25%; table-layout:fixed;">
+                                        <apex:outputPanel rendered="{!if(bacct.id != null, true, false)}">
+                                            <span>$</span><apex:outputText value="{0, number, ###,###,###,##0.00}" rendered="{!If(billId != null || pid != null, true, false)}">
+                                                   <apex:param value="{!bacct.Overdue_Amount_Formula__c}" />
+                                            </apex:outputText>
+                                        </apex:outputPanel>
+                                    </td>              
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width: 25%; table-layout:fixed;">
+                                        <apex:outputLabel value="Property: " for="BillingAccountProperty"/>                               
+                                    </td>                                           
+                                    <td style="text-align: left;  break-word: word-wrap; width: 25%; max-width: 25%; table-layout:fixed;">                         
+                                        <apex:outputText escape="false" id="BillingAccountProperty" value="{!bacct.Property_Address__c}" rendered="{!If(billId != null || pid != null, true, false)}"/>
+                                    </td>
+                                     <td style="text-align: right; font-weight:bold; width: 25%; max-width:25%; table-layout:fixed;">                       
+                                           <apex:outputLabel value="Suspend To Date: " for="BillingAccountRecoverySuspend"/>
+                                    </td>                                       
+                                    <td style="text-align: left;  break-word: word-wrap; width: 25%; max-width:25%; table-layout:fixed;">
+                                        <apex:outputText value="{0,date,dd/MM/yyyy}" rendered="{!If(billId != null || pid != null, true, false)}">
+                                            <apex:param value="{!bacct.Recovery_Suspended_Date__c}"/>
+                                        </apex:outputText>
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width: 25%; table-layout:fixed;">                       
+                                        <apex:outputLabel value="Billing Address Same As: " for="BillingAccountAddressSameAs"/>                  
+                                    </td>                                   
+                                    <td style="text-align: left; break-word: word-wrap; white-space: nowrap; width: 25%; max-width: 25%; table-layout:fixed;">
+                                        <apex:outputText id="BillingAccountAddressSameAs" value="{!bacct.Billing_Address_Same_As__c}" rendered="{!If(billId != null || pid != null, true, false)}"/>
+                                    </td>
+                                     <td style="text-align: right; font-weight:bold; width: 25%; max-width:25%; table-layout:fixed; font-size: 12px;">                                
+                                        <apex:outputLabel value="Clerical Inspect: " for="BillingAccountClerical"/>                       
+                                    </td>                                        
+                                    <td style="text-align: left; break-word: word-wrap; width: 25%; max-width:25%; table-layout:fixed;">
+                                        <apex:outputText id="BillingAccountClerical" value="{!bacct.Clerical__c}" rendered="{!If(billId != null || pid != null, true, false)}" style="font-weight:bold; color:white; background-color:#236FBD; font-size: 12px;"/>
+                                    </td>       
+                                
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width: 25%; table-layout:fixed;">                       
+                                         <apex:outputLabel value="Billing Address: " for="BillingAccountAddress"/>
+                                    </td>                    
+                                            
+                                    <td style="text-align: left;  break-word: word-wrap; width: 25%; max-width:25%; table-layout:fixed;">
+                                       <apex:outputText escape="false" id="BillingAccountAddress" value="{!bacct.Account_Address__c}" rendered="{!If(billId != null || pid != null, true, false)}"/>
+                                    </td>   
+                                     <td style="text-align: right; font-weight:bold; width: 25%; max-width:25%; table-layout:fixed;">                                
+                                        <apex:outputLabel value="Risk Rating: " />                       
+                                    </td>                                         
+                                    <td style="text-align: left; white-space: nowrap; width: 25%; max-width:25%; table-layout:fixed;">
+                                        <apex:outputPanel rendered="{!IF(bacct.Risk_Factor__c == 'L', true, false)}">
+                                            <apex:outputText value="Low" rendered="{!If(billId != null || pid != null, true, false)}" style="background-color: GreenYellow; color: white; font-weight: bold;"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF(bacct.Risk_Factor__c == 'M', true, false)}">
+                                            <apex:outputText value="Medium" rendered="{!If(billId != null || pid != null, true, false)}" style="background-color: Orange; color: white; font-weight: bold;"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF(bacct.Risk_Factor__c == 'H', true, false)}">
+                                            <apex:outputText value="High" rendered="{!If(billId != null || pid != null, true, false)}" style="background-color: Red; color: white; font-weight: bold;"/>
+                                        </apex:outputPanel>
+                                    </td>                                                 
+                                </tr>                    
+                                <tr>
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width:25%; table-layout:fixed;"/>  
+                                    <td style="text-align: left;  break-word: word-wrap; width: 25%; max-width:25%; table-layout:fixed;"/>
+                                 
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width:25%; table-layout:fixed;">
+                                        <apex:outputLabel value="Payment Plan: " for="BillingAccountPaymentFlag"/>
+                                    </td>
+                                    <td style="text-align: left;">
+                                        <apex:image url="{!URLFOR($Resource.MissedPayments_Check)}" width="15px" height="15px" rendered="{!if((billId != null || pid != null) && bacct.id != null && bacct.Is_Payment_Plan__c == true, true, false)}"/> 
+                                    </td>              
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width:25%; table-layout:fixed;">                       
+                                         <apex:outputLabel value="Recovery Last Action: " for="BillingAccountRecovery"/>
+                                    </td>                                     
+                                    <td style="text-align: left;  break-word: word-wrap; width: 25%; max-width:25%; table-layout:fixed;">
+                                         <apex:outputText id="BillingAccountRecovery" value="{!bacct.Recovery_Last_Action__c}" rendered="{!If(billId!= null || pid != null, true, false)}"/>
+                                    </td>
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width:25%; table-layout:fixed;">                       
+                                        <apex:outputLabel value="Direct Debit: " for="BillingAccountDDFlag"/>
+                                    </td> 
+                                    <td style="text-align: left;">
+                                        <apex:image url="{!URLFOR($Resource.MissedPayments_Check)}" width="15px" height="15px" rendered="{!if((billId != null || pid != null) && bacct.id != null && bacct.Direct_Debit__c == true, true, false)}"/> 
+                                    </td>                                         
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width:25%; table-layout:fixed;">                       
+                                         <apex:outputLabel value="Last Action Date: " for="BillingAccountActionDate"/>
+                                    </td>                                      
+                                    <td style="text-align: left;  break-word: word-wrap; width: 25%; max-width:25%; table-layout:fixed;">
+                                        <apex:outputText value="{0,date,dd/MM/yyyy}" rendered="{!If(billId != null || pid != null, true, false)}">
+                                            <apex:param value="{!bacct.Recovery_Last_Action_Date__c}"/>
+                                        </apex:outputText>
+                                    </td>   
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width:25%; table-layout:fixed;">                       
+                                         <apex:outputLabel value="Concession #: " for="BillingAccountConcession"/>
+                                    </td>                                     
+                                    <td style="text-align: left; white-space: nowrap; width: 25%; max-width:25%; table-layout:fixed;">
+                                        <apex:outputText value="{!bacct.Concession_Number__c}"/>
+                                    </td>                         
+                               </tr>
+                               <tr>
+                                     <td style="text-align: right; font-weight:bold;width: 25%; max-width:25%; table-layout:fixed;">                       
+                                           <apex:outputLabel value="Recovery Next Action: " for="BillingAccountRecoveryNext"/>
+                                    </td>                           
+                                    <td style="text-align: left;  break-word: word-wrap; width: 25%; max-width:25%; table-layout:fixed;">
+                                        <apex:outputText id="BillingAccountRecoveryNext" value="{!bacct.Recovery_Next_Action__c}" rendered="{!If(billId != null || pid != null, true, false)}"/>
+                                    </td>   
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width:25%; table-layout:fixed;">                       
+                                        <apex:outputLabel value="Last Payment Made: " for="BillingAccountPaymentMade"/>
+                                    </td>                                    
+                                    <td style="text-align: left; white-space: nowrap; width: 25%; max-width:25%; table-layout:fixed;">
+                                        <apex:outputPanel rendered="{!If(billId != null || pid != null, true, false)}">
+                                            <span>$</span> <apex:outputText value="{0, number, ###,###,###,##0.00}" >
+                                                <apex:param value="{!bacct.Last_Payment_Made__c}" />
+                                            </apex:outputText>
+                                        </apex:outputPanel>
+                                       
+                                    </td>                                            
+                               </tr>
+                               <tr>
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width:25%; table-layout:fixed;">                       
+                                        <apex:outputLabel value="Next Action Date: " for="BillingAccountRecoveryDate"/>
+                                    </td>                                        
+                                    <td style="text-align: left;  break-word: word-wrap; width: 25%; max-width:25%; table-layout:fixed;">
+                                        <apex:outputText value="{0,date,dd/MM/yyyy}" rendered="{!If(billId != null || pid != null, true, false)}">
+                                            <apex:param value="{!bacct.Recovery_Next_Action_Date__c}"/>
+                                        </apex:outputText>
+                                    </td>       
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width:25%; table-layout:fixed;">
+                                         <apex:outputLabel value="Payment Method: " for="BillingAccountPaymentMethod"/>
+                                    </td>                       
+                                    <td style="text-align: left;  break-word: word-wrap; width: 25%; max-width:25%; table-layout:fixed;">
+                                         <apex:outputText id="BillingAccountPaymentMethod" value="{!bacct.Payment_Method__c}" />
+                                    </td>        
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width:25%; table-layout:fixed;">                       
+                                           <apex:outputLabel value="Recovery Path: " for="BillingAccountRecoveryPath"/>
+                                    </td>                                       
+                                    <td style="text-align: left;  break-word: word-wrap; width: 25%; max-width:25%; table-layout:fixed;">
+                                        <apex:outputText id="BillingAccountRecoveryPath" value="{!bacct.Recovery_Path__c}" rendered="{!If(billId != null || pid != null, true, false)}"/>
+                                    </td>  
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width:25%; table-layout:fixed;">                       
+                                        <apex:outputLabel value="Last Payment Date: " for="BillingAccountPaymentDate"/>
+                                    </td>                                    
+                                    <td style="text-align: left; white-space: nowrap; width: 25%; max-width:25%; table-layout:fixed;">
+                                      
+                                        <apex:outputText value="{0,date,dd/MM/yyyy}" rendered="{!If(billId != null || pid != null, true, false)}">
+                                            <apex:param value="{!bacct.Last_Payment_Date__c}"/>
+                                        </apex:outputText>
+                                    </td>   
+                                    
+                                 </tr>
+                                 
+                                 <tr>   
+                                    <!-- @VCS/US-751 [GT]	23-Jan-2014 		Created  -->
+                                    <hr></hr>
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width:25%; table-layout:fixed;">                       
+                                        <apex:outputLabel value="SEW Assist Officer: "/>
+                                    </td> 
+                                    <td style="text-align: left; white-space: nowrap; width: 25%; max-width:25%; table-layout:fixed;">
+                                        <apex:outputText value="{!ActiveFinancialHardship.OwnerName}" rendered="{!If(billId != null || pid != null, true, false)}">
+                                        </apex:outputText>
+                                    </td> 
+                                    
+                                    <td style="text-align: right; font-weight:bold; width: 25%; max-width:25%; table-layout:fixed;">                       
+                                        <apex:outputLabel value="SEW Assist Officer Extension: "/>
+                                    </td> 
+                                    <td style="text-align: left; white-space: nowrap; width: 25%; max-width:25%; table-layout:fixed;">
+                                        <apex:outputText value="{!ActiveFinancialHardship.OwnerExtension}" rendered="{!If(billId != null || pid != null, true, false)}">
+                                        </apex:outputText>
+                                    </td> 
+                                         
+                                </tr>
+                            </table>                         
+                        </apex:outputPanel>
+                    </td>
+                    
+                    <!--  implement FH Owner Info here @VCS-US/751 -->
+                    
+                    <!-- End of Billing Account Detail Pane  -->
+                </tr>
+                <tr>
+                    <!-- Start of Persons List Pane -->
+                    <td valign="top" style="border: #036 solid 2px; border-left: none; margin: 5px 10px; width: 30%; max-width: 30%;">
+                        <br></br>
+                        <h1>
+                            <U><apex:outputText value="Persons List" style="font-size: 1.2em;"/></U>
+                        </h1>
+                        <apex:pageblock id="pb3">
+                            <apex:pageblockTable value="{!contacts}" var="c">                       
+                                <apex:column >
+                                    <apex:facet name="header">
+                                        <apex:commandLink value="Name" onclick="javascript:sortContactList('{!sortDirectionCon}', 'Name', '{!sortExpressionCon}', {!noOfRecordsContacts});return false;">
+                                             <apex:image value="/s.gif" styleClass="{!IF(sortExpressionCon=='Name', if(sortDirectionCon='ASC','sortAsc','sortDesc'),'')}"/>
+                                        </apex:commandLink>
+                                    </apex:facet>
+                                    <A HREF="#" onClick="testOpenSubtabCon{!c.con.Id}();return false" style="cursor:pointer;" href="/{!c.con.Id}" id="{!c.con.Id}" 
+                                        onblur="LookupHoverDetail.getHover('{!c.con.Id}').hide();" 
+                                        onfocus="LookupHoverDetail.getHover('{!c.con.Id}', '/{!c.con.Id}/m?retURL=%2F{!c.con.Id}&isAjaxRequest=1').show();" 
+                                        onmouseout="LookupHoverDetail.getHover('{!c.con.Id}').hide();" 
+                                        onmouseover="LookupHoverDetail.getHover('{!c.con.Id}', '/{!c.con.Id}/m?retURL=%2F{!c.con.Id}&isAjaxRequest=1').show();">{!c.con.Name}</A>
+                                    <script type="text/javascript">
+                                        function testOpenSubtabCon{!c.con.Id}() {
+                                            if(sforce.console.isInConsole()){
+                                                sforce.console.getEnclosingPrimaryTabId(openSubtab{!c.con.Id});
+                                            }else{
+                                                window.open("/{!c.con.Id}");
+                                            }
+                                        }
+                                        
+                                        var openSubtab{!c.con.Id} = function openSubtab{!c.con.Id}(result) {
+                                            var primaryTabId = result.id;
+                                            sforce.console.openSubtab(primaryTabId , '/{!c.con.Id}', true,
+                                          '{!c.con.Name}', null, null, 'subtab{!c.con.Id}');
+                                        };
+                                    </script>
+                                </apex:column>
+                                <apex:column >
+                                    <apex:facet name="header">
+                                        <apex:commandLink value="Type" onclick="javascript:sortContactList('{!sortDirectionCon}', 'Primary_Secondary_Contact__c', '{!sortExpressionCon}', {!noOfRecordsContacts});return false;">
+                                            <apex:image value="/s.gif" styleClass="{!IF(noOfRecords > 0 && sortExpressionCon == 'Primary_Secondary_Contact__c', if(sortDirectionCon='ASC','sortAsc','sortDesc'),'')}"/>
+                                        </apex:commandLink>
+                                    </apex:facet>
+                                    <apex:outputText escape="false" value="{!c.con.Primary_Secondary_Contact__c}" />
+                                </apex:column>
+                                <apex:column >
+                                    <apex:facet name="header">
+                                        <apex:commandLink value="DOB" onclick="javascript:sortContactList('{!sortDirectionCon}', 'BirthDate', '{!sortExpressionCon}', {!noOfRecordsContacts});return false;">
+                                            <apex:image value="/s.gif" styleClass="{!IF(sortExpressionCon == 'BirthDate', if(sortDirectionCon='ASC','sortAsc','sortDesc'),'')}"/>
+                                        </apex:commandLink>
+                                    </apex:facet>
+                                    <apex:outputText value="{0,date,dd/MM/yyyy}">
+                                        <apex:param value="{!c.con.BirthDate}"/>
+                                    </apex:outputText>
+                                </apex:column>
+                                <apex:column >
+                                    <apex:facet name="header">
+                                        <apex:commandLink value="Preferred #" onclick="javascript:sortContactList('{!sortDirectionCon}', 'Preferred_Phone_Number__c', '{!sortExpressionCon}', {!noOfRecordsContacts});return false;">
+                                            <apex:image value="/s.gif" styleClass="{!IF(sortExpressionCon == 'Preferred_Phone_Number__c', if(sortDirectionCon='ASC','sortAsc','sortDesc'),'')}"/>
+                                        </apex:commandLink>
+                                    </apex:facet>
+                                    <apex:outputText value="{!c.con.Preferred_Phone_Number__c}" />
+                                    <!--  <a href="javascript:sforce.console.cti.sendCTIMessage('/CLICK_TO_DIAL?DN='+encodeURIComponent('{!c.con.Preferred_Phone_Number__c}')+'&ID={!c.con.id}&ENTITY_NAME=Contact');"  style="cursor:pointer; cursor:hand; text-decoration:underline;">{!c.con.Preferred_Phone_Number__c}&nbsp;&nbsp;<apex:image value="/img/btn_nodial_inline.gif" height="10" width="10" /></a> -->
+                                </apex:column>
+                            </apex:pageBlockTable>        
+                            <apex:panelGrid columns="6">
+                                <apex:commandButton rendered="{!If(noOfRecordsContacts > 5, true, false)}" value="|<" action="{!contacsSetCon.first}" status="fetchStatus" reRender="pb3" immediate="true" disabled="{!!contacsSetCon.hasPrevious}" title="First Page"/>
+                                <apex:commandButton rendered="{!If(noOfRecordsContacts > 5, true, false)}" value="<"  action="{!contacsSetCon.previous}"  status="fetchStatus" reRender="pb3" immediate="true" disabled="{!!contacsSetCon.hasPrevious}" title="Previous Page"/>
+                                <apex:commandButton rendered="{!If(noOfRecordsContacts > 5, true, false)}" value=">"  action="{!contacsSetCon.next}" status="fetchStatus" reRender="pb3" disabled="{!!contacsSetCon.hasNext}" title="Next Page" immediate="true"/>
+                                <apex:commandButton rendered="{!If(noOfRecordsContacts > 5, true, false)}" value=">|" action="{!contacsSetCon.last}" status="fetchStatus" reRender="pb3" disabled="{!!contacsSetCon.hasNext}" title="Last Page" immediate="true"/>
+                                <apex:outputText rendered="{!If(noOfRecordsContacts > 0, true, false)}">{!(contacsSetCon.pageNumber * sizeContacts)+1-sizeContacts}-{!IF((contacsSetCon.pageNumber * sizeContacts)>noOfRecordsContacts, noOfRecordsContacts,(contacsSetCon.pageNumber * sizeContacts))} of {!noOfRecordsContacts}</apex:outputText>
+                                <apex:outputPanel rendered="{!If(noOfRecordsContacts > 5, true, false)}" style="color:#4AA02C;font-weight:bold">
+                                <apex:actionStatus id="fetchStatus" startText="Fetching..." stopText=""/>
+                            </apex:outputPanel>
+                        </apex:panelGrid>
+                    </apex:pageBlock> 
+                </td>
+                <!-- End of Persons List Pane -->
+            </tr>
+            </table>
+        </apex:outputPanel>
+        <!-- End of Quick View Top Pane -->
+        
+        <!-- Start of Quick View Bottom Pane -->
+        <div style="height: 200px;">
+            <apex:outputPanel id="variablesPanel">
+                <script>
+                    var billLoaded = false;
+                    var casesLoaded = false;
+                    var classLoaded = false;
+                    var activitiesLoaded = false;
+                    var qosLoaded = false;
+                    var financialsLoaded = false;
+                    var recoveryLoaded = false;
+                    var linkLoaded = false;
+                    var financialHardshipLoaded = false;
+                </script>
+            </apex:outputPanel>
+            <apex:outputPanel id="detailList">
+                <table width="100%">
+                    <tr>
+                        <td style="border: #036 solid 2px; border-left: none; border-right: none; border-top: none; margin: 5px 10px; width: 30%; max-width: 30%;">
+                            <apex:panelGrid columns="2">
+                                <apex:outputText value="Displaying" style="font-weight: bold; font-size: 1.2em;"/> 
+                                <apex:selectList id="selectList" size="1" value="{!selectedObjectType}" onchange="populateObjectType(this.value, '{!$Component.hiddenObjectType}', '{!bacct.id}', '{!bacct.Customer__r.id}')" style="width: 150px;" disabled="{!IF(selectedObjectType == null, true, false)}">
+                                    <apex:selectOptions value="{!objectTypes}"/>
+                                </apex:selectList>
+                            </apex:panelGrid>
+                        </td>
+                    </tr>
+                </table>
+                <apex:tabPanel switchType="client"
+                    id="theTabPanel" tabClass="myActiveTab" inactiveTabClass="myInactiveTab" disabledTabClass="myInactiveTab">
+                   <apex:tab label="Classifications" name="customerClass" id="classificationTab" style="font-size: 1.2em;" disabled="{!IF(billid == null && accid == null, true, false)}"
+                        ontabenter="displayClassOnClick('{!classificationsCallout}', '{!classificationsVisibility}', '{!bacct.id}', '{!profileFoundClass}');"
+                        rendered="{!IF(profileFoundClass, IF(classificationsVisibility, true, false), IF(defaultVisibility, true, false))}">
+                        <apex:outputPanel layout="block" style="overflow:auto; height:200px;" id="classPanel">
+                            <apex:pageblock id="pbClassification" rendered="true">
+                                <apex:pageblockTable value="{!classifications}" var="cl" id="pbtClass">   
+                                     <apex:column >
+                                         <apex:facet name="header">
+                                            <apex:commandLink value="Code" onclick="javascript:sortClassificationList('{!sortDirectionCustClass}', 'Class_Code__c', '{!sortExpressionCustClass}', {!noOfRecordsClass});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfRecordsClass > 0 && sortExpressionCustClass == 'Class_Code__c', if(sortDirectionCustClass='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                         </apex:facet>
+                                         <A HREF="#" onClick="testOpenCustomerClassification{!cl.custClass.id}();return false;">{!cl.custClass.Class_Code__c}</A>
+                                         <script type="text/javascript">
+                                            function testOpenCustomerClassification{!cl.custClass.id}() {
+                                              if(sforce.console.isInConsole()){
+                                                  sforce.console.getEnclosingPrimaryTabId(openSubtabClassification{!cl.custClass.id});
+                                              }else{
+                                                  window.open("/{!cl.custClass.id}");
+                                              }
+                                            }
+                                            var openSubtabClassification{!cl.custClass.id} = function openSubtabClassification{!cl.custClass.id}(result) {
+                                              var primaryTabId = result.id;
+                                              sforce.console.openSubtab(primaryTabId , '/{!cl.custClass.id}', true,
+                                                  '{!cl.custClass.Class_Code__c}', null, null, 'subtab{!cl.custClass.id}');
+                                            };
+                                        </script> 
+                                     </apex:column>
+                                     <apex:column >
+                                         <apex:facet name="header">
+                                            <apex:commandLink value="Reference" onclick="javascript:sortClassificationList('{!sortDirectionCustClass}', 'Reference__c', '{!sortExpressionCustClass}', {!noOfRecordsClass});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfRecordsClass > 0 && sortExpressionCustClass == 'Reference__c', if(sortDirectionCustClass='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                         </apex:facet>
+                                         <apex:outputText escape="false" value="{!cl.custClass.Reference__c}" />
+                                     </apex:column>
+                                      <apex:column >
+                                         <apex:facet name="header">
+                                            <apex:commandLink value="Billing Account" onclick="javascript:sortClassificationList('{!sortDirectionCustClass}', 'Billing_Account__r.Name', '{!sortExpressionCustClass}', {!noOfRecordsClass});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfRecordsClass > 0 && sortExpressionCustClass == 'Billing_Account__r.Name', if(sortDirectionCustClass='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                         </apex:facet>
+                                         <apex:outputText escape="false" value="{!cl.custClass.Billing_Account__r.Name}" />
+                                     </apex:column>
+                                      <apex:column >
+                                         <apex:facet name="header">
+                                            <apex:commandLink value="Date" onclick="javascript:sortClassificationList('{!sortDirectionCustClass}', 'CreatedDate', '{!sortExpressionCustClass}', {!noOfRecordsClass});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfRecordsClass > 0 && sortExpressionCustClass == 'CreatedDate', if(sortDirectionCustClass='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                         </apex:facet>
+                                         <apex:outputText value="{!cl.dateCreated}"/>
+                                     </apex:column>
+                                 </apex:pageBlockTable> 
+                            </apex:pageBlock> 
+                         </apex:outputPanel>    
+                    </apex:tab>
+
+                    <apex:tab label="Activities" name="activities" id="activityTab" disabled="{!IF(billid == null && accid == null, true, false)}"
+                        ontabenter="displayActivitiesOnClick('{!activityCallout}', '{!activityVisibility}', '{!bacct.id}', '{!profileFoundActivity}');"
+                        rendered="{!IF(profileFoundActivity, IF(activityVisibility, true, false), IF(defaultVisibility, true, false))}">
+                        <apex:outputPanel layout="block" style="overflow:auto; height:200px;" id="activitiesPanel">
+                            <apex:pageblock id="pbActivities">
+                                <apex:pageblockTable value="{!activities}" var="act" width="100%">                       
+                                     <apex:column >
+                                         <apex:facet name="header">
+                                            <apex:commandLink value="Subject" onclick="javascript:sortActivityList('{!sortDirectionActivities}', 'Subject', '{!sortExpressionActivities}', {!noOfRecordsActivities});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfRecordsActivities > 0 && sortExpressionActivities == 'Subject', if(sortDirectionActivities='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                         </apex:facet>
+                                         <A HREF="#" onClick="testOpenSubtabSubject{!act.activityId}();return false;">{!act.Subject}</A>
+                                         <script type="text/javascript">
+                                          function testOpenSubtabSubject{!act.activityId}() {
+                                              if(sforce.console.isInConsole()){
+                                                  sforce.console.getEnclosingPrimaryTabId(openSubtabSubject{!act.activityId});
+                                              }
+                                              else{
+                                                  window.open("/{!act.activityId}");
+                                              }
+                                          }
+                                          var openSubtabSubject{!act.activityId} = function openSubtabSubject{!act.activityId}(result) {
+                                              var primaryTabId = result.id;
+                                              sforce.console.openSubtab(primaryTabId , '/{!act.activityId}', true,
+                                                  '{!act.Subject}', null, null, 'subtab{!act.activityId}');
+                                          };
+                                        </script> 
+                                       
+                                     </apex:column>
+                                     <apex:column >
+                                         <apex:facet name="header">
+                                            <apex:commandLink value="Name" onclick="javascript:sortActivityList('{!sortDirectionActivities}', 'Who.Name', '{!sortExpressionActivities}', {!noOfRecordsActivities});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfRecordsActivities > 0 && sortExpressionActivities == 'Who.Name', if(sortDirectionActivities='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                         </apex:facet>
+                                         <apex:outputText value="{!act.caseName}" />
+                                     </apex:column>
+                                     <apex:column >
+                                         <apex:facet name="header">
+                                            <apex:commandLink value="Related To" onclick="javascript:sortActivityList('{!sortDirectionActivities}', 'What.Name', '{!sortExpressionActivities}', {!noOfRecordsActivities});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfRecordsActivities > 0 && sortExpressionActivities == 'What.Name', if(sortDirectionActivities='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                         </apex:facet>
+                                         <apex:outputText value="{!act.relatedTo}" />
+                                     </apex:column>
+                                     <apex:column >
+                                         <apex:facet name="header">
+                                            <apex:commandLink value="Short Comments" onclick="javascript:sortActivityList('{!sortDirectionActivities}', 'Short_Comments__c', '{!sortExpressionActivities}', {!noOfRecordsActivities});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfRecordsActivities > 0 && sortExpressionActivities == 'Short_Comments__c', if(sortDirectionActivities='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                         </apex:facet>
+                                         <apex:outputText value="{!act.Comments}" />
+                                     </apex:column>
+                                     <apex:column >
+                                         <apex:facet name="header">
+                                            <apex:commandLink value="Due Date" onclick="javascript:sortActivityList('{!sortDirectionActivities}', 'ActivityDate', '{!sortExpressionActivities}', {!noOfRecordsActivities});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfRecordsActivities > 0 && sortExpressionActivities == 'ActivityDate', if(sortDirectionActivities='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                         </apex:facet>
+                                         <apex:outputText value="{0,date,dd/MM/yyyy}">
+                                            <apex:param value="{!act.activityDate}"/>
+                                         </apex:outputText>
+                                     </apex:column>
+                                     <apex:column >
+                                         <apex:facet name="header">
+                                            <apex:commandLink value="Assigned To" onclick="javascript:sortActivityList('{!sortDirectionActivities}', 'Owner.Name', '{!sortExpressionActivities}', {!noOfRecordsActivities});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfRecordsActivities > 0 && sortExpressionActivities == 'Owner.Name', if(sortDirectionActivities='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                         </apex:facet>
+                                         <apex:outputText value="{!act.assignedTo}" />
+                                     </apex:column>
+                                     <apex:column >
+                                         <apex:facet name="header">
+                                            <apex:commandLink value="Created Date" onclick="javascript:sortActivityList('{!sortDirectionActivities}', 'CreatedDate', '{!sortExpressionActivities}', {!noOfRecordsActivities});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfRecordsActivities > 0 && sortExpressionActivities == 'CreatedDate', if(sortDirectionActivities='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                         </apex:facet>
+                                        <apex:outputText value="{!act.createDate}"/>
+                                    </apex:column>
+                                    <apex:column >
+                                         <apex:facet name="header">
+                                            <apex:commandLink value="Status" onclick="javascript:sortActivityList('{!sortDirectionActivities}', 'Status', '{!sortExpressionActivities}', {!noOfRecordsActivities});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfRecordsActivities > 0 && sortExpressionActivities == 'Status', if(sortDirectionActivities='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                         </apex:facet>
+                                        <apex:outputText value="{!act.Status}"/>
+                                     </apex:column>
+                                     <apex:column >
+                                         <apex:facet name="header">
+                                            <apex:commandLink value="Interaction Type" onclick="javascript:sortActivityList('{!sortDirectionActivities}', 'Interaction_Type__c', '{!sortExpressionActivities}', {!noOfRecordsActivities});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfRecordsActivities > 0 && sortExpressionActivities == 'Interaction_Type__c', if(sortDirectionActivities='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                         </apex:facet>
+                                        <apex:outputText value="{!act.intType}"/>
+                                     </apex:column>
+                                 </apex:pageBlockTable> 
+                            </apex:pageBlock>  
+                        </apex:outputPanel>
+                    </apex:tab>
+                    <apex:tab label="QOS" name="qos" id="qosTab" disabled="{!If(selectedObjectType = 'Customer', true, false)}"
+                        ontabenter="displayQosOnClick('{!qosCallout}', '{!qosVisibility}', '{!bacct.id}', '{!profileFoundQos}');"
+                        rendered="{!IF(profileFoundQos, IF(qosVisibility, true, false), IF(defaultVisibility, true, false))}">
+                         <apex:outputPanel layout="block" style="overflow:auto; height:200px;" id="QosPanel" rendered="{!IF(selectedObjectType == 'Billing Account', true, false)}">
+                            <apex:iframe src="" id="QosIFrame" height="830px"/>
+                        </apex:outputPanel>
+                    </apex:tab>
+                    
+                    <apex:tab label="Cases" name="cases" id="caseTab" disabled="{!IF(billid == null && accid == null, true, false)}"
+                        ontabenter="displayCasesOnClick('{!casesCallout}', '{!casesVisibility}', '{!bacct.id}', '{!profileFoundCases}');"
+                        rendered="{!IF(profileFoundCases, IF(casesVisibility, true, false), IF(defaultVisibility, true, false))}">
+                        <apex:outputPanel layout="block" style="overflow:auto; height:200px;" id="casePanel">
+                            <apex:pageblock id="pbCase">
+                                <apex:pageblockTable value="{!cases}" var="ca" width="100%">                       
+                                     <apex:column >
+                                         <apex:facet name="header">
+                                            <apex:commandLink value="Case Number" onclick="javascript:sortCaseList('{!sortDirectionCase}', 'CaseNumber', '{!sortExpressionCase}', {!noOfRecordsCase});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfRecordsCase > 0 && sortExpressionCase == 'CaseNumber', if(sortDirectionCase='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                         </apex:facet>
+                                         <A HREF="#" onClick="testOpenCaseNumber{!ca.c.Id}();return false;">{!ca.c.CaseNumber}</A>
+                                         <script type="text/javascript">
+                                          function testOpenCaseNumber{!ca.c.Id}() {
+                                              if(sforce.console.isInConsole()){
+                                                  sforce.console.getEnclosingPrimaryTabId(openSubtabCaseNumber{!ca.c.Id});
+                                              }else{
+                                                  window.open("/{!ca.c.Id}");
+                                              }
+                                          }
+                                          var openSubtabCaseNumber{!ca.c.Id} = function openSubtabCaseNumber{!ca.c.Id}(result) {
+                                              var primaryTabId = result.id;
+                                              sforce.console.openSubtab(primaryTabId , '/{!ca.c.Id}', true,
+                                                  '{!ca.c.CaseNumber}', null, null, 'subtab{!ca.c.Id}');
+                                          };
+                                        </script> 
+                                     </apex:column>
+                                     <apex:column >
+                                         <apex:facet name="header">
+                                            <apex:commandLink value="Case Record Type" onclick="javascript:sortCaseList('{!sortDirectionCase}', 'Record_Type_Name__c', '{!sortExpressionCase}', {!noOfRecordsCase});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfRecordsCase > 0 && sortExpressionCase == 'Record_Type_Name__c', if(sortDirectionCase='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                         </apex:facet>
+                                         <apex:outputText value="{!ca.c.Record_Type_Name__c}" />
+                                     </apex:column>
+                                     <apex:column >
+                                         <apex:facet name="header">
+                                            <apex:commandLink value="Subject" onclick="javascript:sortCaseList('{!sortDirectionCase}', 'Subject', '{!sortExpressionCase}', {!noOfRecordsCase});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfRecordsCase > 0 && sortExpressionCase == 'Subject', if(sortDirectionCase='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                         </apex:facet>
+                                         <apex:outputText value="{!ca.c.Subject}" />
+                                     </apex:column>
+                                     <apex:column >
+                                         <apex:facet name="header">
+                                            <apex:commandLink value="Billing Account" onclick="javascript:sortCaseList('{!sortDirectionCase}', 'Billing_Account__r.Name', '{!sortExpressionCase}', {!noOfRecordsCase});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfRecordsCase > 0 && sortExpressionCase == 'Billing_Account__r.Name', if(sortDirectionCase='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                         </apex:facet>
+                                         <apex:outputText value="{!ca.c.Billing_Account__r.Name}" />
+                                     </apex:column>
+                                     <apex:column >
+                                         <apex:facet name="header">
+                                            <apex:commandLink value="Date Opened" onclick="javascript:sortCaseList('{!sortDirectionCase}', 'CreatedDate', '{!sortExpressionCase}', {!noOfRecordsCase});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfRecordsCase > 0 && sortExpressionCase == 'CreatedDate', if(sortDirectionCase='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                         </apex:facet>
+                                         <apex:outputText value="{!ca.dateCreated}"/>
+                                     </apex:column>
+                                     <apex:column >
+                                         <apex:facet name="header">
+                                            <apex:commandLink value="Status" onclick="javascript:sortCaseList('{!sortDirectionCase}', 'Status', '{!sortExpressionCase}', {!noOfRecordsCase});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfRecordsCase > 0 && sortExpressionCase == 'Status', if(sortDirectionCase='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                         </apex:facet>
+                                         <apex:outputText value="{!ca.c.Status}"/>
+                                     </apex:column>
+                                     <apex:column >
+                                         <apex:facet name="header">
+                                            <apex:commandLink value="Case Origin" onclick="javascript:sortCaseList('{!sortDirectionCase}', 'Origin', '{!sortExpressionCase}', {!noOfRecordsCase});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfRecordsCase > 0 && sortExpressionCase == 'Origin', if(sortDirectionCase='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                         </apex:facet>
+                                         <apex:outputText value="{!ca.c.Origin}"/>
+                                     </apex:column>
+                                 </apex:pageBlockTable> 
+                            </apex:pageBlock>    
+                        </apex:outputPanel>                  
+                    </apex:tab>
+                    <apex:tab label="Recovery History" name="recHistory" id="historyTab" disabled="{!If(selectedObjectType = 'Customer', true, false)}"
+                        ontabenter="displayRecoveryOnClick('{!recoveryCallout}', '{!recoveryVisibility}', '{!bacct.id}', '{!profileFoundRecovery}');"
+                        rendered="{!IF(profileFoundRecovery, IF(recoveryVisibility, true, false), IF(defaultVisibility, true, false))}">
+                        <apex:outputPanel layout="block" style="overflow:auto; height:200px;" id="recoveryHistoryPanel" rendered="{!IF(selectedObjectType == 'Billing Account', true, false)}">
+                            <apex:iframe src="" id="recoveryHistoryIFrame" height="830px"/>
+                        </apex:outputPanel> 
+                    </apex:tab>
+                    <apex:tab label="Financials" name="financials" id="financialsTab" disabled="{!If(selectedObjectType = 'Customer', true, false)}"
+                        ontabenter="displayFinancialsOnClick('{!financialsCallout}', '{!financialsVisibility}', '{!bacct.id}', '{!profileFoundFinancials}');"
+                        rendered="{!IF(profileFoundFinancials, IF(financialsVisibility, true, false), IF(defaultVisibility, true, false))}">
+                        <apex:outputPanel layout="block" style="overflow:auto; height:200px;" id="financialsPanel" rendered="{!IF(selectedObjectType == 'Billing Account', true, false)}">
+                            <apex:iframe src="" id="financialsIFrame" height="830px"/>
+                        </apex:outputPanel>
+                    </apex:tab>
+                    <apex:tab label="Bill History" name="billHistory" id="billHistoryTab" disabled="{!If(selectedObjectType = 'Customer', true, false)}" 
+                        ontabenter="displayBillHistoryOnClick('{!billHistoryCallout}', '{!billHistoryVisibility}', '{!bacct.id}', '{!profileFoundBillHistory}');"
+                        rendered="{!IF(profileFoundBillHistory, IF(billHistoryVisibility, true, false), IF(defaultVisibility, true, false))}">
+                        <apex:outputPanel layout="block" style="overflow:auto; height:200px;" id="billHistoryPanel" rendered="{!IF(selectedObjectType == 'Billing Account', true, false)}">
+                            <apex:iframe src="" id="billHistoryIFrame"/>
+                        </apex:outputPanel>
+                    </apex:tab>
+                    <apex:tab label="Livelink" name="liveLink" id="liveLinkTab" style="overflow:auto; height:200px;" disabled="{!IF(billid == null && accid == null, true, false)}"
+                        ontabenter="displayLiveLinkOnClick('{!liveLinkCallout}', '{!liveLinkVisibility}', '{!bacct.id}', '{!profileFoundLiveLink}');"
+                        rendered="{!IF(profileFoundLiveLink, IF(liveLinkVisibility, true, false), IF(defaultVisibility, true, false))}">
+                        <apex:outputPanel layout="block" style="overflow:auto; height:200px;" id="linkPanel">
+                            <apex:pageBlock id="pbliveLinks">
+                                <apex:pageBlockTable value="{!LiveLinks}" var="ll" width="100%">
+                                    <apex:column >
+                                        <apex:facet name="header">
+                                            <apex:commandLink value="Filename" onclick="javascript:sortLiveLinkList('{!sortDirectionLiveLink}', 'Name', '{!sortExpressionLiveLink}', {!noOfLiveLinks});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfLiveLinks > 0 && sortExpressionLiveLink == 'Name', if(sortDirectionLiveLink='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                        </apex:facet>   
+                                            <A HREF="#" onClick="testOpenSubtabName{!ll.link.id}();return false;">{!ll.link.Name}</A>                  
+                                            <script type="text/javascript">
+                                                function testOpenSubtabName{!ll.link.id}() {
+                                                    if(sforce.console.isInConsole()){
+                                                        sforce.console.getEnclosingPrimaryTabId(openSubtabName{!ll.link.id});
+                                                    }else{
+                                                        window.open("/{!ll.link.Customer__r.Id}")
+                                                    }
+                                                  
+                                                }
+                                                var openSubtabName{!ll.link.id} = function openSubtabName{!ll.link.id}(result) {
+                                                   var primaryTabId = result.id;
+                                                   sforce.console.openSubtab(primaryTabId , '/{!ll.link.id}', true,
+                                                    "{!ll.link.name}");
+                                                };
+                                            </script>
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">
+                                            <apex:commandLink value="Related to Customer" onclick="javascript:sortLiveLinkList('{!sortDirectionLiveLink}', 'Customer__r.name', '{!sortExpressionLiveLink}', {!noOfLiveLinks});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfLiveLinks > 0 && sortExpressionLiveLink == 'Customer__r.name', if(sortDirectionLiveLink='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                        </apex:facet>                                                   
+                                        <A HREF="#" onClick="testOpenSubtabProperty{!ll.link.Customer__r.Id}();return false;"><apex:outputText escape="false" value="{!ll.link.Customer__r.name}"/></A>                  
+                                           <script type="text/javascript">
+                                               function testOpenSubtabProperty{!ll.link.Customer__r.Id}() {
+                                                   if(sforce.console.isInConsole()){
+                                                       sforce.console.getEnclosingPrimaryTabId(openSubtabProperty{!ll.link.Customer__r.Id});
+                                                   }
+                                               }
+                                               var openSubtabProperty{!ll.link.Customer__r.Id} = function openSubtabProperty{!ll.link.Customer__r.Id}(result) {
+                                                   var primaryTabId = result.id;
+                                                   sforce.console.openSubtab(primaryTabId , '/{!ll.link.Customer__r.Id}', true,
+                                                       "{!ll.link.Customer__r.name}", null, null, 'subtab{!ll.link.Customer__r.Id}');
+                                               };
+                                            </script>
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">
+                                            <apex:commandLink value="Related to Billing Account" onclick="javascript:sortLiveLinkList('{!sortDirectionLiveLink}', 'Billing_Account__r.name', '{!sortExpressionLiveLink}', {!noOfLiveLinks});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfLiveLinks > 0 && sortExpressionLiveLink == 'Billing_Account__r.name', if(sortDirectionLiveLink='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                        </apex:facet> 
+                                        <A HREF="#" onClick="testOpenSubtabProperty{!ll.link.Billing_Account__r.Id}();return false;"><apex:outputText escape="false" value="{!ll.link.Billing_Account__r.name}"/></A>                  
+                                           <script type="text/javascript">                          
+                                               function testOpenSubtabProperty{!ll.link.Billing_Account__r.Id}() {
+                                                    
+                                                   if(sforce.console.isInConsole()){
+                                                       sforce.console.getEnclosingPrimaryTabId(openSubtabProperty{!ll.link.Billing_Account__r.Id});
+                                                   }
+                                                  
+                                               }
+                                               var openSubtabProperty{!ll.link.Billing_Account__r.Id} = function openSubtabProperty{!ll.link.Billing_Account__r.Id}(result) {
+                                                   var primaryTabId = result.id;
+                                                   sforce.console.openSubtab(primaryTabId , '/{!ll.link.Billing_Account__r.Id}', true,
+                                                       "{!ll.link.Billing_Account__r.name}", null, null, 'subtab{!ll.link.Billing_Account__r.Id}');                     
+                                               };
+                                            </script>              
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">
+                                            <apex:commandLink value="Related to Case" onclick="javascript:sortLiveLinkList('{!sortDirectionLiveLink}', 'Case__r.CaseNumber', '{!sortExpressionLiveLink}', {!noOfLiveLinks});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfLiveLinks > 0 && sortExpressionLiveLink == 'Case__r.CaseNumber', if(sortDirectionLiveLink='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                        </apex:facet> 
+                                         <A HREF="#" onClick="testOpenSubtabProperty{!ll.link.Id}();return false;"><apex:outputText escape="false" value="{!ll.link.Case__r.CaseNumber}"/></A>                  
+                                           <script type="text/javascript">                          
+                                               function testOpenSubtabProperty{!ll.link.Case__r.Id}() {
+                                                    
+                                                   if(sforce.console.isInConsole()){
+                                                       sforce.console.getEnclosingPrimaryTabId(openSubtabProperty{!ll.link.Case__r.Id});
+                                                   }
+                                                  
+                                               }
+                                               var openSubtabProperty{!ll.link.Case__r.Id} = function openSubtabProperty{!ll.link.Case__r.Id}(result) {
+                                                   var primaryTabId = result.id;
+                                                   sforce.console.openSubtab(primaryTabId , '/{!ll.link.Case__r.Id}', true,
+                                                       "{!ll.link.Case__r.CaseNumber}", null, null, 'subtab{!ll.link.Case__r.Id}');                     
+                                               };
+                                            </script>    
+                                       
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">
+                                            <apex:commandLink value="Related to Property" onclick="javascript:sortLiveLinkList('{!sortDirectionLiveLink}', 'Property__r.Name', '{!sortExpressionLiveLink}', {!noOfLiveLinks});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfLiveLinks > 0 && sortExpressionLiveLink == 'Property__r.Name', if(sortDirectionLiveLink='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                        </apex:facet>     
+                                        <A HREF="#" onClick="testOpenSubtabProperty{!ll.link.Property__r.Id}();return false;"><apex:outputText escape="false" value="{!ll.link.Property__r.name}"/></A>                  
+                                           <script type="text/javascript">                          
+                                               function testOpenSubtabProperty{!ll.link.Property__r.Id}() {
+                                                   if(sforce.console.isInConsole()){
+                                                       sforce.console.getEnclosingPrimaryTabId(openSubtabProperty{!ll.link.Property__r.Id});
+                                                  }
+                                               }
+                                               var openSubtabProperty{!ll.link.Property__r.Id} = function openSubtabProperty{!ll.link.Property__r.Id}(result) {
+                                                   var primaryTabId = result.id;
+                                                   sforce.console.openSubtab(primaryTabId , '/{!ll.link.Property__r.Id}', true,
+                                                       "{!ll.link.Property__r.name}", null, null, 'subtab{!ll.link.Property__r.Id}');                       
+                                               };
+                                            </script>  
+                                      
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">Open Document</apex:facet>                                                    
+                                           <A HREF="#" onClick="testOpenSubtabDocument{!ll.link.Open_Document__c}();return false;"><apex:outputText escape="false" value="{!ll.link.Open_Document__c}"/></A>
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">Open Parent Folder</apex:facet>                                                    
+                                           <A HREF="#" onClick="testOpenSubtabParent{!ll.link.Open_Parent_Folder__c}();return false;"><apex:outputText escape="false" value="{!ll.link.Open_Parent_Folder__c}"/></A>
+                                    </apex:column>
+                                    <script type="text/javascript">
+                                           function testOpenSubtabDocument{!ll.link.Open_Document__c}() {
+                                               if(sforce.console.isInConsole()){
+                                                   sforce.console.getEnclosingPrimaryTabId(openSubtabDocument{!ll.link.Open_Document__c});
+                                               }else{
+                                                   window.open("/{!ll.link.Open_Document__c}");
+                                               }
+                                              
+                                           }
+                                           var openSubtabDocument{!ll.link.Open_Document__c} = function openSubtabDocument{!ll.link.Open_Document__c}(result) {
+                                               var primaryTabId = result.id;
+                                               sforce.console.openSubtab(primaryTabId , '/{!ll.link.Open_Document__c}', true);
+                                           };
+                                           
+                                           function testOpenSubtabParent{!ll.link.Open_Parent_Folder__c}() {
+                                                if(sforce.console.isInConsole()){
+                                                    sforce.console.getEnclosingPrimaryTabId(openSubtabParent{!ll.link.Open_Parent_Folder__c});
+                                                }else{
+                                                    window.open("/{!ll.link.Open_Document__c}");    
+                                                }
+                                              
+                                           }
+                                           var openSubtabParent{!ll.link.Open_Parent_Folder__c} = function openSubtabParent{!ll.link.Open_Parent_Folder__c}(result) {
+                                               var primaryTabId = result.id;
+                                               sforce.console.openSubtab(primaryTabId , '/{!ll.link.Open_Parent_Folder__c}', true);
+                                           };
+                                     </script>
+                                    <apex:column >
+                                        <apex:facet name="header">
+                                            <apex:commandLink value="Created Date" onclick="javascript:sortLiveLinkList('{!sortDirectionLiveLink}', 'CreatedDate', '{!sortExpressionLiveLink}', {!noOfLiveLinks});return false;">
+                                                <apex:image value="/s.gif" styleClass="{!IF(noOfLiveLinks > 0 && sortExpressionLiveLink == 'CreatedDate', if(sortDirectionLiveLink='ASC','sortAsc','sortDesc'),'')}"/>
+                                            </apex:commandLink>
+                                        </apex:facet>           
+                                        <apex:outputText value="{!ll.dateCreated}"/>
+                                    </apex:column>
+                                </apex:pageBlockTable>
+                            </apex:pageBlock>   
+                        </apex:outputPanel>    
+                    </apex:tab>
+                    
+                    <!-- SCRUM: Vulnerable Customer Stream
+                         29-Oct-2013:   [xx-xxx]    GT      Included Financial Hardship Tab
+                         09-Dec-2013:   GT                  Displayed fields meet requirements of EPIC272/US-496 BR-01 & BR-02                          
+                     -->
+                     
+                    
+                    <apex:tab label="Financial Hardship" 
+                        name="tabFinancialHardShip" 
+                        id="financialHardshipTab" 
+                        ontabenter="displayFinancialHardshipOnClick('{!financialHardshipVisibility}', '{!profileFoundFinancialHardship}');" 
+                        rendered="{!IF(profileFoundFinancialHardship, IF(financialHardshipVisibility, true, false),false)}"
+                    >
+                    
+                        <apex:outputPanel layout="block" style="overflow:auto; height:200px;" id="pnlFinancialHardship" rendered="true">
+                            
+                            <apex:pageBlock id="pbFinancialHardship" rendered="true">
+                                <apex:pageBlockTable width="100%" value="{!financialHardships}" var="fh">
+                                    <apex:column >
+                                        <apex:facet name="header">
+                                            <apex:commandLink value="Hardship Application id"> 
+                                  
+                                            </apex:commandLink>
+                                        </apex:facet>   
+                                        <!--  <apex:outputText escape="false" value="{!fh.financialHardship.Name}"/> -->
+                                        <a HREF="#" onClick="openHardshipProgram{!fh.financialHardship.id}();return false;">{!fh.financialHardship.Name}</A>
+                                            <script type="text/javascript">
+                                            function openHardshipProgram{!fh.financialHardship.id}() {
+                                              if(sforce.console.isInConsole()){
+                                                  sforce.console.getEnclosingPrimaryTabId(openSubtabClassification{!fh.financialHardship.id});
+                                              }else{
+                                                  window.open("/{!fh.financialHardship.id}");
+                                              }
+                                            }	
+                                            var openSubtabClassification{!fh.financialHardship.id} = function openSubtabClassification{!fh.financialHardship.id}(result) {
+                                              var primaryTabId = result.id;
+                                              sforce.console.openSubtab(primaryTabId , '/{!fh.financialHardship.id}', true,
+                                                  '{!fh.financialHardship.id}', null, null, 'subtab{!fh.financialHardship.id}');
+                                            };
+                                        </script> 
+                                    </apex:column>
+                                    
+                                    <apex:column >
+                                        <apex:facet name="header">
+                                            <apex:commandLink value="Hardship Officer"> 
+                                            </apex:commandLink>
+                                        </apex:facet>   
+                                    <apex:outputText escape="false" value="{!fh.OwnerName}"/>
+                                    </apex:column>
+                                    
+                                    <apex:column >
+                                        <apex:facet name="header">
+                                            <apex:commandLink value="Active" > 
+                                            </apex:commandLink>
+                                        </apex:facet> 
+                                        <apex:inputCheckBox value="{!fh.financialHardship.Active__c}" disabled="true"/>
+                                    </apex:column>
+                                    
+                                    <apex:column >
+                                        <apex:facet name="header">
+                                            <apex:commandLink value="Hardship Status"> 
+                                            </apex:commandLink>
+                                        </apex:facet>
+                                        <apex:outputText escape="false" value="{!fh.financialHardship.Hardship_Status__c}"/>   
+                                    </apex:column>
+                                    
+                                    <apex:column >
+                                        <apex:facet name="header">
+                                            <apex:commandLink value="Next Review Date"> 
+                                            </apex:commandLink>
+                                        </apex:facet>
+                                        <apex:outputText escape="false" value="{0,date,dd/MM/yyyy}">
+                                            <apex:param value="{!fh.financialHardship.Next_Review_Date__c}"/>  
+                                        </apex:outputText> 
+                                    </apex:column>
+                                    
+                                    <apex:column >
+                                        <apex:facet name="header">
+                                            <apex:commandLink value="Next Review Action"> 
+                                            </apex:commandLink>
+                                        </apex:facet>
+                                        <apex:outputText escape="false" value="{!fh.financialHardship.Next_Review_Action__c}"/>   
+                                    </apex:column>
+                                                                                                        
+                               </apex:pageBlockTable>
+                           </apex:pageBlock>   
+                        </apex:outputPanel>
+                        
+                    </apex:tab>
+                    
+                </apex:tabPanel>
+                
+                <script type="text/javascript">
+              
+                    if('{!defaultTabValue}' != ''){
+                        if (RichFaces && RichFaces.panelTabs['{!$Component.thePage.theForm.theTabPanel}']){
+                            var tabs = RichFaces.panelTabs['{!$Component.thePage.theForm.theTabPanel}'];
+                            for (var i = 0; i < tabs.length; i++){
+                                if (tabs[i].name == '{!defaultTabValue}'){
+                                    RichFaces.switchTab('{!$Component.thePage.theForm.theTabPanel}', tabs[i].id, tabs[i].name);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    
+                    
+                    //validate if bill history callout is onload and visible, or on tab click and visible 
+                    displayBillHistoryOnLoad();
+                  
+                    //Validate if display callout during onload
+                    function displayBillHistoryOnLoad(){
+                        // validate if bill history callout is onload
+                        if('{!billHistoryCallout}' == 'false' && '{!bacct.id}' != '' && '{!profileFoundBillHistory}' == 'true' && '{!selectedObjectType}' == 'Billing Account'){ 
+                            document.getElementById('billHistoryIFrame').src = '/apex/BillHistoryQuickView?id='+'{!bacct.id}'+'&isdtp=vw';
+                        }else{
+                            if('{!defaultCallout}' == 'false' && '{!profileFoundBillHistory}' == 'false' && '{!selectedObjectType}' == 'Billing Account'){
+                                document.getElementById('billHistoryIFrame').src = '/apex/BillHistoryQuickView?id='+'{!bacct.id}'+'&isdtp=vw';
+                            }
+                        }
+                    }
+                     
+                    //Validate if display callout is on tab click
+                    function displayBillHistoryOnClick(callout, visibility, billid, profileFound){
+                        
+                        if(callout == 'true' && visibility == 'true' && billid != '' && profileFound == 'true' && billLoaded == false){
+                            document.getElementById('billHistoryIFrame').src = '/apex/BillHistoryQuickView?id='+billid+'&isdtp=vw';
+                            billLoaded = true;
+                        }else{
+                            if('{!defaultCallout}' == 'true' && '{!defaultVisibility}' == 'true' && billid != '' && profileFound == 'false' && billLoaded == false){
+                                document.getElementById('billHistoryIFrame').src = '/apex/BillHistoryQuickView?id='+billid+'&isdtp=vw';
+                                billLoaded = true;
+                            }
+                        }
+                    }
+                    
+                    //validate if QOS callout is onload and visible, or on tab click and visible 
+                    displayQosOnLoad();
+                  
+                    //Validate if display callout during onload
+                    function displayQosOnLoad(){
+                        // validate if bill history callout is onload
+                        if('{!qosCallout}' == 'false' && '{!bacct.id}' != '' && '{!profileFoundQos}' == 'true' && '{!selectedObjectType}' == 'Billing Account'){ 
+                            document.getElementById('QosIFrame').src = '/apex/QosHistoryQuickView?id='+'{!bacct.id}'+'&isdtp=vw';
+                        }else{
+                            if('{!defaultCallout}' == 'false' && '{!profileFoundQos}' == 'false' && '{!selectedObjectType}' == 'Billing Account'){
+                                document.getElementById('QosIFrame').src = '/apex/QosHistoryQuickView?id='+'{!bacct.id}'+'&isdtp=vw';
+                            }
+                        }
+                    }
+                     
+                    //Validate if display callout is on tab click
+                    function displayQosOnClick(callout, visibility, billid, profileFound){
+                        
+                        if(callout == 'true' && visibility == 'true' && billid != '' && profileFound == 'true' && qosLoaded == false){
+                            document.getElementById('QosIFrame').src = '/apex/QosHistoryQuickView?id='+billid+'&isdtp=vw';
+                            qosLoaded = true;
+                            
+                        }else{
+                            if('{!defaultCallout}' == 'true' && '{!defaultVisibility}' == 'true' && billid != '' && profileFound == 'false' && qosLoaded == false){
+                                document.getElementById('QosIFrame').src = '/apex/QosHistoryQuickView?id='+billid+'&isdtp=vw';
+                                qosLoaded = true;
+                            }
+                        }
+                    }
+                    
+                    //validate if Financials callout is onload and visible, or on tab click and visible 
+                    displayFinancialsOnLoad();
+                  
+                    //Validate if display callout during onload
+                    function displayFinancialsOnLoad(){
+                        // validate if bill history callout is onload
+                        if('{!financialsCallout}' == 'false' && '{!bacct.id}' != '' && '{!profileFoundFinancials}' == 'true' && '{!selectedObjectType}' == 'Billing Account'){ 
+                            document.getElementById('financialsIFrame').src = '/apex/FinancialsQuickView?id='+'{!bacct.id}'+'&isdtp=vw';
+                        }else{
+                            if('{!defaultCallout}' == 'false' && '{!profileFoundFinancials}' == 'false' && '{!selectedObjectType}' == 'Billing Account'){
+                                document.getElementById('financialsIFrame').src = '/apex/FinancialsQuickView?id='+'{!bacct.id}'+'&isdtp=vw';
+                            }
+                        }
+                    }
+                     
+                    //Validate if display callout is on tab click
+                    function displayFinancialsOnClick(callout, visibility, billid, profileFound){
+                        if(callout == 'true' && visibility == 'true' && billid != '' && profileFound == 'true' && financialsLoaded == false){
+                            document.getElementById('financialsIFrame').src = '/apex/FinancialsQuickView?id='+billid+'&isdtp=vw';
+                            financialsLoaded = true;
+                        }else{
+                            if('{!defaultCallout}' == 'true' && '{!defaultVisibility}' == 'true' && billid != '' && profileFound == 'false' && financialsLoaded == false){
+                                document.getElementById('financialsIFrame').src = '/apex/FinancialsQuickView?id='+billid+'&isdtp=vw';
+                                financialsLoaded = true;
+                            }
+                        }
+                    }
+                    
+                    //validate if Financials callout is onload and visible, or on tab click and visible 
+                    displayRecoveryOnLoad();
+                  
+                    //Validate if display callout during onload
+                    function displayRecoveryOnLoad(){
+                        // validate if bill history callout is onload
+                        if('{!recoveryCallout}' == 'false' && '{!bacct.id}' != '' && '{!profileFoundRecovery}' == 'true' && '{!selectedObjectType}' == 'Billing Account'){ 
+                            document.getElementById('recoveryHistoryIFrame').src = '/apex/RecoveryHistoryQuickView?id='+'{!bacct.id}'+'&isdtp=vw';
+                        }else{
+                            if('{!defaultCallout}' == 'false' && '{!profileFoundRecovery}' == 'false' && '{!selectedObjectType}' == 'Billing Account'){
+                                document.getElementById('recoveryHistoryIFrame').src = '/apex/RecoveryHistoryQuickView?id='+'{!bacct.id}'+'&isdtp=vw';
+                            }
+                        }
+                    }
+                     
+                    //Validate if display callout is on tab click
+                    function displayRecoveryOnClick(callout, visibility, billid, profileFound){
+                        
+                        if(callout == 'true' && visibility == 'true' && billid != '' && profileFound == 'true' && recoveryLoaded == false){
+                            document.getElementById('recoveryHistoryIFrame').src = '/apex/RecoveryHistoryQuickView?id='+billid+'&isdtp=vw';
+                            recoveryLoaded = true;
+                        }else{
+                            if('{!defaultCallout}' == 'true' && '{!defaultVisibility}' == 'true' && billid != '' && profileFound == 'false' && recoveryLoaded == false){
+                                document.getElementById('recoveryHistoryIFrame').src = '/apex/RecoveryHistoryQuickView?id='+billid+'&isdtp=vw';
+                                recoveryLoaded = true;
+                            }
+                        }
+                    }
+                    //Display cases on tab click
+                    function displayCasesOnClick(callout, visibility, billid, profileFound){
+                        if(callout == 'true' && visibility == 'true' && profileFound == 'true' && casesLoaded == false){
+                            refreshCases();
+                            casesLoaded = true;
+                        }else{
+                            if('{!defaultCallout}' == 'true' && '{!defaultVisibility}' == 'true' && profileFound == 'false' && casesLoaded == false){
+                                refreshCases();
+                                casesLoaded = true;
+                            }
+                        }
+                    }
+                    
+                    //Display classifications on tab click
+                    function displayClassOnClick(callout, visibility, billid, profileFound){
+                        if(callout == 'true' && visibility == 'true' && profileFound == 'true' && classLoaded == false){
+                            refreshClassifications();
+                            classLoaded = true;
+                        }else{
+                            if('{!defaultCallout}' == 'true' && '{!defaultVisibility}' == 'true' && profileFound == 'false' && classLoaded == false){
+                                refreshClassifications();
+                                classLoaded = true;
+                            }
+                        }
+                    }
+                    
+                    //Display activity history on tab click
+                    function displayActivitiesOnClick(callout, visibility, billid, profileFound){
+                        if(callout == 'true' && visibility == 'true' && profileFound == 'true' && activitiesLoaded == false){
+                            refreshActivities();
+                            activitiesLoaded = true;
+                        }else{
+                            if('{!defaultCallout}' == 'true' && '{!defaultVisibility}' == 'true' && profileFound == 'false' && activitiesLoaded == false){
+                                refreshActivities();
+                                activitiesLoaded = true;
+                            }
+                        }
+                    } 
+                    
+                    //22-Nov-2012 Added by DYU TP540 - Display livelink documents on tab click
+                    function displayLiveLinkOnClick(callout, visibility, billid, profileFound){
+                        if(callout == 'true' && visibility == 'true' && profileFound == 'true' && linkLoaded == false){
+                            refreshLiveLinks();
+                            linkLoaded = true;
+                        }else{
+                            if('{!defaultCallout}' == 'true' && '{!defaultVisibility}' == 'true' && profileFound == 'false' && linkLoaded == false){
+                                refreshLiveLinks();
+                                linkLoaded = true;
+                            }
+                        }
+                    }
+                    
+                    
+                    //31-Oct-2013 Added by GT SCRUM-Vulnerable Customer Stream - Display Financial Hardships for given customer on tab click
+                    function displayFinancialHardshipOnClick(visibility, profileFound){
+                        
+                        //alert('displayFinancialHardshipOnClick:\ncallout:' + callout + '\nvisibility:' + visibility + '\naccit:' + accit + 'profileFound' + profileFound);
+                        if(visibility == 'true' && profileFound == 'true'){
+                            refreshFinancialHardships();
+                            financialHardshipsLoaded = true;
+                        }
+                        
+                    }
+                    
+                    //displayFinancialHardshipOnLoad();
+                    
+                    //16-Dec-2013 Added by GT SCRUM-Vulnerable Customer Stream - DIsplay Financial Hardships for given customer on load
+                    function displayFinancialHardshipOnLoad(){
+                        // validate if financial hardship callout is onload
+                        
+                        if('{!profileFoundFinancialHardship}' == 'true'){ 
+                        
+                            refreshFinancialHardships();
+                            financialHardshipsLoaded = true;
+                        }
+                         
+                    }
+                    
+                </script>
+            </apex:outputPanel>
+        </div>
+       
+        <!-- End of Quick View Bottom Pane -->
+        
+        <!-- Enhanced Action Status -->
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff"
+                                       borderColor="#6B6B6B"
+                                       borderSize="1"
+                                       height="50px"
+                                       width="120px"
+                                       margintop="-25px"
+                                       marginleft="-60px"
+                                       ImageUrl="{!$Resource.AjaxAnimation}"
+                                       Message="Loading..."/>
+            </apex:facet>
+        </apex:actionStatus>
+    </apex:form>
+</apex:page>

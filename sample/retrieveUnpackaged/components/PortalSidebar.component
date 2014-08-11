@@ -1,0 +1,47 @@
+<apex:component controller="PortalSidebarController">
+
+    <!--
+        Description: side bar for portal
+
+        History:
+            13-Dec-2011 J.Pe (Davanti)    Created
+    -->
+
+    <apex:attribute: name="title" type="String" required="false" description="Sidebar title"/>
+    <apex:attribute: name="groupName" type="String" required="true" description="Group name (e.g. 'Billing_Account__c')" assignTo="{!groupName}"/>
+    <apex:attribute: name="currentDevName" type="String" required="false" description="Current developer name (to match with the item's Name field in the PortalSidebarItem Custom Settings)" assignTo="{!currentDevName}"/>
+    <apex:attribute: name="currentAccRecordType" type="String" description="Current account record's developer name (to match with the Visible Account Record Types field in the PortalSidebarItem Custom Settings)" assignTo="{!currentAccRecordType}"/>    
+
+    <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+
+	<div class="pbTransparent" width="100%">
+
+	    <apex:outputPanel layout="block" styleclass="pageBlockHeader" rendered="{!NOT(ISBLANK(title))}">
+            <apex:outputPanel layout="block" styleclass="pageBlockTitle midGrey">
+            	{!title}
+            </apex:outputPanel>
+		</apex:outputPanel>
+
+        <apex:outputPanel rendered="{!ISBLANK(title)}" layout="block" style="margin-top: 43px"/>
+		
+		<div class="pbNoTopPad">
+		    <apex:pageBlock id="sidebarpb">
+				<apex:outputPanel layout="block" id="portalInfocell" 
+						styleclass="contentsAddressCell borderDottedWhiteBottom" >
+		            <apex:componentBody />
+				</apex:outputPanel> 
+	            <apex:repeat value="{!filteredPortalSidebarItemWrappers}" var="item">
+		            <apex:outputPanel layout="block" styleclass="contentsLinkCell borderDottedWhiteBottom">
+		                <apex:outputLink value="{!item.linkURL}" 
+		                		styleclass="{!IF(currentDevName==item.name, 'contentsLinkActive', 'contentsLink')}" target="_top">
+		                    {!item.label}
+		                    <!--use below if you want to remind user to save before navigate-->
+		                    <!--<span class="popup" >Please save your work before navigating</span>-->
+		                </apex:outputLink>
+		            </apex:outputPanel>
+	            </apex:repeat>
+	        </apex:pageBlock>
+		</div>
+	</div>
+
+</apex:component>

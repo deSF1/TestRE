@@ -1,0 +1,18 @@
+<!--
+* @author Original: Adrian Recio Cloud Sherpas
+* @date Original: 9/2/2014
+* @description Component that hides 'My Digital Meter' tab based on digital meter property the user owns
+-->
+<apex:component controller="DMTrialHideDigitalMeterTabController">
+    <script>
+        try{
+            if("{!propertyIsPresent}" == "false"){
+                var dMtrialMainTabId = document.getElementById("01r90000000kddc_Tab");
+                dMtrialMainTabId.style.display='none';
+            }
+        }catch(err){
+            alert(err);
+        }
+    
+    </script>
+</apex:component>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <allowRecall>true</allowRecall>
+    <allowedSubmitters>
+        <type>creator</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <type>owner</type>
+    </allowedSubmitters>
+    <approvalPageFields>
+        <field>CaseNumber</field>
+        <field>Owner</field>
+        <field>Account</field>
+        <field>Billing_Account_SMR__c</field>
+        <field>Type</field>
+        <field>Hot_Issues__c</field>
+        <field>Comments</field>
+    </approvalPageFields>
+    <approvalStep>
+        <allowDelegate>false</allowDelegate>
+        <assignedApprover>
+            <approver>
+                <type>userHierarchyField</type>
+            </approver>
+        </assignedApprover>
+        <label>Approval Actions</label>
+        <name>Approval_Actions</name>
+    </approvalStep>
+    <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
+    <finalApprovalRecordLock>false</finalApprovalRecordLock>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <label>Case Approval Process</label>
+    <nextAutomatedApprover>
+        <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>
+        <userHierarchyField>Approver__c</userHierarchyField>
+    </nextAutomatedApprover>
+    <recordEditability>AdminOnly</recordEditability>
+    <showApprovalHistory>true</showApprovalHistory>
+</ApprovalProcess>

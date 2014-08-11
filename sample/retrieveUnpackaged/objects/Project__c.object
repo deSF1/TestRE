@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This object stores the events and exhibitions that IOTA business group participate in. It&apos;s used to track the key information about these events and any related tasks for preparing for the event.</description>
+    <enableActivities>true</enableActivities>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Description__c</fullName>
+        <description>Description of the event</description>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <length>32768</length>
+        <trackFeedHistory>true</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Event_Date__c</fullName>
+        <description>Date on which the event is due to occur</description>
+        <externalId>false</externalId>
+        <label>Event Date</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>Status of planning for the event</description>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Not Started</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Disregarded</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>true</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <label>Project</label>
+    <nameField>
+        <label>Project Name</label>
+        <trackFeedHistory>true</trackFeedHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Projects</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+</CustomObject>

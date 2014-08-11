@@ -1,0 +1,5 @@
+<apex:page sidebar="false" showHeader="false" id="publicPage">
+
+    <c:SEWEventsMap fromPublicSite="true" id="component"/>
+
+</apex:page>

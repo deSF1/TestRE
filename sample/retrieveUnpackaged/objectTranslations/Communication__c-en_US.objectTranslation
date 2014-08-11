@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Communication</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Communications</value>
+    </caseValues>
+    <fields>
+        <label><!-- Approved for Publishing --></label>
+        <name>Approved_for_Publishing__c</name>
+    </fields>
+    <fields>
+        <label><!-- Needs Communications Review --></label>
+        <name>Needs_Communications_Review__c</name>
+    </fields>
+    <fields>
+        <label><!-- Published --></label>
+        <name>Published__c</name>
+    </fields>
+    <fields>
+        <label><!-- SEW Event --></label>
+        <name>SEW_Event__c</name>
+        <relationshipLabel><!-- Communications --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>Communication Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Email --></label>
+        <name>Email</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Facebook --></label>
+        <name>Facebook</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Internet --></label>
+        <name>Internet</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- SMS --></label>
+        <name>SMS</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Twitter --></label>
+        <name>Twitter</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,98 @@
+<apex:component allowDML="true">
+<apex:attribute name="pkbCon" type="pkb_Controller" required="true" description="handle to the pkb controller" />
+
+<apex:variable var="category" value="{!IF(ISBLANK(pkbCon.selectedCategory), pkbCon.categoryGroup1+":"+pkbCon.rootCategory1, pkbCon.selectedCategory)}" />
+<apex:variable var="noResultsFound" value="{!IF(pkbCon.foundRecommended, 'false', 'true')}" />
+<apex:variable var="currPage" value="{!IF(pkbCon.displayContactUs, 1, pkbCon.currPage)}" />
+<apex:variable var="varMore" value="false" />
+<!--
+POPULAR PAGE SIZE: {!pkbCon.popularArticles}<br/>
+RESULTS PAGE SIZE: {!pkbCon.articlesPerPage}<br/>
+CURRENT PAGE: {!pkbCon.currPage}<br/>
+LANG: {!pkbCon.selectedLanguage}<br/>
+CATEGORY USED: {!category}<br/>
+-->
+<apex:form >
+    <apex:outputPanel layout="block" id="results">
+        <div id="results">
+            <h3 class="section" style="margin-left: 50px; margin-right: 60px;">{!pkbCon.selectedPopCategoryLabel}</h3>  <br/>
+            <apex:panelGrid width="100%">
+                <table width="560px" cellspacing="0" cellpadding="0" style="margin-left: 50px; ">
+                    <tr>
+                        <th class="rich-table-thead" style="background-color: #EFF8FD; width:70%;">Article title</th>
+                        <th class="rich-table-thead" style="background-color: #EFF8FD; width:30%; text-align: center;">Ratings</th>
+                    </tr>
+                </table>
+                <knowledge:articleList articleVar="a"
+                    language="{!pkbCon.selectedLanguage}"
+                    sortBy="mostViewed" 
+                    pageSize="{!pkbcon.articlesPerPage}"
+                    categories="{!category}"
+                    pageNumber="{!currPage}"
+                    hasMoreVar="more">
+                    <table width="560px" cellspacing="0" cellpadding="0" style="margin-left: 50px; ">                       
+                        <tr>
+                            <td style="width: 70%">
+                                <c:pkb_article pkbCon="{!pkbCon}" 
+                                  aid="{!a.id}"
+                                  title="{!a.title}"
+                                  summary="{!a.summary}"
+                                  urlName="{!a.urlName}"
+                                  articleTypeName="{!a.articleTypeName}"
+                                  articleTypeLabel="{!a.articleTypeLabel}"
+                                  lastModifiedDate="{!a.lastModifiedDate}"
+                                  firstPublishedDate="{!a.firstPublishedDate}"
+                                  lastPublishedDate="{!a.lastPublishedDate}"
+                                />
+                            </td>
+                            <td style="width: 30%; text-align: center;">
+                                <c:pkb_rating aid="{!a.id}"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <apex:variable var="varMore" value="{!more}" />
+                    <apex:variable var="noResultsFound" value="false" />
+                    <script type="text/javascript">noResultsFound = {!noResultsFound} 
+                    //alert({ !noResultsFound});
+                    </script>    
+                </knowledge:articleList>
+                </apex:panelGrid>
+                <apex:outputPanel layout="block" rendered="{!(noResultsFound == 'true') && (NOT(pkbCon.displayContactUs))}" style="margin-top: 10px; margin-left: 50px; width:560px;">
+                    {!$Label.PKB2_No_Results}<br/><br/>
+                </apex:outputPanel>
+                <center>
+                    <apex:outputPanel layout="block" style="margin-top: 10px; width: 100%;" styleClass="resultsPaginationLinks" rendered="{!NOT(pkbCon.displayContactUs)}">
+                        <div style="width:100%;">
+                            <apex:actionStatus id="status">
+                                <apex:facet name="start"><apex:image value="{!$Resource.PortalAjaxLoader}" /></apex:facet>
+                                <apex:facet name="stop"></apex:facet>
+                            </apex:actionStatus>&nbsp; &nbsp; 
+                            <apex:commandLink action="{!pkbCon.firstPage}" rerender="results" rendered="{!(pkbCon.currPage > 2)}" status="status"><apex:image value="{!$Resource.pkb_first}"></apex:image></apex:commandLink>
+                            &nbsp;  
+                            <apex:commandLink action="{!pkbCon.prevPage}" rerender="results" rendered="{!(pkbCon.currPage > 1)}" status="status"><apex:image value="{!$Resource.pkb_previous}"></apex:image>&nbsp;{!$Label.PKB2_Previous_Link}</apex:commandLink>
+                            &nbsp;
+                            <apex:commandLink action="{!pkbCon.nextPage}" rerender="results" status="status" id="nextBtn">{!$Label.PKB2_Next_Link}&nbsp;<apex:image value="{!$Resource.pkb_next}"></apex:image>
+                                <script  type="text/javascript">
+                                    if ("{!varMore}" == "false"){ 
+                                        document.getElementById('{!$Component.nextBtn}').style.visibility = 'hidden';
+                                    }
+                                </script>
+                            </apex:commandLink>
+                        </div>
+                </apex:outputPanel>
+            </center>
+            <br/>
+            <apex:outputPanel layout="block" style="margin-top: 10px; margin-left: 50px; width:560px;">
+                    <label><h3 style="border-bottom: 0px;">Can’t find what you’re looking for?</h3></label>
+                    <label>Send us an online <a href="{!$Page.PortalEnquiries}?searchText={!pkbCon.urlSearchQuery}">enquiry</a>.</label>
+                </apex:outputPanel>
+            <apex:outputText value="{!pkbCon.maxSize}"/>
+                <apex:outputText rendered="{!pkbCon.displayContactUs && pkbCon.searchExecuted}">
+                  <script type="text/javascript">if ({!noResultsFound}) prepareToRenderOverlay();</script>
+            </apex:outputText>   
+            <script type="text/javascript">hideNext(); hideResultsRss(); hideImmediateHelp({!noResultsFound});
+            </script>
+        </div>
+    </apex:outputPanel>
+</apex:form>
+</apex:component>

@@ -1,0 +1,39 @@
+<!--  
+    Type:       Visualforce Page
+    Purpose:    Get the articles view stat            
+
+    Used By:    PublicSupportPage
+    ---------------------------------------------------------------
+    History:
+	    
+    01-Jul-2013 Nathan Patterson		    Created
+-->
+<apex:component allowDML="true" controller="pkb_Controller2" access="global">
+    <!--
+    Type:      Component
+    Purpose:   
+    
+    Used By:    pkb_results Component
+    ---------------------------------------------------------------
+    History:
+
+    17-Jun-2013 NPatterson    Created
+    -->
+    
+    <apex:attribute name="aid" type="String" description="ID of the article" assignTo="{!articleId}"/>
+    <!-- zero ratings -->
+    <apex:outputPanel rendered="{!ROUND(articleViewStat.NormalizedScore, 0)>0}">
+    	<img id="blueBar{!articleViewStat.id}" class="blueBar" src="{!$Resource.ProgressBlue}" style="position:absolute; margin-left:-45px;"/>
+    	<img id="greyBar{!articleViewStat.id}"  class="greyBar" src="{!$Resource.ProgressGrey}" style="position:absolute; margin-left:-45px;"/>
+    	
+    </apex:outputPanel>
+    <!-- Need a script to do this because the iframe in the Sharepoint page seems to criple the clip style value -->
+	<script>
+		var bb = document.getElementById("blueBar{!articleViewStat.id}");
+		bb.style.clip = "rect(0px,{!ROUND(BlueWidth, 0)}px,14px,0px)";
+		var gb = document.getElementById("greyBar{!articleViewStat.id}");
+		gb.style.clip = "rect(0px,93px,14px,{!ROUND(BlueWidth, 0)}px)";
+	</script>
+	
+ 
+</apex:component>

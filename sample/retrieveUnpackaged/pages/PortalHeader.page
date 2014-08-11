@@ -1,0 +1,7 @@
+<apex:page cache="true" showheader="false" sidebar="false" >
+	<head>
+	    <apex:stylesheet value="{!$Resource.SEWPortalStyles}"/>
+	    <apex:stylesheet value="{!$Resource.SiteStyles}"/>
+	</head>
+    <c:SiteHeader authenticated="true"/>
+</apex:page>

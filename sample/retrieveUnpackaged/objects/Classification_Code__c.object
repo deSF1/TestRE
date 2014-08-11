@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Classification codes for customers</description>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Append_Comments__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Check if the agent&apos;s comments should be displayed at the end of the message</inlineHelpText>
+        <label>Append Comments</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Care_Check_Type__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>0 - Alert will result in this warning being displayed in the Alerts section on the customer</inlineHelpText>
+        <label>Customer Care Check Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0 - Alert</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1 - Warning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 - Informational</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 - Not checked</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Enable_Outbound_Messaging__c</fullName>
+        <externalId>false</externalId>
+        <label>Enable Outbound Messaging</label>
+        <picklist>
+            <controllingField>Mastered_in_Salesforce__c</controllingField>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <controllingFieldValues>checked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <controllingFieldValues>checked</controllingFieldValues>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>End Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>External_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>External Id</label>
+        <length>30</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Has_Billing_Impact__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Identifies if the classification has a billing impact</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Identifies if the classification has a billing impact</inlineHelpText>
+        <label>Has Billing Impact</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Identifies if the classification code is active for use</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Identifies if the classification code is active for use</inlineHelpText>
+        <label>Is Active</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Billing_Account_Level__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Identifies if the classification is assigned at Billing Account level</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Identifies if the classification is assigned at Billing Account level</inlineHelpText>
+        <label>Is Billing Account Level</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Customer_Level__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Identifies if the classification is assigned at the Customer level</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Identifies if the classification is assigned at the Customer level</inlineHelpText>
+        <label>Is Customer Level</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Mastered_in_Salesforce__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Flag which indicates whether this classification is mastered in Salesforce - that is, it is allowed to be directly added to customer records, rather than via HiAffinity.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Flag which indicates whether this classification is mastered in Salesforce - that is, it is allowed to be directly added to customer records, rather than via HiAffinity.</inlineHelpText>
+        <label>Mastered in Salesforce?</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Message__c</fullName>
+        <externalId>false</externalId>
+        <label>Message</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Short_Description__c</fullName>
+        <description>Short Description for the customer classification</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Short Description for the customer classification</inlineHelpText>
+        <label>Short Description</label>
+        <length>50</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sort_Order__c</fullName>
+        <externalId>false</externalId>
+        <label>Sort Order</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Account</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Credit Management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Health &amp; Medical</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Legal Credit Management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Miscellaneous</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pension &amp; Concession</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Privacy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Security</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sensitive Information</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tenancy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Miscellaneous Charges</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <label>Classification Code</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Short_Description__c</columns>
+        <columns>Message__c</columns>
+        <columns>Sort_Order__c</columns>
+        <columns>Customer_Care_Check_Type__c</columns>
+        <columns>Type__c</columns>
+        <columns>External_Id__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Classification_Codes_Mastered_in_HiAff</fullName>
+        <columns>NAME</columns>
+        <columns>Is_Active__c</columns>
+        <columns>Short_Description__c</columns>
+        <columns>Message__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>Type__c</columns>
+        <columns>Mastered_in_Salesforce__c</columns>
+        <columns>Enable_Outbound_Messaging__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Mastered_in_Salesforce__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <label>Classification Codes Mastered in HiAff</label>
+    </listViews>
+    <listViews>
+        <fullName>Classification_Codes_Mastered_in_Pulse</fullName>
+        <columns>NAME</columns>
+        <columns>Is_Active__c</columns>
+        <columns>Short_Description__c</columns>
+        <columns>Mastered_in_Salesforce__c</columns>
+        <columns>Enable_Outbound_Messaging__c</columns>
+        <columns>Message__c</columns>
+        <columns>Type__c</columns>
+        <columns>End_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Mastered_in_Salesforce__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>Classification Codes Mastered in Pulse</label>
+    </listViews>
+    <nameField>
+        <label>Code</label>
+        <type>Text</type>
+    </nameField>
+    <namedFilters>
+        <fullName>nf_01I90000000FcM0EAK_00N90000001kXfqEAE</fullName>
+        <active>true</active>
+        <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
+        <errorMessage>Only classifications mastered in Pulse may be added here. All other classifications are controlled by HiAffinity.</errorMessage>
+        <field>Customer_Classification__c.Classification__c</field>
+        <filterItems>
+            <field>Classification_Code__c.Mastered_in_Salesforce__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <filterItems>
+            <field>$Profile.Name</field>
+            <operation>equals</operation>
+            <value>SEW Integration</value>
+        </filterItems>
+        <filterItems>
+            <field>$Profile.Name</field>
+            <operation>equals</operation>
+            <value>SEW Administrator</value>
+        </filterItems>
+        <filterItems>
+            <field>$Profile.Name</field>
+            <operation>equals</operation>
+            <value>System Administrator</value>
+        </filterItems>
+        <infoMessage>Note: This lookup is filtered to *only* display classifications that are mastered in Pulse.</infoMessage>
+        <isOptional>false</isOptional>
+        <name>Customer Classification_Classification</name>
+    </namedFilters>
+    <pluralLabel>Classification Codes</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Short_Description__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Message__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Customer_Care_Check_Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Is_Customer_Level__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Is_Billing_Account_Level__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Has_Billing_Impact__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Is_Active__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Short_Description__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Type__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Message__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Customer_Care_Check_Type__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Is_Customer_Level__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Is_Billing_Account_Level__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Has_Billing_Impact__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Is_Active__c</lookupDialogsAdditionalFields>
+        <lookupFilterFields>NAME</lookupFilterFields>
+        <lookupFilterFields>Customer_Care_Check_Type__c</lookupFilterFields>
+        <lookupFilterFields>Append_Comments__c</lookupFilterFields>
+        <lookupFilterFields>Short_Description__c</lookupFilterFields>
+        <lookupFilterFields>Type__c</lookupFilterFields>
+        <lookupPhoneDialogsAdditionalFields>Short_Description__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Type__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Message__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Customer_Care_Check_Type__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Is_Customer_Level__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Is_Billing_Account_Level__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Has_Billing_Impact__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Is_Active__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Short_Description__c</searchFilterFields>
+        <searchFilterFields>Customer_Care_Check_Type__c</searchFilterFields>
+        <searchFilterFields>Is_Active__c</searchFilterFields>
+        <searchResultsAdditionalFields>Short_Description__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Message__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Customer_Care_Check_Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Is_Customer_Level__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Is_Billing_Account_Level__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Has_Billing_Impact__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Is_Active__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Read</sharingModel>
+    <validationRules>
+        <fullName>Prevent_Outbound_Messaging</fullName>
+        <active>true</active>
+        <description>This classification code is prohibited from being enabled for Outbound Messaging or being Mastered in PULSE. This will prevent an infinite class synching loop between PULSE and HA since the change on 16.1.14 that now synch&apos;s the MC from HA in realtime</description>
+        <errorConditionFormula>AND( 
+ (Mastered_in_Salesforce__c) == true, 
+ (Name) == &apos;MC&apos; 
+)</errorConditionFormula>
+        <errorMessage>This classification code is prohibited from being enabled for Outbound Messaging or being Mastered in PULSE</errorMessage>
+    </validationRules>
+</CustomObject>

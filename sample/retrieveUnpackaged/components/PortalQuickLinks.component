@@ -1,0 +1,412 @@
+<apex:component controller="PortalQuickLinks_Controller">
+
+    <!--
+        Description: Quick Links
+
+        History:
+            27-Apr-2012 - added mode for Name Change Request
+            11-May-2012 - updated Paperles and SMS billing to "Go paperless"
+            16-May-2012 AVergara modified payment plan link
+            4-Jun-2012  D.Yu      Update: 5161 - Update link text
+            8-Jun-2012 I.Castillo Update: 5221 - Update quicklink labels
+            03-Feb-2014 B. Trinidad Update: Added DMT quick links
+    -->
+
+    <head>
+<apex:stylesheet value="{!$Resource.PortalIcons_Styles}" />
+    </head>
+
+    <apex:attribute name="mode"
+        description="Determines what gets displayed" type="String"
+        required="false" default="Default" />
+
+    <style>
+.quickLinkDiv {
+    clear: both;
+    vertical-align: middle;
+    height: 75px;
+}
+
+.quickLinkIcon {
+    float: left;
+}
+
+.quickLinkTextDiv {
+    float: left;
+    margin-left: 5px;
+    line-height: 1.4;
+    width: 160px;
+}
+
+.quickLinkDiv a {
+    color: #575756;
+    font-weight: bold;
+}
+
+.quickLinkDiv a:hover {
+    color: #363636;
+}
+</style>
+
+    <div style="margin-top: 30px;" />
+
+    <!-- DEFAULT -->
+    <apex:outputPanel rendered="{!mode='Default'}">
+        <!-- Moving or Selling -->
+        <div class="quickLinkDiv">
+            <apex:outputLink title="Moving or selling?"
+                value="{!$Page.PortalMoveInOut}">
+                <div class="quickLinkIcon movingSellingIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv">
+                Moving or selling? <br />
+                <apex:outputLink value="{!$Page.PortalMoveInOut}">Arrange a meter reading</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+
+        <!-- Set up payment plan -->
+        <apex:outputPanel layout="block" styleclass="quickLinkDiv" rendered="{!customerType == 'Residential'}">
+            <apex:outputLink title="Looking for more certainty?" value="{!$Page.PortalPaymentPlan_Select}">
+                <div class="quickLinkIcon paymentPlanIconSmall"/>
+            </apex:outputLink>
+            <div class="quickLinkTextDiv" style="position: relative; top: -10px">
+                Looking for more certainty?
+                <br/>                   
+                <apex:outputLink value="{!$Page.PortalPaymentPlan_Select}">Set up payment plan</apex:outputLink>
+            </div>
+            <div class="clear"/>
+        </apex:outputPanel>
+
+        <!-- eBilling -->
+        <apex:outputPanel layout="block" styleclass="quickLinkDiv" rendered="{!customerType != 'Residential'}">
+            <apex:outputLink title="Stop bills in the post">
+                <div class="quickLinkIcon paperlessBillingIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv">
+                Stop bills in the post <br />
+                <apex:outputLink value="{!$Page.PortalBillPreferences}">Go paperless</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </apex:outputPanel>
+
+        <!-- add an account -->
+        <div class="quickLinkDiv">
+            <apex:outputLink title="Can't see your property?"
+                value="{!$Page.PortalAddAnAccount}">
+                <div class="quickLinkIcon addAccountIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv">
+                Can't see your property? <br />
+                <apex:outputLink value="{!$Page.PortalAddAnAccount}">Add an account</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+
+        <!-- concessions -->
+        <apex:outputPanel styleclass="quickLinkDiv"
+            rendered="{!customerType == 'Residential'}">
+            <apex:outputLink title="Concession card holder?"
+                value="{!$Page.PortalManageConcession}">
+                <div class="quickLinkIcon concessionIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv">
+                Concession card holder? <br />
+                <apex:outputLink value="{!$Page.PortalManageConcession}">Register now and save</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </apex:outputPanel>
+    </apex:outputPanel>
+
+    <!--  PERSON DETAIL -->
+    <apex:outputPanel rendered="{!mode='PersonDetail'}">
+
+        <!-- direct debit -->
+        <div class="quickLinkDiv">
+            <apex:outputLink title="Direct Debit"
+                value="{!$Page.PortalDirectDebit_Select}">
+                <div class="quickLinkIcon directDebitIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv">
+                Make payments simpler <br />
+                <apex:outputLink value="{!$Page.PortalDirectDebit_Select}">Manage direct debit</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+
+        <!--  moving selling -->
+        <div class="quickLinkDiv">
+            <apex:outputLink title="Moving or selling?"
+                value="{!$Page.PortalMoveInOut}">
+                <div class="quickLinkIcon movingSellingIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv">
+                Moving or selling? <br />
+                <apex:outputLink value="{!$Page.PortalMoveInOut}">Arrange a meter reading</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+
+        <!-- add an account -->
+        <div class="quickLinkDiv">
+            <apex:outputLink title="Can't see your property?"
+                value="{!$Page.PortalAddAnAccount}">
+                <div class="quickLinkIcon addAccountIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv">
+                Can't see your property? <br />
+                <apex:outputLink value="{!$Page.PortalAddAnAccount}">Add an account</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+
+        <!-- MTP -->
+        <div class="quickLinkDiv">
+            <apex:outputLink title="Need more time to pay?"
+                value="{!$Page.PortalMoreTimeToPay}">
+                <div class="quickLinkIcon moreTimeToPayIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv">
+                Need more time to pay? <br />
+                <apex:outputLink value="{!$Page.PortalMoreTimeToPay}">Request more time</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+
+        <!-- Feedback -->
+        <div class="quickLinkDiv">
+            <apex:outputLink title="Provide feedback"
+                value="{!$Page.PortalEnquiries}?type=feedback">
+                <div class="quickLinkIcon feedbackIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv" style="position: relative; top: -10px">
+                Comments or suggestions? <br />
+                <apex:outputLink value="{!$Page.PortalEnquiries}?type=feedback">Provide feedback</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+    </apex:outputPanel>
+
+    <!-- Property -->
+    <!-- set up direct debit -->
+    <apex:outputPanel rendered="{!mode='Property'}">
+        <!-- Moving or Selling -->
+        <div class="quickLinkDiv">
+            <apex:outputLink title="Make payments simpler?"
+                value="{!$Page.PortalDirectDebit_Select}">
+                <div class="quickLinkIcon directDebitIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv">
+                Make payments simpler? <br />
+                <apex:outputLink value="{!$Page.PortalDirectDebit_Select}">Set up direct debit</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+
+        <!-- eBilling -->
+        <div class="quickLinkDiv">
+            <apex:outputLink title="Sick of paper work?"
+                value="{!$Page.PortalBillPreferences}">
+                <div class="quickLinkIcon paperlessBillingIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv">
+                Sick of paper work? <br />
+                <apex:outputLink value="{!$Page.PortalBillPreferences}">Set up paperless billing</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+
+        <!-- Set up payment plan -->
+        <!--  <div class="quickLinkDiv" >
+            <apex:outputLink title="Looking for more certainty?" value="null">
+                <div class="quickLinkIcon addAccountIconSmall"/>
+            </apex:outputLink>
+            <div class="quickLinkTextDiv" style="position: relative; top: -10px">
+                Looking for more certainty?
+                <br/>                   
+                <apex:outputLink value="null">Set up payment plan</apex:outputLink>
+            </div>
+            <div class="clear"/>
+        </div> -->
+
+        <!--  bill explained -->
+        <!--
+        <div class="quickLinkDiv" >
+            <apex:outputLink title="Looking for more certainty?">
+                <div class="quickLinkIcon billExplainedIconSmall"/>
+            </apex:outputLink>
+            <div class="quickLinkTextDiv" style="position: relative; top: -10px">
+                Need help understanding your bill?
+                <br/>                   
+                <apex:outputLink >Your bill explained</apex:outputLink>
+            </div>
+            <div class="clear"/>
+        </div>-->
+    </apex:outputPanel>
+
+    <!--  Paperless Billing -->
+    <apex:outputPanel rendered="{!mode='BillPreferences'}">
+        <!-- direct debit -->
+        <div class="quickLinkDiv">
+            <apex:outputLink title="Direct Debit"
+                value="{!$Page.PortalDirectDebit_Select}">
+                <div class="quickLinkIcon directDebitIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv">
+                Make payments simpler <br />
+                <apex:outputLink value="{!$Page.PortalDirectDebit_Select}">Set up direct debit</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+
+        <!--  moving selling -->
+        <div class="quickLinkDiv">
+            <apex:outputLink title="Moving or selling?"
+                value="{!$Page.PortalMoveInOut}">
+                <div class="quickLinkIcon movingSellingIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv">
+                Moving or selling? <br />
+                <apex:outputLink value="{!$Page.PortalMoveInOut}">Arrange a meter reading</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+
+        <!-- Feedback -->
+        <div class="quickLinkDiv">
+            <apex:outputLink title="Provide feedback"
+                value="{!$Page.PortalEnquiries}?type=feedback">
+                <div class="quickLinkIcon feedbackIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv" style="position: relative; top: -10px">
+                Comments or suggestions? <br />
+                <apex:outputLink value="{!$Page.PortalEnquiries}?type=feedback">Provide feedback</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+
+        <!-- add an account -->
+        <div class="quickLinkDiv">
+            <apex:outputLink title="Can't see your property?"
+                value="{!$Page.PortalAddAnAccount}">
+                <div class="quickLinkIcon addAccountIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv">
+                Can't see your property? <br />
+                <apex:outputLink value="{!$Page.PortalAddAnAccount}">Add an account</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+
+    </apex:outputPanel>
+
+
+    <!--  PERSON DETAIL -->
+    <apex:outputPanel rendered="{!mode='NameChangeRequest'}">
+
+
+        <!--  moving selling -->
+        <div class="quickLinkDiv">
+            <apex:outputLink title="Moving or selling?"
+                value="{!$Page.PortalMoveInOut}">
+                <div class="quickLinkIcon movingSellingIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv">
+                Moving or selling? <br />
+                <apex:outputLink value="{!$Page.PortalMoveInOut}">Arrange a meter reading</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+
+        <!-- add an account -->
+        <div class="quickLinkDiv">
+            <apex:outputLink title="Can't see your property?"
+                value="{!$Page.PortalAddAnAccount}">
+                <div class="quickLinkIcon addAccountIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv">
+                Can't see your property? <br />
+                <apex:outputLink value="{!$Page.PortalAddAnAccount}">Add an account</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+
+        <!-- MTP -->
+        <div class="quickLinkDiv">
+            <apex:outputLink title="Need more time to pay?"
+                value="{!$Page.PortalMoreTimeToPay}">
+                <div class="quickLinkIcon moreTimeToPayIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv">
+                Need more time to pay? <br />
+                <apex:outputLink value="{!$Page.PortalMoreTimeToPay}">Request more time</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+    </apex:outputPanel>
+
+    <!-- Payment Mode -->
+    <apex:outputPanel rendered="{!mode='Payment'}">
+        <!-- Moving or Selling -->
+        <div class="quickLinkDiv">
+            <apex:outputLink title="Moving or selling?"
+                value="{!$Page.PortalMoveInOut}">
+                <div class="quickLinkIcon movingSellingIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv">
+                Moving or selling? <br />
+                <apex:outputLink value="{!$Page.PortalMoveInOut}">Arrange a meter reading</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+
+        <!-- add an account -->
+        <div class="quickLinkDiv">
+            <apex:outputLink title="Can't see your property?"
+                value="{!$Page.PortalAddAnAccount}">
+                <div class="quickLinkIcon addAccountIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv">
+                Can't see your property? <br />
+                <apex:outputLink value="{!$Page.PortalAddAnAccount}">Add an account</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+
+        <!-- eBilling -->
+        <div class="quickLinkDiv">
+            <apex:outputLink title="Stop bills in the post">
+                <div class="quickLinkIcon paperlessBillingIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv" style="position: relative; top: -10px">
+                Stop bills in the post <br />
+                <apex:outputLink value="{!$Page.PortalBillPreferences}">Go paperless</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+    </apex:outputPanel>
+     <!-- DMT -->
+    <apex:outputPanel rendered="{!mode='DMT'}">
+    	<div class="quickLinkDiv">
+            <apex:outputLink title="Need more time to pay?" value="{!$Page.PortalMoreTimeToPay}">
+                <div class="quickLinkIcon moreTimeToPayIconSmall" />
+            </apex:outputLink>
+            <div class="quickLinkTextDiv">
+                Need more time to pay? <br />
+                <apex:outputLink value="{!$Page.PortalMoreTimeToPay}">Request more time</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+        
+        <div class="quickLinkDiv">
+            <apex:outputLink value="{!$Page.PortalEnquiries}?type=feedback" target="_new" title="Provide feedback">
+                <div class="quickLinkIcon feedbackIconSmall" />
+            </apex:outputLink>
+            <div style="padding-left:50px;">
+               Comments or suggestions? <br />
+                <apex:outputLink value="{!$Page.PortalEnquiries}?type=feedback" target="_new">Provide trial feedback</apex:outputLink>
+            </div>
+            <div class="clear" />
+        </div>
+	</apex:outputPanel>
+</apex:component>

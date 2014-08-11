@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Financial Hardship</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Financial Hardship</value>
+    </caseValues>
+    <fields>
+        <help><!-- Signifies that the Financial Hardship Program is Active for the Customer --></help>
+        <label><!-- Program Is Active --></label>
+        <name>Active__c</name>
+    </fields>
+    <fields>
+        <label><!-- Assistance Options --></label>
+        <name>Assistance_Options__c</name>
+        <picklistValues>
+            <masterLabel>CentrePay</masterLabel>
+            <translation><!-- CentrePay --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Good Shepherd</masterLabel>
+            <translation><!-- Good Shepherd --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>More Time To Pay</masterLabel>
+            <translation><!-- More Time To Pay --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Negotiated Writeoff</masterLabel>
+            <translation><!-- Negotiated Writeoff --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Payment Plan</masterLabel>
+            <translation><!-- Payment Plan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Plumbing Assist Program</masterLabel>
+            <translation><!-- Plumbing Assist Program --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>URGS</masterLabel>
+            <translation><!-- URGS --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- This field should be invisible. --></help>
+        <label><!-- Customer Id --></label>
+        <name>Customer_Id__c</name>
+    </fields>
+    <fields>
+        <help><!-- Represents a Customer under a Financial Hardship program --></help>
+        <label><!-- Customer Name --></label>
+        <name>Customer__c</name>
+        <relationshipLabel><!-- Financial Hardship --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- End of Program Account Balance --></label>
+        <name>End_Program_Balance__c</name>
+    </fields>
+    <fields>
+        <label><!-- Exception Reason --></label>
+        <name>Exception_Reason__c</name>
+    </fields>
+    <fields>
+        <help><!-- The exit date of the program --></help>
+        <label><!-- Exit Date --></label>
+        <name>Exit_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- The exit reason for the Customer who exits the Financial Hardship Program --></help>
+        <label><!-- Exit Reason --></label>
+        <name>Exit_Reason__c</name>
+        <picklistValues>
+            <masterLabel>Successful</masterLabel>
+            <translation><!-- Successful --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unsuccessful</masterLabel>
+            <translation><!-- Unsuccessful --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Financial_Hardship_Status__c</name>
+    </fields>
+    <fields>
+        <help><!-- Represents the level of financial hardship status for the related customer --></help>
+        <label><!-- Status --></label>
+        <name>Hardship_Status__c</name>
+        <picklistValues>
+            <masterLabel>Bronze</masterLabel>
+            <translation><!-- Bronze --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gold</masterLabel>
+            <translation><!-- Gold --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Silver</masterLabel>
+            <translation><!-- Silver --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- The type of story with the Financial Hardship Customer. Story will not be visible to the rest of the SEW team, whereas Program and General stories will be visible. --></help>
+        <label><!-- Hardship Story Type --></label>
+        <name>Hardship_Story_Type__c</name>
+        <picklistValues>
+            <masterLabel>General</masterLabel>
+            <translation><!-- General --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Program</masterLabel>
+            <translation><!-- Program --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Story</masterLabel>
+            <translation><!-- Story --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- The initial story for the Financial Hardship Customer. --></help>
+        <label><!-- Hardship Story --></label>
+        <name>Hardship_Story__c</name>
+    </fields>
+    <fields>
+        <help><!-- Represents the last time the date was reviewed. For new Financial Hardship applications, default to the created date --></help>
+        <label><!-- Last Review Date --></label>
+        <name>Last_Review_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- TO BE DEFINED --></help>
+        <label><!-- Next Review Action --></label>
+        <name>Next_Review_Action__c</name>
+        <picklistValues>
+            <masterLabel>Bronze Exit</masterLabel>
+            <translation><!-- Bronze Exit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Check Centrepay</masterLabel>
+            <translation><!-- Check Centrepay --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Check Gold</masterLabel>
+            <translation><!-- Check Gold --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Check Negotiated Agreement</masterLabel>
+            <translation><!-- Check Negotiated Agreement --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Check Payment Plan</masterLabel>
+            <translation><!-- Check Payment Plan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Check Plumbing Assistance</masterLabel>
+            <translation><!-- Check Plumbing Assistance --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Check URGS</masterLabel>
+            <translation><!-- Check URGS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Check Water usage</masterLabel>
+            <translation><!-- Check Water usage --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Send URGS Application</masterLabel>
+            <translation><!-- Send URGS Application --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Silver Review</masterLabel>
+            <translation><!-- Silver Review --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- The next review date. Defaulted to eight weeks from today, however SAO&apos;s can change this (except for setting it to a past date on creation). --></help>
+        <label><!-- Next Review Date --></label>
+        <name>Next_Review_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- What the next review requires --></help>
+        <label><!-- Next Review Status --></label>
+        <name>Next_Review_Status__c</name>
+        <picklistValues>
+            <masterLabel>Complete</masterLabel>
+            <translation><!-- Complete --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Progress</masterLabel>
+            <translation><!-- In Progress --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending</masterLabel>
+            <translation><!-- Pending --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- The nominated Financial Hardship Billing Account --></help>
+        <label><!-- Nominated Billing Account Number --></label>
+        <name>Nominated_Financial_Hard_Billing_Account__c</name>
+        <relationshipLabel><!-- Financial Hardship --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Owner Name --></label>
+        <name>Owner_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary Contact Name --></label>
+        <name>Primary_Contact__c</name>
+        <relationshipLabel><!-- Financial Hardship --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Represents how the Customer was referred to the Financial Hardship program --></help>
+        <label><!-- Referral Method --></label>
+        <name>Referral_Method__c</name>
+        <picklistValues>
+            <masterLabel>Call centre</masterLabel>
+            <translation><!-- Call centre --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Credit</masterLabel>
+            <translation><!-- Credit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Email</masterLabel>
+            <translation><!-- Email --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Financial counsellor - Good Shepherd</masterLabel>
+            <translation><!-- Financial counsellor - Good Shepherd --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Financial counsellor - Other</masterLabel>
+            <translation><!-- Financial counsellor - Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mercantile</masterLabel>
+            <translation><!-- Mercantile --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Portal</masterLabel>
+            <translation><!-- Portal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Priority Plumbing</masterLabel>
+            <translation><!-- Priority Plumbing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Self identified</masterLabel>
+            <translation><!-- Self identified --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- The initiation of the Financial Hardship program --></help>
+        <label><!-- Program Start Date --></label>
+        <name>Start_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- The Balance owing for the Customer, when they enter the Financial Hardship Program --></help>
+        <label><!-- Start of Program Account Balance --></label>
+        <name>Start_Program_Balance__c</name>
+    </fields>
+    <fields>
+        <label><!-- Welcome Letter --></label>
+        <name>Welcome_Letter__c</name>
+    </fields>
+    <layouts>
+        <layout>CSO Base Financial Hardship Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Financial Hardship Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Financial Position --></label>
+            <section>Financial Position</section>
+        </sections>
+        <sections>
+            <label><!-- Program Review --></label>
+            <section>Program Review</section>
+        </sections>
+        <sections>
+            <label><!--  Hardship Story --></label>
+            <section> Hardship Story</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- The Nominated Billing Account cannot be modified once the Financial Hardship program has been created. --></errorMessage>
+        <name>Billing_Account_Cant_Be_Changed</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The Hardship Story cannot be changed once it has been entered --></errorMessage>
+        <name>Cannot_modify_existing_hardship_story</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- If the Next Review Status is Exception, then the Exception Reason must be populated. --></errorMessage>
+        <name>Exception_reason_cant_be_blank</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Exit Reason canot be entered when creating a Financial Hardship program --></errorMessage>
+        <name>Exit_Date_Blank_on_Creation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Exit Reason cannot be entered when creating a Financial Hardship program --></errorMessage>
+        <name>Exit_Reason_Blank_on_Creation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- If the Hardship Status is Bronze then Next Review Action cannot be Silver Review, Check Gold or Check URGS --></errorMessage>
+        <name>Next_Review_Action_Limitations_Bronze</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- If the Hardship Status is Gold then Next Review Action cannot be Bronze Exit, Bronze Review or Silver Review --></errorMessage>
+        <name>Next_Review_Action_Limitations_Gold</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- If the Hardship Status is Silver then Next Review Action cannot be Bronze Exit, Bronze Review, Check Gold or Check URGS --></errorMessage>
+        <name>Next_Review_Action_Limitations_Silver</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- On creation, the Next Review Date must not be in the past --></errorMessage>
+        <name>Next_Review_Date_must_not_be_in_past</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The Primary Contact Name cannot be modified once the Financial Hardship program has been created. --></errorMessage>
+        <name>Primary_Contact_Cant_Be_Changed</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Exit_Financial_Hardship --></label>
+        <name>Exit_Financial_Hardship</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Financial_Hardship_Update_HiAffinity --></label>
+        <name>Financial_Hardship_Update_HiAffinity</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Mass_Update --></label>
+        <name>Mass_Update</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- My_Financial_Hardship_Programs_for_review_Today --></label>
+        <name>My_Financial_Hardship_Programs_for_review_Today</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_Financial_Hardship --></label>
+        <name>New_Financial_Hardship</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Process_Hardship_Add --></label>
+        <name>Process_Hardship_Add</name>
+    </webLinks>
+</CustomObjectTranslation>

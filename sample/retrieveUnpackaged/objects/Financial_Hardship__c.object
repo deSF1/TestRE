@@ -1,0 +1,1093 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Financial Hardship Stream
+
+Represents Financial Hardship information for customers</description>
+    <enableActivities>true</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Signifies that the Financial Hardship Program is Active for the Customer</inlineHelpText>
+        <label>Program Is Active</label>
+        <trackHistory>true</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Assistance_Options__c</fullName>
+        <externalId>false</externalId>
+        <label>Assistance Options</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Payment Plan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CentrePay</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plumbing Assist Program</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>URGS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Good Shepherd</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More Time To Pay</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Negotiated Writeoff</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Customer_Id__c</fullName>
+        <description>Returns the Account Record ID for the associated customer</description>
+        <externalId>false</externalId>
+        <formula>Customer__r.Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>This field should be invisible.</inlineHelpText>
+        <label>Customer Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>SCRUM 2013 - Vulnerable Customer Stream</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Represents a Customer under a Financial Hardship program</inlineHelpText>
+        <label>Customer Name</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Financial Hardship</relationshipLabel>
+        <relationshipName>Financial_Hardship</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>End_Program_Balance__c</fullName>
+        <externalId>false</externalId>
+        <label>End of Program Account Balance</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Exception_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Exception Reason</label>
+        <length>4000</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Exit_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>The exit date of the program</inlineHelpText>
+        <label>Exit Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Exit_Reason__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>The exit reason for the Customer who exits the Financial Hardship Program</inlineHelpText>
+        <label>Exit Reason</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Successful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unsuccessful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Financial_Hardship_Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(Hardship_Status__c, &apos;Gold&apos;), IMAGE(&quot;/resource/1383262049000/GoldStar&quot;, &quot;checked&quot;), 
+(IF(ISPICKVAL(Hardship_Status__c, &apos;Silver&apos;), (IMAGE(&quot;/resource/1383262049000/SilverStar&quot;, &quot;checked&quot;)), 
+(IF(ISPICKVAL(Hardship_Status__c, &apos;Bronze&apos;), (IMAGE(&quot;/resource/1383262049000/BronzeStar&quot;, &quot;checked&quot;)),null)
+))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hardship_Status__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Represents the level of financial hardship status for the related customer</inlineHelpText>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Gold</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Silver</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bronze</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Hardship_Story_Type__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>The type of story with the Financial Hardship Customer. Story will not be visible to the rest of the SEW team, whereas Program and General stories will be visible.</inlineHelpText>
+        <label>Hardship Story Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Story</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Program</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>General</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Hardship_Story__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>The initial story for the Financial Hardship Customer.</inlineHelpText>
+        <label>Hardship Story</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Last_Review_Date__c</fullName>
+        <defaultValue>NOW()</defaultValue>
+        <description>Represents the last time the date was reviewed. When record created, default to record create date</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Represents the last time the date was reviewed. For new Financial Hardship applications, default to the created date</inlineHelpText>
+        <label>Last Review Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Next_Review_Action__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>TO BE DEFINED</inlineHelpText>
+        <label>Next Review Action</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Check URGS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Check Centrepay</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Check Payment Plan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Check Plumbing Assistance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Check Negotiated Agreement</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Check Gold</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Silver Review</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bronze Exit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Check Water usage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Send URGS Application</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Next_Review_Date__c</fullName>
+        <defaultValue>TODAY() + 56</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>The next review date. Defaulted to eight weeks from today, however SAO&apos;s can change this (except for setting it to a past date on creation).</inlineHelpText>
+        <label>Next Review Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Next_Review_Status__c</fullName>
+        <description>What the next review requires</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What the next review requires</inlineHelpText>
+        <label>Next Review Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Pending</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Complete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Nominated_Financial_Hard_Billing_Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>The nominated Financial Hardship Billing Account</inlineHelpText>
+        <label>Nominated Billing Account Number</label>
+        <referenceTo>Billing_Account__c</referenceTo>
+        <relationshipLabel>Financial Hardship</relationshipLabel>
+        <relationshipName>Financial_Hardship</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Owner_Name__c</fullName>
+        <description>Developed for supporting the related list, to display the SEW Customer Assist Officer&apos;s Name and extension. Refer to US-751 / Vulnerable Customer Stream</description>
+        <externalId>false</externalId>
+        <formula>Owner:User.FirstName &amp; &quot; &quot; &amp; Owner:User.LastName &amp; &quot; - x&quot; &amp;   Owner:User.Extension</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Owner Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Primary_Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Primary Contact Name</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Financial Hardship</relationshipLabel>
+        <relationshipName>Financial_Hardship</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Referral_Method__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Represents how the Customer was referred to the Financial Hardship program</inlineHelpText>
+        <label>Referral Method</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Self identified</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Call centre</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Credit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mercantile</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Financial counsellor - Good Shepherd</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Financial counsellor - Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Priority Plumbing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Portal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <defaultValue>TODAY()</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>The initiation of the Financial Hardship program</inlineHelpText>
+        <label>Program Start Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Start_Program_Balance__c</fullName>
+        <description>When the program is established for the Customer, capture the balance</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Balance owing for the Customer, when they enter the Financial Hardship Program</inlineHelpText>
+        <label>Start of Program Account Balance</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Welcome_Letter__c</fullName>
+        <externalId>false</externalId>
+        <label>Welcome Letter</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Financial Hardship</label>
+    <listViews>
+        <fullName>My_Financial_Hardship_Programs</fullName>
+        <columns>NAME</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>Nominated_Financial_Hard_Billing_Account__c</columns>
+        <columns>Customer__c</columns>
+        <columns>Hardship_Status__c</columns>
+        <columns>Next_Review_Date__c</columns>
+        <columns>Next_Review_Action__c</columns>
+        <columns>Next_Review_Status__c</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>notEqual</operation>
+            <value>0</value>
+        </filters>
+        <label>My Financial Hardship Programs</label>
+        <sharedTo>
+            <group>Admin</group>
+            <group>Financial_Hardship</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>My_Programs_for_review_today</fullName>
+        <columns>NAME</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>Nominated_Financial_Hard_Billing_Account__c</columns>
+        <columns>Customer__c</columns>
+        <columns>Hardship_Status__c</columns>
+        <columns>Next_Review_Date__c</columns>
+        <columns>Next_Review_Action__c</columns>
+        <columns>Next_Review_Status__c</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>Next_Review_Date__c</field>
+            <operation>lessOrEqual</operation>
+            <value>TODAY</value>
+        </filters>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>Next_Review_Action__c</field>
+            <operation>notEqual</operation>
+            <value>Silver Review,Bronze Exit</value>
+        </filters>
+        <label>My Programs for review today</label>
+        <sharedTo>
+            <group>Admin</group>
+            <group>Financial_Hardship</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>My_Teams_Programs_for_review_today</fullName>
+        <columns>NAME</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>Nominated_Financial_Hard_Billing_Account__c</columns>
+        <columns>Customer__c</columns>
+        <columns>Hardship_Status__c</columns>
+        <columns>Next_Review_Date__c</columns>
+        <columns>Next_Review_Action__c</columns>
+        <columns>Next_Review_Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Next_Review_Date__c</field>
+            <operation>lessOrEqual</operation>
+            <value>TODAY</value>
+        </filters>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>Next_Review_Action__c</field>
+            <operation>notEqual</operation>
+            <value>Silver Review,Bronze Exit</value>
+        </filters>
+        <label>My Teams Programs for review today</label>
+    </listViews>
+    <listViews>
+        <fullName>Teams_Financial_Hardship_Programs</fullName>
+        <columns>NAME</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>Nominated_Financial_Hard_Billing_Account__c</columns>
+        <columns>Customer__c</columns>
+        <columns>Hardship_Status__c</columns>
+        <columns>Next_Review_Date__c</columns>
+        <columns>Next_Review_Action__c</columns>
+        <columns>Next_Review_Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>notEqual</operation>
+            <value>0</value>
+        </filters>
+        <label>Teams Financial Hardship Programs</label>
+        <sharedTo>
+            <group>Admin</group>
+            <group>Financial_Hardship</group>
+        </sharedTo>
+    </listViews>
+    <nameField>
+        <displayFormat>FHA-{000000}</displayFormat>
+        <label>Hardship Application ID</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Financial Hardship</pluralLabel>
+    <searchLayouts>
+        <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Billing_Account_Cant_Be_Changed</fullName>
+        <active>true</active>
+        <description>Once the record has been created, you can&apos;t change the billing account.</description>
+        <errorConditionFormula>NOT(ISNEW()) &amp;&amp;  ISCHANGED(  Nominated_Financial_Hard_Billing_Account__c  ) &amp;&amp;  $Profile.Name  = &apos;SEW Customer Assist Officer&apos;</errorConditionFormula>
+        <errorDisplayField>Nominated_Financial_Hard_Billing_Account__c</errorDisplayField>
+        <errorMessage>The Nominated Billing Account cannot be modified once the Financial Hardship program has been created.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Cannot_modify_existing_hardship_story</fullName>
+        <active>true</active>
+        <description>If a hardship story has already been entered, you cannot modify it.</description>
+        <errorConditionFormula>ISCHANGED( Hardship_Story__c ) &amp;&amp;  LEN( PRIORVALUE(Hardship_Story__c)) &gt; 0</errorConditionFormula>
+        <errorDisplayField>Hardship_Story__c</errorDisplayField>
+        <errorMessage>The Hardship Story cannot be changed once it has been entered</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Exception_reason_cant_be_blank</fullName>
+        <active>true</active>
+        <description>If the Next Review Status is Exception, then the Exception Reason must be populated.</description>
+        <errorConditionFormula>ISPICKVAL( Next_Review_Status__c , &apos;Exception&apos;) &amp;&amp; ( ISNULL( Exception_Reason__c )  ||  ISBLANK( Exception_Reason__c )  )</errorConditionFormula>
+        <errorDisplayField>Exception_Reason__c</errorDisplayField>
+        <errorMessage>If the Next Review Status is Exception, then the Exception Reason must be populated.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Exit_Date_Blank_on_Creation</fullName>
+        <active>true</active>
+        <description>Exit Date must be blank on creation of the record</description>
+        <errorConditionFormula>ISNEW() &amp;&amp; NOT (ISNULL( Exit_Date__c) || ISBLANK(Exit_Date__c))</errorConditionFormula>
+        <errorDisplayField>Exit_Date__c</errorDisplayField>
+        <errorMessage>Exit Reason canot be entered when creating a Financial Hardship program</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Exit_Reason_Blank_on_Creation</fullName>
+        <active>true</active>
+        <description>Exit Reason must be blank on creation of the record</description>
+        <errorConditionFormula>ISNEW() &amp;&amp; NOT (ISPICKVAL( Exit_Reason__c , &quot;&quot;) )</errorConditionFormula>
+        <errorDisplayField>Exit_Reason__c</errorDisplayField>
+        <errorMessage>Exit Reason cannot be entered when creating a Financial Hardship program</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Next_Review_Action_Limitations_Bronze</fullName>
+        <active>true</active>
+        <description>If Status = Bronze
+     the Next Review Action cannot be  Silver Review ,Check Gold, Check URGS</description>
+        <errorConditionFormula>ISPICKVAL( Hardship_Status__c , &quot;Bronze&quot; ) &amp;&amp; (ISPICKVAL (Next_Review_Action__c, &quot;Silver Review&quot; ) || ISPICKVAL (Next_Review_Action__c, &quot;Check Gold&quot; ) || ISPICKVAL (Next_Review_Action__c, &quot;Check URGS&quot; ))</errorConditionFormula>
+        <errorDisplayField>Next_Review_Action__c</errorDisplayField>
+        <errorMessage>If the Hardship Status is Bronze then Next Review Action cannot be Silver Review, Check Gold or Check URGS</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Next_Review_Action_Limitations_Gold</fullName>
+        <active>true</active>
+        <description>If Status = Gold 
+    the Next Review Action cannot be  Bronze Exit, Bronze Review , Silver Review</description>
+        <errorConditionFormula>ISPICKVAL( Hardship_Status__c , &quot;Gold&quot; ) &amp;&amp; (ISPICKVAL (Next_Review_Action__c, &quot;Bronze Exit&quot; ) || ISPICKVAL (Next_Review_Action__c, &quot;Bronze Review&quot; ) || ISPICKVAL (Next_Review_Action__c, &quot;Silver Review&quot; ))</errorConditionFormula>
+        <errorDisplayField>Next_Review_Action__c</errorDisplayField>
+        <errorMessage>If the Hardship Status is Gold then Next Review Action cannot be Bronze Exit, Bronze Review or Silver Review</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Next_Review_Action_Limitations_Silver</fullName>
+        <active>true</active>
+        <description>If Status = Silver
+    the Next review Action cannot be  Bronze Exit, Bronze Review, Check Gold, Check URGS</description>
+        <errorConditionFormula>ISPICKVAL( Hardship_Status__c , &quot;Silver&quot; ) &amp;&amp; (ISPICKVAL (Next_Review_Action__c, &quot;Bronze Exit&quot; ) || ISPICKVAL (Next_Review_Action__c, &quot;Bronze Review&quot; ) || ISPICKVAL (Next_Review_Action__c, &quot;Check Gold&quot;) || ISPICKVAL (Next_Review_Action__c, &quot;Check URGS&quot; ))</errorConditionFormula>
+        <errorDisplayField>Next_Review_Action__c</errorDisplayField>
+        <errorMessage>If the Hardship Status is Silver then Next Review Action cannot be Bronze Exit, Bronze Review, Check Gold or Check URGS</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Next_Review_Date_must_not_be_in_past</fullName>
+        <active>true</active>
+        <description>On creation, the Next Review Date cannot be in the past</description>
+        <errorConditionFormula>ISNEW() &amp;&amp;  Next_Review_Date__c &lt; TODAY()</errorConditionFormula>
+        <errorDisplayField>Next_Review_Date__c</errorDisplayField>
+        <errorMessage>On creation, the Next Review Date must not be in the past</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Primary_Contact_Cant_Be_Changed</fullName>
+        <active>true</active>
+        <description>Once the record has been created, you can&apos;t change the Primary Contact.</description>
+        <errorConditionFormula>NOT(ISNEW()) &amp;&amp;  ISCHANGED( Primary_Contact__c ) &amp;&amp;  $Profile.Name  = &apos;SEW Customer Assist Officer&apos;</errorConditionFormula>
+        <errorDisplayField>Primary_Contact__c</errorDisplayField>
+        <errorMessage>The Primary Contact Name cannot be modified once the Financial Hardship program has been created.</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Exit_Financial_Hardship</fullName>
+        <availability>online</availability>
+        <description>Removes Financial Hardship program</description>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Exit</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>alert(&apos;hello!&apos;);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Financial_Hardship_Update_HiAffinity</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Update HiAffinity</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/20.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/20.0/apex.js&quot;)}
+{!REQUIRESCRIPT(&apos;//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js&apos;)}
+{!REQUIRESCRIPT(&apos;//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js&apos;)}
+try{
+	jQuery(function() {
+		/*Append the jQuery CSS CDN Link to the Head tag.*/
+		jQuery(&apos;head&apos;).append(&apos;&lt;link rel=&quot;stylesheet&quot; href=&quot;//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/start/jquery-ui.css&quot; type=&quot;text/css&quot; /&gt;&apos;);
+	 
+		/*Create the HTML(DIV Tag) for the Dialog.*/
+		var htmlStart = &apos;&lt;div id=&quot;dialog&quot; title=&quot;Active Financial Hardship&quot;&gt;&lt;p&gt;&apos;;
+		var htmlBody = &apos;&apos;;
+		var htmlEnd = &apos;&lt;/p&gt;&lt;/div&gt;&apos;;
+		
+		var existingHardshipError = false;
+		var existingHardshipErrorMessage = &quot;Customer already has an Active Financial Hardship, or has exited this program.&quot;;
+
+		var warningCount = 0;
+		
+		// check if there is a hardship against the customer already
+		var qryHardshipQuery = 	&quot;SELECT Id, Customer__c &quot; + 
+								&quot;FROM Financial_Hardship__c &quot; + 
+								&quot;WHERE id = &apos;{!Financial_Hardship__c.Id}&apos; AND &quot; +
+								&quot;(Exit_Reason__c != &apos;&apos; OR &quot; + 
+								&quot;Active__c = true)&quot;;
+
+		//alert(qryHardshipQuery);
+
+		result = sforce.connection.query(qryHardshipQuery);
+
+		existingHardShipRecords = result.getArray(&quot;records&quot;);
+		if (existingHardShipRecords.length &gt; 0) {
+			htmlBody = htmlBody + existingHardshipErrorMessage;
+			existingHardshipError = true;
+		}
+
+		html = htmlStart + &quot; &quot; + htmlBody + &quot; &quot; + htmlEnd;
+		
+		resultLink = &apos;/apex/FinancialHardshipAdd?id={!Financial_Hardship__c.Id}&apos;;
+		
+		/*Check if the Dialog(DIV Tag) already exists if not then Append the same to the Body tag.*/
+		if(!jQuery(&apos;[id=dialog]&apos;).size()){
+			jQuery(&apos;body&apos;).append(html);
+		}
+		
+		if (existingHardshipError) {
+		/*Open the jQuery Dialog.*/
+			jQuery( &quot;#dialog&quot; ).dialog({
+				autoOpen: true,
+				modal: true,
+				width: 435,
+				buttons: {
+					&quot;OK&quot;: function() {
+						jQuery( this ).dialog( &quot;close&quot; );
+					}
+				}
+			});
+		}
+		
+		else {
+			srcSelf(resultLink);
+		}
+	});
+}
+catch(e){
+	alert(&apos;An Error has Occured. Error: &apos; + e);
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Mass_Update</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Mass Update</masterLabel>
+        <openType>sidebar</openType>
+        <page>MassUpdateFinancialHardship</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+    <webLinks>
+        <fullName>My_Financial_Hardship_Programs_for_review_Today</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>My Financial Hardship Programs for review Today</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/{!$Setup.Reports__c.My_Financial_Hardships_for_Review_Today__c}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>New_Financial_Hardship</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Add</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/20.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/20.0/apex.js&quot;)}
+{!REQUIRESCRIPT(&apos;//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js&apos;)}
+{!REQUIRESCRIPT(&apos;//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js&apos;)}
+try{
+
+	jQuery(function() {
+		/*Append the jQuery CSS CDN Link to the Head tag.*/
+		jQuery(&apos;head&apos;).append(&apos;&lt;link rel=&quot;stylesheet&quot; href=&quot;//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/start/jquery-ui.css&quot; type=&quot;text/css&quot; /&gt;&apos;);
+		
+		/* Variables for Guid references to buttons - 5-Dec-2013 - GT */
+		var fidPrimaryContactName = &apos;CF00N90000008zoFV&apos;;
+		var fidNominatedBillingAccountNumber = &apos;CF00N90000008zoFT&apos;;
+		var fidCustomerName = &apos;CF00N90000008zoFG&apos;;
+		
+
+		/*Create the HTML(DIV Tag) for the Dialog.*/
+		var htmlStart = &apos;&lt;div id=&quot;dialog&quot;&gt;&lt;p&gt;&apos;;
+		var htmlBody = &apos;&apos;;
+		var htmlEnd = &apos;&lt;/p&gt;&lt;/div&gt;&apos;;
+		var htmlTitleWarning = &apos;title=&quot;Continue creating Financial Hardship?&quot;&apos;;
+		var htmlTitleError = &apos;title=&quot;Cannot create Financial Hardship Program&quot;&apos;;
+		
+		var existingHardshipError = false;
+		var existingHardshipErrorMessage = &quot;Customer already has an Active Financial Hardship&quot;;
+		
+		var paymentPlanWarning = false;
+		var paymentPlanWarningMessage = &quot;Customer has an active Payment Plan -  does this need to be reviewed?&quot;;
+		var paymentPlanWarningCount = 1;
+		
+		var mercWarning = false;
+		var mercWarningMessage = &quot;Billing account has had Mercantile in the last 14 days -  please Cease Mercantile if applicable&quot;;
+		var mercWarningCount = 2;
+		
+		var clericalWarning = false;
+		var clericalWarningMessage = &quot;&quot;; // this created done in the validation rule
+		var clericalWarningCount = 4;
+		
+		var activeBillingWarning = false;
+		var activeBillingWarningMessage = &quot;Customer has more than one Active Billing Account&quot;;
+		var activeBillingWarningCount = 8;
+
+		var qpWarning = false;
+		var qpWarningMessage = &quot;Customer has Quarterly Direct Debit loaded&quot;;
+		var qpWarningCount = 16;
+
+		var billingAccountIsInactive = false;
+		var billingAccountIsInactiveErrorMessage = &quot;The given Billing Account is not active, and hence a Financial Hardship Program cannot be applied.&quot;;
+		var qpWarningCount = 32;
+		
+		var warningCount = 0;
+
+		// 15-Nov-2013 GT check if the given Billing Account is inactive
+		var qryCheckActiveBillingAccount = &quot;SELECT Id, Status__c &quot; + 
+										   &quot;FROM Billing_Account__c &quot; +
+										   &quot;WHERE Status__c != &apos;Active&apos; AND &quot; + 
+										   &quot;HiAf_Account_Number__c = &apos;{!Billing_Account__c.HiAF_Account_Number__c}&apos;&quot;;
+
+		resultCheckActive = sforce.connection.query(qryCheckActiveBillingAccount);
+		//alert(qryCheckActiveBillingAccount);
+		inactiveBillingAccount = resultCheckActive.getArray(&quot;records&quot;);
+
+		if(inactiveBillingAccount.length &gt; 0) {
+			htmlBody = htmlBody + billingAccountIsInactiveErrorMessage;
+			billingAccountIsInactive = true;
+		}
+		else {
+			// check if there is a hardship against the customer already
+			result = sforce.connection.query(&quot;Select Id, Customer__c From Financial_Hardship__c WHERE Customer__c = &apos;{!Billing_Account__c.Customer_Id__c}&apos; AND Active__c = true&quot;);
+
+			existingHardShipRecords = result.getArray(&quot;records&quot;);
+		        
+
+			if (existingHardShipRecords.length &gt; 0) {
+				htmlBody = htmlBody + &quot;&lt;br/&gt;Customer already has an Active Financial Hardship&quot;;
+				existingHardshipError = true;
+			}
+			else {
+
+                        mercSOQL = &quot;SELECT Id, Is_Payment_Plan__c, Recovery_Last_Action__c, Recovery_Last_Action_Date__c, Clerical__c, Payment_Plan_Start_Date__c, Payment_Plan_End_Date__c &quot; +
+                        &quot;FROM Billing_Account__c &quot; + 
+						&quot;WHERE Id = &apos;{!Billing_Account__c.Id}&apos; &quot; + 
+						&quot;  AND &quot; +
+						&quot;  ((Is_Payment_Plan__c = true AND (Payment_Plan_Start_Date__c = NULL OR Payment_Plan_Start_Date__c &lt;= TODAY) AND (Payment_Plan_End_Date__c = NULL OR Payment_Plan_End_Date__c &gt;= TODAY )) &quot; +
+						&quot;   OR &quot; +
+						&quot;   ((Recovery_Last_Action__c = &apos;MERCANTILE 1&apos; OR Recovery_Last_Action__c = &apos;MERCANTILE 2&apos;) AND (Recovery_Last_Action_Date__c = NULL OR Recovery_Last_Action_Date__c &gt;= LAST_N_DAYS:14)) &quot; +
+						&quot;   OR &quot; +
+						&quot;   (Clerical__c &lt;&gt; null) &quot; +
+						&quot;  )&quot;
+				//check for existing payment plan, recovery action = Mercantile 1 or 2 within last 14 days, or clerical inspect
+				result = sforce.connection.query(mercSOQL);
+				//alert(mercSOQL);
+				billingAccountRecord = result.getArray(&quot;records&quot;);
+
+                                
+//debug 21-01-14 alert(&apos;Pre-if&apos;);
+				if (billingAccountRecord.length &gt; 0) { // one of the validations failed
+//debug 21-01-14 alert(&apos;In-if&apos;);
+					// should only be one record so don&apos;t need to loop
+					var today = new Date();
+					var fourteenDays = new Date();
+					fourteenDays.setDate(today.getDate() - 14);
+
+					if (billingAccountRecord[0].Is_Payment_Plan__c == true  
+						&amp;&amp; 
+						(billingAccountRecord[0].Payment_Plan_Start_Date__c == null || new Date(billingAccountRecord[0].Payment_Plan_Start_Date__c) &lt;= today) 
+						&amp;&amp;
+						(billingAccountRecord[0].Payment_Plan_End_Date__c == null || new Date(billingAccountRecord[0].Payment_Plan_End_Date__c) &gt;= today)) {
+						paymentPlanWarning = true;
+						warningCount += paymentPlanWarningCount;
+						
+					}
+//debug 21-01-14 alert(&apos;1&apos;);
+var RecoveryLastAction = billingAccountRecord[0].Recovery_Last_Action__c;
+//debug 21-01-14 alert(&apos;billingAccountRecord[0].Recovery_Last_Action__c&apos; + billingAccountRecord[0].Recovery_Last_Action__c)
+//debug 21-01-14 alert(&apos;billingAccountRecord[0].Recovery_Last_Action__c.length&apos; + billingAccountRecord[0].Recovery_Last_Action__c.length);
+
+
+//debug 21-01-14 alert(&apos;RecoveryLastAction : &apos; + RecoveryLastAction);
+					// bug workaround
+					if (RecoveryLastAction == null){
+						RecoveryLastAction = &apos;&apos;;						
+					}
+					// debug 21-01-14 alert(&apos;RecoveryLastAction.length : &apos; + RecoveryLastAction.length);
+
+					if (RecoveryLastAction.length &gt; 0 
+						&amp;&amp; 
+						(billingAccountRecord[0].Recovery_Last_Action__c == &apos;MERCANTILE 1&apos; || billingAccountRecord[0].Recovery_Last_Action__c == &apos;MERCANTILE 2&apos;)
+						&amp;&amp;
+						(billingAccountRecord[0].Recovery_Last_Action_Date__c != null &amp;&amp; new Date(billingAccountRecord[0].Recovery_Last_Action_Date__c) &gt;= fourteenDays)) {
+
+						mercWarning = true;
+						warningCount += mercWarningCount;
+					}
+//21-01-14 debug alert(&apos;Clerical: &apos; + billingAccountRecord[0].Clerical__c);
+
+					if (billingAccountRecord[0].Clerical__c != null &amp;&amp; billingAccountRecord[0].Clerical__c.length &gt; 0) {
+						clericalWarning = true;
+						clericalWarningMessage = &quot;Billing Account has &quot; + billingAccountRecord[0].Clerical__c + &quot; clerical loaded&quot;;
+						warningCount += clericalWarningCount;
+					}
+				}
+
+				//check if there is more than 1 active billing account for the customer
+				result = sforce.connection.query(&quot;SELECT Id, Is_Payment_Plan__c, Recovery_Last_Action__c, Recovery_Last_Action_Date__c, Clerical__c, Payment_Plan_Start_Date__c, Payment_Plan_End_Date__c &quot; + 
+												 &quot;FROM Billing_Account__c &quot; + 
+												 &quot;WHERE Customer__c = &apos;{!Billing_Account__c.Customer_Id__c}&apos; &quot; + 
+												 &quot;  AND &quot; +
+												 &quot;  Status__c = &apos;Active&apos;&quot;);
+				activeAccounts = result.getArray(&quot;records&quot;);
+
+				if (activeAccounts.length &gt; 1) {
+					activeBillingWarning = true;
+					warningCount += activeBillingWarningCount;
+				}
+
+				// check for the QP classification
+				result = sforce.connection.query(&quot;SELECT Id, Class_Code__c, Billing_Account__c FROM Customer_Classification__c WHERE Billing_Account__c = &apos;{!Billing_Account__c.Id}&apos; AND Class_Code__c = &apos;QP&apos;&quot;);
+				qpClasses = result.getArray(&quot;records&quot;);
+
+				if (qpClasses.length &gt; 0) {
+					qpWarning = true;
+					warningCount += qpWarningCount;
+				}
+
+				// all of these mean that there is only one warning message
+				var multipleMessages = true;
+				if (warningCount == 1 || warningCount == 2 || warningCount == 4 || warningCount == 8 || warningCount == 16){
+					multipleMessages = false;
+				}
+				else {
+					htmlBody = &quot;Please note that&lt;br/&gt;&lt;ul&gt;&quot;;
+				}
+
+				if (paymentPlanWarning) {
+					if (multipleMessages) {
+						htmlBody += &quot;&lt;li&gt;&quot; + paymentPlanWarningMessage + &quot;&lt;/li&gt;&quot;;
+					}
+					else {
+						htmlBody += paymentPlanWarningMessage;
+					}
+				}
+				if (mercWarning) {
+					if (multipleMessages) {
+						htmlBody += &quot;&lt;li&gt;&quot; + mercWarningMessage + &quot;&lt;/li&gt;&quot;;
+					}
+					else {
+						htmlBody += mercWarningMessage;
+					}
+				}
+				if (clericalWarning) {
+					if (multipleMessages) {
+						htmlBody += &quot;&lt;li&gt;&quot; + clericalWarningMessage + &quot;&lt;/li&gt;&quot;;
+					}
+					else {
+						htmlBody += clericalWarningMessage;
+					}
+				}
+				if (activeBillingWarning) {
+					if (multipleMessages) {
+						htmlBody += &quot;&lt;li&gt;&quot; + activeBillingWarningMessage + &quot;&lt;/li&gt;&quot;;
+					}
+					else {
+						htmlBody += activeBillingWarningMessage;
+					}
+				}
+				if (qpWarning) {
+					if (multipleMessages) {
+						htmlBody += &quot;&lt;li&gt;&quot; + qpWarningMessage + &quot;&lt;/li&gt;&quot;;
+					}
+					else {
+						htmlBody += qpWarningMessage;
+					}
+				}
+				if (multipleMessages) {
+					htmlBody += &quot;&lt;/ul&gt;&quot;;
+				}
+				else {
+					htmlBody += &quot;&lt;br/&gt;&quot;;
+				}
+				
+				htmlBody += &quot;&lt;br/&gt;Do you wish to continue?&quot;;
+			}
+		}
+
+		html = htmlStart + &quot; &quot; + htmlBody + &quot; &quot; + htmlEnd;
+		
+		// get primary person for the account
+		result = sforce.connection.query(&quot;Select Id, Primary_Secondary_Contact__c, Name, AccountId From Contact c Where Primary_Secondary_Contact__c = &apos;Primary Contact&apos; And AccountId = &apos;{!Billing_Account__c.Customer_Id__c}&apos; LIMIT 1&quot;);
+		primaryPersonRecords = result.getArray(&quot;records&quot;);
+		var primaryDefaultValuesURL = &apos;&apos;;
+
+		if (primaryPersonRecords.length &gt; 0) {
+			//primaryDefaultValuesURL = &apos;&amp;CF00NO0000000p9hr=&apos; + escape(primaryPersonRecords[0].Name) + &apos;&amp;CF00NO0000000p9hr_lkid=&apos; + primaryPersonRecords[0].Id;
+			primaryDefaultValuesURL =  &apos;&amp;&apos; + fidPrimaryContactName + &apos;=&apos; + escape(primaryPersonRecords[0].Name) + &apos;&amp;&apos; + fidPrimaryContactName + &apos;_lkid=&apos; + primaryPersonRecords[0].Id;
+		}
+		
+		/*resultLink = &apos;/{!$ObjectType.Financial_Hardship__c}/e?CF00NO0000000p941={!Billing_Account__c.Name}&amp;CF00NO0000000p941_lkid={!Billing_Account__c.Id}&apos; + 
+						&apos;&amp;CF00NO0000000p5dW=&apos; + escape(&apos;{!Billing_Account__c.Customer__c}&apos;) + &apos;&amp;CF00NO0000000p5dW_lkid={!Billing_Account__c.Customer_Id__c}&apos; + 
+						&apos;&amp;CF00NO0000000p5dl=&apos; + escape(&apos;{!$User.FirstName} {!$User.LastName}&apos;) +
+						primaryDefaultValuesURL;*/
+		
+		resultLink = &apos;/{!$ObjectType.Financial_Hardship__c}/e?&apos; + fidNominatedBillingAccountNumber + &apos;=&apos; + escape(&quot;{!Billing_Account__c.Name}&quot;) + &apos;&amp;&apos; + fidNominatedBillingAccountNumber + &apos;_lkid={!Billing_Account__c.Id}&apos; + 
+						&apos;&amp;&apos; + fidCustomerName + &apos;=&apos; + escape(&quot;{!Billing_Account__c.Customer__c}&quot;) + &apos;&amp;&apos; + fidCustomerName + &apos;_lkid={!Billing_Account__c.Customer_Id__c}&apos; + 
+						primaryDefaultValuesURL;
+
+
+		/*Check if the Dialog(DIV Tag) already exists if not then Append the same to the Body tag.*/
+		if(!jQuery(&apos;[id=dialog]&apos;).size()){
+			jQuery(&apos;body&apos;).append(html);
+		}
+		
+		if (existingHardshipError || billingAccountIsInactive ) {
+		// Adjust the HTML title of the dialog window
+		html = &apos;&lt;div id =&quot;dialog&quot;&apos; + htmlTitleError + &quot;&lt;p&gt; &quot; + htmlBody + &quot; &quot; + htmlEnd;
+		//alert(html);
+		/*Open the jQuery Dialog.*/
+			jQuery( &quot;#dialog&quot; ).dialog({
+				autoOpen: true,
+				modal: true,
+				width: 435,
+				title: &quot;Error&quot;,
+				buttons: {
+					&quot;OK&quot;: function() {
+						jQuery( this ).dialog( &quot;close&quot; );
+					}
+				},
+				open: function () {
+                        $(this).parents(&quot;.ui-dialog:first&quot;).find(&quot;.ui-dialog-titlebar&quot;).addClass(&quot;ui-state-error&quot;);
+                    }
+			});
+		}
+		else if (paymentPlanWarning || mercWarning || clericalWarning || activeBillingWarning || qpWarning){
+			jQuery( &quot;#dialog&quot; ).dialog({
+				autoOpen: true,
+				modal: true,
+				width: 435,
+				title: &quot;Warning&quot;,
+				buttons: {
+					&quot;Yes&quot;: function() {
+						srcUp(resultLink);
+						jQuery( this ).dialog( &quot;close&quot; );
+					},
+					&quot;No&quot;: function() {
+						jQuery( this ).dialog( &quot;close&quot; );
+					}
+				},
+				open: function () {
+                        $(this).parents(&quot;.ui-dialog:first&quot;).find(&quot;.ui-dialog-titlebar&quot;).addClass(&quot;ui-state-highlight&quot;);
+                    }
+			});
+		}
+		else {
+			srcUp(resultLink);
+		}
+	});
+}
+catch(e){
+	alert(&apos;An Error has Occured. Error: &apos; + e + &apos;\nLine: &apos; + e.lineNumber);
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Process_Hardship_Add</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>page</linkType>
+        <masterLabel>Perform</masterLabel>
+        <openType>replace</openType>
+        <page>FinancialHardshipAdd</page>
+        <protected>false</protected>
+    </webLinks>
+</CustomObject>

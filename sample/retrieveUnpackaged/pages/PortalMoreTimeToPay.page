@@ -1,0 +1,331 @@
+<apex:page sidebar="false" showHeader="true" tabstyle="PortalAccounts__tab" doctype="html-5.0" action="{!CheckRedirectConfirmed}"
+    controller="PortalMoreTimeToPayExCon" >
+    <!--
+    Type:       VF page
+    Purpose:    Displays More Time To Pay functionality for portal users
+    ---------------------------------------------------------------
+    History:
+
+    12-Mar-2012 M.Erwin (Salesforce.com)        Created per Epic 108
+    22-May-2012 D.Thong                         #5009 Added cancel button for submit
+                                                Added message for submit
+                                                Disabled property during submit
+    23-May-2012 R.Dela Cruz                     Update informational message for Request more time to pay
+    13-Jun-2012 D.Yu                            Update: 5136 - update successful message and condition
+    23-Sep-2013 N.Patterson                     TT10401: View multiple customers for a single Portal user
+    25-Sep-2013 N.Rangas                        Call Centre Business Hours TT#11625
+
+    -->
+
+    <head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+    </head>
+    
+    <script>
+        var isConsentGrantedCheckbox;
+        var submitBtn;
+    </script>
+    
+    <apex:stylesheet value="{!$Resource.SEWPortalStyles}"/>
+    <!-- TODO: merge this into the master styleSheet -->
+    <style type="text/css">
+        .bPageBlock .detailList .labelCol {
+            width: 28%;
+        }
+
+        /*#propertyselect .bPageBlock .detailList .labelCol {
+            width: 20%;
+        }*/
+
+        .mainContainer {
+            width: 100%;
+        }
+        .sideBarcontainer {
+            width: 28%;
+            padding-right: 5px;
+            float: left;
+        }
+        .coreContentContainer {
+            width: 70%;
+            float: left;
+        }
+        .requiredFieldIndicatorRHSNoHeight {
+            position:relative;
+            top:10px;       
+        }
+    </style>
+
+    <apex:form id="theForm">
+        
+
+            <!--  SIDEBAR CONTENT -->
+            <apex:outputPanel id="sidebarContainer" layout="block" styleClass="sideBarCellDiv" >
+
+                <apex:outputPanel id="accountsListAndSidebar" layout="block" styleClass="pbTransparent" >
+                    <!--  account list -->         
+                    <c:PortalAccountsList displayAccountList="false"/> <!-- TT10401-hide the account list -->
+                    <div style="margin-top:-65px;"><!-- TT10401-shift up 65 px to remove gap -->
+                        <c:PortalSidebar id="sidebar" groupName="Accounts" currentAccRecordType="{!customer.RecordType.DeveloperName}"
+                            currentDevName="Accounts_MoreTimeToPay" /> <!-- TT10401-Don't show Menu title anymore -->
+                    </div>
+                </apex:outputPanel>
+            </apex:outputPanel>
+
+
+            <!--  MAIN CONTENT -->
+            <apex:outputPanel id="contentCellDiv" layout="block" styleClass="contentCellDiv" >
+
+                <!-- APPLY FOR MORE TIME TO PAY TITLE -->
+                <apex:sectionHeader subtitle="Request more time to pay" />
+
+                <div class="clear"/>
+                        <apex:pageBlock id="pageblockRequest" >
+                        <apex:outputPanel id="innerContentLHSDiv" styleClass="innerContentLHSDiv" >
+                         
+                         <!-- ADVISE AND SUCCESS MESSAGES -->
+                         <apex:outputPanel id="adviseAndSuccessMessages" layout="block"
+                                rendered="{! (!isSubmitSuccessful && !thereAreActiveBillingAccountsWithPositiveBalance)
+                                || (!isSubmitSuccessful && billingPeriodExtensionExists)
+                                || (!isSubmitSuccessful && isMercantile || isBpCustomer || isQpAndNextBillWithin2Days)
+                                || (!isSubmitSuccessful && isGreaterThan14Days)
+                                || (isNotGreaterThanToday)
+                                || (isSubmitSuccessful || (postTransactionCase.Id != null && (isCreditManagementCustomer || isBillingAccountRiskFactorH))) }">
+                           
+                                <!-- no actions available message -->
+                                <apex:outputPanel id="adviseNoActionAvailable" layout="block" styleClass="infoMessage" rendered="{! !isSubmitSuccessful && !thereAreActiveBillingAccountsWithPositiveBalance}">
+                                    <apex:pageMessage strength="3" severity="error" summary="{!$User.FirstName}, you cannot apply for more time to pay as there is no balance on this account."/>
+                                </apex:outputPanel>
+                
+                                <!-- MESSAGE - ONLY ONE EXTENSION PER BILLING PERIOD -->
+                                <apex:outputPanel id="adviseOneExtensionPerBillingPeriod" layout="block" styleClass="warningMessage" rendered="{! !isSubmitSuccessful && billingPeriodExtensionExists}" >
+                                    <apex:pageMessage strength="3" escape="false" severity="warning" summary="{!$User.FirstName}, mySouthEastWater is not able to process your request as you have already applied for more time to pay in this quarter.  
+                                    Please submit an  <a href={!$page.PortalEnquiries}>enquiry</a>  or contact our Customer Support team on 131 851 (Monday to Friday 8.00 am - 8.00 pm)."/>
+                                </apex:outputPanel>
+                
+                                <!-- MESSAGE error - mercantile error - MERCANTILE NOTICE IN LAST 5 DAYS or BP CUSTOMER or QP CUSTOMER WITH NEXT BILL IN 2 DAYS -->
+                                <apex:outputPanel id="adviseMercantile5DaysOrBpCustomerOrQp2Days" layout="block" styleClass="infoMessage" rendered="{! !isSubmitSuccessful && isMercantile || isBpCustomer || isQpAndNextBillWithin2Days}">
+                                    <apex:pageMessage escape="false" strength="3" severity="error" summary="{!$user.FirstName} mySouthEastWater is not able to process your request for more time to pay. 
+                                    Please submit an <a href={!$page.PortalEnquiries}>enquiry</a> or contact our Customer Support team on 131 851 (Monday to Friday 8.00 am - 8.00 pm)."/>
+                                </apex:outputPanel>
+                
+                                <!-- MESSAGE - REQUESTED DATE IS >14 DAYS FROM DUE DATE 14 day error -->
+                                <apex:outputPanel id="adviseRequestDateGreater14Days" layout="block" styleClass="infoMessage" rendered="{!not(isSubmitSuccessful) && isGreaterThan14Days}">
+                                    <apex:pageMessage escape="false" strength="3" severity="error" summary="{!$user.FirstName} mySouthEastWater only allows for payment extensions of up to 14 days from the due date. 
+                                    If you need longer please submit an <a href={!$page.PortalEnquiries}>enquiry</a> or contact our Customer Support team on 131 851 (Monday to Friday 8.00 am - 8.00 pm)."/>
+                                </apex:outputPanel>
+                                
+                                <!-- MESSAGE - REQUESTED DATE IS > TODAY error -->
+                                <apex:outputPanel id="adviseRequestDateGreaterToday" layout="block" styleClass="infoMessage" rendered="{!not(isSubmitSuccessful) && isNotGreaterThanToday}">
+                                    <apex:pageMessage escape="false" strength="3" severity="warning" summary="You can only suspend payment to a date greater than today."/>
+                                </apex:outputPanel>
+            
+                                <!--  a successful MTP or CASE EXISTS AND EITHER CREDIT MANAGEMENT CUSTOMER or BILLING ACCOUNT RISK FACTOR H -->
+                                <apex:outputPanel id="submitSuccessfulContent" layout="block" rendered="{!isSubmitSuccessful || (postTransactionCase.Id != null && (isCreditManagementCustomer || isBillingAccountRiskFactorH)) }" >
+        
+                                    <!-- COMPLETE SUCCESS MESSAGE - DISPLAY NEW DUE DATE -->
+                                    <apex:pageMessage escape="false" strength="3" severity="info" rendered="{! isSubmitSuccessful && not(isblank(postTransactionCase.Suspend_To_Date__c))}"
+                                        summary="Thank you {!$User.FirstName}, your request for more time to pay was successful. Your payment is now due on {!postTransactionCase.Suspend_To_Date__c}." /> 
+                                    
+                                    <apex:pageMessage escape="false" strength="3" severity="info" rendered="{! isSubmitSuccessful && isblank(postTransactionCase.Suspend_To_Date__c)}"
+                                        summary="Your request will be processed over the next two business days. If you receive an overdue notice for this account, please disregard it in this instance." />
+                                            
+                                    <!-- MESSAGE - the credit management customer/ high risk account error - CREDIT MANAGEMENT CUSTOMER or BILLING ACCOUNT RISK FACTOR H - SHOWN AFTER VALIDATE -->
+                                    <apex:outputPanel id="adviseCfCustomer" layout="block" styleClass="infoMessage" rendered="{! postTransactionCase.Id != null && (isCreditManagementCustomer || isBillingAccountRiskFactorH) }" >
+                                        <apex:pageMessage strength="3" severity="warning" escape="false"
+                                            summary="Thank you {!$user.FirstName}, your request for more time to pay has been forwarded to our Customer Support team. 
+                                            We will contact you within two business days regarding this request. Your case reference number for this is {!postTransactionCase.CaseNumber}. 
+                                            Note: You can check the progress of your case at anytime by  selecting the 'My cases' tab on the Enquiry page."/>
+                                    </apex:outputPanel>           
+                                </apex:outputPanel>  
+                            </apex:outputPanel>
+                        
+                            <!-- CONTAINER FOR ALL PROCESSING - SHOWN AT THE START or WHEN CASE EXISTS PRIOR TO SUCCESS AND NOT BILLING RISK FACTOR H AND NOT CREDIT MANAGEMENT CUSTOMER or  -->
+                            <apex:outputPanel id="requestContentContainer" layout="block" styleClass=""
+                                    rendered="{! (postTransactionCase.Id == null && !isSuspendRecoveryValidated)
+                                    || ( postTransactionCase.Id == null && !isCreditManagementCustomer && !isBillingAccountRiskFactorH)
+                                    || (!isSubmitSuccessful && postTransactionCase.Id != null && !isBillingAccountRiskFactorH && !isCreditManagementCustomer) }">
+                                <apex:outputPanel id="requestContent" layout="block" rendered="{!thereAreActiveBillingAccountsWithPositiveBalance}" >
+                            
+                            
+                            <div style="margin-top: 5px; text-align: left">
+                                <apex:pageMessages id="msgTop" />
+                            </div>
+                            
+                            <div>
+                                Sometimes life can get in the way of paying your bills on time. 
+                                In many instances we can offer a payment extension of up to 14 days from the due date.
+                            </div>
+
+                            <c:PortalRequiredField styleclass="requiredFieldIndicatorRHSNoHeight"/>
+                            
+                            <!-- CUSTOMER DETAILS - READ ONLY -->
+                            <apex:pageBlockSection id="accountDetails" columns="1" title="Account details" collapsible="false" >
+                                <!-- PROPERTY SELECTION - ACTION REGION USED TO IGNORE REQUIRED FIELD VALIDATION -->
+                                    <apex:pageBlockSectionItem >
+                                     
+                                        <apex:outputLabel >Property</apex:outputLabel>
+                                        <apex:outputPanel >
+                                        <apex:actionRegion >
+                                        <!-- TODO: Move style into styleClass and consider 100% of width rather than px -->
+                                        <apex:selectList id="billingAccountList" size="1" 
+                                                        disabled="{! isSuspendRecoveryValidated && !isGreaterThan14Days && !isBillingAccountRiskFactorH}"
+                                                        value="{!selectedBillingAccountId}" style="width:320px" required="true">
+                                            <apex:selectOptions value="{!activeBillAcctPositiveBalanceOptions}" />
+                                            <apex:actionSupport event="onchange" status="loading" action="{!setBillingAccount}" rerender="innerContentLHSDiv" />
+                                        </apex:selectList>
+                                        </apex:actionRegion>
+                                        </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>   
+                                    
+                               
+                                
+                                <apex:pageblockSectionItem >
+                                    <apex:outputLabel for="customerName" value="Customer name"/>
+                                    <apex:outputField id="customerName" value="{!currentBillAcct.Customer__r.Name}"/>
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem >
+                                    <apex:outputLabel for="accountBalance" value="Account balance"/>
+                                    <apex:outputField id="accountBalance" value="{!currentBillAcct.Balance__c}"/>
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem >
+                                    <apex:outputLabel for="billDate" value="Due date"/>
+                                    <apex:outputField id="billDate" value="{!currentBillAcct.Current_Bill_Due_Date__c}"/>
+                                </apex:pageblockSectionItem>
+                            </apex:pageBlockSection>
+
+                            <!-- INPUT FIELDS - SHOWN WHEN NO PROBLEMS or IF VALIDATE OK AND >14 DAYS -->
+                            <apex:pageBlockSection id="inputDetails" columns="1" title="Payment extension" collapsible="false"
+                                rendered="{! (!billingPeriodExtensionExists && !isBpCustomer && !isMercantile && !isQpAndNextBillWithin2Days && !isSuspendRecoveryValidated && postTransactionCase.Id == null)
+                                || (isSuspendRecoveryValidated && isGreaterThan14Days)}">
+                                <apex:pageblockSectionItem >
+                                    <apex:outputLabel for="reason" value="Reason"/>
+                                    <apex:inputField id="reason" value="{!currentCase.Description}" />
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem >
+                                    <apex:outputLabel for="suspendDate" value="Extend due date to:" />
+                                    <apex:inputField id="suspendDate" value="{!currentCase.Suspend_To_Date__c}" required="true" >
+                                        <script type="text/javascript">
+                                            // hide the date defaulter
+                                            var suspendDatefield = document.getElementById("{!$Component.suspendDate}");
+                                            suspendDatefield.nextSibling.style.display="none";
+                                            document.getElementById('{!$Component.suspendDate}').size = "8";
+                                        </script>
+                                    </apex:inputField>
+                                </apex:pageblockSectionItem>
+
+                                <apex:pageMessage strength="3" severity="info" escape="false"
+                                    summary="mySouthEastWater only allows for payment extensions of up to 14 days from the due date. 
+                                    If you need longer please submit an <a href={!$page.PortalEnquiries}>enquiry</a> or contact our Customer Support team on 131 851 (Monday to Friday 8.00 am - 8.00 pm)."/>
+
+                            </apex:pageBlockSection>
+
+                            <!-- OUTPUT FIELDS - SHOWN WHEN VALIDATE OK AND <=14 DAYS -->
+                            <apex:pageBlockSection id="outputDetails" columns="1" title="" collapsible="false" rendered="{! isSuspendRecoveryValidated && !isGreaterThan14Days}">
+                                <apex:pageblockSectionItem >
+                                    <apex:outputLabel for="reasonReadOnly" value="Your reason for requesting more time to pay"/>
+                                    <apex:outputField id="reasonReadOnly" value="{!currentCase.Description}" />
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem >
+                                    <apex:outputLabel for="suspendDateReadOnly" value="Your requested bill date extension" />
+                                    <apex:outputField id="suspendDateReadOnly" value="{!currentCase.Suspend_To_Date__c}" />
+                                </apex:pageblockSectionItem>
+
+                            </apex:pageBlockSection>
+
+
+
+                            <!--  BOTTOM BUTTONS -->
+                            <!-- TODO: Move style into styleClass -->
+                            <apex:outputPanel style="vertical-align: text-top">
+
+                                <!-- NEXT BUTTON - SHOWN WHEN STARTING or CREDIT MANAGEMENT AND CASE NOT YET CREATED or VALIDATE OK AND >14 DAYS (TO ALLOW DATE CHANGE) -->
+                                <!-- TODO: Move style into styleClass -->
+                                <center>
+                                    <apex:outputPanel rendered="{! (!isSuspendRecoveryValidated && !billingPeriodExtensionExists && !isBpCustomer && !isMercantile && !isQpAndNextBillWithin2Days && postTransactionCase.Id == null)
+                                        || (isCreditManagementCustomer && postTransactionCase.Id == null && !billingPeriodExtensionExists && !isBpCustomer && !isMercantile && !isQpAndNextBillWithin2Days)
+                                        || (isSuspendRecoveryValidated && isGreaterThan14Days)}" >
+                                        <apex:commandButton id="nextBtn" value="Next"
+                                            styleClass="btnPrimary" action="{!submitValidate}" status="loading" rerender="innerContentLHSDiv" />
+
+                                        <apex:outputLink styleClass="btn btnLink btnClearGreenText"
+                                                    value="{!$Page.PortalMoreTimeToPay}">
+                                            Cancel
+                                        </apex:outputLink>
+                                    </apex:outputPanel>
+                                </center>
+
+                                <!-- SUBMIT BUTTON - SHOWN WHEN VALIDATE OK AND <=14 DAYS AND NO BILLING ACCOUNT RISK FACTOR H -->
+                                <!-- TODO: Move style into styleClass -->
+                                <apex:outputPanel rendered="{! isSuspendRecoveryValidated && !isGreaterThan14Days && !isBillingAccountRiskFactorH}">
+                                    <br/>
+                                    <apex:pageMessage strength="3" escape="false" 
+                                                    severity="info" 
+                                                    summary="Please confirm your request for more time to pay by clicking on the 'Submit' button."/>
+                                    <br/>
+                                    <center>
+                                        <apex:commandButton id="submitBtn" value="Submit"
+                                            styleClass="btnPrimary" action="{!submitPerform}" status="loading" rerender="innerContentLHSDiv" />
+
+                                        <apex:outputLink styleClass="btn btnLink btnClearGreenText"
+                                                    value="{!$Page.PortalMoreTimeToPay}">
+                                            Cancel
+                                        </apex:outputLink>
+
+                                    </center>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                            <br/>
+                        </apex:outputPanel> <!-- requestContent END -->
+                    </apex:outputPanel> <!-- requestContentContainer END -->
+                
+                 
+                    <apex:outputPanel id="areYouInterestedInPaymentPlans" layout="block" rendered="false" >
+                            <!-- INTERESTED IN PAYMENT PLANS TITLE -->
+                            <apex:pageBlockSection id="billingAccountSelection2" columns="1" title="Have you considered a payment plan?" collapsible="false" />
+    
+                            <!-- PAYMENT PLAN BUTTON -->
+                            <apex:outputPanel style="vertical-align: text-top;">
+                                <!-- TODO: Move style into styleClass -->
+                                <apex:outputPanel layout="block" style="float: right;">
+                                    <apex:commandButton id="paymentOptionsButton" styleClass="btnSecondary" action="{!paymentOptions}" status="loading" value="Payment options" immediate="true" />
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                            <br />
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                    
+                <!-- RIGHT HAND SIDE CONTENT -->
+                <apex:outputPanel id="innerContentRHSDiv" styleClass="innerContentRHSDiv" >
+                    <!--  live chat -->
+                    <c:LiveChat />
+                    
+                    <c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+                        divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+                        divStyle="width: 205px"/>
+                    
+                    <!--  quick links -->
+                    <div style="position: relative;"><c:PortalQuickLinks /></div>
+                </apex:outputPanel>
+    
+                <div style="clear:both"/>
+           </apex:pageBlock> <!-- pageblockRequest END -->
+       </apex:outputPanel> <!-- contentCellDiv END -->
+        
+        
+        <!-- Action Status that are not position dependent -->
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff"
+                                       borderColor="#6B6B6B"
+                                       borderSize="1"
+                                       height="50px"
+                                       width="120px"
+                                       margintop="-25px"
+                                       marginleft="-60px"
+                                       ImageUrl="{!$Resource.AjaxAnimation}"
+                                       Message="Loading..."/>
+            </apex:facet>
+        </apex:actionStatus>
+
+    </apex:form>
+</apex:page>

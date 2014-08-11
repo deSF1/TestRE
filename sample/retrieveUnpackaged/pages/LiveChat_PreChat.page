@@ -1,0 +1,217 @@
+<apex:page showHeader="false" controller="LiveChatController">
+    <!--
+        Description: Live chat chatlet.
+
+        History:
+        25-May-2012 R.DEla Cruz -Updated terms and condition
+        18-Jun-2012 D.Yu		-Updated 5300 prevent user from submission (enter key) without accepting terms
+    -->
+
+    <head>
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+        <apex:stylesheet value="{!$Resource.SEWPortalStyles}" />
+        <apex:stylesheet value="{!$Resource.LiveChatStyle}" />
+        <!-- include google analytics tracker -->
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+           
+         <style>
+            p {
+			font-weight: normal;
+			}
+			</style>
+        <script>
+        var j$ = jQuery.noConflict();
+       
+        j$(function() {
+            BuildTermsDialog();
+        });
+    
+        function BuildTermsDialog() {
+           
+            j$( "#terms-popup" ).dialog({
+                dialogClass: 'ui-dropshadow',
+                autoOpen: false,
+                width: 400,
+                modal: true,
+                resizable: false,
+                title: 'Terms & conditions for live chat'
+            });         
+        }
+    
+        function hideTerms() {
+            j$("#terms-popup").dialog("close");
+        }
+    
+        function checkAcceptTandC(){
+            var isAcceptTAndCCheckBox = document.getElementById("isAcceptTAndCCheckBox");
+            var prechat_submit = document.getElementById("prechat_submit");
+
+            /* Enable/disable Submit button */
+            if(!isAcceptTAndCCheckBox.checked){ 
+                prechat_submit.disabled = true;
+                prechat_submit.setAttribute("class", "btnDarkGray");
+                prechat_submit.setAttribute("className", "btnDarkGray");
+                
+            }else{
+                prechat_submit.disabled = false;
+                prechat_submit.setAttribute("class", "btnGreen");
+                prechat_submit.setAttribute("className", "btnGreen");
+            }
+        }
+
+        function checkSubmit(){
+            if(checkName()){
+               document.getElementById("prechatForm").submit();
+            }
+        } 
+        
+        function checkName(){ 
+        	 var name = (document.getElementById("prechat_namefield").value).replace(/^\s+|\s+$/g, "");
+        	 if( name != "" && name.length >= 2){
+               return true;
+            }else{
+                if (name == "" || name == null)
+                    alert("Please enter your name.");
+                else
+                    alert("Your name must be more than 1 character.");    
+                return false;
+            }
+        }
+        
+       j$('*').keypress(function(e)
+       {
+           if (e.keyCode == 13)
+           {
+               if(document.getElementById("isAcceptTAndCCheckBox").checked == false){
+               		return false;
+               }else{
+               		if(checkName()){
+               	    	return true;
+               	    }else{
+               	    	return false;
+               	    }
+               }
+           }
+       }); 
+    </script>
+    
+    </head>
+
+    <!-- This script takes the endpoint URL parameter passed from the deployment page and makes it the action for the form -->
+    <script type="text/javascript">
+         (function() { 
+            function handlePageLoad() {
+                var endpointMatcher = new RegExp("[\\?\\&]endpoint=([^&#]*)");
+                document.getElementById('prechatForm').setAttribute('action',
+                decodeURIComponent(endpointMatcher.exec(document.location.search)[1]));
+            } 
+            
+            if (window.addEventListener) {
+                window.addEventListener('load', handlePageLoad, false);
+            } else { 
+                window.attachEvent('onload', handlePageLoad, false);
+            }
+        })(); 
+    </script>
+
+    <div id="chatHeader">
+        <apex:image url="{!$Resource.SEWPortalLogo}" 
+                alt="South East Water" 
+                title="South East Water"/>
+    </div>
+
+    <form method='post' id='prechatForm'>
+        <div id="preChatContainer">
+            <h3>
+                Welcome to mySouthEastWater live chat
+            </h3>
+
+            <div style="margin: 20px 0;">
+                Please review the following information to begin:
+            </div>
+            
+            <div id="namefield" class="inputRow">
+                <label>Name </label>
+                <input type='text' 
+                        name='liveagent.prechat:Name'
+                        id='prechat_namefield' />    
+                 <input type='hidden' 
+                        name='liveagent.prechat:PersonNumber'
+                        id='prechat_personnumberfield' value='{!userContact.Person_Number__c}'/>       
+                        
+            </div>
+            <div class="inputRow">
+                <input type='checkbox' id='isAcceptTAndCCheckBox' onclick='checkAcceptTandC();'/> 
+                
+                I have read and agree to the live chat<a href ="#" onclick="j$('#terms-popup').dialog('open'); return false;">
+                terms and conditions</a>.
+                
+            </div>
+            <!-- TODO: change this to be dynamic based on the profile name -->
+            <!-- and use either contact id or contact name -->
+            <input type="hidden" name="liveagent.prechat.query:PersonNumber" value="Contact, Contact.Person_Number__c" />
+            
+            <script type="text/javascript">
+                var name = '{!$User.firstname}';  
+                if (name != ' ' && name != 'Portal Site Guest User' && name != 'Portal' && name != 'Root') {
+                    document.getElementById('prechat_namefield').value=name;
+                }
+            </script>
+            <div style="margin:0 auto;text-align:center!important;">
+                <input type="submit"
+                    value="Start chat" 
+                    class="btnDarkGray"
+                    style="margin-top: 20px"
+                    id="prechat_submit"
+                    disabled="true"
+                    onclick="checkSubmit();return false;"
+                    />
+                <input type='button'
+                    value='Cancel' 
+                    class="btnClearGreenText"
+                    style="margin-top: 20px"
+                    id='cancel' onclick="javacript:window.close();"/>
+            </div>
+        </div>
+    </form>
+    
+    <!-- TERMS AND CONDITIONS POPUP -->
+    <div id="terms-popup">
+        <div style="height: 350px; text-align: justify; overflow: auto; padding: 0px 10px; border: solid 1px #E4E2DD" class="radiusAll">
+           <h3> Introduction</h3>
+            <p style="text-align: justify;">Live chat is operated by South East Water Corporation ABN 89 066 902 547 and its associated companies. Your access and use of live chat is subject these terms and conditions. Your use of, and/or access to live chat constitutes your agreement to these terms and conditions. We reserve the right to amend the terms and conditions any time. You should periodically read these terms and conditions.</p>
+            <p style="text-align: justify;">These terms and conditions apply to your use of South East Water’s live chat service (live chat). Information provided on this service via the live chat portal forms part of these terms. If you are under 18 years of age, you should obtain the consent of a parent or legal guardian prior to using live chat. </p>
+
+            <p style="text-align: justify;">South East Water will retain electronic records of live chat sessions for a period of seven years. These records will be securely stored.</p>
+
+            <p style="text-align: justify;">South East Water will not send transcripts of chat sessions to customers. Customers will have the ability to save their current chat session content.</p>
+
+            <h3>Availability</h3>
+            <p style="text-align: justify;">Live chat is intended to be available during South East Water’s business hours, Monday to Friday, 8:00am to 5:30pm (AEDST), excluding public holidays. 
+            South East Water makes no warranty that live chat will be available at all times or that the service will be fault free. 
+            If live chat is not available, for any reason, you will be able to send an online enquiry which we will endeavour to respond to within two business days.
+             You are also able to undertake a self directed search in the portal.</p>
+
+            <h3>Assistance</h3>
+
+            <p style="text-align: justify;">Customer Support officers (CSOs) will endeavour to provide you with complete, accurate and current information at the day of your chat session. If the CSO cannot answer your question, the CSO may refer you to another South East Water contact or advise you to submit an online enquiry which we will endeavour to respond to within two business days. </p>
+            <h3>Service misuse</h3>
+            <p style="text-align: justify;">You agree that you will not send live chat messages that are abusive, discriminatory, defamatory, obscene, pornographic or otherwise inappropriate. South East Water may at any time discontinue a live chat session if you breach these terms and conditions or if you misuse the service in any way.</p>
+            <h3>Indemnity</h3>
+            <p style="text-align: justify;">To the extent permitted by law, South East Water and its employees, officers, agents and contractors exclude all liability for any loss or damage (including without limitation, indirect, special or consequential loss or damage) arising from your use of, or reliance upon live chat whether or not this is caused by a negligent act or omission.</p>
+            <h3>Privacy</h3>
+            <p style="text-align: justify;">We may in the course of your use of the site collect personal information about you. In that case you agree that we may collect, use and disclose that personal information in accordance with our privacy policy , but we agree that we will only use your personal information details which you provide to us during your use of the site to send functional and marketing information to you where you have requested such communications.</p>
+            <h3>Updates to the terms and conditions</h3>
+            <p>South East Water may amend or update these terms from time to time without notice to you. Such additional terms and conditions are incorporated by reference into these terms and conditions and you agree that you will comply with any additional terms and conditions that will be made available to you.  You may deregister your account at any time if you do not agree to these terms and conditions or any amendments or updates we may make from time to time.</p>
+
+        </div>
+        <center>
+            <br />
+            <input type="button" class="btnGreen" value="Close"
+                onclick="hideTerms(); return false;" tabindex="1" id="closetermswindow"/>
+        </center>
+        </div>
+
+</apex:page>

@@ -1,0 +1,2098 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Captures Action Plan data on Watermap.</description>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Action_Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Action Category</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Amenities</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Equipment &amp; Process</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Investigation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Irrigation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Leaks</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Management Tools</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recycled Water</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Swimming pools and Dams</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Staff / tenant  engagement</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other (please specify)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Action_Subject__c</fullName>
+        <externalId>false</externalId>
+        <label>Action Subject</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Action__c</fullName>
+        <externalId>false</externalId>
+        <label>Action</label>
+        <picklist>
+            <controllingField>Action_Category__c</controllingField>
+            <picklistValues>
+                <fullName>Abide by all water restrictions</fullName>
+                <controllingFieldValues>Irrigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Access suitability of using recycled water</fullName>
+                <controllingFieldValues>Investigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Adjust urinal sensors</fullName>
+                <controllingFieldValues>Amenities</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Appoint staff to manage and monitor waterMAP</fullName>
+                <controllingFieldValues>Management Tools</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Build new dam</fullName>
+                <controllingFieldValues>Irrigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capture and reuse fire service testing water</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Change fire service testing regime to monthly</fullName>
+                <controllingFieldValues>Management Tools</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Check / adjust ball floats on process top-ups</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Check / review fire service testing regime</fullName>
+                <controllingFieldValues>Investigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Collect / recycle condensate</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Collect and reuse on-site process water</fullName>
+                <controllingFieldValues>Recycled Water</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Collect irrigation run-off for re-use</fullName>
+                <controllingFieldValues>Irrigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Comparison against industry benchmarks</fullName>
+                <controllingFieldValues>Investigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Conduct cleaner production audit</fullName>
+                <controllingFieldValues>Investigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Conduct cooling tower audit</fullName>
+                <controllingFieldValues>Investigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Conduct water audit (consultant study)</fullName>
+                <controllingFieldValues>Investigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Conduct water audit (internal study)</fullName>
+                <controllingFieldValues>Investigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Connect to Class A recycled system</fullName>
+                <controllingFieldValues>Recycled Water</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Continue to remind staff to adopt water efficient practices</fullName>
+                <controllingFieldValues>Staff / tenant  engagement</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Develop business case for project</fullName>
+                <controllingFieldValues>Investigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Develop case studies</fullName>
+                <controllingFieldValues>Management Tools</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Develop feasibility study for project</fullName>
+                <controllingFieldValues>Investigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Develop specific benchmarks</fullName>
+                <controllingFieldValues>Investigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Develop water &apos;mass balance&apos; across site</fullName>
+                <controllingFieldValues>Investigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Divert and collect stormwater</fullName>
+                <controllingFieldValues>Irrigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Engage contracted water conservation service providers</fullName>
+                <controllingFieldValues>Investigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Engage tenants in water efficient practices</fullName>
+                <controllingFieldValues>Staff / tenant  engagement</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Engage with industry groups for assistance</fullName>
+                <controllingFieldValues>Investigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Enlarge existing dam</fullName>
+                <controllingFieldValues>Irrigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ensure fire service is not used illegally</fullName>
+                <controllingFieldValues>Investigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fix leaks immediately</fullName>
+                <controllingFieldValues>Leaks</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Form in-house staff involvement team</fullName>
+                <controllingFieldValues>Staff / tenant  engagement</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>High pressure/ low volume wash alternatives</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hold staff / tenant environmental forums</fullName>
+                <controllingFieldValues>Staff / tenant  engagement</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hydroshare</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Identify / quantify variance in water consumption</fullName>
+                <controllingFieldValues>Management Tools</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Identify potential infrastructure leakage</fullName>
+                <controllingFieldValues>Investigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Incorporate water targets into policies</fullName>
+                <controllingFieldValues>Management Tools</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install automatic shower timers</fullName>
+                <controllingFieldValues>Amenities</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install bore</fullName>
+                <controllingFieldValues>Irrigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install check meters</fullName>
+                <controllingFieldValues>Leaks</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install check meters at key process areas</fullName>
+                <controllingFieldValues>Investigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install chemical water treatment system</fullName>
+                <controllingFieldValues>Irrigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install dam cover</fullName>
+                <controllingFieldValues>Swimming pools and Dams</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install dripper system</fullName>
+                <controllingFieldValues>Irrigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install dual flush toilets</fullName>
+                <controllingFieldValues>Amenities</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install flow control valves on all hand basins</fullName>
+                <controllingFieldValues>Amenities</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install flow control valves on showers</fullName>
+                <controllingFieldValues>Amenities</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install laundry water recycling system</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install low flow shower-heads</fullName>
+                <controllingFieldValues>Amenities</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install moisture sensors</fullName>
+                <controllingFieldValues>Irrigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install rain sensors</fullName>
+                <controllingFieldValues>Irrigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install rainwater/ run-off collection tank</fullName>
+                <controllingFieldValues>Irrigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install reverse osmosis system</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <controllingFieldValues>Irrigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install sensor taps on hand basins</fullName>
+                <controllingFieldValues>Amenities</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install smart meters</fullName>
+                <controllingFieldValues>Leaks</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install swimming pool cover</fullName>
+                <controllingFieldValues>Swimming pools and Dams</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install timed urinal flushing system</fullName>
+                <controllingFieldValues>Amenities</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install toilet weights in cisterns</fullName>
+                <controllingFieldValues>Amenities</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install water awareness stickers and posters</fullName>
+                <controllingFieldValues>Staff / tenant  engagement</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install water efficient clothes washing machines</fullName>
+                <controllingFieldValues>Amenities</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install water efficient dish washer</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install water efficient pool filter</fullName>
+                <controllingFieldValues>Swimming pools and Dams</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install water efficient pre-rinse nozzles</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install water efficient steamers (for cooking)</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install water efficient sterilising equipment</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install waterless urinals</fullName>
+                <controllingFieldValues>Amenities</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install waterless woks</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install water treatment system</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install wetland for water treatment</fullName>
+                <controllingFieldValues>Irrigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Investigate possibility of connecting to Class A System</fullName>
+                <controllingFieldValues>Investigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Investigate water efficient equipment</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Minimise process evaporation</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Monitor/ record water usage</fullName>
+                <controllingFieldValues>Investigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Monitor water consumption regulary</fullName>
+                <controllingFieldValues>Leaks</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Monthly report of water data</fullName>
+                <controllingFieldValues>Management Tools</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mulch garden beds</fullName>
+                <controllingFieldValues>Irrigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plant drought tolerant plants</fullName>
+                <controllingFieldValues>Irrigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plant warm season grasses</fullName>
+                <controllingFieldValues>Irrigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Promote achievements</fullName>
+                <controllingFieldValues>Management Tools</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Publish &amp; circulate staff / tenant newsletters</fullName>
+                <controllingFieldValues>Staff / tenant  engagement</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Purchase tankered recycled water</fullName>
+                <controllingFieldValues>Recycled Water</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Purchase tankered water (not recycled)</fullName>
+                <controllingFieldValues>Recycled Water</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Purpose built trigger nozzles on all hoses</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Reassess cleaning procedures i.e. dry cleaning</fullName>
+                <controllingFieldValues>Staff / tenant  engagement</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recycle / re-use filter backwash</fullName>
+                <controllingFieldValues>Swimming pools and Dams</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recycle / re-use treated Trade Waste effluent</fullName>
+                <controllingFieldValues>Recycled Water</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Remove spa baths</fullName>
+                <controllingFieldValues>Amenities</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Repair boilers</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Repair cooling towers</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Replace boilers with efficient alternatives</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Replace cooling towers with air cooled chiller</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Replace irrigation system with water efficient system</fullName>
+                <controllingFieldValues>Irrigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Replace old pipes</fullName>
+                <controllingFieldValues>Leaks</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Replace pan flushers with macerators</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Replace trigger nozzles with efficient models</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Replace X-Ray equipment with digital equipment</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Re-plumb toilets to decrease water flow</fullName>
+                <controllingFieldValues>Amenities</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Report waterMAP status at Board meetings</fullName>
+                <controllingFieldValues>Management Tools</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Report waterMAP status at Management meetings</fullName>
+                <controllingFieldValues>Management Tools</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Review CIP system for efficiency</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Review filtration and back-flow regime / frequency</fullName>
+                <controllingFieldValues>Swimming pools and Dams</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Review Standard Operating Procedures</fullName>
+                <controllingFieldValues>Investigation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Reward staff for water saving initiatives</fullName>
+                <controllingFieldValues>Staff / tenant  engagement</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Smart Metering</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Spray ball for in-vessel cleaning</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Staff / tenant water efficiency training</fullName>
+                <controllingFieldValues>Staff / tenant  engagement</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Storm-water collection for in process substitution</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use chemicals to minimise evaporation</fullName>
+                <controllingFieldValues>Swimming pools and Dams</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use Class C water for irrigation</fullName>
+                <controllingFieldValues>Recycled Water</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use dialysis water for toilets</fullName>
+                <controllingFieldValues>Amenities</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use rainwater for toilets</fullName>
+                <controllingFieldValues>Amenities</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use recycled cooling tower water for toilets</fullName>
+                <controllingFieldValues>Amenities</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use recycled process water for toilets</fullName>
+                <controllingFieldValues>Amenities</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use recycled water for vehicle washing</fullName>
+                <controllingFieldValues>Recycled Water</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use recycled water for wash down of external areas</fullName>
+                <controllingFieldValues>Recycled Water</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use water alternatives i.e. dry lube</fullName>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use water minimising blocks in urinals</fullName>
+                <controllingFieldValues>Amenities</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Water conservation &apos;champions&apos;</fullName>
+                <controllingFieldValues>Staff / tenant  engagement</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>waterMAP representative has copies of water accounts</fullName>
+                <controllingFieldValues>Management Tools</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other (please specify)</fullName>
+                <controllingFieldValues>Amenities</controllingFieldValues>
+                <controllingFieldValues>Equipment &amp; Process</controllingFieldValues>
+                <controllingFieldValues>Investigation</controllingFieldValues>
+                <controllingFieldValues>Irrigation</controllingFieldValues>
+                <controllingFieldValues>Leaks</controllingFieldValues>
+                <controllingFieldValues>Management Tools</controllingFieldValues>
+                <controllingFieldValues>Recycled Water</controllingFieldValues>
+                <controllingFieldValues>Staff / tenant  engagement</controllingFieldValues>
+                <controllingFieldValues>Swimming pools and Dams</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Monitor water consumption regularly</fullName>
+                <controllingFieldValues>Leaks</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Cost__c</fullName>
+        <externalId>false</externalId>
+        <label>Cost</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Customer__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Action Items</relationshipLabel>
+        <relationshipName>Action_Items</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <length>1000</length>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Estimated_Savings_Other_Cost_Per_Yr__c</fullName>
+        <externalId>false</externalId>
+        <label>Estimated Savings - Other $ / Year</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Estimated_Savings_Water_Cost_Per_Yr__c</fullName>
+        <externalId>false</externalId>
+        <label>Estimated Savings - Water $ / Year</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Estimated_Savings_Water_Usage_Per_Yr__c</fullName>
+        <externalId>false</externalId>
+        <label>Estimated Savings - Water KL / Year</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Funding_Required__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Is SEW funding required?</description>
+        <externalId>false</externalId>
+        <label>Funding Required</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Ongoing_Initiative__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Ongoing Initiative</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Item_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Item Number</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Long_Term_Actions__c</fullName>
+        <externalId>false</externalId>
+        <label>Long Term Actions (&gt;2 years)</label>
+        <length>32000</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Medium_Term_Actions__c</fullName>
+        <externalId>false</externalId>
+        <label>Medium Term Actions (6 months-2 years)</label>
+        <length>32000</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Migration_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Migration Id</label>
+        <length>80</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Ongoing_and_Future_Consideration_Actions__c</fullName>
+        <externalId>false</externalId>
+        <label>Ongoing and Future Consideration Actions</label>
+        <length>32000</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Other_Action_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Action Type</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Parent_Account_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>Watermap__r.Customer__r.Parent.Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Parent Account ID</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Payback_Years_Calc__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Estimated_Savings_Other_Cost_Per_Yr__c  +  Estimated_Savings_Water_Cost_Per_Yr__c &lt;&gt; 0, Cost__c  / ( Estimated_Savings_Other_Cost_Per_Yr__c  +  Estimated_Savings_Water_Cost_Per_Yr__c ), 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payback (Years)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project_Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Project Comments</label>
+        <length>1000</length>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Scheduled_Completion_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Scheduled Completion Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Short_Term_Actions__c</fullName>
+        <externalId>false</externalId>
+        <label>Short Term Actions(3-6 months)</label>
+        <length>32000</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Not started</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In progress</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Future Consideration</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Universal_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Universal Id</label>
+        <length>40</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Watermap__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Watermap</label>
+        <referenceTo>WaterMAP__c</referenceTo>
+        <relationshipLabel>Action Items</relationshipLabel>
+        <relationshipName>Action_Items</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Year_Action_Completed__c</fullName>
+        <externalId>false</externalId>
+        <label>Year Action Completed</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Action Item</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Action__c</columns>
+        <columns>Action_Category__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{0000000000}</displayFormat>
+        <label>Action Item #</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Action Items</pluralLabel>
+    <recordTypes>
+        <fullName>Non_WaterMAP_ActionPlan</fullName>
+        <active>true</active>
+        <description>Action Plans that are NOT related to WaterMap, such as Council Action Plan.</description>
+        <label>Non-WaterMAP ActionPlan</label>
+        <picklistValues>
+            <picklist>Action_Category__c</picklist>
+            <values>
+                <fullName>Amenities</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Equipment %26 Process</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Investigation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Irrigation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Leaks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Management Tools</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other %28please specify%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recycled Water</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Swimming pools and Dams</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Action__c</picklist>
+            <values>
+                <fullName>Abide by all water restrictions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Access suitability of using recycled water</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Adjust urinal sensors</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Appoint staff to manage and monitor waterMAP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Build new dam</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capture and reuse fire service testing water</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Change fire service testing regime to monthly</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Check %2F adjust ball floats on process top-ups</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Check %2F review fire service testing regime</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Collect %2F recycle condensate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Collect and reuse on-site process water</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Collect irrigation run-off for re-use</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Comparison against industry benchmarks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Conduct cleaner production audit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Conduct cooling tower audit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Conduct water audit %28consultant study%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Conduct water audit %28internal study%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Connect to Class A recycled system</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Continue to remind staff to adopt water efficient practices</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Develop business case for project</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Develop case studies</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Develop feasibility study for project</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Develop specific benchmarks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Develop water %27mass balance%27 across site</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divert and collect stormwater</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Engage contracted water conservation service providers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Engage tenants in water efficient practices</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Engage with industry groups for assistance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Enlarge existing dam</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ensure fire service is not used illegally</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Form in-house staff involvement team</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>High pressure%2F low volume wash alternatives</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hold staff %2F tenant environmental forums</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Identify %2F quantify variance in water consumption</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Identify potential infrastructure leakage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incorporate water targets into policies</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install automatic shower timers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install bore</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install check meters</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install check meters at key process areas</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install chemical water treatment system</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install dam cover</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install dripper system</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install dual flush toilets</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install flow control valves on all hand basins</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install flow control valves on showers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install laundry water recycling system</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install low flow shower-heads</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install moisture sensors</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install rain sensors</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install rainwater%2F run-off collection tank</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install reverse osmosis system</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install sensor taps on hand basins</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install smart meters</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install swimming pool cover</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install timed urinal flushing system</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install toilet weights in cisterns</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install water awareness stickers and posters</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install water efficient clothes washing machines</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install water efficient dish washer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install water efficient pool filter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install water efficient pre-rinse nozzles</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install water efficient steamers %28for cooking%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install water efficient sterilising equipment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install water treatment system</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install waterless urinals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install waterless woks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install wetland for water treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Investigate possibility of connecting to Class A System</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Investigate water efficient equipment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Minimise process evaporation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Monitor%2F record water usage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Monthly report of water data</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mulch garden beds</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other %28please specify%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Plant drought tolerant plants</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Plant warm season grasses</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Promote achievements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Publish %26 circulate staff %2F tenant newsletters</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchase tankered recycled water</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchase tankered water %28not recycled%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purpose built trigger nozzles on all hoses</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Re-plumb toilets to decrease water flow</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reassess cleaning procedures i%2Ee%2E dry cleaning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recycle %2F re-use filter backwash</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recycle %2F re-use treated Trade Waste effluent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove spa baths</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Repair boilers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Repair cooling towers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Replace X-Ray equipment with digital equipment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Replace boilers with efficient alternatives</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Replace cooling towers with air cooled chiller</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Replace irrigation system with water efficient system</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Replace old pipes</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Replace pan flushers with macerators</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Replace trigger nozzles with efficient models</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Report waterMAP status at Board meetings</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Report waterMAP status at Management meetings</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Review CIP system for efficiency</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Review Standard Operating Procedures</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Review filtration and back-flow regime %2F frequency</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reward staff for water saving initiatives</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spray ball for in-vessel cleaning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Staff %2F tenant water efficiency training</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Storm-water collection for in process substitution</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Use Class C water for irrigation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Use chemicals to minimise evaporation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Use dialysis water for toilets</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Use rainwater for toilets</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Use recycled cooling tower water for toilets</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Use recycled process water for toilets</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Use recycled water for vehicle washing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Use recycled water for wash down of external areas</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Use water alternatives i%2Ee%2E dry lube</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Use water minimising blocks in urinals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Water conservation %27champions%27</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>waterMAP representative has copies of water accounts</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Consideration</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not started</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>WaterMAP_Action_Item</fullName>
+        <active>true</active>
+        <description>WaterMAP related Action Items that are categorised and marked with Status.</description>
+        <label>WaterMAP Action Item</label>
+        <picklistValues>
+            <picklist>Action_Category__c</picklist>
+            <values>
+                <fullName>Amenities</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Equipment %26 Process</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Investigation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Irrigation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Leaks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Management Tools</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other %28please specify%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recycled Water</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Staff %2F tenant  engagement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Swimming pools and Dams</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Action__c</picklist>
+            <values>
+                <fullName>Abide by all water restrictions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Access suitability of using recycled water</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Adjust urinal sensors</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Appoint staff to manage and monitor waterMAP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Build new dam</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capture and reuse fire service testing water</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Change fire service testing regime to monthly</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Check %2F adjust ball floats on process top-ups</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Check %2F review fire service testing regime</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Collect %2F recycle condensate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Collect and reuse on-site process water</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Collect irrigation run-off for re-use</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Comparison against industry benchmarks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Conduct cleaner production audit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Conduct cooling tower audit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Conduct water audit %28consultant study%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Conduct water audit %28internal study%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Connect to Class A recycled system</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Continue to remind staff to adopt water efficient practices</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Develop business case for project</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Develop case studies</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Develop feasibility study for project</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Develop specific benchmarks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Develop water %27mass balance%27 across site</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divert and collect stormwater</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Engage contracted water conservation service providers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Engage tenants in water efficient practices</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Engage with industry groups for assistance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Enlarge existing dam</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ensure fire service is not used illegally</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fix leaks immediately</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Form in-house staff involvement team</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>High pressure%2F low volume wash alternatives</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hold staff %2F tenant environmental forums</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hydroshare</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Identify %2F quantify variance in water consumption</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Identify potential infrastructure leakage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incorporate water targets into policies</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install automatic shower timers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install bore</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install check meters</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install check meters at key process areas</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install chemical water treatment system</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install dam cover</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install dripper system</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install dual flush toilets</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install flow control valves on all hand basins</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install flow control valves on showers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install laundry water recycling system</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install low flow shower-heads</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install moisture sensors</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install rain sensors</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install rainwater%2F run-off collection tank</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install reverse osmosis system</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install sensor taps on hand basins</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install smart meters</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install swimming pool cover</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install timed urinal flushing system</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install toilet weights in cisterns</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install water awareness stickers and posters</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install water efficient clothes washing machines</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install water efficient dish washer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install water efficient pool filter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install water efficient pre-rinse nozzles</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install water efficient steamers %28for cooking%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install water efficient sterilising equipment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install water treatment system</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install waterless urinals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install waterless woks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install wetland for water treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Investigate possibility of connecting to Class A System</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Investigate water efficient equipment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Minimise process evaporation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Monitor water consumption regulary</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Monitor%2F record water usage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Monthly report of water data</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mulch garden beds</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other %28please specify%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Plant drought tolerant plants</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Plant warm season grasses</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Promote achievements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Publish %26 circulate staff %2F tenant newsletters</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchase tankered recycled water</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchase tankered water %28not recycled%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purpose built trigger nozzles on all hoses</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Re-plumb toilets to decrease water flow</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reassess cleaning procedures i%2Ee%2E dry cleaning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recycle %2F re-use filter backwash</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recycle %2F re-use treated Trade Waste effluent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remove spa baths</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Repair boilers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Repair cooling towers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Replace X-Ray equipment with digital equipment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Replace boilers with efficient alternatives</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Replace cooling towers with air cooled chiller</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Replace irrigation system with water efficient system</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Replace old pipes</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Replace pan flushers with macerators</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Replace trigger nozzles with efficient models</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Report waterMAP status at Board meetings</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Report waterMAP status at Management meetings</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Review CIP system for efficiency</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Review Standard Operating Procedures</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Review filtration and back-flow regime %2F frequency</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reward staff for water saving initiatives</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Smart Metering</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spray ball for in-vessel cleaning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Staff %2F tenant water efficiency training</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Storm-water collection for in process substitution</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Use Class C water for irrigation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Use chemicals to minimise evaporation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Use dialysis water for toilets</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Use rainwater for toilets</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Use recycled cooling tower water for toilets</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Use recycled process water for toilets</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Use recycled water for vehicle washing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Use recycled water for wash down of external areas</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Use water alternatives i%2Ee%2E dry lube</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Use water minimising blocks in urinals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Water conservation %27champions%27</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>waterMAP representative has copies of water accounts</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Consideration</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not started</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>Action__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Action_Category__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Cost__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Action__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Action_Category__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Cost__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Action__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Action_Category__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Cost__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Action__c</searchFilterFields>
+        <searchFilterFields>Action_Category__c</searchFilterFields>
+        <searchFilterFields>Cost__c</searchFilterFields>
+        <searchResultsAdditionalFields>Action__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Action_Category__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>New_Action_Item</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>New Action Item</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>/a0G/e?CF00N90000001mlu6={!WaterMAP__c.Name}&amp;CF00N90000001mlu6_lkid={!WaterMAP__c.Id}&amp;retURL=%2Fa{!Action_Item__c.WatermapId__c}&amp;RecordType=01290000000FQcP&amp;ent=01I90000000FQeC&amp;CF00N90000002PHhu={!Account.Name}&amp;CF00N90000002PHhu_lkid={!Account.Id}</url>
+    </webLinks>
+</CustomObject>

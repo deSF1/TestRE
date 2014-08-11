@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Captures Future Address information</description>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Account__c</fullName>
+        <description>The Customer for which the future address will apply to.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Customer for which the future address will apply to.</inlineHelpText>
+        <label>Customer</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Future Addresses</relationshipLabel>
+        <relationshipName>Future_Addresses</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Address_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Address Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Primary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mailing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Billing Only</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Applicable_Date__c</fullName>
+        <description>When the Future Address details become applicable</description>
+        <externalId>false</externalId>
+        <label>Applicable Date</label>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Billing_Account_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_Account_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Billing Account</label>
+        <referenceTo>Billing_Account__c</referenceTo>
+        <relationshipLabel>Future Addresses</relationshipLabel>
+        <relationshipName>Future_Addresses</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>City__c</fullName>
+        <description>Future City to mail to</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Future City to mail to, as per logged request</inlineHelpText>
+        <label>City</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <description>Future Country to mail to, as per logged request</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Future Country to mail to</inlineHelpText>
+        <label>Country</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DPID__c</fullName>
+        <description>Future DPID Reference</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Future DPID Reference</inlineHelpText>
+        <label>DPID</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Done__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Flag to indicate that the Future Address change is done</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Flag to indicate that the Future Address change is done</inlineHelpText>
+        <label>Done</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Postal_Code__c</fullName>
+        <description>Future Postal Code to mail to, as per logged request</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Future Postal Code to mail to, as per logged request</inlineHelpText>
+        <label>Postal Code</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Process__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Hidden field to trigger the future address for processing</description>
+        <externalId>false</externalId>
+        <label>Process</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>State__c</fullName>
+        <description>Future State to mail to, as per logged request</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Future City to mail to</inlineHelpText>
+        <label>State</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Street_Address__c</fullName>
+        <description>Future Street Address</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Future Street Address</inlineHelpText>
+        <label>Street Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Updated_Touchpoints_Timestamp__c</fullName>
+        <externalId>false</externalId>
+        <label>Updated_Touchpoints_Timestamp</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Updated_Touchpoints__c</fullName>
+        <externalId>false</externalId>
+        <label>Updated_Touchpoints</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Future Address</label>
+    <nameField>
+        <displayFormat>F{000000}</displayFormat>
+        <label>Future Address #</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Future Addresses</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Applicable_Date_cannot_be_in_the_past</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND ( NOT($User.ProfileId  = &apos;00e90000000RZvy&apos;), Applicable_Date__c  &lt;= Today() &amp;&amp;  Done__c == false)</errorConditionFormula>
+        <errorMessage>Applicable date can only be in the future.</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Lookup_Address</fullName>
+        <availability>online</availability>
+        <description>Lightbox integration for QAS Lookup (object to touchpoint)</description>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Lookup Address</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/resource/1250693978000/experianqas__jquery132min&quot;)}
+{!REQUIRESCRIPT(&quot;/resource/1250699255000/experianqas__thickbox31js&quot;)}
+{!REQUIRESCRIPT(&quot;/resource/1252330725000/experianqas__PopupHelperJS&quot;)}
+QASDisplayPopup({ id : &quot;{!Future_Address__c.Id}&quot;, touchpoint : &quot;FutureAddress&quot;});</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Manage_Addresses_Future_Address</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Manage Addresses</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>if (typeof(srcUp) == &apos;function&apos;) {
+    srcUp(&apos;/apex/AccountMassBAcctAddressUpdateRedirect?id={!Account.Id}&amp;isdtp=vw&apos;);
+} else {   
+    window.location = &quot;/apex/AccountMassBAcctAddressUpdateRedirect?id={!Account.Id}&quot;;
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Mass_Update</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Mass Update</masterLabel>
+        <openType>sidebar</openType>
+        <page>MassUpdateFutureAddress</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+</CustomObject>

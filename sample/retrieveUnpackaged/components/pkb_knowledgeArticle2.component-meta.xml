@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>25.0</apiVersion>
+    <description>Display the list of top 3 articles per category.  Displayed in the support home page</description>
+    <label>pkb_knowledgeArticle2</label>
+</ApexComponent>

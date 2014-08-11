@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Billing_Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Billing Account</label>
+        <referenceTo>Billing_Account__c</referenceTo>
+        <relationshipName>Livelink_Records</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Case__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Link CASE to LiveLink Documents</description>
+        <externalId>false</externalId>
+        <label>Case</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipLabel>Livelink Documents</relationshipLabel>
+        <relationshipName>Livelink_Documents</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Customer__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Customer</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>Livelink_Records</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Date_Initiated__c</fullName>
+        <description>The date/time the document was added to Livelink (not the same as the date this record was created)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date/time the document was added to Livelink (not the same as the date this record was created)</inlineHelpText>
+        <label>Date Initiated</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Folder_Id__c</fullName>
+        <description>The parent folder unique Id for the Livelink document</description>
+        <externalId>true</externalId>
+        <inlineHelpText>The parent folder unique Id for the Livelink document</inlineHelpText>
+        <label>Folder Id</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Node_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Node Id</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Open_Document__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;&quot;&amp;$Setup.LivelinkSettings__c.ServerBase__c&amp; $Setup.LivelinkSettings__c.OpenObjectURL__c&amp;Node_Id__c&amp; $Setup.LivelinkSettings__c.OpenDocumentURLSuffix__c,&quot;Open Document&quot;, &quot;openLLdoc&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Open Document</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Open_Parent_Folder__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;&quot;&amp;$Setup.LivelinkSettings__c.ServerBase__c&amp;$Setup.LivelinkSettings__c.OpenObjectURL__c&amp;  Folder_Id__c&amp; $Setup.LivelinkSettings__c.OpenFolderURLSuffix__c,&quot;Open Parent Folder&quot;, &quot;openLLfolder&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Open Parent Folder</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Property</label>
+        <referenceTo>Property__c</referenceTo>
+        <relationshipName>Livelink_Records</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <label>Livelink Document</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>CREATED_DATE</columns>
+        <columns>Billing_Account__c</columns>
+        <columns>Customer__c</columns>
+        <columns>Property__c</columns>
+        <columns>NAME</columns>
+        <columns>OBJECT_ID</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>Folder_Id__c</columns>
+        <columns>Open_Document__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Created_Today</fullName>
+        <columns>NAME</columns>
+        <columns>Open_Document__c</columns>
+        <columns>Open_Parent_Folder__c</columns>
+        <columns>Billing_Account__c</columns>
+        <columns>Property__c</columns>
+        <columns>Customer__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Node_Id__c</columns>
+        <columns>Folder_Id__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>equals</operation>
+            <value>5/24/2012 12:00 AM</value>
+        </filters>
+        <filters>
+            <field>Billing_Account__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Customer__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Property__c</field>
+            <operation>equals</operation>
+        </filters>
+        <label>Orphaned - Created Today</label>
+        <sharedTo>
+            <group>Admin</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Orphaned_LiveLink_Docs</fullName>
+        <columns>NAME</columns>
+        <columns>OBJECT_ID</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Billing_Account__c</columns>
+        <columns>Customer__c</columns>
+        <columns>Property__c</columns>
+        <columns>Folder_Id__c</columns>
+        <columns>Node_Id__c</columns>
+        <columns>Open_Document__c</columns>
+        <columns>Open_Parent_Folder__c</columns>
+        <columns>Case__c</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>OWNER.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Customer__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Billing_Account__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Property__c</field>
+            <operation>equals</operation>
+        </filters>
+        <label>All Orphaned LiveLink Docs</label>
+        <sharedTo>
+            <group>Admin</group>
+        </sharedTo>
+    </listViews>
+    <nameField>
+        <label>Filename</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Livelink Documents</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Read</sharingModel>
+    <startsWith>Vowel</startsWith>
+    <webLinks>
+        <fullName>Mass_Update</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Mass Update</masterLabel>
+        <openType>sidebar</openType>
+        <page>MassUpdateLiveLink</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+    <webLinks>
+        <fullName>Search_Historical_Archive</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Search Historical Archive</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>if({!NOT(ISBLANK(Property__c.Id ))})
+{
+window.open(&quot;{!$Setup.LivelinkSettings__c.ServerBase__c}{!$Setup.LivelinkSettings__c.SearchLivelinkURL__c}(Property_Number:{!Property__c.CIS_Property_Id__c})&quot;);
+}
+else if({!NOT(ISBLANK(Billing_Account__c.Id))})
+{
+window.open(&quot;{!$Setup.LivelinkSettings__c.ServerBase__c}{!$Setup.LivelinkSettings__c.SearchLivelinkURL__c}(Customer_Number:{!Billing_Account__c.Name})&quot;);
+}
+else if({!NOT(ISBLANK(Account.Id))})
+{
+window.open(&quot;{!$Setup.LivelinkSettings__c.ServerBase__c}{!$Setup.LivelinkSettings__c.SearchLivelinkURL__c}(PULSE_Customer_No:{!Account.Customer_Number2__c})&quot;);
+}</url>
+    </webLinks>
+</CustomObject>

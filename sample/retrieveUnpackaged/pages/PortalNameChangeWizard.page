@@ -1,0 +1,270 @@
+<apex:page controller="PortalNameChangeWizard_ExCon"
+    doctype="html-5.0"
+    sidebar="false"
+    showHeader="true" action="{!CheckRedirectConfirmed}"
+    tabstyle="Portal_Enquiries__tab" >
+    <!-- 
+    Type:       VF page
+    Purpose:    Wizard for populating a Case to provide name change details and optional supporting uploaded attachment 
+    ---------------------------------------------------------------
+    History:
+    
+    02-Apr-2012: Manu Erwin (Salesforce.com) - Created
+    19-Oct-2012: Joseph Barrameda (Cloudsherpas) - TP#406 - Change Account name functionality 
+    25-Oct-2013: Nathan Patterson - TT10401 - Muli Customer view
+
+    -->
+
+    <head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+
+        <!-- jquery -->
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+
+        <script>
+            var j$ = jQuery.noConflict();
+            
+            j$(function() {
+            
+                j$( "#samplebill-popup" ).dialog({
+                    dialogClass: 'ui-dropshadow',
+                    autoOpen: false,
+                    height: 700,
+                    width: 700,
+                    modal: true,
+                    resizable: false
+                });                
+                              
+            });
+
+            function showBill() {
+                j$("#samplebill-popup").dialog("open");
+            }
+        </script>
+
+        <style type="text/css">
+            /* INCREASED LABEL WIDTH */
+            .bPageBlock .detailList .labelCol {
+                width: 30%;
+            }
+            
+
+            .AccountPickList {
+            	border-color: #999999;
+	    		border-image: none;
+	    		border-radius: 0 0 0 0;
+	    		border-style: none none solid;
+	    		border-width: 0 0 1px;
+	    		font-size: 11.25pt;
+	    		padding: 3px;
+	    		min-width: 400px;
+            }
+            .AccountPickList option {
+            	font-size: 11.25pt;
+            }
+        </style>
+    </head>
+
+    <apex:stylesheet value="{!$Resource.SEWPortalStyles}"/>
+
+    <apex:form id="theForm" enctype="multipart/form-data">
+
+        <!--  SIDEBAR CONTENT -->
+        <apex:outputPanel id="sidebarContainer" layout="block" styleClass="sideBarCellDiv" >
+            <c:PortalSidebar id="sidebar" groupName="Enquiries" 
+               currentDevName="Enquiries_NameChange" 
+               title="Enquiries"/>
+        </apex:outputPanel>
+
+		<apex:actionFunction name="customerChanged" action="{!changeSelectedCustomer}" status="loading" rerender="contentCellDiv"/>
+
+        <!--  MAIN CONTENT -->
+        <apex:outputPanel id="contentCellDiv" layout="block" styleClass="contentCellDiv" >
+
+            <apex:sectionHeader id="sectionHeader" subtitle="Amend customer name on account" />
+
+            <apex:pageBlock id="contentCellPageblock" >
+
+                <!-- PAGE MESSAGES - ALWAYS DISPLAYED -->
+                <apex:outputPanel id="pageMessages" layout="block" >
+                    <apex:pageMessages id="msgTop" />
+                </apex:outputPanel>
+    
+                <!-- LEFT HAND SIDE CONTENT -->
+                <apex:outputPanel id="innerContentLHSDiv" styleClass="innerContentLHSDiv" >
+                    <!-- THANKS FOR YOUR REQUEST SECTION -->
+                    <apex:outputPanel id="confirmationThanksForSubmission" layout="block" styleClass="infoMessage" rendered="{! step == 'confirmation' && submitted}">
+                        <apex:pageMessage strength="3" severity="info" escape="false" summary="Thank you {!firstName},<br />
+                            your request has been referred to our Customer Support team.
+                            Please allow two business days for us to review your request. Your case reference number for this request is {!caseNumber}. <br /><br />
+                            Note:  You can check the progress of your case at anytime by selecting the ‘My cases’ tab on the Enquiry page."/>
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel >
+                        <p style="font-weight:normal; margin-left:0px; margin-right:0px">Your customer name is the legal name that appears on your account. 
+                        To update your personal details, go to <apex:outputLink value="{!$Page.PortalMyDetails}"> My Details </apex:outputLink> page.</p>
+                    </apex:outputPanel>
+                    
+                    <!-- VIEW EXISTING NAME DETAILS READ ONLY -->
+                    
+                    <apex:pageBlockSection id="viewSection" columns="1" title="Current details" collapsible="false" rendered="{! step == 'edit' || step == 'new'}" >
+                    <!-- TP #406 Criteria 1. Name change request page - remove the last name and first name fields
+                        <apex:outputText id="firstNameView" value="{!userContact.FirstName}" label="First name" />
+                        <apex:outputText id="lastNameView" value="{!userContact.LastName}" label="Last name" />
+                    -->
+                    	Please select the Customer account you like to view / amend<br/><br/>
+	                    <apex:selectList id="chooseCustomer" value="{!selectedCustomer}" size="1" onChange="customerChanged()" styleClass="AccountPickList" disabled="{!if(reasonForChange = 'LegalNameChange','true','false')}"> 
+	            			<apex:selectOptions value="{!customerOptionList}" />
+	        			</apex:selectList> 
+                        <!-- apex:outputText id="customerNameView" value="{!customer.Name}" label="Customer name" />        
+                        <apex:outputText id="customerTradingNameView" value="{!customer.Trading_Name__c}" label="Trading name" rendered="{!customerType=='Business'}" / -->
+                    </apex:pageBlockSection>
+
+                    <!-- EDIT NAME DETAILS -->
+                    <apex:pageBlockSection id="editSection" columns="1" title="New details" collapsible="false" rendered="{! step == 'edit'}" >
+                    <!-- TP #406 Criteria 1. Under the Enquiries tab, Name change request page - remove the last name and first name fields
+                        <apex:inputText id="firstName" value="{!firstName}" label="First name" maxlength="40" size="35" required="true" />
+                        <apex:inputText id="lastName" value="{!lastName}" label="Last name" maxlength="80" size="35" required="true" />
+                     -->                           
+                        
+                        <!-- <apex:outputLabel style="position:relative;left:-10px" value="New customer name"/> -->
+                        <apex:pageblockSectionItem >
+                            <apex:outputlabel >New customer name</apex:outputlabel>
+                            <apex:outputpanel >                                
+                                <apex:inputText id="customerName" value="{!customerName}" label="New customer name" size="23" maxlength="80"  required="true" />                        
+                                        <span class="fieldHelpLink">
+                                            <a href="javascript:showBill()" id="showbill">
+                                                What's this?
+                                            </a>    
+                                        </span>
+                            </apex:outputpanel>
+                        </apex:pageblockSectionItem>
+                        <apex:inputText id="tradingName" value="{!tradingName}" label="Trading name" maxlength="80" size="35"  rendered="{!customerType=='Business'}" />
+                    </apex:pageBlockSection>
+
+                    <!-- ACTION REGION ENABLES CHOOSING DIFFERENT OPTIONS WITHOUT REQUIRED FIELD VALIDATION FIRING -->
+                    <apex:actionRegion >
+                        <apex:pageBlockSection id="reasonForChangeSection" columns="1" title="Please choose the reason for this change" collapsible="false" rendered="{! step == 'edit'}" >
+                            <!-- REASON FOR CHANGE SELECT LIST -->
+                            
+                                    <apex:selectList label="Reason for change" id="reasonForChangeList" size="1" value="{!reasonForChange}" >
+	                                    <apex:selectOption itemValue="SpellingError" itemLabel="Spelling error" />
+	                                    <apex:selectOption itemValue="LegalNameChange" itemLabel="Legal name change" />
+	                                    <apex:actionSupport event="onchange" status="loading" rerender="detailedReasonAndattachment,viewSection"/>
+                                    </apex:selectList>
+                                
+                        </apex:pageBlockSection>
+                    </apex:actionRegion>
+                    
+                    
+                    
+
+                    <!-- DETAILED REASON AND SUPPORTING attachment PANEL -->
+                    <apex:outputPanel id="detailedReasonAndattachment" layout="block" >
+                        <!-- <apex:pageBlockSection id="detailedReason" columns="1" title="Please provide a detailed reason for this change and upload supporting documentation"
+                                collapsible="false" rendered="{! step == 'edit' && reasonForChange == 'LegalNameChange'}" >  -->
+                                
+                            <!-- DETAILED REASON FOR CHANGE -->
+                            
+                            <apex:pageBlockSection id="detailedReason" columns="1" title="A change related to a legal name change requires supporting information. Please provide 
+                                a detailed reason for this change and upload supporting documentation (e.g. notice of sale, marriage certificate)"
+                                collapsible="false" rendered="{! step == 'edit' && reasonForChange == 'LegalNameChange'}" > 
+                            
+                            <apex:inputTextArea id="detailedReason" value="{!reasonForChangeLong}" label="Detailed reason" cols="27" rows="10" required="true" />
+                                     <apex:pageBlockSectionItem >
+                                     <apex:outputLabel />
+                            <!-- UPLOAD SUPPORTING attachment -->
+                            <apex:inputFile id="attachmentFile" value="{!attachmentBody}"
+                                        filename="{!attachment.Name}"
+                                        contentType="{!attachment.ContentType}"
+                                        fileSize="{!attachment.BodyLength}"
+                                        size="25"
+                                        onchange="" />
+                             </apex:pageBlockSectionItem>           
+                            <!-- MESSAGE WARNING ATTACHMENT REQUIRED     -->
+                            <apex:pageBlockSectionItem >
+                                     
+                            <apex:pageMessage strength="3" severity="warning" summary="IMPORTANT NOTE: Please ensure you attach any relevant legal documentation to support your name change. (5MB max)" />
+                                    
+                                    </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+                    </apex:outputPanel>
+
+                    <!-- BUTTONS -->
+                    <apex:pageBlockSection id="buttons" columns="1" title="" collapsible="false" >
+                    
+                        <apex:pageBlockSectionItem id="submitButtonSection" rendered="{! step == 'edit'}">
+                            <apex:outputLabel />
+                            <apex:outputPanel layout="block" >
+                                <apex:commandButton id="submitButton" action="{!submit}" value="Submit" styleClass="btnPrimary" status="loading" />
+                                &nbsp;
+                                <apex:commandButton id="cancelButton" action="{!returnToMyDetails}" value="Cancel" styleClass="btnClearGreenText" status="loading" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                                    
+                        <apex:pageBlockSectionItem id="confirmButtonSection" rendered="{! step == 'confirmation'}" >
+                            <apex:outputLabel id="confirmButtonLabel" for="confirmButton" value="" />
+                            <apex:outputPanel layout="block" >
+                                <apex:commandButton id="returnToDetailsButton" action="{!returnToMyDetails}" value="Return to my details" styleClass="btn" status="loading" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                      
+                    </apex:pageBlockSection>
+                   
+
+                </apex:outputPanel>
+
+                <!-- RIGHT HAND SIDE CONTENT -->
+                <apex:outputPanel id="innerContentRHSDiv" layout="block" styleClass="innerContentRHSDiv" >
+                    <!--  live chat -->
+                    <c:LiveChat />
+                    
+                    <c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+                        divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+                        divStyle="width: 205px"/>
+                    
+                    <!--  quick links -->
+                    <div style="position: relative;"><c:PortalQuickLinks mode="NameChangeRequest"/></div>
+                </apex:outputPanel>
+    
+                <div style="clear:both"/>
+            </apex:pageBlock>
+
+        </apex:outputPanel> <!-- contentCellDiv END -->
+
+        <!-- Action Status that are not position dependent -->
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+                    borderSize="1" height="50px" width="120px" margintop="-25px"
+                    marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+                    Message="Processing..." />
+            </apex:facet>
+        </apex:actionStatus>
+        
+        <!-- sample bill popup -->
+        <div id="samplebill-popup"
+            title="Finding your customer name">
+    
+            <p style="margin-top: 10px" />
+            Your customer name is located on the top left hand corner of your bill.
+            <p />
+            <center>
+                <apex:image value="{!$Resource.BillCustomerNameLocation}"
+                    style="text-align:center;margin-bottom:25px" />
+                <p />
+                <apex:commandButton styleClass="btnGreen" value="Close"
+                    onclick="hideBill(); return false;" tabindex="1" id="closebillwindow"/>
+                <script>
+                    function hideBill() {
+                        j$("#samplebill-popup").dialog("close");
+                    }
+                </script>
+            </center>
+        </div>
+
+    </apex:form>
+        
+</apex:page>

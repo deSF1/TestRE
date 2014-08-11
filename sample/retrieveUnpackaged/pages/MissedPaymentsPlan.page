@@ -1,0 +1,152 @@
+<apex:page standardController="Billing_Account__c" extensions="MissedPaymentPlanExCon">
+    <!--  
+    Type:       VF page
+    Purpose:    Missed Payment
+    -----------------------------------------------------------------
+    History:
+        03-Dec-2012 DYU (CloudSherpas) TP493- Created
+    -->
+   
+   <apex:includeScript value="/support/console/24.0/integration.js"/>
+   <script type="text/javascript">
+
+        function setTabTitle() {
+            if(sforce.console.isInConsole()){
+                sforce.console.setTabTitle('{!Billing_Account__c.Name} - Missing Payments');
+            }
+        }
+
+        var previousOnload = window.onload;
+
+        window.onload = function() {
+            if (previousOnload) {
+                previousOnload();
+                setTabTitle();
+            }
+         }
+    </script>
+    <apex:pagemessages />
+    <apex:form >
+        <apex:outputPanel id="subject" layout="block" rendered="{!!Billing_Account__c.Is_Payment_Plan__c}" >
+           <apex:pageMessage escape="false" strength="2" severity="info" summary="There is currently no Active Payment Plan for this Account"/>
+        </apex:outputPanel>
+        <apex:pageblock rendered="{!IF(Billing_Account__c.Is_Payment_Plan__c && serviceSuccess, true, false)}" id="paymentPlanBlock">
+            <apex:pageBlockSection title="Payment Plan" columns="2" id="paymentPlanSection">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Customer Name: "/>
+                    <apex:outputText value="{!Billing_Account__c.Customer__r.Name}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Start Date: "/>
+                    <apex:outputText value="{0,date,dd/MM/yyyy}">
+                        <apex:param value="{!Billing_Account__c.Payment_Plan_Start_Date__c}"/>
+                    </apex:outputText>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Billing Account Number: "/>
+                    <apex:outputText value="{!Billing_Account__c.HiAF_Account_Number__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="End Date: "/>
+                    <apex:outputText value="{0,date,dd/MM/yyyy}">
+                        <apex:param value="{!Billing_Account__c.Payment_Plan_End_Date__c}"/>
+                    </apex:outputText>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Payment Plan Active: "/>
+                    <image width="20" height="20" src="{!$Resource.MissedPayments_Check}" style="{!IF(Billing_Account__c.Is_Payment_Plan__c, 'display:block', 'display:none')}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Payment Plan Type Frequency: "/>
+                    <apex:outputText value="{!Billing_Account__c.Payment_Plan_Frequency__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Number of Payments: "/>
+                    <apex:outputText value="{!Billing_Account__c.Payment_Plan_Number_of_Payments__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Amount: "/>
+                    <apex:outputText value="${!Billing_Account__c.Payment_Plan_Amount__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Total Expected Payment Amount to Date: "/>
+                    <apex:outputText value="${!totalPaymentsExpected}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Total Received Payment Amount to Date: "/>
+                    <apex:outputText value="${!totalPayments}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Missing Payments: "/>
+                    <div style="{!IF(totalDifference > 0, 'color:red; font-weight:bold', '')}">${!totalDifference}</div>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageblock>
+        <apex:pagebLock rendered="{!IF(Billing_Account__c.Is_Payment_Plan__c && serviceSuccess, true, false)}" id="paymentPlanSummaryBlock">
+            <apex:pageBlockSection title="Payment Plan Summary" id="paymentPlanSummaryBlock" columns="1">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td style="border: #036 solid 2px; border-color: white; text-align: center; border-top: none; border-left: none; border-bottom: none; font-weight:bold; font-size: 25px; color: white; background-color: #236FBD; width: 55.1%;">
+                            Expected Payments Schedule
+                        </td>
+                        <td style="border: #036 solid 2px; border-color: white; text-align: center; border-top: none; border-right: none; border-bottom: none; center; font-weight:bold; font-size: 25px; color: white; background-color: #236FBD; width: 44.9%;">
+                            Payments Received
+                        </td>
+                    </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr >
+                        <td style="border: #036 solid 1px; border-color: white; font-weight:bold; font-size: 15px; width: 25%; color: white; background-color: #236FBD; padding: 5px 5px 5px 5px; ">
+                            Period
+                        </td>
+                        <td style="border: #036 solid 1px; border-color: white; font-weight:bold; font-size: 15px; width: 15%; color: white; background-color: #236FBD; padding: 5px 5px 5px 5px; ">
+                            Expected Payment
+                        </td>
+                        <td style="border: #036 solid 1px; border-color: white; font-weight:bold; font-size: 15px; width: 15%; color: white; background-color: #236FBD;  padding: 5px 5px 5px 5px; ">
+                            Missing Payment
+                        </td>
+                        <td style="border: #036 solid 1px; border-color: white; font-weight:bold; font-size: 15px; width: 15%; color: white; background-color: #236FBD;  padding: 5px 5px 5px 5px; ">
+                            Amount
+                        </td>
+                        <td style="border: #036 solid 1px; border-color: white; font-weight:bold; font-size: 15px; width: 15%; color: white; background-color: #236FBD;  padding: 5px 5px 5px 5px; ">
+                            Date Posted
+                        </td>
+                        <td style="border: #036 solid 1px; border-color: white; font-weight:bold; font-size: 15px; width: 15%; color: white; background-color: #236FBD;  padding: 5px 5px 5px 5px; ">
+                            Method
+                        </td>
+                    </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <apex:repeat value="{!paymentList}" var="p">
+                        <tr >
+                            <td style="border: #036 solid 2px; border-color: white; font-weight:bold; font-size: 15px; width: 25%; padding: 0px;">
+                                {!p.period}
+                            </td>   
+                            <td style="border: #036 solid 2px; border-color: white; font-weight:bold; font-size: 15px; width: 15%; padding: 0px;">
+                                <span style="{!IF(p.expectedPayment == null, 'display:none', 'display:block')}">${!p.expectedPayment}</span>
+                            </td>   
+                            <td style="border: #036 solid 2px; border-color: white; font-weight:bold; font-size: 15px; width: 10%; padding: 0px;">
+                                <span style="{!IF(p.missedPayment == null, 'display:none', 'display:block')}">${!p.missedPayment}</span>
+                            </td>
+                            <td style="border: #036 solid 2px; border-color: white; font-weight:bold; width: 5%; padding: 0px;" align="center">
+                                <image width="20" height="20" src="{!$Resource.MissedPayments_Check}" style="{!IF(p.status == 'green', 'display:block', 'display:none')}"/>
+                                <image width="20" height="20" src="{!$Resource.MissedPayments_XMarkOrange}" style="{!IF(p.status == 'orange', 'display:block', 'display:none')}"/>
+                                <image width="20" height="20" src="{!$Resource.MissedPayments_XMarkRed}" style="{!IF(p.status == 'red', 'display:block', 'display:none')}"/>
+                            </td>
+                            <td style="border: #036 solid 2px; border-color: white; font-weight:bold; font-size: 15px; width: 15%; padding: 0px;">
+                                <span style="{!IF(p.amount == null, 'display:none', 'display:block')}">${!p.amount}</span>
+                            </td>   
+                            <td style="border: #036 solid 2px; border-color: white; font-weight:bold; font-size: 15px; width: 15%; padding: 0px;">
+                                {!p.datePosted}
+                            </td>   
+                            <td style="border: #036 solid 2px; border-color: white; font-weight:bold; font-size: 15px; width: 15%; padding: 0px;">
+                                {!p.method}
+                            </td>   
+                        </tr>
+                    </apex:repeat>
+                </table>
+                
+            </apex:pageBlockSection>
+        </apex:pagebLock>  
+    </apex:form>
+</apex:page>

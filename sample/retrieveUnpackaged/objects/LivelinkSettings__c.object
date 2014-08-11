@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <description>Stores environmental specific parameters for linking to the SEW Livelink ECM</description>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>OpenDocumentURLSuffix__c</fullName>
+        <description>The trailing static URL component for opening a Livelink document (suffix - after the object Id)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The trailing static URL component for opening a Livelink document (suffix - after the object Id)</inlineHelpText>
+        <label>OpenDocumentURLSuffix</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OpenFolderURLSuffix__c</fullName>
+        <description>The trailing static URL component for opening a Livelink folder (suffix - after the object Id)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The trailing static URL component for opening a Livelink folder (suffix - after the object Id)</inlineHelpText>
+        <label>OpenFolderURLSuffix</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OpenObjectURL__c</fullName>
+        <description>The static, common URL component for opening a Livelink object (node Id) - either a document or folder</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The static, common URL component for opening a Livelink object (node Id) - either a document or folder</inlineHelpText>
+        <label>OpenObjectURL</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SearchLivelinkURL__c</fullName>
+        <description>The static URL component for searching the Livelink ECM for historical content related to the customer or property.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The static URL component for searching the Livelink ECM for historical content related to the customer or property.</inlineHelpText>
+        <label>SearchLivelinkURL</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ServerBase__c</fullName>
+        <description>The base Livelink server URL applicable for the environment - e.g. http://llprod/</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The base Livelink server URL applicable for the environment - e.g. http://llprod/</inlineHelpText>
+        <label>ServerBase</label>
+        <length>60</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Livelink Settings</label>
+</CustomObject>

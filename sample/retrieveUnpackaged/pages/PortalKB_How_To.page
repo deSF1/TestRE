@@ -1,0 +1,44 @@
+<apex:page standardcontroller="How_To__kav"
+            sidebar="false"
+            cache="false"
+            tabStyle="Portal_Support__tab"
+            showheader="{!NOT($CurrentPage.parameters.popup=='true')}">
+            
+    <!-- 
+    Type:       VF page to render FAQs in portal
+    Purpose:    Used by knowledge
+    ---------------------------------------------------------------
+    History:
+        17-Apr-2011 - Dennis Thong - Created
+        3-May-2012 - Ji Zhang Modified to use PortalKB_Template
+    -->
+    
+   <apex:composition template="PortalKB_Template">
+        <apex:define name="title">
+            <apex:outputField value="{!How_To__kav.Title}" 
+                    id="title" label=""/>
+               <script>
+                    document.title = 'mySouthEastWater HT- ' + '{!How_To__kav.Title}'; 
+               </script>
+        </apex:define>
+        
+        <apex:define name="content">
+            <apex:outputField value="{!How_To__kav.Article_Content__c}" 
+                        id="content" label=""/>
+        </apex:define> 
+        -
+        <apex:define name="relatedLinks">
+            <apex:outputPanel styleClass="relatedArticles" layout="block" rendered="{!How_To__kav.Related_Articles_mySouthEastWater_Site__c <> '' && How_To__kav.Related_Articles_mySouthEastWater_Site__c <> null}">
+                <br/>
+                <div style="font-weight: bold; color: #000000; font-style: normal; font-family: 'Arial','Helvetica',sans-serif; font-size: 11.25pt">{!$Label.PKB2_Related_Articles}</div>
+                <br/>
+                <apex:outputPanel layout="block" styleClass="searchDrillr">
+                    <apex:outputField value="{!How_To__kav.Related_Articles_mySouthEastWater_Site__c}" 
+                        id="relatedLinks" label=""/>
+                </apex:outputPanel>
+            
+            </apex:outputPanel>
+            
+        </apex:define>  
+    </apex:composition>
+</apex:page>

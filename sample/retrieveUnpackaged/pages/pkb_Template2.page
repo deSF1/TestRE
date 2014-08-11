@@ -1,0 +1,322 @@
+<!--  
+    Type:       Visualforce Page
+    Purpose:    Public Knowledge Base Articles Search            
+
+    Used By:    PublicSupportPage
+    ---------------------------------------------------------------
+    History:
+
+    16-May-2013 Mat Isidro (Cloud Sherpas)    Created (TT10625 - Public General Enquiry Form and Knowledge Base Articles)
+-->
+<apex:page cache="false"
+  standardStylesheets="false"
+  showHeader="false"
+  sidebar="false"
+  standardController="KnowledgeArticle"
+  extensions="pkb_Controller2"
+  language="{!$CurrentPage.parameters.l}">
+
+    <html>
+        <head>
+            <c:pkb_js2 pkbCon="{!pkbCon}" />
+            <title>{!pageTitle}</title>
+            <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+            <apex:includeScript value="{!$Resource.pkb_jquery_1_6_2}"/>
+            <apex:includeScript value="{!$Resource.pkb_jquery_simplemodal_1_4_1}"/>
+            
+<!--    
+            <apex:stylesheet value="{!$Resource.SEWPortalStyles}"/>             
+-->               
+            <apex:outputText rendered="{!viewingArticle}">
+                <apex:variable var="typeName" value="{!SUBSTITUTE(pkbCon.theKad.articleTypeName, pkbCon.kavExtension, '')}" />
+                <apex:variable var="articleURL" value="{!pkbCon.currentSiteUrl}articles{!pkbCon.selectedLanguageURL}{!typeName}/{!pkbCon.theKad.urlName}" />
+                <meta property="og:title" content="{!pkbCon.theKad.title}"/> 
+                <meta property="og:type" content="article"/>
+                <meta property="og:url" content="{!articleURL}"/> 
+                <meta property="og:site_name" content="{!SUBSTITUTE(pkbCon.siteName,'_',' ')}" /> 
+			</apex:outputText>
+
+			<style type="text/css">
+				body {
+				    font-family: Tahoma, "Trebuchet MS", sans-serif;
+				    background-color: #FFFFFF;
+				}
+			  
+				body .bPageBlock {
+				    border-top-width: 0px;
+				    margin-bottom: 0px;
+				    padding: 0;
+				}	
+				
+				body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+					background-color: #FFFFFF;	
+					border-bottom: 0 none;			
+				} 
+			  
+				body .btnPrimary:hover{
+				    background-color: #3F8418; 
+				    color: white;
+				}
+				
+				body .btnPrimary{
+				    background-color: #5DA22A;
+				    color:white;
+				    overflow: visible;
+				    background-repeat: repeat-x;
+				    border: 0 !important;
+				    border-spacing: 0 !important;
+				    background-image: none;
+				    color: white;
+				    display: inline;
+				    font-family: Calibri, "Trebuchet MS", sans-serif;
+				    font-weight: bold;
+				    font-size: 11.25pt;
+				    margin: 2px 3px 2px 0px;
+				    border-radius: 3px;
+				    -webkit-border-radius: 3px;
+				    -moz-border-radius: 3px;
+				    padding: 3px 8px;
+				    -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+				    -webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+				    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+				}
+				
+				
+				
+				select, input, textarea {
+				    border: 1px solid #0097D2;
+				    padding: 3px;
+				}
+				
+				select, input, textarea {
+				    color: #252525;
+				    font-family: Calibri,"Trebuchet MS",sans-serif;
+				    font-size: 11.25pt;
+				}				
+				
+				select:focus, input:focus, textarea:focus {
+					-moz-box-shadow: 0px 0px 6px #0097D2;
+					-webkit-box-shadow: 0px 0px 6px #0097D2;
+					box-shadow: 0px 0px 6px #0097D2;
+					outline: none; 
+				}
+
+				btnClearGreenText, .btnClearBlueText {
+					overflow: visible;
+					background-repeat: repeat-x;
+					border: 0 !important;
+					border-spacing: 0 !important;
+					background-image: none;
+					color: #fff;
+					display: inline;
+					font-family: Calibri, "Trebuchet MS", sans-serif; !important;
+					font-weight: bold;
+					font-size: 11.25pt;
+					margin: 2px 3px 2px 0px;
+					border-radius:3px;
+					-webkit-border-radius:3px;
+					-moz-border-radius:3px;
+					padding: 3px 8px;
+					-moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+					-webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+					box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+				}
+				
+				.btnClearGreenText, .btnClearGreenText:focus {
+					background-color: transparent;
+					color: #5da22a !important;
+					-moz-box-shadow: none;
+					-webkit-box-shadow: none;
+					box-shadow: none;
+					border: none;
+				}
+				
+				.btnClearGreenText:hover { 	
+					background-color: transparent;
+					color: #3f8418 !important; 
+				}
+				
+				body .btnClearGreenText {
+					overflow: visible;
+					background-repeat: repeat-x;
+					border: 0 !important;
+					border-spacing: 0 !important;
+					background-image: none;
+					color: #fff;
+					display: inline;
+					font-family: Calibri, "Trebuchet MS", sans-serif; !important;
+					font-weight: bold;
+					font-size: 11.25pt;
+					margin: 2px 3px 2px 0px;
+					border-radius:3px;
+					-webkit-border-radius:3px;
+					-moz-border-radius:3px;
+					padding: 3px 8px;
+					-moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+					-webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+					box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+				}				
+				
+				body .btnClearGreenText, body .btnClearGreenText:focus {
+					background-color: transparent;
+					color: #5da22a !important;
+					-moz-box-shadow: none;
+					-webkit-box-shadow: none;
+					box-shadow: none;
+				}
+				
+				body .btnClearGreenText:hover { 	
+					background-color: transparent;
+					color: #3f8418 !important; 
+				}						
+				
+				.tableHeader {
+				    background-color: #EFF8FD;
+				}
+				div.float_box {float: left; width: 200px; margin: 5px; position: relative;}
+				div.rowContainer {float: left; width: 660px; height:auto;margin-left:5px;  position: relative;}
+			</style>
+
+        </head>
+
+        <body>
+
+        <!--
+        HELPFUL DEBUG DATA
+
+        SITE ADMIN: {!pkbCon.siteAdmin.Email}, {!pkbCon.siteAdmin.Name}<br/>
+        ALL PARAMS: {!allSearchParams}<br/>
+        SITE/PAGE URL: {!pkbCon.currentSiteUrl}<br/>
+        FEEDBACK? : {!displayFeedback}<br/>
+        SESSION: {!$Api.Session_ID}<br/>
+        RSS URL: {!$Page.pkb_RSS}<br/>
+        CATEGORIES: {!selectedCategory}<br/>
+        KNOWLEDGE ARTICLE ID: {!theKad.Id}<br/>
+        KNOWLEDGE ARTICLE ID (FROM CONTROLLER): {!KnowledgeArticle.Id}<br/>
+        -->
+
+        <!--  HOME PAGE LAYOUT -->
+
+          <div id="header">
+        <!-- 
+            <span style="margin-left: 5px;">
+              <apex:outputLink value="{!pkbCon.currentSiteUrl}">
+                <apex:image value="{!$Resource.pkb_logo}" />
+                <apex:param name="{!pkbCon.languageParam}" value="{!pkbcon.selectedLanguage}" />
+              </apex:outputLink>
+            </span>
+         -->
+            </div>
+            <div class="contentCellDiv">
+            <!-- Page Block Header -->
+
+<!--              
+                <apex:sectionheader subtitle="Support"/>
+
+                <apex:sectionheader />
+-->            
+                <apex:pageBlock id="myAccountsPB">
+                    <apex:outputPanel id="pageMessages" layout="block" >
+                        <apex:pageMessages id="msgTop" />
+                    </apex:outputPanel>
+
+					<apex:outputPanel rendered="{!NOT(viewingArticle)}">                      
+                        <center>
+                            <!-- Contains the search text and search buttons -->
+                            <div id="rightHeader">
+                                <c:pkb_search2 pkbCon="{!pkbCon}" /> 
+                            </div>
+                            <br/>
+                            <!-- Contains the category filters -->
+                            <div>
+                                <c:pkb_narrow2 pkbCon="{!pkbCon}" /> 
+                            </div>
+                        </center>
+                        <br/>                      
+					</apex:outputPanel>                       
+
+
+                    <div id="right_content">
+<!--                      
+                        <apex:outputText rendered="{!NOT(displayContactUs)}">
+-->      					
+                            <apex:outputText rendered="{!NOT(viewingArticle)}">
+<!--     
+                                <c:pkb_featured2 pkbCon="{!pkbCon}" rendered="{!NOT(searchExecuted)}" />
+                                <c:pkb_popular2 pkbCon="{!pkbCon}" rendered="{!categorySearch}" />
+-->
+                                <c:pkb_results2 pkbCon="{!pkbCon}" rendered="{!searchExecuted}" showHeaderInfo="true" columnSize="90" />
+                                <c:pkb_popular2 pkbCon="{!pkbCon}" rendered="{!categorySearch}" columnSize="90" />
+                            </apex:outputText>
+                    
+                            <apex:outputText rendered="{!viewingArticle}">
+                                <div id="articleView" >
+                                  <c:pkb_articleview2 pkbCon="{!pkbCon}" showFeedbackYesNo="false" showBackLinks="false" />
+                                </div>
+                            </apex:outputText>
+<!--                                                             
+                        </apex:outputText>
+-->                        
+
+<!--  
+                        <apex:outputText rendered="{!displayContactUs}">
+                          <c:pkb_results2 pkbCon="{!pkbCon}" rendered="{!searchExecuted}" showHeaderInfo="false" columnSize="50" />
+                          <c:pkb_contactus_buttons_article2 pkbCon="{!pkbCon}" />          
+                        </apex:outputText>
+-->
+                    </div>
+                        
+<!--                          
+                        <div style="clear: both;"></div>
+                        
+                        <div id="footer">
+                            <apex:outputPanel styleClass="pkbPoweredBySFDC" style="float: right;" rendered="false">
+                                <a href="http://www.salesforce.com/crm/customer-service-support/"><apex:image value="{!$Resource.pkb_footer}" alt="Customer Service Software"/>
+                            <apex:outputPanel styleClass="pkbPoweredBySFDCText">salesforce.com</apex:outputPanel></a>
+                            </apex:outputPanel>
+                        </div>
+-->      
+
+                    <!-- Component that displays the top 10 articles -->
+					<apex:outputText rendered="{!IF(NOT(searchExecuted) && NOT(categorySearch) && NOT(viewingArticle), true, false)}">
+					    <div id="top10ArticleView" >
+					      <c:pkb_top10Articles2 pkbCon="{!pkbCon}" showHeaderInfo="true"/>
+					    </div>
+					</apex:outputText>
+                        
+                    <!-- Component that displays the most viewed articles per category -->
+<!--                       
+                    <div class="pbTransparent" style="margin-left: -15px;">
+                        <apex:pageBlock title="Articles" rendered="{!IF(NOT(searchExecuted) && NOT(categorySearch), true, false)}">
+                                           
+                            <c:pkb_Top3Articles2 pkbCon="{!pkbCon}"/>
+                         
+                        </apex:pageBlock>
+                    </div>
+-->                  
+                    
+                </apex:pageBlock>
+            </div>
+        </body>
+        
+<!--         
+        <div class="sideBarCellDiv" >
+            <div id="livechatdiv" style="margin: 20px 0;" >
+-->
+            	<!-- TP#392 Added  LwcType attribute value for icon rendering-->
+<!--                  
+                <c:LiveChat LwcType="faults"/>
+            </div>
+
+            <c:PortalKnowledgeSidebar rowClass="borderDottedWhiteBottom"
+                divClass="pbTransparent pbWhiteDottedHeader pbNoPad"
+                divStyle="width: 205px"
+                viewAll="false"/>
+        </div>
+        
+ -->        
+    </html>
+  
+    <site:previewAsAdmin />
+
+</apex:page>

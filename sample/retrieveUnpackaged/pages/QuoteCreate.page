@@ -1,0 +1,22 @@
+<apex:page standardController="Quote__c" >
+	<apex:form id="theForm">
+		<apex:pageBlock title="Quote" mode="Edit" id="thePageBlock">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!save}" value="Save"/>
+				<!-- apex:commandButton action="{!cancel}" value="Cancel"/ -->
+			</apex:pageBlockButtons>
+			<script>
+				function updateQuotePrice(){
+					document.getElementById('{!$Component.theForm.thePageBlock.inputFields.quotePrice}').value = '$15,123.12';
+				}
+			</script>
+			<apex:pageBlockSection id="inputFields" title="Add New Quote" columns="1">
+				<apex:inputField value="{!Quote__c.Connection_Month__c}" onChange="updateQuotePrice();"/>
+				<apex:inputField id="quotePrice" value="{!Quote__c.Quoted_Price__c}"/>
+				<apex:inputField value="{!Quote__c.Rejected_Reason__c}"/>
+				<apex:inputField value="{!Quote__c.Other_Rejected_Reason__c}"/>
+				<apex:inputHidden value="{!Quote__c.Opportunity__c}"/>
+            </apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Meter</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Meters</value>
+    </caseValues>
+    <fields>
+        <label><!-- Digital Meter --></label>
+        <name>Digital_Meter__c</name>
+    </fields>
+    <fields>
+        <label><!-- Digital meter install date --></label>
+        <name>Digital_meter_install_date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Location Description --></label>
+        <name>FORMULA_Location_Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Meter Reading History --></label>
+        <name>FORMULA_RLIST_Meter_Reading_History__c</name>
+    </fields>
+    <fields>
+        <label><!-- Group Meter Number --></label>
+        <name>Group_Meter_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Location2 --></label>
+        <name>Location2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Location3 --></label>
+        <name>Location3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Location Code --></label>
+        <name>Location_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Meter Description --></label>
+        <name>Meter_Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Meter Location --></label>
+        <name>Meter_Location__c</name>
+    </fields>
+    <fields>
+        <label><!-- Meter Profile --></label>
+        <name>Meter_Profile__c</name>
+    </fields>
+    <fields>
+        <label><!-- Meter Type --></label>
+        <name>Meter_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- # of Consecutive Estimated Reads --></label>
+        <name>Nbr_of_Consecutive_Estimated_Reads__c</name>
+    </fields>
+    <fields>
+        <label><!-- Person Count --></label>
+        <name>Person_Count__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pit Reference --></label>
+        <name>Pit_Reference__c</name>
+    </fields>
+    <fields>
+        <label><!-- Property --></label>
+        <name>Property__c</name>
+        <relationshipLabel><!-- Meters --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Remote Make --></label>
+        <name>Remote_Make__c</name>
+    </fields>
+    <fields>
+        <label><!-- Remote Serial --></label>
+        <name>Remote_Serial__c</name>
+    </fields>
+    <layouts>
+        <layout>Meter Details Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Meter Location --></label>
+            <section>Meter Location</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Meter Details Layout (Portal)</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Meter_Readings_History --></label>
+        <name>Meter_Readings_History</name>
+    </webLinks>
+</CustomObjectTranslation>

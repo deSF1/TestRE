@@ -1,0 +1,86 @@
+<apex:component controller="AutoCompleteController">
+    <!--
+    Type:      Component
+    Purpose:   Auto complete search component on notes categories
+   
+    Used By:   QuickNotes page
+    ---------------------------------------------------------------
+    History:
+    30-Jul-2012 G.Tsaousidis           Created 
+    30-Jul-2012 D.Yu (Cloud Sherpas)   ID#TP253 - Added new attribute groupName
+    09-Aug-2012 D.Yu (Cloud Sherpas)   ID#TP253 - Add ID in select statement to get the selected response id
+    09-May-2013 G.Tsaousidis           ID#TT10623 Updated script references to use local static resources - jQuery
+   -->
+  <!-- JQuery Files -->
+    
+    <!-- Changed from script to apex-includeScript metatags TT10623 [gt] -->
+    <apex:includeScript value="{!URLFOR($Resource.jqueryui1816, '/js/jquery-1.6.2.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jqueryui1816, '/js/jquery-ui-1.8.16.custom.min.js')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.jqueryui192custom, '/css/custom-theme/jquery-ui-1.9.2.custom.css')}" />
+
+  <!-- Attributes Required For Component -->
+  <apex:attribute name="objectname" description="The object name you want to look for."     type="String" required="true"/>
+  <apex:attribute name="additionalfield" description="Any additional fields you'd like to search and include in the display."     type="String" required="false"/>
+  <apex:attribute name="autocomplete_textbox" description="The ID for the Autocomplete List Textbox."     type="String" required="true"/>
+  <apex:attribute name="groupName" description="selected group name" type="string" required="true"/>
+  <style>
+    .ui-autocomplete-loading { background: white url({!$Resource.circleIndicator}) right center no-repeat; }
+    .background: #D0E9F1
+  </style>
+  <script type="text/javascript">
+    var j$ = jQuery.noConflict();
+    j$(document).ready(function() {
+
+        var sObjects;
+        var queryTerm;
+
+        j$(esc('{!autocomplete_textbox}')).autocomplete({
+            minLength: 2,
+            source: function(request, response) {
+                        queryTerm = request.term;
+                        AutoCompleteController.findSObjects("{!objectname}", request.term, "{!additionalfield}", "{!groupName}", function(result, event){
+                            if(event.type == 'exception') {
+                                  alert(event.message);
+                            } else {
+                            
+                                 sObjects = result;
+                                 response(sObjects);
+                            }
+                        });
+                   },
+            focus: function( event, ui ) {
+                    j$(esc('{!autocomplete_textbox}')).val( ui.item.Name );
+                    return false;
+                    },
+            select: function( event, ui ) {
+                        j$(esc('{!autocomplete_textbox}')).val( ui.item.Name );
+                        j$(esc('{!autocomplete_textbox}_lkid')).val( ui.item.Id );
+                        j$(esc('{!autocomplete_textbox}_lkold')).val( ui.item.Name );
+                        return false;
+                    },
+         })
+         .data( "autocomplete" )._renderItem = function( ul, item ) {
+            var entry = "<a onclick=getRemoteQoS()>";
+            j$.each("{!additionalfield}".split(",") , function(key, value) {
+                entry = entry + "<font size=2px>" + item[value] + "<b> │ </b>" + "</font>"; 
+            });
+            //TT10623 - Adjusted font size - review one day as this c(sh)ould be embedded into a stylesheet. [GT]
+            if(item.Response__c != null){
+                entry = entry + "<font size=2px>" + item.Response__c + "</font>" + "</a>";
+            }else{
+                entry = entry + "<font size=2px>" + "Add notes:" + "</font>" + "</a>";
+            }
+            entry = entry.replace(queryTerm, "<b style='background:#1797C0'>" + queryTerm + "</b>");
+            return j$( "<li style='background:#CDE8F0;'>­</li>" )
+                .data( "item.autocomplete", item )
+                .append( entry )
+                .appendTo( ul );
+        };
+    });
+
+    function esc(myid) {
+           return '#' + myid.replace(/(:|\.)/g,'\\\\$1');
+    }
+
+  </script>
+</apex:component>

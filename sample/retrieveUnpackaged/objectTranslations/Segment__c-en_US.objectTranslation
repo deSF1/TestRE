@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Segment</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Segments</value>
+    </caseValues>
+    <fields>
+        <help><!-- Specify the hex colour code for the segment. (e.g. FF0000 for Red). Exclude the &quot;#&quot; --></help>
+        <label><!-- Background Colour --></label>
+        <name>Background_Colour__c</name>
+    </fields>
+    <fields>
+        <label><!-- Code --></label>
+        <name>Code__c</name>
+    </fields>
+    <fields>
+        <help><!-- Display image for the segment, used on the CustomerSegmentEntry and CustomerVerification pages. --></help>
+        <label><!-- Image URL --></label>
+        <name>Image__c</name>
+    </fields>
+    <fields>
+        <label><!-- Intercept --></label>
+        <name>Intercept__c</name>
+    </fields>
+    <fields>
+        <label><!-- Offer --></label>
+        <name>Offer__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parent Segment --></label>
+        <name>Parent_Segment__c</name>
+        <relationshipLabel><!-- Sub Segments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Profile --></label>
+        <name>Profile__c</name>
+    </fields>
+    <fields>
+        <label><!-- Segment Name Image URL --></label>
+        <name>Segment_Name_Image_URL__c</name>
+    </fields>
+    <fields>
+        <help><!-- Text color --></help>
+        <label><!-- Text Colour --></label>
+        <name>Text_Colour__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Business</masterLabel>
+            <translation><!-- Business --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Residential</masterLabel>
+            <translation><!-- Residential --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Customer Segment Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Event Type Settings</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Event Type Settings</value>
+    </caseValues>
+    <fields>
+        <label><!-- Active --></label>
+        <name>Active__c</name>
+    </fields>
+    <fields>
+        <label><!-- Event Colour --></label>
+        <name>Event_Colour__c</name>
+    </fields>
+    <fields>
+        <label><!-- Help Body Text --></label>
+        <name>Help_Body_Text__c</name>
+    </fields>
+    <fields>
+        <label><!-- Help Link Text --></label>
+        <name>Help_Link_Text__c</name>
+    </fields>
+    <fields>
+        <label><!-- Help Link URL --></label>
+        <name>Help_Link_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Icon Static Resource Name Large --></label>
+        <name>Icon_Static_Resource_Name_Large__c</name>
+    </fields>
+    <fields>
+        <label><!-- Icon Static Resource Name --></label>
+        <name>Icon_Static_Resource_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Public Name --></label>
+        <name>Public_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Resolved Icon Static Resource Large --></label>
+        <name>Resolved_Icon_Static_Resource_Large__c</name>
+    </fields>
+    <fields>
+        <label><!-- Resolved Icon Static Resource --></label>
+        <name>Resolved_Icon_Static_Resource__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sort Number --></label>
+        <name>Sort_Number__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

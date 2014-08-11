@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>EmailNotification</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EmailNotificationDirectDebit</shortDescription>
+        <value>Do you require an email confirmation for your records?</value>
+    </labels>
+    <labels>
+        <fullName>IS_Recycled_Water_Alert</fullName>
+        <categories>Information Statement</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>IS Recycled Water Alert</shortDescription>
+        <value>If you have the Purchasers solicitor on the phone, please ensure that you complete the LETTER information below so that the Purchaser is aware of recycled water at the property.</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_All_Fields_Required</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: All Fields Required</shortDescription>
+        <value>All fields are required.</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Answers_Might_Help</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Answers Might Help</shortDescription>
+        <value>These answers might help immediately</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Ask_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Ask Button</shortDescription>
+        <value>Ask</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Back_To_Results</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Back To Results</shortDescription>
+        <value>Back to search results</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Back_To_Search_Page</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Back To Search Page</shortDescription>
+        <value>Back to search page</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Cancel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Case_Error_Admin_Notification</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Case Error Admin Notification</shortDescription>
+        <value>The Public Knowledge Base 2 (PKB2) package that is installed in your org has encountered an issue. A Case record recently submitted by a customer was unable to be saved to the org&apos;s database. This can happen when a validation rule or some other constraint is introduced on the Case object. 
+
+The creation of Case records is a core part of the PKB2 functionality, so this may be an indication of an ongoing problem.
+
+For troubleshooting purposes, below is the debug information from the Apex code that encountered the error.</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Case_Submit_Error</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Case Submit Error</shortDescription>
+        <value>There was a problem submitting your request. Please try again later.</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Category_Group_Label_1</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Category Group Label 1</shortDescription>
+        <value>Filter your results</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Category_Group_Label_2</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>PKB2: Category Group Label 2</shortDescription>
+        <value>&lt;Group 2 Label&gt;</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Category_Group_Label_3</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>PKB2: Category Group Label 3</shortDescription>
+        <value>&lt;Group 3 Label&gt;</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Close_Window</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2 Close Window</shortDescription>
+        <value>close window</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Complete_Request</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Complete Request</shortDescription>
+        <value>To complete your request, please fill out these fields.</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Contact_Us</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Contact Us</shortDescription>
+        <value>Contact Us</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Contact_Us_Link_Prompt</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Contact Us Link Prompt</shortDescription>
+        <value>Can&apos;t find what you need?</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Contact_Us_Prompt</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Contact Us Prompt</shortDescription>
+        <value>Type your message here.</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Create_Settings</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Create Settings</shortDescription>
+        <value>Create New PKB Settings</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Email</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Email</shortDescription>
+        <value>Email</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Email_Article</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Email Article</shortDescription>
+        <value>Email a link to this article</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Email_Invalid</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Email Invalid</shortDescription>
+        <value>The email address you entered is invalid.</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Error_Admin_Notification_Email</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Error Admin Notification Email</shortDescription>
+        <value>The Public Knowledge Base 2 (PKB2) package that is installed in your org has encountered an issue. The package was set to create an Account and Contact when a customer submits a question, but one of those transactions recently failed. This can happen when a validation rule or some other constraint is introduced on those objects.
+
+For troubleshooting purposes, below is the debug information from the Apex code that encountered the error. 
+
+Also, the package has changed the setting to prevent the creation of Contacts and Accounts. When the issue is resolved, the setting can be changed back.</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Featured_Articles</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Featured Articles</shortDescription>
+        <value>Featured Articles</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Feedback</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Feedback</shortDescription>
+        <value>Feedback</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Feedback_Appreciated</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Feedback Appreciated</shortDescription>
+        <value>Your feedback is appreciated.</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Feedback_Characters_Remaining</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Feedback Characters Remaining</shortDescription>
+        <value>Characters Remaining</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_First_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: First Name</shortDescription>
+        <value>First Name</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Last_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Last Name</shortDescription>
+        <value>Last Name</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_More_Useful</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: More Useful</shortDescription>
+        <value>Please tell us how we can make this article more useful.</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Most_Viewed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Most Viewed</shortDescription>
+        <value>Most viewed</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Narrow_Search</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Narrow Search</shortDescription>
+        <value>Narrow Search</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Next_Link</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Next Link</shortDescription>
+        <value>Next</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_No_Filter</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: No Filter</shortDescription>
+        <value>No filter</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_No_Found_Answer</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: No Found Answer</shortDescription>
+        <value>No, I found the answer</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_No_Results</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: No Results</shortDescription>
+        <value>Your search returned no results.</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_No_Settings_Yet</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: No Settings Yet</shortDescription>
+        <value>It appears that no PKB custom settings have been created yet.</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_None</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: None</shortDescription>
+        <value>None</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Popular_Articles</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Popular Articles</shortDescription>
+        <value>Popular articles</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Previous_Link</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Previous Link</shortDescription>
+        <value>Previous</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Printable_View</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Printable View</shortDescription>
+        <value>Printable View (New Window)</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Recommended</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Recommended</shortDescription>
+        <value>Recommended</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Related_Articles</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Related Articles</shortDescription>
+        <value>Related Articles</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Request_Submitted</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Request Submitted</shortDescription>
+        <value>Your request has been submitted.</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Request_Type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Request Type</shortDescription>
+        <value>Request Type</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Reset_Search</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Reset Search</shortDescription>
+        <value>Clear search</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Search_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Search Button</shortDescription>
+        <value>Search</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Search_Prompt</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Search Prompt</shortDescription>
+        <value>Search...</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Search_Results</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Search Results</shortDescription>
+        <value>Search results</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Select_Settings</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Select Settings</shortDescription>
+        <value>Select Settings to Edit</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Still_Have_Question</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Still Have Question</shortDescription>
+        <value>Still have a question?</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Submit</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Submit</shortDescription>
+        <value>Submit</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Subscribe_Article_Feed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Subscribe Article Feed</shortDescription>
+        <value>Subscribe to the RSS feed for this article</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Subscribe_Feed_Results</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Subscribe Feed Results</shortDescription>
+        <value>Subscribe to a feed of the results of your search</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Thanks_For_Feedback</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Thanks For Feedback</shortDescription>
+        <value>Thank you for your feedback!</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Tweet_This</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Tweet This</shortDescription>
+        <value>Tweet this!</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Value_Must_Match_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Value Must Match Name</shortDescription>
+        <value>The value of Name must match exactly the API name of the Site you are configuring the settings for.</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Was_Helpful</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Was Helpful</shortDescription>
+        <value>Was this article helpful?</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Within_Category</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Within Category</shortDescription>
+        <value>Within the category</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_Yes_Submit_Question</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: Yes Submit Question</shortDescription>
+        <value>Yes, submit my question</value>
+    </labels>
+    <labels>
+        <fullName>PKB2_You_Searched_For</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PKB2: You Searched For</shortDescription>
+        <value>You searched for</value>
+    </labels>
+</CustomLabels>

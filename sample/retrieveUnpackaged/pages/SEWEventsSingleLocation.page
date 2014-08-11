@@ -1,0 +1,15 @@
+<!--
+    Type:      Component
+    Purpose:   SEW Events Map for a single location 
+    
+    Used By:    
+    ---------------------------------------------------------------
+    History:
+
+    07/04/2014 ejandusay(Cloud Sherpas)         Created
+-->
+<apex:page standardController="SEW_Event__c" sidebar="false" showHeader="false" >
+	<apex:variable var="paramId" value="{!SEW_Event__c.Id}" />
+	<c:SEWEventsMap componentValue="{!paramId}"/>
+	 
+</apex:page>

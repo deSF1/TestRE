@@ -1,0 +1,24 @@
+<apex:page standardController="My_SEW_Main__c" recordSetVar="CSObj" showHeader="false" title="{!$Label.site.in_maintenance}"
+    cache="false">
+
+    <!--
+        Description: Site in maintenance
+
+        History:
+            29-May-2011 D.Thong (Salesforce)    Created
+            11-Jun-2013 N.Patterson            Modified for custom message
+    -->
+
+    <apex:composition template="StdExceptionTemplate">
+        <apex:define name="icon">
+            <apex:image url="{!URLFOR($Resource.SiteSamples, 'img/warning.gif')}" />
+        </apex:define>
+        <apex:define name="error">
+             <apex:repeat value="{!CSObj}" var="msg" id="theRepeat">
+                <apex:outputText escape="false" value="{!msg.Custom_Message__c}" id="theValue"/>
+            </apex:repeat>
+            <br/>
+            <br/>
+        </apex:define>
+    </apex:composition>
+</apex:page>

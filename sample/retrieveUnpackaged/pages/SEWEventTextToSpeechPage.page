@@ -1,0 +1,99 @@
+<!--
+    Type:      Component
+    Purpose:   Console component for text to speech functionality
+    
+    Used By:    
+    ---------------------------------------------------------------
+    History:
+
+    22/05/2014 ejandusay(Cloud Sherpas)         Created
+-->
+<apex:page standardController="Event_Message_Template__c" showHeader="false" sidebar="false" extensions="SEWEventTextToSpeechController">
+
+    <apex:form >
+    <script>
+        function callActionFunction(){
+            callaction();
+        }
+    </script>
+        <apex:pagemessages id="errors" ></apex:pagemessages>
+        <apex:pageBlock mode="edit" id="pBlock">
+
+            <table border="0" width="100%">
+                <tr>
+                <td style="width:25%;" >
+                    <apex:pageBlockSection columns="1" id="pbID">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputPanel >
+                                <div><apex:outputLabel value="Message Template:" for="Action"></apex:outputLabel></div>
+                            </apex:outputPanel>
+                            <apex:outputPanel > 
+                                <apex:actionFunction name="callaction"  action="{!populateMessageField}"  reRender="errors,thePanel" status="status"/>
+                                <apex:selectList required="true" id="Action" value="{!descTemplate}" size="1" onchange="callActionFunction();">
+                                        <apex:selectOptions value="{!Templates}"></apex:selectOptions>
+                                </apex:selectList>
+                                <apex:actionStatus id="status">
+                                    <apex:facet name="start">
+                                    <c:ActionStatus BackColor="#ffffff"
+                                                            borderColor="#6B6B6B"
+                                                            borderSize="1"
+                                                            height="50px"
+                                                            width="60px"
+                                                            margintop="-25px"   
+                                                            marginleft="-60px"
+                                                            ImageUrl="{!$Resource.AjaxAnimation}"
+                                                            Message=""/>
+                                    </apex:facet>
+                                </apex:actionStatus>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem> 
+                        <br/>
+                        <br/>
+                        <apex:outputPanel id="thePanel">
+                            <apex:inputField id="eventMessage" value="{!eventMessage.IVR_Message__c}" style="width: 346px;height: 172px;"/>
+                        </apex:outputPanel>
+                        
+                    </apex:pageBlockSection>
+                </td>
+                <td style="width:75%">
+                    <iframe height="600px" id="theIframe" name="theIframe" src="https://text2speech/SEWLTEST/customer_service/default.asp" width="100%"></iframe>
+                </td>
+                </tr>
+
+            </table>
+
+            <!-- <apex:pageBlockSection columns="2" id="pbID">
+                <apex:pageBlockSectionItem>
+                    <apex:outputPanel >
+                        <div><apex:outputLabel value="Message Template:" for="Action"></apex:outputLabel></div>
+                    </apex:outputPanel>
+                    <apex:outputPanel >
+
+                        <apex:selectList required="true" id="Action" value="{!descTemplate}" size="1">
+                                <apex:selectOptions value="{!Templates}"></apex:selectOptions>
+                        </apex:selectList>
+                        <apex:actionStatus id="status">
+                            <apex:facet name="start">
+                            <c:ActionStatus BackColor="#ffffff"
+                                                    borderColor="#6B6B6B"
+                                                    borderSize="1"
+                                                    height="50px"
+                                                    width="60px"
+                                                    margintop="-25px"   
+                                                    marginleft="-60px"
+                                                    ImageUrl="{!$Resource.AjaxAnimation}"
+                                                    Message=""/>
+                            </apex:facet>
+                        </apex:actionStatus>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem> 
+                <apex:pageBlockSectionItem >
+                    <apex:iframe height="600px" id="theIframe" src="https://text2speech/SEWLTEST/customer_service/default.asp" width="100%"></apex:iframe>
+                </apex:pageBlockSectionItem>    
+                
+
+            </apex:pageBlockSection> -->
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

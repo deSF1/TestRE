@@ -1,0 +1,158 @@
+<apex:page sidebar="false"
+           cache="false"
+           tabStyle="Portal_Support__tab"
+           showheader="false"
+           id="PortalKB_Template"
+           controller="PortalEnquiries_Controller">
+            
+    <!-- 
+    Type:       Portal Knowledge Base Template
+    
+    ---------------------------------------------------------------
+    History:
+        03-May-2012 - Ji Zhang - Created
+        06-Jun-2012 - DYu      - Update: 518, 5190
+    -->
+    
+    <head>
+
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+          
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+        <style>
+            body {
+                font-family: Calibri, "Trebuchet MS", sans-serif;
+            }
+
+            .ui-widget, .sfdc_richtext {
+                font-family: Calibri, "Trebuchet MS", sans-serif !important;
+            }
+            
+            h3 {
+                font-family: Calibri, "Trebuchet MS", sans-serif; !important;
+                font-weight: bold;
+                font-size: 12pt;
+                color: #575756;
+                display: block;
+                border-bottom: dotted 1px #E4E2DD;
+                padding-bottom: 5px;    
+            }
+            
+            #ext-comp-1001{
+                background: none repeat scroll 0 0 #E4E2DD;
+                border: 1px solid #BDB8AF;
+                border-radius: 3px 3px 3px 3px;
+                box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.15);
+                margin-top: 3px;
+                font-family: Calibri, "Trebuchet MS", sans-serif !important;
+            }
+            
+            .articleRendererBorderRight {border-right: none !important;}
+            #showProperties { display:none !important;}
+            
+            #articleHeader {
+                background-color: #0097D2;
+                padding-left: 10px;
+                margin-bottom:10px; 
+                height: 83px;
+                -moz-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+                -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);  
+                box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+            }
+            .averageRatingPanel{font-family: Calibri, "Trebuchet MS", sans-serif !important; font-size: 11.25pt !important;}
+        </style>
+    
+    </head>
+    
+    <apex:pageBlock >       
+        <div id="articleHeader" style="display:none;">
+            <apex:image url="{!$Resource.SEWPortalLogo}" 
+                    alt="South East Water" 
+                    title="South East Water"/>
+        </div>
+     
+        <h3>
+        <apex:insert name="title"/>
+            <!--  <apex:outputField value="{!FAQ__kav.Title}" 
+                    id="title" label=""/>-->
+        </h3>
+        <br/>
+        <apex:insert name="content"/>
+        <!--  <apex:outputField value="{!FAQ__kav.Article_Content__c}" 
+                    id="content" label=""/>-->
+
+                    
+        <br/>
+        <apex:insert name="relatedLinks"/>
+        <br/>   
+        
+         <div style="margin: 20px 0">
+            <knowledge:articleRendererToolBar articleId="{! $CurrentPage.parameters.id}"
+                canVote="true"/> 
+
+<!--            <knowledge:articleCaseToolbar rendered="{!$CurrentPage.parameters.caseId != null}"
+                    caseId="{!$CurrentPage.parameters.caseId}"
+                    articleId="{!$CurrentPage.parameters.id}" />
+ -->
+        </div> 
+        <center> 
+        <apex:form >
+            <apex:outputPanel >
+                <div id="buttonDiv" style="{!IF(NOT(isBlank(caseid)), 'display: block;', 'display: none;')}">
+                    <label>Was this article useful?</label><br/>
+                            <apex:commandButton value="Yes" 
+                                id="submitbtn"
+                                styleClass="btnPrimary" action="{!SubmitCaseWithArticles}" 
+                                status="loading" oncomplete="javascript:window.close();"/> 
+                            
+                            <apex:commandButton styleClass="btnClearGreenText"
+                                value="No" 
+                                action="javascript:window.close();" 
+                                immediate="true" 
+                                /> 
+                </div>
+            </apex:outputPanel>
+            
+            <div id="buttonDiv" style="{!IF(isBlank(caseid) && popup=='true', 'display: block;', 'display: none;')}">
+                <apex:commandButton styleClass="btnPrimary"
+                                value="Close" 
+                                action="javascript:window.close();" 
+                                immediate="true" 
+                                /> 
+            </div>
+           </apex:form>
+        </center>
+    </apex:pageBlock>
+    <script>
+
+        var j$ = jQuery.noConflict();
+
+        function getVar( name ){
+          var regexS = "[\\?&]"+name+"=([^&#]*)";
+          var regex = new RegExp( regexS );
+          var tmpURL = window.location.href;
+          var results = regex.exec( tmpURL );
+          if( results == null )
+            return "";
+          else
+            return results[1];
+        }
+        var isPopup = getVar('popup')
+        if(isPopup){
+            
+            document.getElementById('articleHeader').style.display = 'block';
+        }       
+
+        // converts all a href with /articles/ in the URL to 
+        // the full domain with /portal/ as the prefix
+        j$("a[href^='/articles/']")
+            .each(function()
+            { 
+                this.href = this.href.replace(/^https:\/\/{!$Site.domain}/, 
+                            "https://{!$Site.domain}/portal");
+            });
+
+    </script>
+
+</apex:page>

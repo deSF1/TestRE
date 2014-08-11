@@ -1,0 +1,105 @@
+<apex:component id="livechat" Id="cmpliveChat">
+    <!--
+        Description: Live chat
+
+        History:
+        
+        01-Oct-2012 J.Jayoma Update: TP# 392- Hide Live Web Chat Portal 
+        21-Jan-2014 B.Trinidad Update: Added Chat Now Image link
+        28-May-2014 N.Patterson				Added live chat
+    -->
+
+    <head>
+        <style>
+            .livechatcontainer {
+                width: 205px;
+                color: #fff;
+            }
+            
+            .livechatcontainer a:hover {
+                cursor: pointer;
+            }
+            
+            .livechatinnerdiv {
+                background: url("/resource/LiveChatIcon") no-repeat scroll 140px 10px #EF7C00;
+                margin-bottom: 1px;
+                padding: 10px;
+            }
+            
+        </style>
+        
+		<script type='text/javascript' src='https://c.{!$Setup.PortalSettings__c.LiveChat_URL__c}.salesforceliveagent.com/content/g/js/30.0/deployment.js'></script>
+        <script type='text/javascript'>
+            liveagent.setChatWindowHeight(520);
+            liveagent.setChatWindowWidth(434);
+            if ('{!$User.ContactId}' != '') {
+                liveagent.addCustomDetail("ContactId", "{!$User.ContactId}").saveToTranscript("ContactId");
+                // auto exactly match - Ji Zhang
+                //liveagent.addCustomDetail("ContactId", "{!$User.ContactId}").map("Contact", "Id", true, true, true);
+                //liveagent.addCustomDetail("Contact Name", "{!$User.firstname} {!$User.lastname}").map("Contact", "Name", true, true, true);
+            }
+
+        </script>
+    </head>
+	
+	<!-- Added LwcType attribute for TP# 392  -->
+	<apex:attribute name="LwcType" Description="type of LWC like: paperless or faults" type="String" />
+	
+	
+	<script type='text/javascript'>
+		liveagent.init('https://d.{!$Setup.PortalSettings__c.LiveChat_URL__c}.salesforceliveagent.com/chat', '{!$Setup.PortalSettings__c.LiveChat_Deployment_Id__c}', '{!LEFT($Organization.Id, 15)}');
+	</script>
+	
+	
+	<!-- TP# 392, This panel will render if LwcType is empty   -->
+   	<apex:outputPanel rendered="{!if(LwcType=='' &&
+   	$CurrentPage.Name!='dmtrialmysnapshot' && $CurrentPage.Name!='DMTrialMySnapShot' &&
+   	$CurrentPage.Name!='dmtrialmyusage' && $CurrentPage.Name!='DMTrialMyUsage' && 
+   	$CurrentPage.Name!='dmtrialmysmartsolution' && $CurrentPage.Name!='DMTrialMySmartSolution' &&
+   	$CurrentPage.Name!='dmtrialmyprofile' && $CurrentPage.Name!='DMTrialMyProfile' &&  $CurrentPage.Name!='PortalManageConcession' &&  $CurrentPage.Name!='PortalAccountDetailPage' &&  $CurrentPage.Name!='PortalMyDetails' &&  $CurrentPage.Name!='PortalBillHistory' &&  $CurrentPage.Name!='PortalPaymentOptions' &&  $CurrentPage.Name!='PortalDirectDebit_Select' &&  $CurrentPage.Name!='PortalWaterUsageList' &&  $CurrentPage.Name!='PortalBillPreferences' &&  $CurrentPage.Name!='PortalMoreTimeToPay',
+   	true,false)}">
+   		<apex:outputLink value="{!$Page.PortalBillPreferences}"><apex:image value="{!$Resource.Paperlessbilling}" /></apex:outputLink>
+   	</apex:outputPanel>	 
+   	<!-- TP# 392, This panel will render if LwcType is faults   -->
+   	<apex:outputPanel rendered="{!if(LwcType=='faults' && $CurrentPage.Name!='pkb_Home' && $CurrentPage.Name!='PortalEnquiries' && $CurrentPage.Name!='PortalMyAccountHomePage',true,false)}">
+   		<apex:image value="{!$Resource.FaultsAndEmergencies}" />
+   	</apex:outputPanel>
+
+	<a id="liveagent_button_online_57390000000GnWR" href="javascript://Chat" style="display: none;" onclick="liveagent.startChat('{!$Setup.PortalSettings__c.LiveChat_Button_Id__c}')">
+		<!-- Online Chat Content -->
+		<apex:outputPanel rendered="{!if($CurrentPage.Name =='dmtrialmysnapshot' || $CurrentPage.Name=='DMTrialMySnapShot' ||
+    	$CurrentPage.Name=='dmtrialmyusage' || $CurrentPage.Name=='DMTrialMyUsage' ||
+    	$CurrentPage.Name=='dmtrialmysmartsolution' || $CurrentPage.Name=='DMTrialMySmartSolution' ||
+    	$CurrentPage.Name=='dmtrialmyprofile' || $CurrentPage.Name=='DMTrialMyProfile' ||  $CurrentPage.Name=='PortalManageConcession' || $CurrentPage.Name =='PortalAccountDetailPage' || $CurrentPage.Name =='PortalMyDetails' || $CurrentPage.Name =='PortalBillHistory' || $CurrentPage.Name =='pkb_Home' || $CurrentPage.Name =='PortalEnquiries' || $CurrentPage.Name =='PortalPaymentOptions' || $CurrentPage.Name =='PortalDirectDebit_Select' || $CurrentPage.Name =='PortalWaterUsageList' || $CurrentPage.Name =='PortalMyAccountHomePage' || $CurrentPage.Name =='PortalBillPreferences' || $CurrentPage.Name =='PortalMoreTimeToPay',
+    	true,false)}">
+   			<apex:image id="theOnlineImage" value="{!$Resource.LWCStandardOnline}" height="155px"/>
+    	</apex:outputPanel>	 
+	</a>
+	
+	<div id="liveagent_button_offline_57390000000GnWR" style="display: none;">
+		<!-- show chat now image link -->
+    	<apex:outputPanel rendered="{!if($CurrentPage.Name =='dmtrialmysnapshot' || $CurrentPage.Name=='DMTrialMySnapShot' ||
+    	$CurrentPage.Name=='dmtrialmyusage' || $CurrentPage.Name=='DMTrialMyUsage' ||
+    	$CurrentPage.Name=='dmtrialmysmartsolution' || $CurrentPage.Name=='DMTrialMySmartSolution' ||
+    	$CurrentPage.Name=='dmtrialmyprofile' || $CurrentPage.Name=='DMTrialMyProfile' || $CurrentPage.Name=='PortalEnquiries' || $CurrentPage.Name=='PortalMyAccountHomePage' || $CurrentPage.Name=='pkb_Home' || $CurrentPage.Name=='PortalMyAccountHomePage', 
+    	true,false)}">
+    		<apex:image value="{!$Resource.FaultsAndEmergencies}" />
+    	</apex:outputPanel>
+      <apex:outputPanel rendered="{!if($CurrentPage.Name =='PortalManageConcession' || $CurrentPage.Name =='PortalAccountDetailPage' || $CurrentPage.Name =='PortalBillHistory' || $CurrentPage.Name =='PortalPaymentOptions' || $CurrentPage.Name =='PortalDirectDebit_Select' || $CurrentPage.Name =='PortalWaterUsageList' || $CurrentPage.Name =='PortalBillPreferences' || $CurrentPage.Name =='PortalMoreTimeToPay', 
+      true,false)}">
+        <apex:outputLink value="{!$Page.PortalBillPreferences}"><apex:image value="{!$Resource.Paperlessbilling}" /></apex:outputLink>
+      </apex:outputPanel>
+      
+	</div>
+	
+	<script type="text/javascript">
+		if (!window._laq) { window._laq = []; }
+			window._laq.push(function(){
+				liveagent.showWhenOnline('{!$Setup.PortalSettings__c.LiveChat_Button_Id__c}', document.getElementById('liveagent_button_online_57390000000GnWR'));
+				liveagent.showWhenOffline('{!$Setup.PortalSettings__c.LiveChat_Button_Id__c}', document.getElementById('liveagent_button_offline_57390000000GnWR'));
+			});
+	</script>
+	
+    
+
+</apex:component>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>ECO_Price__c</fullName>
+        <externalId>false</externalId>
+        <label>ECO Price</label>
+        <precision>12</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>ECO Prices</relationshipLabel>
+        <relationshipName>ECO_Prices</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Other_Rejected_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Rejected Reason</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Rejected_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Rejected Reason</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Too expensive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Treatment plant</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Happy with septic</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer&apos;s age</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Holiday house</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don&apos;t want to connect early</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <label>ECO Price</label>
+    <nameField>
+        <displayFormat>EP-{000000}</displayFormat>
+        <label>ECO Price Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>ECO Prices</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Other_reason_blank_if_reason_not_other</fullName>
+        <active>true</active>
+        <description>If the Rejected Reason is not set to other, other rejected reason must not be entered.</description>
+        <errorConditionFormula>NOT(  ISPICKVAL(Rejected_Reason__c, &apos;Other&apos;) ) &amp;&amp; NOT ( ISBLANK ( Other_Rejected_Reason__c ))</errorConditionFormula>
+        <errorDisplayField>Other_Rejected_Reason__c</errorDisplayField>
+        <errorMessage>Other Rejected Reason can only be entered if the Rejected Reason is set to Other</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Other_reason_populated_if_reason_other</fullName>
+        <active>true</active>
+        <description>If the Rejected Reason is set to other, other rejected reason must be entered.</description>
+        <errorConditionFormula>ISPICKVAL(Rejected_Reason__c, &apos;Other&apos;)    &amp;&amp;  ISBLANK ( Other_Rejected_Reason__c )</errorConditionFormula>
+        <errorDisplayField>Other_Rejected_Reason__c</errorDisplayField>
+        <errorMessage>Other Rejected Reason must be entered if the Rejected Reason is set to Other</errorMessage>
+    </validationRules>
+</CustomObject>

@@ -1,0 +1,128 @@
+<apex:page sidebar="false" showHeader="true"
+    doctype="html-5.0"
+    tabstyle="Water_Usage__tab" 
+    controller="PortalWaterUsageList_Controller">
+    <!--  
+    Type:       VF page
+    Purpose:    Portal Water Usage Chart
+    -----------------------------------------------------------------
+    History:
+        04-Jun-2012 D.Yu                     Updated: 5145 - change invalid timeframe error message
+    -->
+    <head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <apex:stylesheet value="{!$Resource.PortalIcons_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalActionLinks_Styles}"/>
+    </head>     
+
+    <apex:form id="theForm">
+
+        <apex:sectionheader title="Water use"
+                            subtitle="{!selectedBillingAccount.Property__r.Street_Address_Proper__c}, {!selectedBillingAccount.Property__r.Suburb_Proper__c} {!selectedBillingAccount.Property__r.Postal_Code__c}"/>
+        <div style="clear:both"/>
+
+        <apex:outputPanel styleclass="pbTransparent pbNoLeftPad fullPageTableOuterDiv">
+            <apex:pageblock id="pb" >
+                <!--  HORIZONTAL SUBTAB -->
+                <c:PortalSubTab groupName="Usage"
+                                currentDevName="Usage_Chart"
+                                currentAccRecordType="{!customer.RecordType.DeveloperName}"/>
+
+                <apex:outputPanel id="waterUsageChart" 
+                                    layout="block"
+                                    styleClass="whiteBack sewRoundedCorner shadowAll">
+
+
+                    <!--  FILTERS -->
+                    <apex:outputPanel id="filter" layout="block" styleclass="filterPanel">
+                        <apex:panelGrid columns="3">
+                            <apex:outputPanel ><apex:outputlabel >Property</apex:outputlabel></apex:outputPanel>
+                            <apex:outputPanel ><apex:outputlabel >Select service</apex:outputlabel></apex:outputPanel>
+                            <apex:outputPanel ><apex:outputlabel >Select timeframe (financial year)</apex:outputlabel></apex:outputPanel>
+                            <apex:outputPanel >                     
+                                <apex:selectList size="1" label="Property" value="{!selectedbillingaccountid}"
+                                                id="billingaccountlist" style="width:350px">
+                                    <apex:actionSupport event="onchange" rerender="theForm" status="loading"
+                                                        action="{!PopulateSelectedBillingAccountandConsumption}"/>
+                                    <apex:selectOptions value="{!activeBillAcctOptions}"/>
+                                </apex:selectList>
+                            </apex:outputPanel>
+                            <apex:outputPanel >                     
+                                <apex:selectList size="1" label="Usage Type" value="{!selectedusagetype}"
+                                                id="usagetypelist">
+                                    <apex:actionSupport event="onchange" rerender="theForm" status="loading"/>
+                                    <apex:selectOptions value="{!usageTypes}"/>
+                                </apex:selectList>
+                            </apex:outputPanel>
+                            <apex:outputPanel > 
+                                <apex:actionRegion >                    
+                                    <apex:selectList value="{!startYear}" 
+                                                    size="1" label="Period (Start)" 
+                                                    id="fystartlist">
+                                        <apex:selectOptions value="{!finYearOptions}"/>
+                                        <apex:actionSupport event="onchange" rerender="theForm" status="loading"/>
+                                    </apex:selectList>
+                                    <apex:outputLabel style="margin: 0px 5px;">to</apex:outputLabel>
+                                    <apex:selectList value="{!endYear}" 
+                                                    size="1" label="Period (End)" 
+                                                    id="fyendlist">
+                                        <apex:selectOptions value="{!finYearOptions}"/>
+                                        <apex:actionSupport event="onchange" rerender="theForm" status="loading"/>
+                                    </apex:selectList>
+                                </apex:actionRegion>                    
+                            </apex:outputPanel>
+                        </apex:panelGrid>
+                    </apex:outputPanel>
+    
+                    <!--  PAGE MESSAGES -->
+                    <div style="text-align: left">
+                        <apex:pageMessages id="msg" />
+                    </div>
+                          
+                          <!-- PAGE MESSAGE WHEN TIMEFRAME SELECTED IS INVALID -->
+                     <apex:outputPanel id="detailedReasonAndattachment" layout="block">
+                         <apex:pageBlockSection id="detailedReason" columns="1" collapsible="false" rendered="{!invalidResult}">
+                              <apex:pageMessage strength="3" severity="error" summary="Please select a timeframe where the financial year in the first field either matches or precedes the second field."/>
+                         </apex:pageBlockSection>
+                     </apex:outputPanel>
+                          
+                    <apex:pageMessage rendered="{!selectedBillingAccount.Property__r.Logical_Meter_Count__c > 0}"
+                            strength="2" severity="info"
+                            summary="Your property receives water through a shared water meter (main meter). Your share of daily consumption from this main meter is displayed."/>
+
+                    <!--  CONTENT -->
+                    
+                    <div style="text-align: center; padding: 30px 0">
+                        <h2 style="whitespace:nowrap"><nobr>Average daily {!selectedUsageTypeLower} use</nobr></h2>
+
+                        <apex:outputPanel layout="block" style="padding:15px 15px; font-style: italic" rendered="{!noConsumptionRecords}">
+                            No chart data to display
+                        </apex:outputPanel>
+                                                
+                        <apex:image value="{!avgDailyUsageChartURL}" 
+                                    style="padding: 15px 0px"
+                                    rendered="{!NOT(noConsumptionRecords)}"/>
+
+                    </div>
+
+                </apex:outputPanel>
+                
+            </apex:pageblock>
+            
+        </apex:outputPanel>
+
+        <!-- Action Status that are not position dependent -->
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+                    borderSize="1" height="50px" width="120px" margintop="-25px"
+                    marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+                    Message="Processing..." />
+            </apex:facet>
+        </apex:actionStatus>
+    </apex:form>
+    <!--  QUICK LINKS -->
+    <div style="margin-left: 15px;">
+        <c:PortalHorizontalQuickLinks mode="waterUseGraph"/>
+    </div>
+</apex:page>

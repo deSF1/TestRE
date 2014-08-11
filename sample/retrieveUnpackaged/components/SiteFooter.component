@@ -1,0 +1,209 @@
+<apex:component id="footerComponent">
+
+    <!--
+        Description: Site footer rebranded
+
+        History:
+
+            14-Jun-2011 D.Thong     Created
+            20-Mar-2012 D.Thong     New for Ph2B
+            23-Apr-2012 D.Yu        NEW: Remove "Limited" in Copyright"2012 South East Water Limited", Remove "Customer Support Office", "View map>" link should be the same link as seen on sewl.com.au  
+            25-9-2012   J.Jayoma    Removed the blue LWC icon (TP#392)   
+            25-9-2013   N.Rangas    Call Centre Business Hours TT#11625
+            20-11-2013  B.Trinidad  Added Security Notice link
+	    13-3-2014	ejandusay	changed Terms and Conditions label and link
+            07-Apr-2014 R.Cook      Added LinkedIn icon and link; updated copyright year to 2014 (TT 12429)
+    -->
+
+    <div class="header-footer">
+        <div class="footer-content">
+            <div id="contactus">
+                Contact Us
+                
+            </div>
+            <p/>
+            <!-- online contacts -->
+            <div id="onlinecol" class="footer-col">
+                
+                <div>
+                    <apex:outputLink title="Live Chat">
+                        <!-- <div class="liveChatIconWhite footer-icon"/> -->
+                        <!-- <div style="float:left; margin-left: 5px;">Live chat is online!</div> -->
+                    </apex:outputLink>
+                </div>
+                
+                <!-- Live Chat -->
+                <!-- Deployment Code -->
+                 <script type='text/javascript' src='https://c.la10.salesforceliveagent.com/content/g/deployment.js'></script>
+                 <!-- don't want it on the footer, so removing -->
+                <script type='text/javascript' src='https://c.la9cs.salesforceliveagent.com/content/g/js/30.0/deployment.js'></script>
+                <script type='text/javascript'>
+                    liveagent.setChatWindowHeight(520);
+                    liveagent.setChatWindowWidth(434);
+                    if ('{!$User.ContactId}' != '') {
+                        liveagent.addCustomDetail("ContactId", "{!$User.ContactId}").saveToTranscript("ContactId");
+                        //liveagent.addCustomDetail("ContactId", "{!$User.ContactId}").map("Contact", "Id", true, true, true);
+                    }
+
+                    liveagent.init('https://d.{!$Setup.PortalSettings__c.LiveChat_URL__c}.salesforceliveagent.com/chat', '{!$Setup.PortalSettings__c.LiveChat_Deployment_Id__c}', '{!LEFT($Organization.Id, 15)}');
+                </script>
+                
+                
+                <div>
+                    <!-- Button Code -->
+                    <!--  don't want it on the footer, so removing -->
+                    <a id="liveagent_button_online_573O00000004C93" href="javascript://Chat" style="display: none;" onclick="liveagent.startChat('{!$Setup.PortalSettings__c.LiveChat_Button_Id__c}')">
+                        <div class="liveChatIconWhite footer-icon"/>
+                        
+                        <div style="float:left; margin-left: 5px;">Live chat is online</div>
+                    </a>
+                    
+                    <div id="liveagent_button_offline_573O00000004C93" style="display: none;">
+                        
+                      <div class="liveChatIconBlue footer-icon"/>  
+                        
+                        <div style="float:left; margin-left: 5px; font-weight: bold; color: #99D5ED;">Live chat is offline</div>
+                        
+                    </div>  
+                    
+                    <!-- TP#392 Hide Live Web Chat Portal End -->
+                    <script type="text/javascript">
+                        if (!window._laq) { window._laq = []; }
+    
+                        window._laq.push(
+                            function() {
+                                liveagent.showWhenOnline('{!$Setup.PortalSettings__c.LiveChat_Button_Id__c}', document.getElementById('liveagent_button_online_573O00000004C93'));
+                                liveagent.showWhenOffline('{!$Setup.PortalSettings__c.LiveChat_Button_Id__c}', document.getElementById('liveagent_button_offline_573O00000004C93'));
+                        });
+                    </script>
+                </div>
+                <!--  -->
+                
+                <div class="clear"/>
+                <div style="margin-top: 0px">
+                    <apex:outputLink title="Online Enquiries" 
+                                    value="{!$Page.PortalEnquiries}"
+                                    target="_top"
+                                    rendered="{!$Profile.Name<>'Portal Profile'}">
+                        <div class="onlineEnquiriesIconWhite footer-icon"/>
+                        <div style="float:left; margin-left: 5px;">Online enquiries</div>
+                    </apex:outputLink>
+                </div>
+            </div>
+            
+            <!-- phone contacts -->
+            <div id="phonecol" class="footer-col">
+                <h3>Account enquiries</h3>
+                <div class="phoneNumber">131 851</div>
+                <div class="phoneHours">
+                    8.00 am - 8.00 pm<br/>
+                    (Monday to Friday)
+                </div>
+    
+                <p/>
+                <h3>Faults &amp; emergencies</h3>
+                <div class="phoneNumber">132 812</div>
+                <div class="phoneHours">24 hours</div>          
+            </div>
+            
+            <!-- visit details -->
+            <div id="visitcol" class="footer-col">
+                <h3>In person</h3>
+                <!--  <div>
+                    Customer Support Office
+                </div> -->
+                <div>
+                20 Corporate Drive<br/>
+                Heatherton, Victoria 3202
+                </div>
+                <div>
+                Phone: 131 694
+                </div>
+                <div>
+                Hours: 8.00 am - 5.30 pm<br/>
+                (Monday to Friday)
+                </div>
+                <div>
+                Melway ref: Map 78 D9<br/>
+                <apex:outputLink title="View map" value="http://g.co/maps/q6uqg" target="_new">
+                <!--  <apex:outputLink title="View map" value="http://sewl.com.au/Footer/Pages/SiteMap.aspx" target="_new"> -->
+                    View map ›
+                </apex:outputLink>
+                </div>
+            </div>
+    
+            <!-- other details -->
+            <div id="othercol" class="footer-col">
+                <h3>Post</h3>
+                <div>
+                    Locked Bag 1<br/>
+                    Moorabbin, Victoria 3189
+                </div>
+    
+                <p/>
+    
+                <h3>Web</h3>
+                <div>
+                    <apex:outputLink title="South East Water" value="http://www.southeastwater.com.au" 
+                            target="_new">
+                        southeastwater.com.au
+                    </apex:outputLink>
+                </div>
+            </div>
+            <div class="clear"/>
+            <div id="footer-bottom" style="margin-top: 30px; margin-left: 25px">
+                <div style="float: left; margin-right: 10px">
+                    &copy;2014 South East Water
+                </div>
+                <apex:outputLink title="Privacy" value="http://www.southeastwater.com.au/Footer/Pages/Privacy.aspx" 
+                        target="_new">
+                    Privacy
+                </apex:outputLink>
+                
+                <!-- Security Notice PKB Article Link-->
+                <!-- Temporarily Removed because of test sandbox specific error -->
+                <!-- This will be neabled soon once fixed -->
+                <!--  <apex:outputPanel rendered="{!IF(ISPICKVAL($User.UserType,'Guest'), false, true)}" >
+                   
+                   <knowledge:articleList articleVar="article" pageSize="1">
+
+                        <apex:outputLink onclick="pullSecurityNoticeArticle_{!$Setup.SecurityNotice__c.Security_Notice_Article_Id__c}();return false;">
+                            Security Notice
+                        </apex:outputLink>
+    
+                        <script>
+                            function pullSecurityNoticeArticle_{!$Setup.SecurityNotice__c.Security_Notice_Article_Id__c}(){
+                                window.open('{!URLFOR($Action.KnowledgeArticle.View,$Setup.SecurityNotice__c.Security_Notice_Article_Id__c,['popup' = 'true'])}', '_blank', 'menubar=no,status=no,resizable=yes,scrollbars=yes,location=no,height=480,width=640');
+                            }
+                        </script> 
+                        
+                    </knowledge:articleList>
+                </apex:outputPanel> -->
+            
+                <apex:outputLink title="Terms" value="/articles/FAQ/Terms-of-use-March-2014" target="_new">
+                    Terms and Conditions
+                </apex:outputLink>
+                <apex:outputLink title="Sitemap" rendered="false">Sitemap</apex:outputLink>
+
+                <div id="socialbar">
+                    <apex:outputLink title="Facebook" value="http://www.facebook.com/SEWmelbourne" target="_new" >
+                        <div class="facebookIcon"/>
+                    </apex:outputLink>
+                    <apex:outputLink title="Twitter" value="http://twitter.com/southeastwater" target="_new">
+                        <div class="twitterIcon"/>
+                    </apex:outputLink>
+                    <apex:outputLink title="Youtube" value="http://www.youtube.com/southeastwater" target="_new" >
+                        <div class="youtubeIcon"/>
+                    </apex:outputLink>
+                    <apex:outputLink title="LinkedIn" value="http://www.linkedin.com/company/south-east-water" target="_new" >
+                        <div class="linkedInIcon" />
+                    </apex:outputLink>
+                </div>
+                <div class="clear"/>
+            </div>
+            
+        </div>
+        
+    </div>
+
+</apex:component>

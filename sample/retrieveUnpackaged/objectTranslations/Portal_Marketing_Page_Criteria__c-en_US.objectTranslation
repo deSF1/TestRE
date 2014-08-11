@@ -1,0 +1,1573 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Portal Marketing Page Criteria</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Portal Marketing Pages Criterion</value>
+    </caseValues>
+    <fields>
+        <help><!-- The condition for the criteria. --></help>
+        <label><!-- Condition --></label>
+        <name>Condition__c</name>
+        <picklistValues>
+            <masterLabel>contains</masterLabel>
+            <translation><!-- contains --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>does not contain</masterLabel>
+            <translation><!-- does not contain --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ends with</masterLabel>
+            <translation><!-- ends with --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>equals</masterLabel>
+            <translation><!-- equals --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>greater or equal</masterLabel>
+            <translation><!-- greater or equal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>greater than</masterLabel>
+            <translation><!-- greater than --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>less or equal</masterLabel>
+            <translation><!-- less or equal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>less than</masterLabel>
+            <translation><!-- less than --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>not equal to</masterLabel>
+            <translation><!-- not equal to --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>starts with</masterLabel>
+            <translation><!-- starts with --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- This field indicates whether the criteria needs to match all Billing Accounts, etc. for the user or just any Billing Account, etc.  E.g. Does all billing accounts need to have Billing method set to Mail or just one of the Billing Accounts? --></help>
+        <label><!-- Criteria Matches --></label>
+        <name>Criteria_Matches__c</name>
+        <picklistValues>
+            <masterLabel>All Billing Accounts</masterLabel>
+            <translation><!-- All Billing Accounts --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>All Consumption and Charges for All Billing Accounts</masterLabel>
+            <translation><!-- All Consumption and Charges for All Billing Accounts --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>All Consumption and Charges for a single Billing Account</masterLabel>
+            <translation><!-- All Consumption and Charges for a single Billing Account --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>All Properties for all Billing Accounts</masterLabel>
+            <translation><!-- All Properties for all Billing Accounts --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Any Billing Account</masterLabel>
+            <translation><!-- Any Billing Account --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Any Consumption and Charge</masterLabel>
+            <translation><!-- Any Consumption and Charge --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Any Property for a Billing Account</masterLabel>
+            <translation><!-- Any Property for a Billing Account --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Criteria Number --></label>
+        <name>Criteria_Number__c</name>
+    </fields>
+    <fields>
+        <help><!-- The field of the object to which the criteria applies. --></help>
+        <label><!-- Field --></label>
+        <name>Field__c</name>
+        <picklistValues>
+            <masterLabel># Main Group Accounts</masterLabel>
+            <translation><!-- # Main Group Accounts --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1 Meter with Multiple Properties</masterLabel>
+            <translation><!-- 1 Meter with Multiple Properties --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&gt; 3 Consecutive Estimated Reads</masterLabel>
+            <translation><!-- &gt; 3 Consecutive Estimated Reads --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>?Status Date</masterLabel>
+            <translation><!-- ?Status Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ABN</masterLabel>
+            <translation><!-- ABN --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ACN</masterLabel>
+            <translation><!-- ACN --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ANZSIC</masterLabel>
+            <translation><!-- ANZSIC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>About Me</masterLabel>
+            <translation><!-- About Me --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Account Address</masterLabel>
+            <translation><!-- Account Address --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Account Closed</masterLabel>
+            <translation><!-- Account Closed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Account Name</masterLabel>
+            <translation><!-- Account Name --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Account Number</masterLabel>
+            <translation><!-- Account Number --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Account Opened</masterLabel>
+            <translation><!-- Account Opened --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Account Record Type</masterLabel>
+            <translation><!-- Account Record Type --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Account Site</masterLabel>
+            <translation><!-- Account Site --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Account Source</masterLabel>
+            <translation><!-- Account Source --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation><!-- Active --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Active WaterMAP</masterLabel>
+            <translation><!-- Active WaterMAP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Active WaterMAP Count</masterLabel>
+            <translation><!-- Active WaterMAP Count --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Additional Phone</masterLabel>
+            <translation><!-- Additional Phone --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Address Also Known As</masterLabel>
+            <translation><!-- Address Also Known As --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Address Warnings</masterLabel>
+            <translation><!-- Address Warnings --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Adhoc Charge ($)</masterLabel>
+            <translation><!-- Adhoc Charge ($) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Adjusted</masterLabel>
+            <translation><!-- Adjusted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Admin Info Emails</masterLabel>
+            <translation><!-- Admin Info Emails --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Agent&apos;s Name</masterLabel>
+            <translation><!-- Agent&apos;s Name --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Agent&apos;s Phone</masterLabel>
+            <translation><!-- Agent&apos;s Phone --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Alias</masterLabel>
+            <translation><!-- Alias --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Allotment Area</masterLabel>
+            <translation><!-- Allotment Area --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Allow Forecasting</masterLabel>
+            <translation><!-- Allow Forecasting --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Alternate Email Address</masterLabel>
+            <translation><!-- Alternate Email Address --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Alternate Email Address 2</masterLabel>
+            <translation><!-- Alternate Email Address 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Annual Revenue</masterLabel>
+            <translation><!-- Annual Revenue --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Applicable Date</masterLabel>
+            <translation><!-- Applicable Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approver</masterLabel>
+            <translation><!-- Approver --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Assistant Name</masterLabel>
+            <translation><!-- Assistant Name --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Assistant Phone</masterLabel>
+            <translation><!-- Assistant Phone --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Attention</masterLabel>
+            <translation><!-- Attention --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Average Daily Water Usage (KL)</masterLabel>
+            <translation><!-- Average Daily Water Usage (KL) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Balance</masterLabel>
+            <translation><!-- Balance --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Balance Owing All Accounts</masterLabel>
+            <translation><!-- Balance Owing All Accounts --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bill To Parent</masterLabel>
+            <translation><!-- Bill To Parent --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Billed</masterLabel>
+            <translation><!-- Billed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Billing Account #</masterLabel>
+            <translation><!-- Billing Account # --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Billing Accounts linked to Mailing</masterLabel>
+            <translation><!-- Billing Accounts linked to Mailing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Billing Accounts linked to Primary</masterLabel>
+            <translation><!-- Billing Accounts linked to Primary --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Billing Address Same As</masterLabel>
+            <translation><!-- Billing Address Same As --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Billing Frequency</masterLabel>
+            <translation><!-- Billing Frequency --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Birthdate</masterLabel>
+            <translation><!-- Birthdate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Body Corporate</masterLabel>
+            <translation><!-- Body Corporate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Business Fax</masterLabel>
+            <translation><!-- Business Fax --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Business Profile</masterLabel>
+            <translation><!-- Business Profile --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Business Type</masterLabel>
+            <translation><!-- Business Type --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CIS Property Id</masterLabel>
+            <translation><!-- CIS Property Id --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Card Firstname</masterLabel>
+            <translation><!-- Card Firstname --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Card Lastname</masterLabel>
+            <translation><!-- Card Lastname --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Card Type</masterLabel>
+            <translation><!-- Card Type --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Care Of</masterLabel>
+            <translation><!-- Care Of --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cell</masterLabel>
+            <translation><!-- Cell --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>City</masterLabel>
+            <translation><!-- City --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Clerical</masterLabel>
+            <translation><!-- Clerical --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Community Nickname</masterLabel>
+            <translation><!-- Community Nickname --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Company Email</masterLabel>
+            <translation><!-- Company Email --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Company Name</masterLabel>
+            <translation><!-- Company Name --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Concession Amount ($)</masterLabel>
+            <translation><!-- Concession Amount ($) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Concession End Date</masterLabel>
+            <translation><!-- Concession End Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Concession Holder</masterLabel>
+            <translation><!-- Concession Holder --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Concession Number</masterLabel>
+            <translation><!-- Concession Number --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Concession Start Date</masterLabel>
+            <translation><!-- Concession Start Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Concession cnt</masterLabel>
+            <translation><!-- Concession cnt --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Concession_cnt</masterLabel>
+            <translation><!-- Concession_cnt --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Confirm Password</masterLabel>
+            <translation><!-- Confirm Password --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Consumption Period</masterLabel>
+            <translation><!-- Consumption Period --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Contact Type</masterLabel>
+            <translation><!-- Contact Type --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Council</masterLabel>
+            <translation><!-- Council --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Council Property Reference No</masterLabel>
+            <translation><!-- Council Property Reference No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Council Property Type</masterLabel>
+            <translation><!-- Council Property Type --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Counter</masterLabel>
+            <translation><!-- Counter --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Country</masterLabel>
+            <translation><!-- Country --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Current Bill B/F Balance</masterLabel>
+            <translation><!-- Current Bill B/F Balance --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Current Bill Billed Amount</masterLabel>
+            <translation><!-- Current Bill Billed Amount --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Current Bill Due Date</masterLabel>
+            <translation><!-- Current Bill Due Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Current Read Date</masterLabel>
+            <translation><!-- Current Read Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer</masterLabel>
+            <translation><!-- Customer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Description</masterLabel>
+            <translation><!-- Customer Description --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Fax</masterLabel>
+            <translation><!-- Customer Fax --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Name</masterLabel>
+            <translation><!-- Customer Name --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Number</masterLabel>
+            <translation><!-- Customer Number --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Portal Account</masterLabel>
+            <translation><!-- Customer Portal Account --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Record Type</masterLabel>
+            <translation><!-- Customer Record Type --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Type</masterLabel>
+            <translation><!-- Customer Type --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Universal Id</masterLabel>
+            <translation><!-- Customer Universal Id --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer’s Annual Revenue</masterLabel>
+            <translation><!-- Customer’s Annual Revenue --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DPID</masterLabel>
+            <translation><!-- DPID --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Data Check Address Special Charactor</masterLabel>
+            <translation><!-- Data Check Address Special Charactor --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Data Check Phone is NOT number</masterLabel>
+            <translation><!-- Data Check Phone is NOT number --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Data Check-Address special charactor</masterLabel>
+            <translation><!-- Data Check-Address special charactor --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Days Overdue</masterLabel>
+            <translation><!-- Days Overdue --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dedup Flag</masterLabel>
+            <translation><!-- Dedup Flag --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Department</masterLabel>
+            <translation><!-- Department --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Description</masterLabel>
+            <translation><!-- Description --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Direct Debit</masterLabel>
+            <translation><!-- Direct Debit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Direct Debit Commencement Date</masterLabel>
+            <translation><!-- Direct Debit Commencement Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Direct Debit Details</masterLabel>
+            <translation><!-- Direct Debit Details --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Directory Reference</masterLabel>
+            <translation><!-- Directory Reference --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Directory Type</masterLabel>
+            <translation><!-- Directory Type --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Division</masterLabel>
+            <translation><!-- Division --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Drainage Charge ($)</masterLabel>
+            <translation><!-- Drainage Charge ($) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Drivers License Number</masterLabel>
+            <translation><!-- Drivers License Number --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>E-mail</masterLabel>
+            <translation><!-- E-mail --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EWOV Alert</masterLabel>
+            <translation><!-- EWOV Alert --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EWOV Assisted Complaint</masterLabel>
+            <translation><!-- EWOV Assisted Complaint --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EWOV Investigative Complaint?</masterLabel>
+            <translation><!-- EWOV Investigative Complaint? --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Email</masterLabel>
+            <translation><!-- Email --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Email Encoding</masterLabel>
+            <translation><!-- Email Encoding --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Employee Number</masterLabel>
+            <translation><!-- Employee Number --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Employees</masterLabel>
+            <translation><!-- Employees --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>End Date</masterLabel>
+            <translation><!-- End Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Extension</masterLabel>
+            <translation><!-- Extension --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Facebook Account</masterLabel>
+            <translation><!-- Facebook Account --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fax</masterLabel>
+            <translation><!-- Fax --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Financial Year</masterLabel>
+            <translation><!-- Financial Year --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>First name</masterLabel>
+            <translation><!-- First name --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Full Name</masterLabel>
+            <translation><!-- Full Name --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Grid Coordinate X</masterLabel>
+            <translation><!-- Grid Coordinate X --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Grid Coordinate Y</masterLabel>
+            <translation><!-- Grid Coordinate Y --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Group Customer Address</masterLabel>
+            <translation><!-- Group Customer Address --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Group HiAF Account Number</masterLabel>
+            <translation><!-- Group HiAF Account Number --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Has Concession</masterLabel>
+            <translation><!-- Has Concession --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Has Insurance Claim</masterLabel>
+            <translation><!-- Has Insurance Claim --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Has Other</masterLabel>
+            <translation><!-- Has Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Has Rebate</masterLabel>
+            <translation><!-- Has Rebate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>HiAF Account #</masterLabel>
+            <translation><!-- HiAF Account # --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>HiAF Account Number (Check Digit)</masterLabel>
+            <translation><!-- HiAF Account Number (Check Digit) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Home Phone</masterLabel>
+            <translation><!-- Home Phone --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ICE Customer Ref</masterLabel>
+            <translation><!-- ICE Customer Ref --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Industry</masterLabel>
+            <translation><!-- Industry --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Info Emails</masterLabel>
+            <translation><!-- Info Emails --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Initials</masterLabel>
+            <translation><!-- Initials --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Invalid Billing Address</masterLabel>
+            <translation><!-- Invalid Billing Address --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Invalid Mailing Address</masterLabel>
+            <translation><!-- Invalid Mailing Address --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Invalid Primary Address</masterLabel>
+            <translation><!-- Invalid Primary Address --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Is Active</masterLabel>
+            <translation><!-- Is Active --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Is Agent</masterLabel>
+            <translation><!-- Is Agent --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Is Current Year</masterLabel>
+            <translation><!-- Is Current Year --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Is EREP</masterLabel>
+            <translation><!-- Is EREP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Is Key Customer</masterLabel>
+            <translation><!-- Is Key Customer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Is Main Group Customer</masterLabel>
+            <translation><!-- Is Main Group Customer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Is Stakeholder</masterLabel>
+            <translation><!-- Is Stakeholder --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Key Customer Person</masterLabel>
+            <translation><!-- Key Customer Person --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Key Customer Type</masterLabel>
+            <translation><!-- Key Customer Type --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Language</masterLabel>
+            <translation><!-- Language --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Last Bill Date</masterLabel>
+            <translation><!-- Last Bill Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Last Bill Number</masterLabel>
+            <translation><!-- Last Bill Number --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Last Login</masterLabel>
+            <translation><!-- Last Login --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Last Modified By User Name</masterLabel>
+            <translation><!-- Last Modified By User Name --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Last Modified By User Type</masterLabel>
+            <translation><!-- Last Modified By User Type --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Last Name</masterLabel>
+            <translation><!-- Last Name --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Last Payment Date</masterLabel>
+            <translation><!-- Last Payment Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Last Payment Made</masterLabel>
+            <translation><!-- Last Payment Made --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Last Read Date</masterLabel>
+            <translation><!-- Last Read Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Last Stay-in-Touch Request Date</masterLabel>
+            <translation><!-- Last Stay-in-Touch Request Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Last Stay-in-Touch Save Date</masterLabel>
+            <translation><!-- Last Stay-in-Touch Save Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lead Source</masterLabel>
+            <translation><!-- Lead Source --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Locale</masterLabel>
+            <translation><!-- Locale --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Logical Meter Count</masterLabel>
+            <translation><!-- Logical Meter Count --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lot No</masterLabel>
+            <translation><!-- Lot No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mail Opt Out</masterLabel>
+            <translation><!-- Mail Opt Out --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mailing Address DPID</masterLabel>
+            <translation><!-- Mailing Address DPID --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mailing Address Equals Postal Address</masterLabel>
+            <translation><!-- Mailing Address Equals Postal Address --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mailing City</masterLabel>
+            <translation><!-- Mailing City --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mailing Country</masterLabel>
+            <translation><!-- Mailing Country --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mailing Postal Code</masterLabel>
+            <translation><!-- Mailing Postal Code --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mailing Postcode</masterLabel>
+            <translation><!-- Mailing Postcode --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mailing State</masterLabel>
+            <translation><!-- Mailing State --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mailing Street</masterLabel>
+            <translation><!-- Mailing Street --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mailing Suburb</masterLabel>
+            <translation><!-- Mailing Suburb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Marketing Opt In</masterLabel>
+            <translation><!-- Marketing Opt In --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Misc Charge</masterLabel>
+            <translation><!-- Misc Charge --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mobile Phone</masterLabel>
+            <translation><!-- Mobile Phone --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NSM</masterLabel>
+            <translation><!-- NSM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Name</masterLabel>
+            <translation><!-- Name --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Next Bill Date (Approx)</masterLabel>
+            <translation><!-- Next Bill Date (Approx) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No. of Billing Account</masterLabel>
+            <translation><!-- No. of Billing Account --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Number of Active Billing Accounts</masterLabel>
+            <translation><!-- Number of Active Billing Accounts --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Number of Billing Accounts</masterLabel>
+            <translation><!-- Number of Billing Accounts --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Number of Closed Billing Accounts</masterLabel>
+            <translation><!-- Number of Closed Billing Accounts --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Number of Days</masterLabel>
+            <translation><!-- Number of Days --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Number of Overdue Billing Accounts</masterLabel>
+            <translation><!-- Number of Overdue Billing Accounts --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Number of Payments</masterLabel>
+            <translation><!-- Number of Payments --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Organisation Name</masterLabel>
+            <translation><!-- Organisation Name --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other Address DPID</masterLabel>
+            <translation><!-- Other Address DPID --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other City</masterLabel>
+            <translation><!-- Other City --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other Country</masterLabel>
+            <translation><!-- Other Country --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other Phone</masterLabel>
+            <translation><!-- Other Phone --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other Postal Code</masterLabel>
+            <translation><!-- Other Postal Code --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other State</masterLabel>
+            <translation><!-- Other State --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other Street</masterLabel>
+            <translation><!-- Other Street --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Overdue Amount</masterLabel>
+            <translation><!-- Overdue Amount --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Overdue Amount Indicator</masterLabel>
+            <translation><!-- Overdue Amount Indicator --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Overdue Balance All Accounts</masterLabel>
+            <translation><!-- Overdue Balance All Accounts --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OverdueFlags</masterLabel>
+            <translation><!-- OverdueFlags --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ownership</masterLabel>
+            <translation><!-- Ownership --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PSP Number</masterLabel>
+            <translation><!-- PSP Number --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pager</masterLabel>
+            <translation><!-- Pager --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Parks Charge ($)</masterLabel>
+            <translation><!-- Parks Charge ($) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Password</masterLabel>
+            <translation><!-- Password --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Payment Method</masterLabel>
+            <translation><!-- Payment Method --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Payment Plan Amount</masterLabel>
+            <translation><!-- Payment Plan Amount --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Payment Plan End Date</masterLabel>
+            <translation><!-- Payment Plan End Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Payment Plan Frequency</masterLabel>
+            <translation><!-- Payment Plan Frequency --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Payment Plan Start Date</masterLabel>
+            <translation><!-- Payment Plan Start Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Payment Plan?</masterLabel>
+            <translation><!-- Payment Plan? --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Period</masterLabel>
+            <translation><!-- Period --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Person Description</masterLabel>
+            <translation><!-- Person Description --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Person Number</masterLabel>
+            <translation><!-- Person Number --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Phone</masterLabel>
+            <translation><!-- Phone --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Portal Role Level</masterLabel>
+            <translation><!-- Portal Role Level --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Portal Self-Registered</masterLabel>
+            <translation><!-- Portal Self-Registered --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Portal Sort Order</masterLabel>
+            <translation><!-- Portal Sort Order --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Portal User</masterLabel>
+            <translation><!-- Portal User --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Portal User Since</masterLabel>
+            <translation><!-- Portal User Since --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Portal User Type</masterLabel>
+            <translation><!-- Portal User Type --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Position</masterLabel>
+            <translation><!-- Position --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Postal Address</masterLabel>
+            <translation><!-- Postal Address --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Postal Code</masterLabel>
+            <translation><!-- Postal Code --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Preferred Contact Type</masterLabel>
+            <translation><!-- Preferred Contact Type --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Preferred Key Customer Visit Frequency</masterLabel>
+            <translation><!-- Preferred Key Customer Visit Frequency --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Preferred Language</masterLabel>
+            <translation><!-- Preferred Language --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Preferred Phone</masterLabel>
+            <translation><!-- Preferred Phone --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Preferred Phone Number</masterLabel>
+            <translation><!-- Preferred Phone Number --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Preferred Phone Type</masterLabel>
+            <translation><!-- Preferred Phone Type --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Previous Read Date</masterLabel>
+            <translation><!-- Previous Read Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Primary / Secondary Contact</masterLabel>
+            <translation><!-- Primary / Secondary Contact --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Primary Address DPID</masterLabel>
+            <translation><!-- Primary Address DPID --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Primary City</masterLabel>
+            <translation><!-- Primary City --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Primary Country</masterLabel>
+            <translation><!-- Primary Country --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Primary Postal Code</masterLabel>
+            <translation><!-- Primary Postal Code --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Primary Postcode</masterLabel>
+            <translation><!-- Primary Postcode --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Primary State</masterLabel>
+            <translation><!-- Primary State --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Primary Street</masterLabel>
+            <translation><!-- Primary Street --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Primary Suburb</masterLabel>
+            <translation><!-- Primary Suburb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Prior Recipient Email</masterLabel>
+            <translation><!-- Prior Recipient Email --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Prior Recipient Email First Name</masterLabel>
+            <translation><!-- Prior Recipient Email First Name --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Private Extension Available</masterLabel>
+            <translation><!-- Private Extension Available --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Profile Name</masterLabel>
+            <translation><!-- Profile Name --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property</masterLabel>
+            <translation><!-- Property --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property Address</masterLabel>
+            <translation><!-- Property Address --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property DPID</masterLabel>
+            <translation><!-- Property DPID --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property Name</masterLabel>
+            <translation><!-- Property Name --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property Type</masterLabel>
+            <translation><!-- Property Type --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property Usage</masterLabel>
+            <translation><!-- Property Usage --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Q1. Your property a house or unit/apt</masterLabel>
+            <translation><!-- Q1. Your property a house or unit/apt --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Q2. How many people in your household?</masterLabel>
+            <translation><!-- Q2. How many people in your household? --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Q29a Water Saving Frequency</masterLabel>
+            <translation><!-- Q29a Water Saving Frequency --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Q3. What is your age?</masterLabel>
+            <translation><!-- Q3. What is your age? --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Q31a. Installing devices too expensive</masterLabel>
+            <translation><!-- Q31a. Installing devices too expensive --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Q31c. Open to receiving help</masterLabel>
+            <translation><!-- Q31c. Open to receiving help --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Q31e. Want my business to save water</masterLabel>
+            <translation><!-- Q31e. Want my business to save water --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Q39e. How appealing is a service</masterLabel>
+            <translation><!-- Q39e. How appealing is a service --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Q39i. How appealing is a regular visit</masterLabel>
+            <translation><!-- Q39i. How appealing is a regular visit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Q4. How much household protect envnmnt?</masterLabel>
+            <translation><!-- Q4. How much household protect envnmnt? --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Q43. How much your biz protect envionmnt</masterLabel>
+            <translation><!-- Q43. How much your biz protect envionmnt --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Q5. How often use more than you should?</masterLabel>
+            <translation><!-- Q5. How often use more than you should? --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Q7. Agree on &quot;not interested in water&quot;</masterLabel>
+            <translation><!-- Q7. Agree on &quot;not interested in water&quot; --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Q8. Agree on &quot;want to save more water&quot;</masterLabel>
+            <translation><!-- Q8. Agree on &quot;want to save more water&quot; --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rating</masterLabel>
+            <translation><!-- Rating --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rebate cnt</masterLabel>
+            <translation><!-- Rebate cnt --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recipient Email</masterLabel>
+            <translation><!-- Recipient Email --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recipient Mobile</masterLabel>
+            <translation><!-- Recipient Mobile --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>RecordTypeName</masterLabel>
+            <translation><!-- RecordTypeName --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recovery Last Action</masterLabel>
+            <translation><!-- Recovery Last Action --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recovery Last Action Date</masterLabel>
+            <translation><!-- Recovery Last Action Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recovery Next Action</masterLabel>
+            <translation><!-- Recovery Next Action --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recovery Next Action Date</masterLabel>
+            <translation><!-- Recovery Next Action Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recovery Path</masterLabel>
+            <translation><!-- Recovery Path --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recovery Suspended To Date</masterLabel>
+            <translation><!-- Recovery Suspended To Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recycled Meter Count</masterLabel>
+            <translation><!-- Recycled Meter Count --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recycled Stormwater - Avenview Estate</masterLabel>
+            <translation><!-- Recycled Stormwater - Avenview Estate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recycled Water Available</masterLabel>
+            <translation><!-- Recycled Water Available --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recycled Water Cost ($)</masterLabel>
+            <translation><!-- Recycled Water Cost ($) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recycled Water Service ($)</masterLabel>
+            <translation><!-- Recycled Water Service ($) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recycled Water Volume (KL)</masterLabel>
+            <translation><!-- Recycled Water Volume (KL) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Reminder Method</masterLabel>
+            <translation><!-- Reminder Method --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Require Portal Password Reset</masterLabel>
+            <translation><!-- Require Portal Password Reset --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Residential or Non-Residential</masterLabel>
+            <translation><!-- Residential or Non-Residential --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Risk Factor</masterLabel>
+            <translation><!-- Risk Factor --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Role</masterLabel>
+            <translation><!-- Role --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Run From Workflow</masterLabel>
+            <translation><!-- Run From Workflow --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SAML Federation ID</masterLabel>
+            <translation><!-- SAML Federation ID --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SIC Code</masterLabel>
+            <translation><!-- SIC Code --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SIC Description</masterLabel>
+            <translation><!-- SIC Description --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Same Name As Customer</masterLabel>
+            <translation><!-- Same Name As Customer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Secret Answer</masterLabel>
+            <translation><!-- Secret Answer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Secret Question</masterLabel>
+            <translation><!-- Secret Question --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Segment Image</masterLabel>
+            <translation><!-- Segment Image --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Segment Name Image</masterLabel>
+            <translation><!-- Segment Name Image --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Segment Profile Last Reviewed</masterLabel>
+            <translation><!-- Segment Profile Last Reviewed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Segment Profile Next Review Date</masterLabel>
+            <translation><!-- Segment Profile Next Review Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Segment Review Overdue?</masterLabel>
+            <translation><!-- Segment Review Overdue? --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Segment Reviewed Channel</masterLabel>
+            <translation><!-- Segment Reviewed Channel --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Segment Usage Last Updated</masterLabel>
+            <translation><!-- Segment Usage Last Updated --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Segment Usage_Quartile</masterLabel>
+            <translation><!-- Segment Usage_Quartile --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Segmentation Overdue</masterLabel>
+            <translation><!-- Segmentation Overdue --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Self-Registered via Customer Portal</masterLabel>
+            <translation><!-- Self-Registered via Customer Portal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Send Mail To</masterLabel>
+            <translation><!-- Send Mail To --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sewage Disposal Cost ($)</masterLabel>
+            <translation><!-- Sewage Disposal Cost ($) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sewage Disposal Volume (KL)</masterLabel>
+            <translation><!-- Sewage Disposal Volume (KL) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sewage Service ($)</masterLabel>
+            <translation><!-- Sewage Service ($) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Source</masterLabel>
+            <translation><!-- Source --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Stakeholder 3rd Level Category</masterLabel>
+            <translation><!-- Stakeholder 3rd Level Category --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Stakeholder Category</masterLabel>
+            <translation><!-- Stakeholder Category --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Stakeholder Person</masterLabel>
+            <translation><!-- Stakeholder Person --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Stakeholder Sub-Category</masterLabel>
+            <translation><!-- Stakeholder Sub-Category --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>State</masterLabel>
+            <translation><!-- State --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>State/Province</masterLabel>
+            <translation><!-- State/Province --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Status</masterLabel>
+            <translation><!-- Status --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Street</masterLabel>
+            <translation><!-- Street --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Street Address</masterLabel>
+            <translation><!-- Street Address --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Street Address (Proper)</masterLabel>
+            <translation><!-- Street Address (Proper) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Subdivision Plan No</masterLabel>
+            <translation><!-- Subdivision Plan No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Suburb</masterLabel>
+            <translation><!-- Suburb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Suburb (Proper)</masterLabel>
+            <translation><!-- Suburb (Proper) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Team</masterLabel>
+            <translation><!-- Team --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ticker Symbol</masterLabel>
+            <translation><!-- Ticker Symbol --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Time Zone</masterLabel>
+            <translation><!-- Time Zone --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Title</masterLabel>
+            <translation><!-- Title --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Total # of Consumption Days</masterLabel>
+            <translation><!-- Total # of Consumption Days --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Total Water Usage (KL)</masterLabel>
+            <translation><!-- Total Water Usage (KL) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Trade Waste Code</masterLabel>
+            <translation><!-- Trade Waste Code --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Trade Waste Cost ($)</masterLabel>
+            <translation><!-- Trade Waste Cost ($) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Trade Waste Volume (KL)</masterLabel>
+            <translation><!-- Trade Waste Volume (KL) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Trading Name</masterLabel>
+            <translation><!-- Trading Name --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Twitter Account</masterLabel>
+            <translation><!-- Twitter Account --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Type</masterLabel>
+            <translation><!-- Type --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Universal Id</masterLabel>
+            <translation><!-- Universal Id --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Update Sub Account Addresses</masterLabel>
+            <translation><!-- Update Sub Account Addresses --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Updated Touchpoints</masterLabel>
+            <translation><!-- Updated Touchpoints --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Updated Touchpoints Timestamp</masterLabel>
+            <translation><!-- Updated Touchpoints Timestamp --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Updated_Touchpoints</masterLabel>
+            <translation><!-- Updated_Touchpoints --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Updated_Touchpoints_Timestamp</masterLabel>
+            <translation><!-- Updated_Touchpoints_Timestamp --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Username</masterLabel>
+            <translation><!-- Username --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Valid Concession</masterLabel>
+            <translation><!-- Valid Concession --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Valuation Amount</masterLabel>
+            <translation><!-- Valuation Amount --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Valuation Date</masterLabel>
+            <translation><!-- Valuation Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water Service ($)</masterLabel>
+            <translation><!-- Water Service ($) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water Usage Cost ($)</masterLabel>
+            <translation><!-- Water Usage Cost ($) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water Use Range</masterLabel>
+            <translation><!-- Water Use Range --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water Volume (KL)</masterLabel>
+            <translation><!-- Water Volume (KL) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Website</masterLabel>
+            <translation><!-- Website --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Work Phone</masterLabel>
+            <translation><!-- Work Phone --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Zip/Postal Code</masterLabel>
+            <translation><!-- Zip/Postal Code --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>eBill Method</masterLabel>
+            <translation><!-- eBill Method --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>eBill Recipient Prior First Name</masterLabel>
+            <translation><!-- eBill Recipient Prior First Name --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>eBill Recipient Prior Last Name</masterLabel>
+            <translation><!-- eBill Recipient Prior Last Name --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- The object to which the criteria applies --></help>
+        <label><!-- Object --></label>
+        <name>Object__c</name>
+        <picklistValues>
+            <masterLabel>Billing Account</masterLabel>
+            <translation><!-- Billing Account --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Consumption and Charge</masterLabel>
+            <translation><!-- Consumption and Charge --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer</masterLabel>
+            <translation><!-- Customer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Person</masterLabel>
+            <translation><!-- Person --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property</masterLabel>
+            <translation><!-- Property --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>User</masterLabel>
+            <translation><!-- User --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- The Portal Marketing Page to which this criteria applies. --></help>
+        <label><!-- Portal Marketing Page --></label>
+        <name>Portal_Marketing_Page__c</name>
+        <relationshipLabel><!-- Portal Marketing Pages Criterion --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- The value for the criteria.  Values can have the following format:
+Date: 2013-02-19 
+Date/Time: 2013-02-18T00:00:00+10:00 (where +10:00 is for AEST) 
+Boolean: true or false --></help>
+        <label><!-- Value --></label>
+        <name>Value__c</name>
+    </fields>
+    <layouts>
+        <layout>Portal Marketing Page Criteria Layout</layout>
+        <sections>
+            <label><!-- Criteria --></label>
+            <section>Criteria</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

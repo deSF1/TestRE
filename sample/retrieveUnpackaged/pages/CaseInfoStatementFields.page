@@ -1,0 +1,773 @@
+<apex:page standardController="Case" sidebar="false" doctype="html-5.0" extensions="CaseInfoStatementFields_Ext">
+    <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+    <script>
+        var j$ = jQuery.noConflict();
+        var storedDate = null;
+
+        j$(function() {
+            BuildEditFieldDialog();
+            BuildVolEditFieldDialog();
+            
+        });
+        
+        function BuildEditFieldDialog() {
+            j$( "#editFieldPopup" ).dialog({
+                dialogClass: 'ui-dropshadow',
+                autoOpen: false,
+                width: 280,
+                minHeight: 80,
+                modal: true,
+                resizable: false,
+                title: 'Edit Legal Costs'
+            });             
+        }
+        
+        function ShowEditFieldDialog() {
+            try {
+                j$("#editFieldPopup").dialog("open");
+            } 
+            catch (e) { 
+                alert(e.toString()); 
+            }
+        }
+        
+        function SaveEditFieldDialog() {
+            try {
+                if ({!Case.Information_Statement_Advice__c = null}) {
+                    var lcValue = document.getElementById("{!$Component.form.legalValueInput}");
+                    var lcValueDecimal = parseFloat(lcValue.value.replace(/,/g,""),10);
+                    //alert(lcValueDecimal);
+                    updateLegalCostValue(lcValueDecimal);
+                    j$("#editFieldPopup").dialog("close");
+                }
+            } 
+            catch (e) { 
+                alert(e.toString()); 
+            }
+        }
+
+        function HideEditFieldDialog() {
+            try {
+                j$("#editFieldPopup").dialog("close");
+            } 
+            catch (e) { 
+                alert(e.toString()); 
+            }
+        }
+        
+        // due to an issue with the refresh of a VF in a Standard page, have to manually update the values as they are updated in the database, but not on the screen.
+        function UpdateFieldValues() {
+            try {
+                if ({!Case.Information_Statement_Advice__c = null}) {
+                   	UpdateFieldValue("{!$Component.form.legalValueInput}", "{!$Component.form.legalCostsValue}", "{!$Component.form.hiddenLegalCosts}", "currency");
+                    UpdateFieldValue("{!$Component.form.volAmountValueInputField}", "{!$Component.form.tradeWasteVolAmount}", "{!$Component.form.hiddenCalcTWAmount}", "currency");
+                    UpdateFieldValue("{!$Component.form.CompanyTradingInput}", "{!$Component.form.companyTradingDisplay}", "{!$Component.form.hiddenCompanyTrading}", "boolean");
+                    UpdateFieldValue("{!$Component.form.inputVolSettleDate}", "{!$Component.form.displayDateOfSettlement}", "hiddenDateOfSettle", "date");
+                    UpdateFieldValue("{!$Component.form.inputProdCeasing}", "{!$Component.form.displayProdCeasing}", "{!$Component.form.hiddenProdCeasing}", "boolean");
+                    UpdateFieldValue("{!$Component.form.inputWhatDate}", "{!$Component.form.displayWhatDate}", "hiddenWhatDate", "date");
+                    UpdateFieldValue("{!$Component.form.inputSpecialReadArranged}", "{!$Component.form.displaySpecialReadArranged}", "{!$Component.form.hiddenSpecialReadArranged}", "boolean");
+                }
+            } 
+            catch (e) { 
+                alert(e.toString()); 
+            }
+        }
+        
+        function UpdateFieldValue(lInput, lDisplay, lHidden, fieldType) {
+            try {
+            	var lcInputValue = document.getElementById(lInput);
+                var lcDisplayValue = document.getElementById(lDisplay);
+                var lcHiddenValue = document.getElementById(lHidden);
+                    
+                if(lcHiddenValue != null){
+                	if (fieldType == "currency"){
+	                	if (lcInputValue != null) {
+		                	lcInputValue.value = lcHiddenValue.getAttribute("Value");
+		                }
+		                  
+		                if (lcDisplayValue != null) {
+		                	lcDisplayValue.innerHTML = Currency(lcHiddenValue.getAttribute("Value"));
+		                }
+		            }
+		            else if (fieldType == "boolean"){
+	                	if (lcInputValue != null) {
+		                	lcInputValue.Checked = (lcHiddenValue.value == "true");
+		                }
+		                  
+		                if (lcDisplayValue != null) {
+		                	if (lcHiddenValue.value == "true"){
+		                		lcDisplayValue.innerHTML = "Yes";
+		                	}
+		                	else {
+		                		lcDisplayValue.innerHTML = "No";
+		                	}
+		                }
+		            }
+		            else if (fieldType == "date"){
+	                	if (lcInputValue != null) {
+		                	lcInputValue.value = DateFormat(lcHiddenValue.value);
+		                }
+		                  
+		                if (lcDisplayValue != null) {
+		                	lcDisplayValue.innerHTML = DateFormat(lcHiddenValue.value);
+		                }
+		            }
+                }
+            } 
+            catch (e) { 
+                alert(e.toString()); 
+            }
+        }
+        
+        function Currency(vValue) {
+        	if(vValue != null){
+           		aDigits = vValue.split(".");
+           		aDigits[0] = aDigits[0].split("").reverse().join("").replace(/(\d{3})(?=\d)/g, "$1,").split("").reverse().join("");
+           		if (aDigits.length == 2){
+	           		if(aDigits[1].length == 0){
+	           			aDigits[1] = '00';
+	           		}
+	           		else if(aDigits[1].length == 1){
+	           			aDigits[1] = aDigits[1] + '0';
+	           		}
+	           	}
+	           	else {
+	           		aDigits[1] = '00';
+	           	} 
+	           	
+           		return aDigits.join(".");
+           	}
+        }
+        
+        function DateFormat(vValue) {
+        	var dateStringValue = "";
+        	if(vValue != null && vValue.length > 0){
+        		
+           		aDigits = vValue.split(" ");
+           		dateValue = new Date(Date.parse(aDigits[1] + " " + aDigits[2] + ", " + aDigits[5]));
+           		dayValue = dateValue.getMonth() + 1;
+           		if (dayValue < 10){
+           			dayValue = "0" + dayValue;
+           		}
+           		dateStringValue = dateValue.getDate() + "/" + dayValue + "/" + dateValue.getFullYear();
+           		
+           	}
+           	return dateStringValue;
+        }
+        
+        function BuildVolEditFieldDialog() {
+            j$( "#editVolFieldPopup" ).dialog({
+                dialogClass: 'ui-dropshadow',
+                autoOpen: false,
+                width: 470,
+                minHeight: 190,
+                modal: true,
+                resizable: false,
+                title: 'Edit Trade Waste Volumetric Information'
+            });             
+        }
+        
+        function ShowVolEditFieldDialog() {
+            try {
+            	enableDisableCeasing();
+                j$("#editVolFieldPopup").dialog("open");
+            } 
+            catch (e) { 
+                alert(e.toString()); 
+            }
+        }
+        
+        function SaveVolEditFieldDialog() {
+            try {
+                if ({!Case.Information_Statement_Advice__c = null}) {
+                    var lcValue = document.getElementById("{!$Component.form.volAmountValueInputField}").value;
+                    var lcValueDecimal;
+                    if (isNaN(lcValue) || lcValue.length == 0){
+                    	lcValueDecimal = null;
+                    }
+                    else {
+                    	var lcValueDecimal = parseFloat(lcValue.replace(/,/g,""),10);
+                    }
+                    //alert(lcValueDecimal);
+                    
+                    var volValue2 = document.getElementById("{!$Component.form.inputSpecialReadArranged}").checked;
+                    var volValue3 = document.getElementById("{!$Component.form.inputWhatDate}").value;
+                    var volValue4 = document.getElementById("{!$Component.form.inputProdCeasing}").checked;
+                    var volValue5 = document.getElementById("{!$Component.form.CompanyTradingInput}").checked;
+                    var volValue6 = document.getElementById("{!$Component.form.inputVolSettleDate}").value;
+                    updateVolFields(lcValueDecimal, volValue2, volValue3, volValue4, volValue5, volValue6);
+                    j$("#editVolFieldPopup").dialog("close");
+                }
+            } 
+            catch (e) { 
+                alert(e.toString()); 
+            }
+        }
+
+        function enableDisableCeasing() {
+            try {
+            	var ceaseTValueBoolean = (document.getElementById("{!$Component.form.hiddenProdCeasing}").value == "true");
+            	enableDisableCeasingAction(ceaseTValueBoolean);
+            } 
+            catch (e) { 
+                alert(e.toString()); 
+            }
+        }
+        
+        function enableDisableCeasingOnClick(fieldValue) {
+            try {
+            	enableDisableCeasingAction(fieldValue);
+            } 
+            catch (e) { 
+                alert(e.toString()); 
+            }
+        }
+        
+        function enableDisableCeasingAction(ceaseTValueBoolean) {
+           	var ceaseTValue = document.getElementById("{!$Component.form.inputWhatDate}");
+           	
+           	if (ceaseTValueBoolean){
+               	ceaseTValue.disabled = false
+               	ceaseTValue.style.background = '';
+               	if (storedDate != null && storedDate.length > 0){
+               		 ceaseTValue.value = storedDate;
+               	}
+            }
+               else {
+               	if (ceaseTValue.value != null && ceaseTValue.value.length > 0){
+               		storedDate = ceaseTValue.value;
+               	}
+               	ceaseTValue.value = null;
+               	ceaseTValue.disabled = true;
+               	ceaseTValue.style.background = '#DDDDDD';
+            }
+        }
+        
+        
+        
+        window.onload=function(){
+        	j$("#datePicker").css({'z-index':'2000'});;
+        };
+        
+        
+    </script>
+    <script type='text/javascript'>//<![CDATA[ 
+	$(window).load(function(){
+	$('{!$Component.form.legalValueInput}').keypress(function(e) {
+	    var a = [];
+	    var k = e.which;
+	    
+	    for (i = 48; i < 58; i++)
+	        a.push(i);
+	    
+	    if (!(a.indexOf(k)>=0))
+	        e.preventDefault();
+
+	});
+	});//]]>  
+	
+	</script>
+    <style>
+        .dataSection {
+            padding-left: {!if(Case.IS_Trade_Waste_Contact__c != null && Case.IS_Trade_Waste_Contact__c, 0, 15)}%;
+            padding-top: {!pagePaddingTop}px;
+        }
+        
+        .tdtop {
+		    max-width: 340px;
+		}
+        
+        .labelCol, .dataCol {
+            border-bottom: 1px solid #ECECEC;
+            font-size: 1.1em;
+            position: relative;
+            text-overflow: ellipsis;
+            padding-bottom: {!fieldPaddingBottom}px;
+            padding-top: {!fieldPaddingTop}px;
+            padding-left: 10px;
+        }
+        .labelCol {
+            width: 50%;
+            vertical-align: center;
+            font-size: 95%;
+            font-weight: bold;
+            text-align: right;
+            margin: 0;
+            color: #4A4A56;
+            min-width: 100px;
+        }
+        
+        .dataCol {
+            vertical-align: center;
+            font-size: 96%;
+            text-align: right;
+            margin: 0;
+            color: #000000;
+            min-width: 30px;
+        }
+        
+        .amountCol {
+            width: 15%;
+            text-align: right;
+            min-width: 75px;
+        }
+        
+        .dollarCol {
+            width: 5%;
+            text-align: right;
+            min-width: 10px;
+        }
+        
+        .dateCol, .linkCol {
+            width: 30%;
+            min-width: 190px;
+        }
+        
+        .dateCol {
+            text-align: right;
+            padding-right: 5%;
+        }
+        
+        .linkCol {
+            text-align: left;
+        }
+        
+        .detailList {
+            width: {!if(Case.IS_Trade_Waste_Contact__c != null && Case.IS_Trade_Waste_Contact__c, 100, 50)}%;
+        }
+    </style>
+    
+    <!-- Trade waste volumetric styles -->
+    <style>
+        .TWTD {
+        	vertical-align: top;
+        }
+        
+        .TWlabelCol, .TWdataCol {
+            font-size: 1.1em;
+            position: relative;
+            text-overflow: ellipsis;
+            padding-bottom: {!fieldPaddingBottom}px;
+            padding-top: {!fieldPaddingTop}px;
+            padding-left: 5px;
+			border-bottom: 1px solid #ECECEC;
+        }
+        .TWlabelCol {
+            width: 50%;
+            vertical-align: center;
+            font-size: 95%;
+            font-weight: bold;
+            text-align: right;
+            margin: 0;
+            color: #4A4A56;
+            min-width: 100px;
+            max-width: 100px;
+        }
+        
+        .TWdataCol {
+            vertical-align: center;
+            font-size: 96%;
+            text-align: center;
+            margin: 0;
+            color: #000000;
+            min-width: 30px;
+        }
+        
+        .TWdollarCol {
+            width: 5%;
+            text-align: right;
+            min-width: 10px;
+        }
+        
+        .TWamountCol {
+            width: 45%;
+            text-align: centre;
+            min-width: 75px;
+        }
+    </style>
+    <apex:form id="form">
+        <apex:actionFunction action="{!saveLegalCost}" name="updateLegalCostValue" rerender="hiddenFieldsPanel" onComplete="UpdateFieldValues()">
+            <apex:param name="legalCost" assignTo="{!legalCostValue.IS_Legal_Costs__c}" value=""/>
+        </apex:actionFunction>
+        
+        <apex:actionFunction action="{!saveVolumetric}" name="updateVolFields" rerender="hiddenFieldsPanel"  onComplete="UpdateFieldValues()">
+            <apex:param name="volAmount" assignTo="{!calcTradeWasteValue}" value=""/>
+            <apex:param name="volSpecialRead" assignTo="{!legalCostValue.IS_Special_Read_Arranged__c}" value=""/>
+            <apex:param name="volDateCease" assignTo="{!legalCostValue.IS_What_Date_Are_They_Ceasing__c}" value=""/>
+            <apex:param name="volProdCeasing" assignTo="{!legalCostValue.IS_Prod_Ceasing_Earlier_Than_Settle__c}" value=""/>
+            <apex:param name="volCompTrad" assignTo="{!legalCostValue.IS_Company_Trading_On_Or_After_Settlemen__c}" value=""/>
+            <apex:param name="volSettDate" assignTo="{!legalCostValue.IS_Date_Of_Settlement__c}" value=""/>
+        </apex:actionFunction>
+
+        
+        <apex:outputPanel rendered="{!Case.Information_Statement_Advice__c != null || Case.Manual_Check__c}" style="margin:0px 0px;" id="manualSection">
+            <apex:pageBlock >
+                <apex:pageBlockSection columns="1" >
+                	<apex:outputField value="{!Case.Manual_Check__c}" />
+                    <apex:outputField value="{!Case.Information_Statement_Advice__c}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection columns="2">
+                    <apex:outputField value="{!Case.Drainage_Paid__c}"/><apex:outputField value="{!Case.Parks_Paid__c}"/>
+                    <apex:outputField value="{!Case.Current_Drainage__c}"/><apex:outputField value="{!Case.Current_Parks__c}"/>
+                    <apex:outputField value="{!Case.Drainage_Period_From__c}"/><apex:outputField value="{!Case.Parks_Period_From__c}"/>
+                    <apex:outputField value="{!Case.Drainage_Period_To__c}"/><apex:outputField value="{!Case.Parks_Period_To__c}"/>
+                    <apex:outputField value="{!Case.Legal_Costs__c}"/><apex:outputField value="{!Case.Parks_Unpaid__c}"/>
+                    <apex:outputField value="{!Case.Arrears__c}"/><apex:outputField value="{!Case.Pre_01_01_98__c}"/>
+                    <apex:outputText value=" "/><apex:outputField value="{!Case.Total_Owing__c}"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:outputPanel>
+        <apex:outputPanel id="hiddenFieldsPanel">
+        	<apex:inputHidden value="{!Case.IS_Legal_Costs__c}" id="hiddenLegalCosts"/>
+        	<apex:inputHidden value="{!Case.IS_Calc_Trade_Waste_Vol_Amount__c}" id="hiddenCalcTWAmount"/>
+        	<apex:inputHidden value="{!Case.IS_Company_Trading_On_Or_After_Settlemen__c}" id="hiddenCompanyTrading"/>
+        	<input type="hidden" value="{!Case.IS_Date_Of_Settlement__c}" name="hiddenDateOfSettle" id="hiddenDateOfSettle"/>
+        	<apex:inputHidden value="{!Case.IS_Prod_Ceasing_Earlier_Than_Settle__c}" id="hiddenProdCeasing"/>
+        	<input type="hidden" value="{!Case.IS_What_Date_Are_They_Ceasing__c}" name="hiddenWhatDate" id="hiddenWhatDate"/>
+        	<apex:inputHidden value="{!Case.IS_Special_Read_Arranged__c}" id="hiddenSpecialReadArranged"/>
+        </apex:outputPanel>
+
+		<apex:outputPanel rendered="{!Case.Information_Statement_Advice__c = null && Case.Manual_Check__c = false && Case.Update_Given__c = false}">
+			<div style="border: 1px solid #ECECEC; width:100%; height: 465px; line-height: 465px; text-align:center; font-weight: bold; background: none repeat scroll 0 0 #F0F0F0;">
+				Information Statement Update Advice will be populated once the Perform has been completed
+			</div>
+		</apex:outputPanel>
+        <apex:outputPanel rendered="{!Case.Information_Statement_Advice__c = null && Case.Manual_Check__c = false && Case.Update_Given__c}">
+            <div class="dataSection">
+            	<table style="width:100%" cellspacing="0" cellpadding="0" border="0">
+            		<tr>
+            			<td class="tdtop">
+			                <table class="detailList" cellspacing="0" cellpadding="0" border="0">
+			                    <apex:outputPanel rendered="{!addRowTop}">
+			                        <tr>
+			                            <td class="labelCol">&nbsp;</td>
+			                            <td class="dataCol dollarCol">&nbsp;</td>
+			                            <td class="dataCol amountCol">&nbsp;</td>
+			                            <td class="dataCol dateCol">&nbsp;</td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel rendered="{!Case.IS_Parks_Charge__c != null}">
+			                        <tr>
+			                            <td class="labelCol">Parks</td>
+			                            <td class="dataCol dollarCol"><apex:outputText value="{!if(Case.IS_Parks_Charge__c < 0, '-$', '$')}"/></td>
+			                            <td class="dataCol amountCol"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Parks_Charge__c < 0, -1 * Case.IS_Parks_Charge__c, Case.IS_Parks_Charge__c)}"/></apex:outputText></td>
+			                            <td class="dataCol dateCol"><apex:outputText value="{!Case.IS_Parks_Bill_From__c} "/>To<apex:outputText value=" {!Case.IS_Parks_Bill_To__c}"/></td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel rendered="{!Case.IS_Drain_Charge__c != null}">
+			                        <tr>
+			                            <td class="labelCol">Drainage</td>
+			                            <td class="dataCol dollarCol"><apex:outputText value="{!if(Case.IS_Drain_Charge__c < 0, '-$', '$')}"/></td>
+			                            <td class="dataCol amountCol"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Drain_Charge__c < 0, -1 * Case.IS_Drain_Charge__c, Case.IS_Drain_Charge__c)}"/></apex:outputText></td>
+			                            <td class="dataCol dateCol"><apex:outputText value="{!Case.IS_Drain_Bill_From__c} "/>To<apex:outputText value=" {!Case.IS_Drain_Bill_To__c}"/></td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel rendered="{!Case.IS_Water_Service_Charge__c != null}">
+			                        <tr>
+			                            <td class="labelCol">Water Service</td>
+			                            <td class="dataCol dollarCol"><apex:outputText value="{!if(Case.IS_Water_Service_Charge__c < 0, '-$', '$')}"/></td>
+			                            <td class="dataCol amountCol"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Water_Service_Charge__c < 0, -1 * Case.IS_Water_Service_Charge__c, Case.IS_Water_Service_Charge__c)}"/></apex:outputText></td>
+			                            <td class="dataCol dateCol"><apex:outputText value="{!Case.IS_Water_Service_Bill_From__c} "/>To<apex:outputText value=" {!Case.IS_Water_Service_Bill_To__c}"/></td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel rendered="{!Case.IS_Sewerage_Service_Charge__c != null}">
+			                        <tr>
+			                            <td class="labelCol">Sewerage Service</td>
+			                            <td class="dataCol dollarCol"><apex:outputText value="{!if(Case.IS_Sewerage_Service_Charge__c < 0, '-$', '$')}"/></td>
+			                            <td class="dataCol amountCol"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Sewerage_Service_Charge__c < 0, -1 * Case.IS_Sewerage_Service_Charge__c, Case.IS_Sewerage_Service_Charge__c)}"/></apex:outputText></td>
+			                            <td class="dataCol dateCol"><apex:outputText value="{!Case.IS_Sewerage_Service_Bill_From__c} "/>To<apex:outputText value=" {!Case.IS_Sewerage_Service_Bill_To__c}"/></td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel rendered="{!Case.IS_Recycle_Service_Charge__c != null}">
+			                        <tr>
+			                            <td class="labelCol">Recycled Water Service</td>
+			                            <td class="dataCol dollarCol"><apex:outputText value="{!if(Case.IS_Recycle_Service_Charge__c < 0, '-$', '$')}"/></td>
+			                            <td class="dataCol amountCol"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Recycle_Service_Charge__c < 0, -1 * Case.IS_Recycle_Service_Charge__c, Case.IS_Recycle_Service_Charge__c)}"/></apex:outputText></td>
+			                            <td class="dataCol dateCol"><apex:outputText value="{!Case.IS_Recycle_Service_Bill_From__c} "/>To<apex:outputText value=" {!Case.IS_Recycle_Service_Bill_To__c}"/></td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel rendered="{!Case.IS_Trade_Waste_Fee_Charge__c != null}">
+			                        <tr>
+			                            <td class="labelCol">Trade Waste Agreement Fee</td>
+			                            <td class="dataCol dollarCol"><apex:outputText value="{!if(Case.IS_Trade_Waste_Fee_Charge__c < 0, '-$', '$')}"/></td>
+			                            <td class="dataCol amountCol"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Trade_Waste_Fee_Charge__c < 0, -1 * Case.IS_Trade_Waste_Fee_Charge__c, Case.IS_Trade_Waste_Fee_Charge__c)}"/></apex:outputText></td>
+			                            <td class="dataCol dateCol"><apex:outputText value="{!Case.IS_Trade_Waste_Fee_Bill_From__c} "/>To<apex:outputText value=" {!Case.IS_Trade_Waste_Fee_Bill_To__c}"/></td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel rendered="{!Case.IS_Fire_Service_Fee_Charge__c != null}">
+			                        <tr>
+			                            <td class="labelCol">Fire Service Charge</td>
+			                            <td class="dataCol dollarCol"><apex:outputText value="{!if(Case.IS_Fire_Service_Fee_Charge__c < 0, '-$', '$')}"/></td>
+			                            <td class="dataCol amountCol"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Fire_Service_Fee_Charge__c < 0, -1 * Case.IS_Fire_Service_Fee_Charge__c, Case.IS_Fire_Service_Fee_Charge__c)}"/></apex:outputText></td>
+			                            <td class="dataCol dateCol"><apex:outputText value="{!Case.IS_Fire_Service_Fee_Bill_From__c} "/>To<apex:outputText value=" {!Case.IS_Fire_Service_Fee_Bill_To__c}"/></td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel rendered="{!Case.IS_Food_Waste_Fee_Charge__c != null}">
+			                        <tr>
+			                            <td class="labelCol">Food Waste Service</td>
+			                            <td class="dataCol dollarCol"><apex:outputText value="{!if(Case.IS_Food_Waste_Fee_Charge__c < 0, '-$', '$')}"/></td>
+			                            <td class="dataCol amountCol"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Food_Waste_Fee_Charge__c < 0, -1 * Case.IS_Food_Waste_Fee_Charge__c, Case.IS_Food_Waste_Fee_Charge__c)}"/></apex:outputText></td>
+			                            <td class="dataCol dateCol"><apex:outputText value="{!Case.IS_Food_Waste_Fee_Bill_From__c} "/>To<apex:outputText value=" {!Case.IS_Food_Waste_Fee_Bill_To__c}"/></td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel rendered="{!Case.IS_Usage_Owing__c != null}">
+			                        <tr>
+			                            <td class="labelCol">Usage Charges</td>
+			                            <td class="dataCol dollarCol"><apex:outputText value="{!if(Case.IS_Usage_Owing__c < 0, '-$', '$')}"/></td>
+			                            <td class="dataCol amountCol"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Usage_Owing__c < 0, -1 * Case.IS_Usage_Owing__c, Case.IS_Usage_Owing__c)}"/></apex:outputText></td>
+			                            <td class="dataCol dateCol"><apex:outputPanel rendered="{!Case.IS_Last_Read_Date__c != null}">To<apex:outputText value=" {!Case.IS_Last_Read_Date__c}"/></apex:outputPanel></td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel rendered="{!Case.IS_Usage_Owing__c != null || Case.IS_Food_Waste_Fee_Charge__c != null || Case.IS_Fire_Service_Fee_Charge__c != null || Case.IS_Trade_Waste_Fee_Charge__c != null || Case.IS_Recycle_Service_Charge__c != null || Case.IS_Sewerage_Service_Charge__c != null || Case.IS_Water_Service_Charge__c != null || Case.IS_Drain_Charge__c != null || Case.IS_Parks_Charge__c != null}">
+			                        <tr>
+			                            <td class="labelCol">&nbsp;</td>
+			                            <td class="dataCol dollarCol">&nbsp;</td>
+			                            <td class="dataCol amountCol">&nbsp;</td>
+			                            <td class="dataCol dateCol">&nbsp;</td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel rendered="{!Case.IS_Other_Arrears__c != null}">
+			                        <tr>
+			                            <td class="labelCol"><apex:outputText value="{!if(Case.IS_Other_Arrears__c < 0, 'Payment', 'Arrears')}"/></td>
+			                            <td class="dataCol dollarCol"><apex:outputText value="{!if(Case.IS_Other_Arrears__c < 0, '-$', '$')}"/></td>
+			                            <td class="dataCol amountCol"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Other_Arrears__c < 0, -1 * Case.IS_Other_Arrears__c, Case.IS_Other_Arrears__c)}"/></apex:outputText></td>
+			                            <td class="dataCol dateCol">&nbsp;</td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel >
+			                        <tr>
+			                            <td class="labelCol">Total Owing</td>
+			                            <td class="dataCol dollarCol"><apex:outputText value="{!if(Case.IS_Lien_Current_Balance__c != null && Case.IS_Lien_Current_Balance__c < 0, '-$', '$')}"/></td>
+			                            <td class="dataCol amountCol"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Lien_Current_Balance__c = null, 0, if (Case.IS_Lien_Current_Balance__c >= 0, Case.IS_Lien_Current_Balance__c, -1 * Case.IS_Lien_Current_Balance__c))}"/></apex:outputText></td>
+			                            <td class="dataCol dateCol">&nbsp;</td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel >
+			                        <tr>
+			                            <td class="labelCol">&nbsp;</td>
+			                            <td class="dataCol dollarCol">&nbsp;</td>
+			                            <td class="dataCol amountCol">&nbsp;</td>
+			                            <td class="dataCol dateCol">&nbsp;</td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel rendered="{!Case.IS_Water_Usage_Daily_Charge__c != null}">
+			                        <tr>
+			                            <td class="labelCol">Water Use Average Daily Usage</td>
+			                            <td class="dataCol dollarCol"><apex:outputText value="{!if(Case.IS_Water_Usage_Daily_Charge__c < 0, '-$', '$')}"/></td>
+			                            <td class="dataCol amountCol"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Water_Usage_Daily_Charge__c < 0, -1 * Case.IS_Water_Usage_Daily_Charge__c, Case.IS_Water_Usage_Daily_Charge__c)}"/></apex:outputText></td>
+			                            <td class="dataCol dateCol">&nbsp;</td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel rendered="{!Case.IS_Sewerage_Disposal_Daily_Charge__c != null}">
+			                        <tr>
+			                            <td class="labelCol">Sewage Disposal Charge Average Daily Usage</td>
+			                            <td class="dataCol dollarCol"><apex:outputText value="{!if(Case.IS_Sewerage_Disposal_Daily_Charge__c < 0, '-$', '$')}"/></td>
+			                            <td class="dataCol amountCol"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Sewerage_Disposal_Daily_Charge__c < 0, -1 * Case.IS_Sewerage_Disposal_Daily_Charge__c, Case.IS_Sewerage_Disposal_Daily_Charge__c)}"/></apex:outputText></td>
+			                            <td class="dataCol dateCol">&nbsp;</td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel rendered="{!Case.IS_Recycle_Usage_Daily_Charge__c != null}">
+			                        <tr>
+			                            <td class="labelCol">Recycled Water Average Daily Usage</td>
+			                            <td class="dataCol dollarCol"><apex:outputText value="{!if(Case.IS_Recycle_Usage_Daily_Charge__c < 0, '-$', '$')}"/></td>
+			                            <td class="dataCol amountCol"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Recycle_Usage_Daily_Charge__c < 0, -1 * Case.IS_Recycle_Usage_Daily_Charge__c, Case.IS_Recycle_Usage_Daily_Charge__c)}"/></apex:outputText></td>
+			                            <td class="dataCol dateCol">&nbsp;</td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel rendered="{!Case.IS_Fire_Usage_Daily_Charge__c != null}">
+			                        <tr>
+			                            <td class="labelCol">Fire Service Usage Average Daily Usage</td>
+			                            <td class="dataCol dollarCol"><apex:outputText value="{!if(Case.IS_Fire_Usage_Daily_Charge__c < 0, '-$', '$')}"/></td>
+			                            <td class="dataCol amountCol"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Fire_Usage_Daily_Charge__c < 0, -1 * Case.IS_Fire_Usage_Daily_Charge__c, Case.IS_Fire_Usage_Daily_Charge__c)}"/></apex:outputText></td>
+			                            <td class="dataCol dateCol">&nbsp;</td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel rendered="{!Case.IS_Water_Usage_Daily_Charge__c != null || Case.IS_Sewerage_Disposal_Daily_Charge__c != null || Case.IS_Recycle_Usage_Daily_Charge__c != null || Case.IS_Fire_Usage_Daily_Charge__c != null}">
+			                        <tr>
+			                            <td class="labelCol">&nbsp;</td>
+			                            <td class="dataCol dollarCol">&nbsp;</td>
+			                            <td class="dataCol amountCol">&nbsp;</td>
+			                            <td class="dataCol dateCol">&nbsp;</td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel rendered="{!Case.IS_Last_Read_Date__c != null}">
+			                        <tr>
+			                            <td class="labelCol">Last Meter Reading Date</td>
+			                            <td class="dataCol dollarCol">&nbsp;</td>
+			                            <td class="dataCol amountCol"><apex:outputField value="{!Case.IS_Last_Read_Date__c}"/></td>
+			                            <td class="dataCol dateCol">&nbsp;</td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel rendered="{!Case.IS_Last_Read_Date__c != null}">
+			                        <tr>
+			                            <td class="labelCol">&nbsp;</td>
+			                            <td class="dataCol dollarCol">&nbsp;</td>
+			                            <td class="dataCol amountCol">&nbsp;</td>
+			                            <td class="dataCol dateCol">&nbsp;</td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                    <apex:outputPanel rendered="{!Case.IS_Legal_Costs__c != null && Case.IS_Legal_Costs__c != 0}" id="legalCostsPanel">
+			                        <tr>
+			                            <td class="labelCol">Legal Costs</td>
+			                            <td class="dataCol dollarCol"><apex:outputText value="{!if(Case.IS_Legal_Costs__c < 0, '-$', '$')}"/></td>
+			                            <td class="dataCol amountCol"><apex:outputText value="{0,number,#,###,##0.00}" id="legalCostsValue"><apex:param value="{!Case.IS_Legal_Costs__c}" /></apex:outputText></td>
+			                            <td class="dataCol linkCol"><apex:outputLink value="#" onclick="ShowEditFieldDialog();" id="editLink" rendered="{!Case.Status != 'Closed'}">Edit</apex:outputLink></td>
+			                        </tr>
+			                    </apex:outputPanel>
+			                </table>
+		            	</td>
+		        	
+		        	<apex:outputPanel rendered="{!Case.IS_Trade_Waste_Contact__c != null && Case.IS_Trade_Waste_Contact__c}">
+		        		
+		        			<td class="TWTD">
+		        				<div style="padding: 10px 10px 10px 9%; width:55%; min-width:220px;">
+		        				<div style="border: 1px solid #ECECEC; padding: 10px 10px 10px 10px;">
+			        				<table cellspacing="0" cellpadding="0" style=" width: 100%">
+	        							<tr>
+	        								<td colspan="3">
+        										<table cellspacing="0" cellpadding="0" style="border: 0px; width: 100%">
+        											<tr>
+				                            			<td style="font-weight: bold; padding: 5px 0px 0px 5px;">Trade Waste Volumetric Information</td>
+				                            			<td style="text-align: right ;padding: 5px 5px 0px 5px;"><apex:outputLink value="#" onclick="ShowVolEditFieldDialog();" id="editVolLink" rendered="{!Case.Status != 'Closed'}">Edit</apex:outputLink></td>
+				                            		</tr>
+				                            	</table>
+				                            </td>
+				                        </tr>
+	        							<tr>
+				                            <td class="TWlabelCol">Date of settlement</td>
+				                            <td class="TWdataCol TWdollarCol">&nbsp;</td>
+				                            <td class="TWdataCol TWamountCol"><apex:outputField id="displayDateOfSettlement" value="{!Case.IS_Date_Of_Settlement__c}"/></td>
+				                        </tr>
+				                        <tr>
+				                            <td class="TWlabelCol">Is company trading on or after settlement?</td>
+				                            <td class="TWdataCol TWdollarCol">&nbsp;</td>
+				                            <td class="TWdataCol TWamountCol"><apex:outputText id="companyTradingDisplay" value="{!if(Case.IS_Company_Trading_On_Or_After_Settlemen__c, 'Yes', 'No')}"/></td>
+				                        </tr>
+				                        <tr>
+				                            <td class="TWlabelCol">Is production ceasing earlier than settlement?</td>
+				                            <td class="TWdataCol TWdollarCol">&nbsp;</td>
+				                            <td class="TWdataCol TWamountCol"><apex:outputText id="displayProdCeasing" value="{!if(Case.IS_Prod_Ceasing_Earlier_Than_Settle__c, 'Yes', 'No')}"/></td>
+				                        </tr>
+				                        <tr>
+				                            <td class="TWlabelCol"></td>
+				                            <td class="TWdataCol TWdollarCol">&nbsp;</td>
+				                            <td class="TWdataCol TWamountCol"><apex:outputField id="displayWhatDate" value="{!Case.IS_What_Date_Are_They_Ceasing__c}"/></td>
+				                        </tr>
+					                    <tr>
+				                            <td class="TWlabelCol">&nbsp;</td>
+				                            <td class="TWdataCol TWdollarCol">&nbsp;</td>
+				                            <td class="TWdataCol TWamountCol">&nbsp;</td>
+				                        </tr>
+				                        <tr>
+				                            <td class="TWlabelCol">Special read arranged</td>
+				                            <td class="TWdataCol TWdollarCol">&nbsp;</td>
+				                            <td class="TWdataCol TWamountCol"><apex:outputText id="displaySpecialReadArranged" value="{!if(Case.IS_Special_Read_Arranged__c, 'Yes', 'No')}"/></td>
+				                        </tr>
+				                        <tr>
+				                            <td class="TWlabelCol">Calculated Trade Waste Volumetric Amount</td>
+				                            <td class="TWdataCol TWdollarCol"><apex:outputText value="{!if(Case.IS_Calc_Trade_Waste_Vol_Amount__c != null && Case.IS_Calc_Trade_Waste_Vol_Amount__c < 0, '-$', '$')}"/></td>
+				                            <td class="TWdataCol TWamountCol"><apex:outputText value="{0,number,#,###,##0.00}" id="tradeWasteVolAmount"><apex:param value="{!Case.IS_Calc_Trade_Waste_Vol_Amount__c}" /></apex:outputText></td>
+				                        </tr>
+			        				</table>
+		        				</div>
+		        				</div>
+		        			</td>
+		        		
+		        	</apex:outputPanel>
+		        	</tr>
+                </table>
+            </div>
+        </apex:outputPanel>
+        <div id="editFieldPopup">
+            <div style="text-align: justify; overflow: auto; padding: 0px 10px; border: solid 0px #E4E2DD"  id="theBorder">
+                <br />
+                <table style="width: 100%" cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                        <td style="font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56;">Legal Costs</td>
+                        <td style="font-size: 96%; text-align: right; margin: 0; color: #000000;"><apex:inputField value="{!legalCostValue.IS_Legal_Costs__c}" id="legalValueInput" onkeypress="limitToIntegers(this.id)"/></td>
+                    </tr>
+                </table>
+                <br />
+                <div id="bottomSection">
+                    <div style="text-align: right;" id="buttons">
+                        <apex:commandButton value="Save" onclick="SaveEditFieldDialog();" style="padding: 1px 12px; " tabindex="1" id="saveButton" /> 
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <style>
+        	.popUpLabel {
+        		font-size: 95%; 
+        		font-weight: bold; 
+        		text-align: left; 
+        		margin: 0; 
+        		color: #4A4A56;
+        	}
+        	
+        	.popUpField {
+        		font-size: 96%;
+        		margin: 0; 
+        		color: #000000;
+        	}
+        	
+        	.popUpFieldDate {
+        		text-align: right;
+        	}
+        	
+        	.popUpFieldBoolean {
+        		text-align: left;
+        		padding-left:10px;
+        	}
+        </style>
+        
+		<div id="editVolFieldPopup">
+        	<div style="text-align: justify; overflow: auto; padding: 0px 10px; border: solid 0px #E4E2DD"  id="theVolBorder">
+            	
+                <table style="width: 100%" cellspacing="0" cellpadding="5" border="0">
+                	<tr>
+                    	<td class="popUpLabel">Date of settlement</td>
+						<td class="popUpField popUpFieldDate"><apex:inputField id="inputVolSettleDate" value="{!legalCostValue.IS_Date_Of_Settlement__c}"/></td>
+                    </tr>
+                    <tr>
+                        <td class="popUpLabel">Is company trading on or after settlement?</td>
+                        <td class="popUpField popUpFieldBoolean"><apex:inputField id="CompanyTradingInput" value="{!legalCostValue.IS_Company_Trading_On_Or_After_Settlemen__c}"/></td>
+                    </tr>
+					<tr>
+                        <td class="popUpLabel">Is production ceasing earlier than settlement?</td>
+                        <td class="popUpField popUpFieldBoolean"><apex:inputField id="inputProdCeasing" value="{!legalCostValue.IS_Prod_Ceasing_Earlier_Than_Settle__c}" onchange="enableDisableCeasingOnClick(this.checked)"/></td>
+                    </tr>
+					<tr>
+	                	<td class="popUpLabel"></td>
+	                	<td class="popUpField popUpFieldDate"><apex:inputField id="inputWhatDate" value="{!legalCostValue.IS_What_Date_Are_They_Ceasing__c}"/></td>
+					</tr>
+					<tr>
+	                	<td>&nbsp;</td>
+	                	<td>&nbsp;</td>
+					</tr>
+					<tr>
+	                	<td class="popUpLabel">Special read arranged</td>
+	                	<td class="popUpField popUpFieldBoolean"><apex:inputField id="inputSpecialReadArranged" value="{!legalCostValue.IS_Special_Read_Arranged__c}" /></td>
+					</tr>
+					<tr>
+	                	<td class="popUpLabel">Calculated Trade Waste Volumetric Amount</td>
+	                	<td class="popUpField popUpFieldDate"><apex:inputField value="{!legalCostValue.IS_Calc_Trade_Waste_Vol_Amount__c}" id="volAmountValueInputField"/></td>
+					</tr>
+				</table>
+				
+                <br />
+                <div id="volbottomSection">
+                    <div style="text-align: right;" id="volbuttons">
+                        <apex:commandButton value="Save" onclick="SaveVolEditFieldDialog();" style="padding: 1px 12px; " tabindex="1" id="saveVolButton" /> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            UpdateFieldValues();
+            
+        </script>
+    </apex:form>
+    
+</apex:page>

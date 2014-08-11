@@ -1,0 +1,227 @@
+<!-- 
+    History:
+	24-May-2012 AVergara
+        UPDATE: Added validation for invalid selected timeframe
+  	04-Jun-2012 D.Yu					 
+  		UPDATE: 5145 - change invalid timeframe error message
+-->
+<apex:page sidebar="false" showHeader="true"
+    doctype="html-5.0"
+    tabstyle="Water_Usage__tab" 
+    controller="PortalWaterUsageComparison_Controller">
+
+    <head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:stylesheet value="{!$Resource.PortalIcons_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalActionLinks_Styles}"/>
+
+
+        <script type="text/javascript"> 
+            var j$ = jQuery.noConflict();
+        </script>
+        
+        <style>
+            #comparisonbox {
+                -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+                -webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+                box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+                position:relative; display: none; margin: 1px 0; 
+                padding: 12px; border: #0097d2 solid 1px; width: 300px; height: auto; 
+                background-color: #fff;
+                left: 0;
+                top: 26px; 
+                z-index: 8999
+            }
+            
+            #comparisonbtnon {
+                border-top: #0097d2 solid 1px !important;
+                border-left: #0097d2 solid 1px !important;
+                border-right: #0097d2 solid 1px !important;
+                border-bottom: none;
+                z-index: 9000;
+                position: relative;
+                border-radius:3px 3px 0px 0px;
+                -webkit-border-radius: 3px 3px 0px 0px;
+                -moz-border-radius: 3px 3px 0px 0px;
+                -moz-box-shadow: none;
+                -webkit-box-shadow: none;
+                box-shadow: none;
+            }
+            
+            #comparisonbtnon, #comparisonbtnoff {
+                position: absolute; width: 210px; height: 19px
+            }
+            
+            #comparisonbtnoff img, 
+            #comparisonbtnon img {
+                padding-left: 10px;
+                position: relative;
+                top: 2px;
+            }
+            
+            .comparisonBox label {
+                font-weight: bold;
+                display: block;
+                margin-bottom: 10px;
+            }
+            
+        </style>
+    </head>     
+
+    <apex:form id="theForm">
+
+        <apex:sectionheader title="Water Usage"
+                            subtitle="Comparison"/>
+        <div style="clear:both"/>
+
+        <apex:outputPanel styleclass="pbTransparent pbNoLeftPad fullPageTableOuterDiv">            
+            <apex:pageblock id="pb" >
+                <!--  HORIZONTAL SUBTAB -->
+                <c:PortalSubTab groupName="Usage"
+                                currentDevName="Usage_Compare"
+                                currentAccRecordType="{!customer.RecordType.DeveloperName}"/>
+
+                <apex:outputPanel id="waterUsageChart" 
+                                    layout="block"
+                                    styleClass="whiteBack sewRoundedCorner shadowAll">
+
+                    <!--  FILTERS -->
+                    <apex:outputPanel id="filter" layout="block" styleclass="filterPanel" 
+                                style="padding: 20px 10px; height: 35px">
+                        <apex:outputPanel id="selectproperty" style="float: left; width: 280px; margin: 1px 9px">
+                            <apex:actionRegion >
+                                <span id="comparisonfilter" style="position: absolute">
+                                    <div id="comparisonbtnoff" 
+                                            style=""
+                                            class="btn btnLink" onclick="ToggleFilter()" >
+                                        Select one or more properties
+                                        <apex:image value="{!$Resource.ListBulletDown_White}"/>
+                                        
+                                    </div>
+    
+                                    <div id="blurback" class="action-status-blur" 
+                                            style="display:none"
+                                            onmouseover="PreventFocus();"
+                                            onmouseout="PreventFocus();">
+                                    </div>
+    
+                                    <div id="comparisonbtnon" class="btn btnWhite btnLinkBlue" 
+                                            style="display: none; left: 0; z-index: 9000"
+                                            onclick="ToggleFilter()">
+                                        Select one or more properties
+                                        <apex:image value="{!$Resource.ListBulletUp_Blue}"/>
+                                    </div>
+                                    <div id="comparisonbox" 
+                                            class="radiusBtmRight radiusBtmLeft radiusTopRight comparisonBox">
+                                        <label>Select Properties</label>
+                                        <apex:repeat value="{!activeAccountsWithCheckBox}" var="acct">
+                                            <div style="float: left">
+                                                <apex:inputCheckBox value="{!acct.isChecked}"/>
+                                            </div>
+                                            <div style="float: left; margin-left: 5px; padding-top: 1px;">
+                                                {!acct.bAcct.Property__r.Street_Address_Proper__c}
+                                            </div>
+                                            <div style="clear: both; margin-bottom: 5px;"/>
+                                        </apex:repeat>
+            
+                                        <div id="comparisonbtns"
+                                                style="clear: both; margin-top: 20px;">
+                                            <apex:commandButton value="View your comparison"
+                                                    action="{!GenerateChart}"
+                                                    rerender="theForm"
+                                                    status="loading"
+                                                    styleclass="btnGreen"
+                                                    style="margin-left: 0px"/>
+                                            <apex:commandButton value="Cancel"
+                                                    styleclass="btnClearGreenText"
+                                                    onclick="ToggleFilter(); return false;" />
+                                        </div>
+            
+                                    </div>
+                                    <script type="text/javascript">
+                                        function ToggleFilter() {
+                                            // toggle the comparison filter overlay
+                                            j$('#blurback').toggle();
+                                            j$('#comparisonbtnoff').toggle();
+                                            j$('#comparisonbtnon').toggle();
+                                            j$('#comparisonbox').toggle('fast');
+                                        }
+                                    </script>
+                                    
+                                </span>
+                            </apex:actionRegion>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel id="finyears" style="float: left"> 
+                            <apex:actionRegion >                    
+                                <apex:outputLabel style="margin: 0px 5px;">Select time frame</apex:outputLabel>
+                                <apex:selectList value="{!startYear}" 
+                                                size="1" label="Period (Start)" 
+                                                id="fystartlist">
+                                    <apex:selectOptions value="{!finYearOptions}"/>
+                                    <apex:actionSupport event="onchange" action="{!GenerateChart}"
+                                                    rerender="theForm" status="loading"/>
+                                </apex:selectList>
+                                <apex:outputLabel style="margin: 0px 5px;">to</apex:outputLabel>
+                                <apex:selectList value="{!endYear}" 
+                                                size="1" label="Period (End)" 
+                                                id="fyendlist">
+                                    <apex:selectOptions value="{!finYearOptions}"/>
+                                    <apex:actionSupport event="onchange" action="{!GenerateChart}"
+                                                    rerender="theForm" status="loading"/>
+                                </apex:selectList>
+                            </apex:actionRegion>                    
+                        </apex:outputPanel>
+
+                    </apex:outputPanel>
+
+                    <!--  PAGE MESSAGES -->
+                    <div style="margin-top: 5px; text-align: left">
+                        <apex:pageMessages id="msg" />
+                    </div>
+        			     <!-- PAGE MESSAGE WHEN TIMEFRAME SELECTED IS INVALID -->
+                     <apex:outputPanel id="pMessage" layout="block">
+                         <apex:pageBlockSection id="detailedReason" columns="1" collapsible="false" rendered="{!invalidResult}">
+                              <apex:pageMessage strength="3" severity="error" summary="Please select a timeframe where the financial year in the first field either matches or precedes the second field."/>
+                         </apex:pageBlockSection>
+                     </apex:outputPanel>
+                    <apex:pageMessage rendered="{!selectedBillingAccount.Property__r.Logical_Meter_Count__c > 0}"
+                            strength="2" severity="info"
+                            summary="Your property receives water through a shared water meter (main meter). Your share of daily consumption from this main meter is displayed."/>
+
+                    <!--  CONTENT -->
+
+                    <div style="text-align: center; padding: 30px 0">
+
+                        <apex:outputPanel layout="block" style="padding:15px 15px; font-style: italic" rendered="{!NOT(hasConsumptionRecords) && NOT(firstTime)}">
+                            No chart data to display
+                        </apex:outputPanel>
+
+                        <apex:image value="{!chartUrl}" 
+                                style="padding: 15px 0px"
+                                rendered="{!hasConsumptionRecords}"/>
+                    </div>
+
+                </apex:outputPanel>
+
+            </apex:pageblock>
+
+        </apex:outputPanel>
+
+        <!-- Action Status that are not position dependent -->
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+                    borderSize="1" height="50px" width="120px" margintop="-25px"
+                    marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+                    Message="Processing..." />
+            </apex:facet>
+        </apex:actionStatus>
+
+    </apex:form>
+    <!--  QUICK LINKS -->
+    <div style="margin-left: 15px;">
+        <c:PortalHorizontalQuickLinks mode="waterUseCompare"/>
+    </div>
+</apex:page>

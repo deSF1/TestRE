@@ -1,0 +1,301 @@
+<!-- 
+* @author Original: Adrian Recio Cloud Sherpas
+* @date Original: 2/3/2014
+* @description VF component for User profile
+	History
+		17/3/2014	ejandusay	added info message,trial site only banner and hover over installation date
+		19/3/2014	ejandusay	changed label fonts
+-->
+<apex:component controller="DMTrialUsageGraphClass" allowDML="true">
+
+    <apex:attribute name="pageNameStr" description="My snapshot" type="String"/>
+    
+    <script>
+		window.onload = function () {  
+
+		}
+	</script>
+
+    <style>
+		.optionPanel{
+			width:420px;
+			height:225px;		
+			padding-left:15px;
+			padding-top:10px;
+			
+		}
+		
+		.summaryPanel{
+			width:370px;
+			height:225px;			
+			//padding-left:15px;
+			padding-top:10px;
+		}
+		
+		.alertPanel{
+			width:815px;
+			height:150px;			
+			padding-left:15px;
+			padding-top:10px;
+		}
+		
+		.headerPanel{
+			height:40px;
+		}
+		
+		.headerFont{
+			font-size:20px;
+		}
+		
+		.mainPanel{
+
+		}
+		
+		.textInput{
+			width:30px;
+		}
+		
+		.textBoxPanel{
+			width:50px;
+			height:30px;
+		}
+		
+		.longTextPanel{
+			width:325px;
+			height:30px;
+		}
+		
+		.imagePersonPanel{
+			display:block;
+			width:165px;
+			padding-left:25px;
+			margin-left: auto;
+   		    margin-right: auto;
+		}
+		
+		.imageHousePanel{
+			display:block;
+			width:155px;
+			padding-left:50px;
+			margin-left: auto;
+   		    margin-right: auto;
+		}
+		
+		.blockSummary{
+			background-color:grey;
+			width:368px;
+			height:180px;
+			border: solid medium #e4e2dd;
+			opacity:0.5;
+			z-index:1000;
+			position:absolute;
+		}
+		
+		.cellBtn {
+            width: 165px;
+            padding: 5px 20px 5px 7px !important;       
+            display: block;
+            margin-left: 230px;
+            height:30px; 
+        }
+	</style>
+	<apex:form >
+	<apex:pagemessages id="errors" ></apex:pagemessages>	
+	<apex:actionFunction name="refreshMeterSS" action="{!resetMeter}" rerender="meterId,propertyNameId" oncomplete=""></apex:actionFunction>
+	<apex:actionFunction name="pullPropertyProfileDetails" action="{!pullPropertyProfileDetails}" rerender="mainChartPanel,errors"></apex:actionFunction>
+			
+	<!-- <apex:outputText style="font-family:Calibri,'Trebuchet MS',sans-serif;color:#575756;font-size:22.5pt !important;" Id="propertyNameId" value="{!pageNameStr} - {!PropertyName}"></apex:outputText> -->
+
+	
+	<div style="margin-top:-10px;margin-bottom:-10px;">
+        <apex:outputPanel id="propertyNameId" layout="block" style="width:100%;">
+            <apex:sectionHeader title="{!pageNameStr}"
+                subtitle="{!PropertyName}"/>
+            <img style="height:70px;margin-top:-10px;margin-left:180px;" src="{!$Resource.TrialOnlyBanner}"/>
+          
+        </apex:outputPanel>
+    </div>
+    
+	<br/>
+
+	<div class="fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll">
+	<apex:outputPanel id="filter" layout="block" styleclass="filterPanel" style="padding:10px 10px !important;"> 
+		<apex:outputPanel Id="propertyPanel">				
+		<apex:panelGrid columns="2" >
+			<apex:panelGrid columns="1">
+		        <apex:outputText value="Property"></apex:outputText>
+		    	<apex:selectList value="{!propertyId}" multiselect="false" size="1" onchange="pullPropertyProfileDetails();refreshMeterSS();">
+					<apex:selectOptions value="{!Property}" />
+				</apex:selectList>
+			</apex:panelGrid>
+		</apex:panelGrid>
+	</apex:outputPanel>
+	</apex:outputPanel> 
+	
+	<br/>		
+	
+	
+	<apex:outputPanel Id="mainChartPanel">
+	<apex:pageMessage escape="false" strength="3" severity="info" summary="The availability and accuracy of this site and the data, information, materials and/or records presented on this page may vary throughout the trial. *<a href=/portal/articles/FAQ/Terms-of-Use-Digital-meter-trial>More information</a>"/>
+        
+		
+			<apex:panelGrid cellspacing="24px">
+			
+					<apex:panelGrid columns="2" styleClass="mainPanel">
+					
+						<!-- Option Panel -->
+						<apex:outputPanel styleClass="optionPanel fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll" layout="block">
+							<apex:outputPanel layout="block"> 
+							
+								<apex:outputPanel layout="block" styleClass="headerPanel">
+									<apex:outputText value="My household" styleClass="headerFont"/> 
+								</apex:outputPanel>
+								
+								<apex:panelGrid columns="2">
+									<apex:outputPanel layout="block" styleClass="longTextPanel">
+										<apex:outputText value="How many adults in your household?"></apex:outputText>
+									</apex:outputPanel>
+									
+									<apex:outputPanel layout="block" styleClass="textBoxPanel">
+										<apex:inputText value="{!overCount}" styleClass="textInput"></apex:inputText>
+									</apex:outputPanel>
+									
+									<apex:outputPanel layout="block" styleClass="longTextPanel">
+										<apex:outputText value="How many children in your household?"></apex:outputText>
+									</apex:outputPanel>
+									
+									<apex:outputPanel layout="block" styleClass="textBoxPanel">
+										<apex:inputText value="{!underCount}" styleClass="textInput"></apex:inputText>
+									</apex:outputPanel>
+								</apex:panelGrid>
+								
+							</apex:outputPanel>
+							
+							<apex:outputPanel layout="block" styleClass="sectioHeader"> 
+							
+								<apex:outputPanel layout="block" styleClass="headerPanel">
+									<apex:outputText value="My target" styleClass="headerFont"/> 
+								</apex:outputPanel>
+								
+								<apex:panelGrid columns="3">
+									<apex:outputPanel layout="block" styleClass="longTextPanel">
+										<apex:outputText value="What is your daily target per person?"></apex:outputText>
+									</apex:outputPanel>
+									
+									<apex:outputPanel layout="block" styleClass="textBoxPanel">
+										<apex:inputText value="{!targetPerPerson}" styleClass="textInput"></apex:inputText>
+									</apex:outputPanel>
+									<apex:outputText value="Litres" style="margin-left:-7px;"></apex:outputText>
+									<apex:outputPanel layout="block" styleClass="longTextPanel">
+										<apex:outputLink value="/articles/FAQ/How-do-I-set-my-water-usage-target">How do I set my water usage target?</apex:outputLink>
+									</apex:outputPanel>
+									
+									<apex:outputPanel layout="block" styleClass="textBoxPanel">
+										<br/>
+										<apex:commandButton action="{!computeUsageTarget}" rerender="mainChartPanel,errors" value="Update" status="summaryLoader" style="margin-top:8px;margin-left:-12px;"></apex:commandButton>
+									</apex:outputPanel>
+								</apex:panelGrid>
+								
+							</apex:outputPanel>
+						</apex:outputPanel>
+						<!-- End of option panel -->
+						
+						<!-- Summary Panel -->
+						<apex:outputPanel Id="summaryPanelId" styleClass="summaryPanel fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll" layout="block">
+
+								<apex:outputPanel style="padding-left:15px;" layout="block" styleClass="headerPanel">
+									<apex:outputText value="My profile summary" styleClass="headerFont"/> 
+								</apex:outputPanel>
+								
+								<apex:actionStatus id="summaryLoader">
+										<apex:facet name="start">
+											<apex:outputPanel styleClass="blockSummary fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll" layout="block">
+				        						<apex:outputPanel layout="block" style="padding-top:15px;padding-right:15px;padding-left:15px;border-radius: 6px;margin-left:100px;margin-top:80px;position:absolute;width:100px;height:40px;background-color:white;">
+					      						 	<apex:outputPanel layout="block" style="float:left;">
+					      						 		<img src="{!$Resource.AjaxAnimation}"/>
+					      						 	</apex:outputPanel>
+					      						 	<apex:outputPanel layout="block" style="float:right;">
+					      						 		<apex:outputText value="Loading..."></apex:outputText>
+					      						 	</apex:outputPanel>
+												</apex:outputPanel>   
+				        					</apex:outputPanel>
+				        				</apex:facet>
+				   					</apex:actionStatus>
+				   					
+								<apex:outputPanel layout="block"> 						
+								
+				   					
+								<apex:panelGrid columns="1">
+									
+									
+	   					
+	   								<apex:panelGrid columns="2">
+										<apex:outputPanel layout="block" styleClass="imagePersonPanel" id="personOutputPanel" >
+											
+											<apex:panelGrid columns="1" id="personPanelGrid">
+												<apex:panelGroup styleClass="imagePersonPanel" id="personPanelGroup">
+													<apex:repeat value="{!userCount}" var="countVar" id="personRepeat">
+												 		<apex:image rendered="{!IF(countVar<=6,true,false)}" value="{!$Resource.DMPeopleIcon}" width="15" height="35"/>
+												 		<apex:image style="margin-bottom:6px;" rendered="{!IF(countVar==7,true,false)}" value="{!$Resource.DMPlusSign}" width="20" height="25"/>
+													</apex:repeat>
+												</apex:panelGroup>
+											</apex:panelGrid>
+										</apex:outputPanel>
+										
+										<apex:outputPanel layout="block" styleClass="longTextPanel">
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:outputText value="{!targetUsage} litres a day"></apex:outputText><br/>
+										</apex:outputPanel>
+									</apex:panelGrid>
+
+									<apex:panelGrid columns="2" >
+										<apex:outputPanel styleClass="imageHousePanel">
+											<apex:image value="{!$Resource.DMHouseIcon}" width="90" height="80"/>
+										</apex:outputPanel>
+										
+										<apex:panelGrid columns="1">
+											<apex:outputPanel layout="block" styleClass="longTextPanel">
+												<apex:outputText value="{!usagePerWeek} litres a week"></apex:outputText>
+											</apex:outputPanel>
+
+											<apex:outputPanel layout="block" styleClass="longTextPanel">
+												<apex:outputText value="{!usagePerMonth} litres a month"></apex:outputText>
+											</apex:outputPanel>
+		
+											<apex:outputPanel layout="block" styleClass="longTextPanel">
+												<apex:outputText value="{!usagePerYear} litres a year"></apex:outputText>
+											</apex:outputPanel>
+										</apex:panelGrid>
+									</apex:panelGrid>
+								</apex:panelGrid>
+								
+							</apex:outputPanel>
+							<apex:outputPanel layout="block" styleClass="cellBtn">
+                                <apex:commandButton value="Compare now" action="{!cntrlSubTab.redirectMyUsage}"></apex:commandButton>
+                            </apex:outputPanel>
+						</apex:outputPanel>
+						<!-- End of Summary Panel -->
+					</apex:panelGrid>
+
+					<apex:outputPanel styleClass="alertPanel fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll" layout="block">
+						<apex:outputPanel layout="block" styleClass="headerPanel">
+								<apex:panelGrid columns="2">
+									<apex:outputText value="My alerts & notifications" styleClass="headerFont"/> 
+									<apex:image value="{!$Resource.DMComingSoon}" width="100" height="100"/>
+								</apex:panelGrid>
+						</apex:outputPanel>
+					</apex:outputPanel>
+		    		<apex:outputPanel layout="block" style="font-size:13px;">
+		                   		<b>Questions or feedback regarding the trial?</b>
+		                   		<br/>                  		
+		                   		<apex:outputLink value="{!$Page.PortalEnquiries}">Email</apex:outputLink><apex:outputText value=" or call us on" />
+		                   		<b> 1800 337 775 </b>
+		                   		<br/>
+		                   		(Monday to Friday, 8am to 5.30pm).
+		                   	</apex:outputPanel>
+		     </apex:panelGrid>
+		     
+
+    </apex:outputPanel>
+    </div>
+   </apex:form>
+</apex:component>

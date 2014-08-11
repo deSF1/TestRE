@@ -1,0 +1,220 @@
+<apex:page sidebar="false" showHeader="true" tabstyle="My_Accounts_Portal__tab" controller="PortalManageAddressTestController">
+    <!--
+    Type:      VF page
+    Purpose:    Transfer QAS to address
+    ---------------------------------------------------------------
+    History:
+
+    23-April-2012 Armie Vergara
+    -->
+    
+    <head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+
+        <!-- jquery -->
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+        <apex:stylesheet value="{!$Resource.SEWPortalStyles}"/>
+        <!-- TODO: merge this into the master styleSheet -->
+        <style type="text/css">
+            /* INCREASED LABEL WIDTH */
+            .bPageBlock .detailList .labelCol {
+                width: 30%;
+            }
+            .coreContentContainer {
+                width: 70%;
+                float: left;
+            }
+        </style>
+        
+        <script>
+            var caller = 0;
+            var j$ = jQuery.noConflict();
+            j$(function() {
+                BuildQASDialog(); 
+                
+                
+            });
+            
+            function ShowQASDialog(x) {
+               try {
+                   j$("#qas-popup").dialog("open");
+                   hideManual();
+                   caller = x;
+               } catch (e) { alert(e.toString()); }
+            }
+         
+            function CloseQASDialog() {
+                try {
+                    j$("#qas-popup").dialog("close");
+                } catch (e) { alert(e.toString()); }
+            return false;
+            } 
+            
+            function BuildQASDialog() {
+                j$( "#qas-popup").dialog({
+                    dialogClass: 'ui-dropshadow',
+                    autoOpen: false,
+                    height: 320,
+                    width: 450,
+                    modal: true,
+                    resizable: false,
+                    zIndex: 60,
+                    title: 'Address Entry'
+                });
+                            
+            }
+             
+            
+            function showSearch() {
+               try {
+                   j$("#qaSearch").hide();
+               } catch (e) { alert(e.toString()); }
+            }
+            
+            function hideManual() {
+               try {
+                   j$("#qaManual").hide();
+               } catch (e) { alert(e.toString()); }
+            }
+            
+            function showManual() {
+               try {
+                   j$("#qaManual").show();
+                   showSearch();
+               } catch (e) { alert(e.toString()); }
+            }
+         
+            function CloseQASDialog() {
+                try {
+                    j$("#qas-popup").dialog("close");
+                } catch (e) { alert(e.toString()); }
+            return false;
+            } 
+            
+            function ReceiveAddress(address) {
+            
+            var Street = address.AddressLines[0].Line;
+            var Street2 = address.AddressLines[1].Line;
+            if(Street2 != ''){
+                Street = Street +', '+Street2;
+            }
+            
+            var Suburb = address.AddressLines[2].Line;
+            var State = address.AddressLines[3].Line;
+            var Postcode = address.AddressLines[4].Line;
+            var Country = address.AddressLines[5].Line;
+            
+            var address = Street +' '+Suburb + ' '+State + ' '+Postcode;
+            if(caller == 1)
+            
+            {document.getElementById('{!$Component.theForm.contentCellPageblock.bSection.homeAddressSection.Street}').innerHTML = Street;
+            }
+            if(caller == 2)
+            {
+            alert(Street);
+            }
+            CloseQASDialog();
+            
+            }
+            
+            </script>
+    </head>
+    <apex:form id="theForm">
+        <apex:outputPanel id="sidebarContainer" layout="block" styleClass="sideBarCellDiv" >
+            <apex:outputPanel id="accountsListAndSidebar" layout="block" styleClass="pbTransparent" >
+                <c:PortalSidebar id="sidebar" groupName="MyDetails" currentAccRecordType=""
+                    currentDevName="" title="My Details"/>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        <apex:outputPanel id="contentCellDiv" layout="block" styleClass="contentCellDiv" >
+              MAIN
+              <apex:pageBlock id="contentCellPageblock" >
+                  <apex:outputPanel id="innerContentLHSDiv" styleClass="innerContentLHSDiv" >
+                  <!-- LEFT HAND SIDE CONTENT -->
+                      <apex:outputPanel id="concessionsContentContainer" layout="block" styleClass="">
+                          <apex:pageBlockSection id="bSection">
+                              <apex:pageBlockSectionItem id="homeAddressSection" >
+                                <apex:outputLabel id="personHomeAddressLabel" for="personHomeAddress" value="Mailing address" />
+                                <!--  TODO: point to customer mailing -->
+                                    <apex:outputField id="Street" value="{!userContact.FirstName}"/>
+                               </apex:pageBlockSectionItem>
+                           
+                            
+                          </apex:pageBlockSection>  
+                         <apex:pageBlockSection id="bSection2">
+                            <apex:pageBlockSectionItem id="commandSection" >
+                                <div></div>
+                                <apex:commandButton value="Find Address"
+                                            styleclass="btnGreen"
+                                            style="margin-left:0px; margin-right: 0px;"
+                                            onclick="ShowQASDialog(1); return false;" />
+                                            
+                            </apex:pageBlockSectionItem>   
+                            
+                            <apex:pageBlockSectionItem id="commandSection2" >
+                                <div></div>
+                                
+                                            
+                                <apex:commandButton value="Find Address 2"
+                                            styleclass="btnGreen"
+                                            style="margin-left:0px; margin-right: 0px;"
+                                            onclick="ShowQASDialog(2); return false;" />
+                                            
+                            </apex:pageBlockSectionItem>   
+                         </apex:pageBlockSection>             
+                      </apex:outputPanel>
+                  </apex:outputPanel>
+                  <!-- RIGHT HAND SIDE CONTENT -->
+                  <apex:outputPanel id="innerContentRHSDiv" layout="block" styleClass="innerContentRHSDiv" >
+                    <!--  live chat -->
+                    <c:LiveChat />
+                    
+                    <c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+                        divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+                        divStyle="width: 205px"/>
+                    
+                    <!--  quick links -->
+                    <div style="position: relative;"><c:PortalQuickLinks /></div>
+                    </apex:outputPanel>
+    
+                    <div style="clear:both"/>
+                    
+                    
+              </apex:pageBlock>
+        </apex:outputPanel>
+        <div id="qas-popup">
+        		<div id="qaSearch">
+            	<c:QASPopup />
+		</div>
+            
+        <div id="qaManual">
+         <apex:pageBlock id="testBlock">
+         <apex:pageBlockSection columns="1" >
+             <apex:pageBlockSectionItem >
+                 <apex:outputLabel value="Street address"/>
+                 <apex:inputText id="street"/>  
+             </apex:pageBlockSectionItem>
+             <apex:pageBlockSectionItem >
+                 <apex:outputLabel value="Suburb"/>
+                 <apex:inputText id="suburb"/>  
+             </apex:pageBlockSectionItem>
+             <apex:pageBlockSectionItem >
+                 <apex:outputLabel value="State"/>
+                 <apex:inputText id="state"/>  
+             </apex:pageBlockSectionItem>
+             <apex:pageBlockSectionItem >
+                 <apex:outputLabel value="Postal code"/>
+                 <apex:inputText id="postalCode"/>  
+             </apex:pageBlockSectionItem>
+             <apex:pageBlockSectionItem >
+                 <apex:outputLabel value="Country"/>
+                 <apex:inputText id="country"/>  
+             </apex:pageBlockSectionItem>
+         </apex:pageBlockSection>  
+         </apex:pageBlock>
+        </div>
+        </div>
+    </apex:form>    
+</apex:page>

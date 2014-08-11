@@ -1,0 +1,903 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>ANZSIC__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>ANZSIC</label>
+        <referenceTo>Anzic_Code__c</referenceTo>
+        <relationshipLabel>Properties</relationshipLabel>
+        <relationshipName>Properties</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Active</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Address_Also_Known_As__c</fullName>
+        <description>Address also known as field to assit with alternative identification on the property.
+Sourced from HiAffinity in the Service Unit details.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Address also known as field to assit with alternative identification on the property.</inlineHelpText>
+        <label>Address Also Known As</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Allotment_Area__c</fullName>
+        <externalId>false</externalId>
+        <label>Allotment Area</label>
+        <length>10</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Body_Corporate__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Body Corporate</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CIS_Property_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>Property reference number in HiAF</description>
+        <externalId>true</externalId>
+        <label>CIS Property Id</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Council_Property_Reference_No__c</fullName>
+        <externalId>false</externalId>
+        <label>Council Property Reference No</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Council_Property_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Council Property Type</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Council__c</fullName>
+        <externalId>false</externalId>
+        <label>Council</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DPID__c</fullName>
+        <externalId>false</externalId>
+        <label>DPID</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Daily_Target_per_Person__c</fullName>
+        <externalId>false</externalId>
+        <label>Daily Target per Person</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Digital_Meter__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Flag field that determines if a property belongs to digital meter trial.</description>
+        <externalId>false</externalId>
+        <label>Digital Meter</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Directory_Reference__c</fullName>
+        <externalId>false</externalId>
+        <label>Directory Reference</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Directory_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Directory Type</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ECO_Area__c</fullName>
+        <externalId>false</externalId>
+        <label>Area</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ECO_Connected__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Indicates if property is connected</description>
+        <externalId>false</externalId>
+        <label>Connected</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ECO_Developer_Backlog__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Indicates if property is being serviced under a developer scheme</description>
+        <externalId>false</externalId>
+        <label>Developer Backlog</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ECO_Eligibility__c</fullName>
+        <externalId>false</externalId>
+        <label>ECO Eligibility</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Ineligible</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maybe-Eligible</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Eligible</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ECO_Multiple_Parcel__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Part of a multi parcel property.</description>
+        <externalId>false</externalId>
+        <label>Multiple Parcel</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ECO_Property_Classification__c</fullName>
+        <description>Property classification e.g. Vacant</description>
+        <externalId>false</externalId>
+        <label>Property Classification</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No Owner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rated with other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Reserve</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vacant</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ECO_Region__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>ECO Region</label>
+        <referenceTo>ECO_Region__c</referenceTo>
+        <relationshipLabel>Properties</relationshipLabel>
+        <relationshipName>Properties</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ECO_Sewer_Available__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Indicates if sewer is available for connection</description>
+        <externalId>false</externalId>
+        <label>Sewer Available</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ECO_Sewer_Type__c</fullName>
+        <description>Type of sewer service if available</description>
+        <externalId>false</externalId>
+        <label>Sewer Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Gravity</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pressure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Grid_Coordinate_X__c</fullName>
+        <externalId>false</externalId>
+        <label>Grid Coordinate X</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Grid_Coordinate_Y__c</fullName>
+        <externalId>false</externalId>
+        <label>Grid Coordinate Y</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Has_Insurance_Claim__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Has Insurance Claim</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>House_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Property Name</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ICE_Property_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>ICE Property Id</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Logical_Meter_Count__c</fullName>
+        <externalId>false</externalId>
+        <label>Logical Meter Count</label>
+        <summaryFilterItems>
+            <field>Meter_Details__c.Meter_Type__c</field>
+            <operation>equals</operation>
+            <value>L</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Meter_Details__c.Property__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Lot_No__c</fullName>
+        <externalId>false</externalId>
+        <label>Lot No</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NSM__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>NSM</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PSP_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>PSP Number</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Parent_CIS_Property_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Parent CIS Property Id</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>People_over_18__c</fullName>
+        <externalId>false</externalId>
+        <label>People over 18</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>People_under_18__c</fullName>
+        <externalId>false</externalId>
+        <label>People under 18</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Postal_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Postal Code</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Private_Extension_Available__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Private Extension Available</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Profile_Setup_Complete__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Profile Setup Complete</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Property_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Property Type</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property_Usage__c</fullName>
+        <externalId>false</externalId>
+        <label>Property Usage</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Body Corporate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Commercial Building</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Farmland</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Park / Reserve</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unit / Flat</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>R6_Avenview__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Recycled Stormwater - Avenview Estate</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Recycled_Meter_Count__c</fullName>
+        <externalId>false</externalId>
+        <label>Recycled Meter Count</label>
+        <summaryFilterItems>
+            <field>Meter_Details__c.Name</field>
+            <operation>startsWith</operation>
+            <value>R</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Meter_Details__c.Property__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Recycled_Water_Available__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Recycled Water Available</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Standard_Parcel_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Standard Parcel Id</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>State__c</fullName>
+        <externalId>false</externalId>
+        <label>State</label>
+        <picklist>
+            <picklistValues>
+                <fullName>VIC</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ACT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NSW</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QLD</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TAS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>WA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Street_Address_Proper__c</fullName>
+        <externalId>false</externalId>
+        <label>Street Address (Proper)</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Street_Address__c</fullName>
+        <externalId>false</externalId>
+        <label>Street Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Subdivision_Plan_No__c</fullName>
+        <externalId>false</externalId>
+        <label>Subdivision Plan No</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Suburb_Proper__c</fullName>
+        <externalId>false</externalId>
+        <label>Suburb (Proper)</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Suburb__c</fullName>
+        <externalId>false</externalId>
+        <label>Suburb</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Trade_Waste_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Trade Waste Code</label>
+        <length>15</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Universal_Id_c__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Universal Id</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Valuation_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Valuation Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Valuation_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Valuation Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>X1_Meter_Multi_Props__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Property has 1 Meter with Multiple Properties.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Property has 1 Meter with Multiple Properties. 1M classification code in HiAffinity.</inlineHelpText>
+        <label>1 Meter with Multiple Properties</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <label>Property</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>CIS_Property_Id__c</columns>
+        <columns>NAME</columns>
+        <columns>Street_Address__c</columns>
+        <columns>Suburb__c</columns>
+        <columns>Postal_Code__c</columns>
+        <columns>Parent_CIS_Property_Id__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Body_Corporate_Properties</fullName>
+        <columns>NAME</columns>
+        <columns>Street_Address__c</columns>
+        <columns>Subdivision_Plan_No__c</columns>
+        <columns>Suburb__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Body_Corporate__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>Body Corporate Properties</label>
+    </listViews>
+    <listViews>
+        <fullName>Domestic_Properties</fullName>
+        <columns>NAME</columns>
+        <columns>Active__c</columns>
+        <columns>Address_Also_Known_As__c</columns>
+        <columns>Council__c</columns>
+        <columns>CIS_Property_Id__c</columns>
+        <columns>Lot_No__c</columns>
+        <columns>Property_Type__c</columns>
+        <columns>House_Name__c</columns>
+        <columns>Street_Address__c</columns>
+        <columns>Suburb__c</columns>
+        <columns>Parent_CIS_Property_Id__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Property_Type__c</field>
+            <operation>contains</operation>
+            <value>Domestic</value>
+        </filters>
+        <filters>
+            <field>Property_Type__c</field>
+            <operation>notContain</operation>
+            <value>ND</value>
+        </filters>
+        <filters>
+            <field>Property_Type__c</field>
+            <operation>notContain</operation>
+            <value>Non Domestic</value>
+        </filters>
+        <label>Domestic Properties</label>
+    </listViews>
+    <listViews>
+        <fullName>Non_Domestic_Properties</fullName>
+        <columns>NAME</columns>
+        <columns>Active__c</columns>
+        <columns>Address_Also_Known_As__c</columns>
+        <columns>Council__c</columns>
+        <columns>CIS_Property_Id__c</columns>
+        <columns>Lot_No__c</columns>
+        <columns>Property_Type__c</columns>
+        <columns>House_Name__c</columns>
+        <columns>Street_Address__c</columns>
+        <columns>Suburb__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Property_Type__c</field>
+            <operation>contains</operation>
+            <value>Non Domestic</value>
+        </filters>
+        <label>Non Domestic Properties</label>
+    </listViews>
+    <listViews>
+        <fullName>Port_Phillip</fullName>
+        <columns>NAME</columns>
+        <columns>Council_Property_Type__c</columns>
+        <columns>Council__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Council__c</field>
+            <operation>contains</operation>
+            <value>Port Phillip</value>
+        </filters>
+        <label>Port Phillip Properties</label>
+    </listViews>
+    <nameField>
+        <label>Property</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Properties</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>CIS_Property_Id__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Street_Address__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Suburb__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Postal_Code__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>CIS_Property_Id__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Street_Address__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Suburb__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Postal_Code__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Council__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CIS_Property_Id__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Street_Address__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Suburb__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Council__c</searchFilterFields>
+        <searchFilterFields>Street_Address__c</searchFilterFields>
+        <searchFilterFields>OBJECT_ID</searchFilterFields>
+        <searchFilterFields>CIS_Property_Id__c</searchFilterFields>
+        <searchResultsAdditionalFields>CIS_Property_Id__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Street_Address__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Suburb__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Postal_Code__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Property_Type__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Read</sharingModel>
+    <webLinks>
+        <fullName>ECO_Web_Mapping_Site</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>ECO Web Mapping Site</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>http://awmdev2/backlog/</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Google_Maps</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Google Maps</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>http://maps.google.com/maps?f=q&amp;hl=en&amp;q={! Property__c.Street_Address__c }+{! Property__c.Suburb__c }+{! Property__c.State__c }&amp;om=1</url>
+    </webLinks>
+    <webLinks>
+        <fullName>New_Billing_Account</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>New Billing Account</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if (typeof(srcUp) == &apos;function&apos;) {
+navigateToUrl(&apos;/apex/CreateBillingAccountWizard?propertyId={!Property__c.Id}&amp;retURL=%2F{!Property__c.Id}&apos;);
+} else {
+window.top.location = &quot;/apex/CreateBillingAccountWizard?propertyId={!Property__c.Id}&amp;retURL=%2F{!Property__c.Id}&quot;;
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>New_Customer</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>New Customer</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if (typeof(srcUp) == &apos;function&apos;) {
+navigateToUrl(&apos;/apex/CreateCustomerAndPersonWizard?propertyId={!Property__c.Id}&amp;isNSM={!Property__c.NSM__c}&amp;retURL=%2F{!Property__c.Id}&apos;);
+} else {
+window.top.location = &quot;/apex/CreateCustomerAndPersonWizard?propertyId={!Property__c.Id}&amp;isNSM={!Property__c.NSM__c}&amp;retURL=%2F{!Property__c.Id}&quot;;
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Properties_in_the_Same_Subdivision</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Properties in the Same Subdivision</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/{!$Setup.Reports__c.PropertiesInSubdivisionReportId__c}?pv0={!Property__c.Parent_CIS_Property_Id__c}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Quick_View</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Quick View</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if (typeof(srcUp) == &apos;function&apos;) {
+    srcUp(&apos;/apex/QuickView?pid={!Property__c.CIS_Property_Id__c}&amp;isdtp=vw&apos;);
+} else {   
+    window.location = &quot;/apex/QuickView?pid={!Property__c.CIS_Property_Id__c}&quot;;
+}</url>
+    </webLinks>
+</CustomObject>

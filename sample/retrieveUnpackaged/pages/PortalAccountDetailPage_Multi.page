@@ -1,0 +1,298 @@
+<apex:page sidebar="false" showHeader="true"
+            doctype="html-5.0"
+            tabstyle="PortalAccounts__tab"
+            controller="PortalAccountDetailPage_Multi"
+            action="{!DefaultAccount}"
+            id="portalAccDetailPage">
+
+    <!-- 
+    Type:       VF page
+    Purpose:    Displays the Portal Account Summary Page
+    ---------------------------------------------------------------
+    History:
+        12-Dec-2011 - Dennis Thong  - Created
+        07-May-2012 - M.Isidro      - Added links to Edit billing button
+        16-May-2012 - A.Vergara     - Update link to payment plan
+        04-Jun-2012 - D.Yu          - Update: 5161 - Update link text
+        13-Jun-2012 - D.Yu          - Update: Address Management change
+        28-Jun-2012 - M.Watson      - TT 5325, minor copy changes      
+        19-Nov-2012 - J.Jayoma      - added Id on apex:page   
+        29-Nov-2012 - I.Castillo 	- Update TP537 - Visibility of date suspended on Portal
+        04-Dec 2012 - I.Castillo 	- Update TP537 - Added Suspend to and Current bill due checks
+        23-Sep-2013 N.Patterson 	- TT10401: View multiple customers for a single Portal user
+    -->
+
+    <head>
+
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+
+        <style type="text/css">
+            /* Increase width of label */
+            .bPageBlock .detailList .labelCol {width: 105px; }
+            .bPageBlock .detailList .data2Col {width: auto; padding-bottom: 12px; margin-right: 5px}
+            
+            h3 { margin-top: 20px }
+            
+            
+            /* shrink the buttons */
+            .btn {
+                margin: 0;
+            }
+                
+            a.bulletedLinkBlue {
+                font-weight: bold;
+            }
+
+            a.pageLink {
+                float: right;
+                width: 130px;
+            }
+            
+            .serviceRow {
+                padding: 3px 0px;
+            }
+
+        </style>
+    </head>
+
+    <apex:form id="theForm">
+        <div class="pbTransparent sideBarCellDiv" Id="divSideBar">
+            <!--  account list -->                           
+             <c:PortalAccountsList billingAccountId="{!bacct.id}" displayAccountList="true"/>  <!-- TT10401-show the account list -->
+            <!--  sidebar -->                           
+            <c:PortalSidebar id="sidebar" groupName="Accounts" currentAccRecordType="{!customer.RecordType.DeveloperName}" currentDevName="Accounts_MyAccounts"/ >  
+        </div>
+        <div class="contentCellDiv" id="divcontentCellDiv">
+            <!-- Page Block Header -->
+            <div class="pageBlockHeader" id="divpageBlockHeader">
+                <apex:outputPanel layout="block" styleclass="pageBlockTitle">
+                    <apex:outputField value="{!bacct.HiAF_Account_Number_Check_Digit__c}"
+                                        rendered="{!(ISBLANK(bacct.Property__c))}"/>
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(bacct.Property__c))}">
+                        <apex:outputField value="{!bacct.Property__r.Street_Address_Proper__c}"/>&nbsp;
+                        <apex:outputField value="{!bacct.Property__r.Suburb_Proper__c}"/>&nbsp;
+                        <apex:outputField value="{!bacct.Property__r.Postal_Code__c}"/>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+            </div>  
+    
+            <apex:pageBlock id="pageblock">
+                <!--  PAGE MESSAGES -->
+                <div style="margin-top: 5px">
+                    <apex:pageMessages id="msg" />
+                </div>
+    
+                <!-- CONTENT -->
+                <apex:selectList size="1" label="Property" value="{!selectedbillingaccountid}"
+                                id="billingaccountlist" style="width:350px" rendered="false">
+                    <apex:selectOptions value="{!billAcctOptions}"/>
+                    <apex:actionSupport event="onchange" action="{!SelectAccount}" status="loading" />
+                </apex:selectList>
+                <apex:outputPanel layout="block" style="margin-top: 10px;">
+                    <!-- adds extra space -->
+                    <div class="innerContentLHSDiv">
+
+                        <div id="balance" style="float: left;">
+                            <apex:outputLabel value="Balance"/>
+                            <div style="font-size: 24pt" class="grey" >
+                                <apex:outputField value="{!bacct.Balance__c}" 
+                                                    rendered="{!NOT(ISBLANK(bacct.Balance__c))}"/> 
+                                <apex:outputText value="$0.00" 
+                                                    rendered="{!ISBLANK(bacct.Balance__c)}"/> 
+                            </div>
+    
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(bacct.Balance__c)) && bacct.Balance__c > 0}">
+                                <apex:outputPanel layout="block" style="font-size: 11.25pt" styleClass="grey"
+                                        rendered="{!NOT(ISBLANK(bacct.Current_Bill_Due_Date__c)) && ISBLANK(bacct.Recovery_Suspended_Date__c)
+                                        || (bacct.Current_Bill_Due_Date__c > bacct.Recovery_Suspended_Date__c && NOT(ISBLANK(bacct.Recovery_Suspended_Date__c)))}">
+                                    Due:&nbsp;<apex:outputText value="{0,date,d MMMM yyyy}">
+                                         <apex:param value="{!bacct.Current_Bill_Due_Date__c}" />
+                                    </apex:outputText><!--  <apex:outputField value="{!bacct.Current_Bill_Due_Date__c}"/> -->
+                                </apex:outputPanel>
+                                <!-- start - Added Recovery Suspend rendering 29112012 IC -->
+								<apex:outputPanel layout="block" style="font-size: 11.25pt" styleClass="grey"
+                                        rendered="{!NOT(ISBLANK(bacct.Recovery_Suspended_Date__c)) && (bacct.Recovery_Suspended_Date__c > bacct.Current_Bill_Due_Date__c  && NOT(ISBLANK(bacct.Current_Bill_Due_Date__c)))}">
+                                    Payment extended to:<br/>&nbsp;<apex:outputText value="{0,date,d MMMM yyyy}">
+                                         <apex:param value="{!bacct.Recovery_Suspended_Date__c}" />
+                                    </apex:outputText>
+                                </apex:outputPanel>                                
+								<!-- end - Added Recovery Suspend rendering 29112012 IC -->    
+                                <div style="vertical-align: middle; margin-top: 15px; ">
+                                   <apex:commandButton value="Pay now"
+                                            styleclass="btnGreen"
+                                            style="margin-left:0px; margin-right: 0px;"
+                                            onclick="window.location='{!$Page.PortalCCPayment}?id={!bacct.id}'; return false;" />
+                                    <apex:commandButton value="Request more time"
+                                            style="margin-left:0px; margin-right: 0px;"
+                                            styleclass="btnClearGreenText"
+                                            onclick="window.location='{!$Page.PortalMoreTimeToPay}?billAcctId={!bacct.id}'; return false;" 
+                                            rendered="{!ISBLANK(bacct.Recovery_Suspended_Date__c) || bacct.Current_Bill_Due_Date__c > bacct.Recovery_Suspended_Date__c }" />
+                                </div>
+                            </apex:outputPanel>
+                        </div>
+                        
+                        <!--  customer details -->
+                        <div id="custdetails" style="float: right; width: 150px">
+                            <apex:outputLabel value="Customer number" for="customernumber" />
+                            <div class="darkGrey">
+                                <apex:outputField value="{!bacct.HiAF_Account_Number_Check_Digit__c }"
+                                                    id="customernumber"/>
+                            </div>
+                            <p/>
+    
+                            <apex:outputLabel value="Property reference" for="propertyref" />
+                            <div class="darkGrey">
+                                <apex:outputField value="{!bacct.CIS_Property_Id__c}"
+                                        id="propertyref"/>
+                            </div>
+                            <p/>
+    
+                            <apex:outputLabel value="Status" for="statusref" />
+                            <div class="darkGrey">
+                                <apex:outputField value="{!bacct.Status__c}"
+                                        id="status"/>
+                            </div>
+                            <p/>
+                        </div>
+                        
+                        <div style="clear:both"/>
+
+                        <!--  payment options -->
+                        <apex:pageBlockSection columns="1" title="Payment options" collapsible="false">
+                            <apex:pageBlockSectionItem id="paymentplanpbsi"
+                                    rendered="{!CustomerType=='Residential' && bacct.RecordType.DeveloperName == 'Billing_Account'}">
+                                <apex:outputLabel value="Payment plan" for="paymentplan" />
+                                <apex:outputPanel layout="block">
+                                    <!-- Update: change none to no -->
+                                    <apex:outputText value="{!if(bacct.Is_Payment_Plan__c, bacct.Payment_Plan_Frequency__c + ' ', 'No')}"
+                                        id="paymentplan"/>
+                                    <apex:outputField value="{!bacct.Payment_Plan_Amount__c}"
+                                        rendered="{!bacct.Is_Payment_Plan__c}"/>
+                                    <apex:outputLink styleClass="bulletedLinkBlue pageLink" 
+                                            value="{!$Page.PortalPaymentPlan_Select}?billacctid={!bacct.id}">Manage plan</apex:outputLink>
+                                </apex:outputPanel>
+                            </apex:pageBlockSectionItem>
+                            <apex:pageBlockSectionItem id="directdebitpbsi">
+                                <apex:outputLabel value="Direct debit" for="directdebit" />
+                                <apex:outputPanel layout="block">
+                                    <apex:outputText value="{!if(bacct.Direct_Debit__c, 'Yes', 'No')}"
+                                        id="directdebit"/>
+                                    <apex:outputLink styleClass="bulletedLinkBlue pageLink"
+                                                        value="{!$Page.PortalDirectDebit_Select}"
+                                        >View direct debit</apex:outputLink>
+                                    <apex:outputPanel layout="block" rendered="{!bacct.Direct_Debit__c && not(isblank(bacct.Direct_Debit_Type__c))}">
+                                        <div>{!bacct.Direct_Debit_Type__c}</div>
+                                        <apex:outputText style="width: 200px; display:block"
+                                                value="{!bacct.Direct_Debit_Details__c}"/>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                            </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+
+                        <!--  address -->
+                        <apex:pageBlockSection columns="1" title="Billing details for this account" collapsible="false">
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel >Address</apex:outputLabel>
+                                <apex:outputPanel >
+<!--                                  
+                                    <apex:commandLink styleClass="bulletedLinkBlue pageLink"
+                                        >Edit billing address</apex:commandLink>
+-->
+                                    <apex:outputLink styleClass="bulletedLinkBlue pageLink"
+                                                        value="{!IF(allAccounts.size > 1, $Page.PortalManageAccountAddress + '?id=' + selectedBillingAccountId, $Page.PortalCustomerAddress)}"
+                                        >Amend address</apex:outputLink>                                             
+
+                                        <!-- Update address make use of property class to make it title case -->
+                                    <!--  DT - had to change this back to billing address fields. The property address fields is not the valid fields here -->
+                                    <apex:outputPanel layout="block" rendered="{!NOT(ISBLANK(bacct.Street_Address__c))}">
+                                        <apex:outputField value="{!bacct.Street_Address__c}"/>
+                                        <br/>
+                                        <apex:outputField value="{!bacct.City__c}"/>
+                                        <br/>
+                                        <apex:outputField value="{!bacct.State__c}"/>,&nbsp;
+                                        <apex:outputField value="{!bacct.Postal_Code__c}"/>
+                                        <br/>
+                                        <apex:outputField value="{!bacct.Country__c}"/>
+                                    </apex:outputPanel>
+<!--                                    <apex:outputPanel rendered="{!NOT(ISBLANK(bacct.Property__c))}">
+                                        <apex:outputField value="{!bacct.Property__r.Street_Address_Proper__c}"/>
+                                        <br/>
+                                        <apex:outputField value="{!bacct.Property__r.Suburb_Proper__c}"/>&nbsp;
+                                        <br/>
+                                        <apex:outputField value="{!bacct.Property__r.Postal_Code__c}"/>
+                                        <br/>
+                                        <apex:outputField value="{!bacct.Country__c}"/>
+                                    </apex:outputPanel>
+-->
+                                </apex:outputPanel>
+                            </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+
+                        <!--  concessions -->
+                        <apex:outputPanel rendered="{!customerType=='Residential' && bacct.RecordType.DeveloperName == 'Billing_Account'}">
+                            <apex:pageBlockSection columns="1" title="Concession entitlements" collapsible="false">
+                            </apex:pageBlockSection>
+                            <apex:outputPanel layout="block" style="margin-right: 1px;">
+                                <apex:outputText escape="false"
+                                        style="display: block; float: left; width: 300px"
+                                        value="{!if(bacct.Valid_Concession__c,'Yes','No')}"/>
+                                <apex:outputLink styleClass="bulletedLinkBlue pageLink" 
+                                                value="{!$Page.PortalManageConcession}"
+                                                >{!if(bacct.Valid_Concession__c, 'View', 'Provide')} concession</apex:outputLink>
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <!--  services on property -->
+                        <apex:outputPanel rendered="{!hasServices}" style="margin-bottom: 10px" >
+                            <h3>Charges on this property</h3>
+                            <apex:dataTable value="{!services}" var="svc" 
+                                            style="margin: 10px 0px"
+                                            rowClasses="serviceRow">
+                                <apex:column value="{!svc}" style="width:200px;"/>
+                            </apex:dataTable>
+                        </apex:outputPanel>
+
+                        <!--  other services on property -->
+                        <apex:outputPanel rendered="{!hasOtherServices}">
+                            <h3>Other authorities' charges on this property</h3>
+                            <apex:dataTable value="{!otherservices}" var="svc" 
+                                            style="margin: 10px 0px"
+                                            rowClasses="serviceRow">
+                                <apex:column value="{!svc}" style="width:200px;"/>
+                            </apex:dataTable>
+                        </apex:outputPanel>
+                    </div>
+                    <div class="innerContentRHSDiv">
+
+                        <!--  live chat -->
+                        <c:LiveChat />
+
+                        <c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+                            divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+                            divStyle="width: 205px"/>
+
+                        <!--  quick links -->
+                        <c:PortalQuickLinks />
+
+                    </div>
+                    <div style="clear: both"/>
+                </apex:outputPanel>
+            </apex:pageBlock>
+        </div>
+
+        <!-- Action Status that are not position dependent -->
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+                    borderSize="1" height="50px" width="120px" margintop="-25px"
+                    marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+                    Message="Loading..." />
+            </apex:facet>
+        </apex:actionStatus>
+
+    </apex:form>
+
+</apex:page>

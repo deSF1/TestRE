@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataCategoryGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>South East Water explained</label>
+                <name>South_East_Water_explained</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Water industry explained</label>
+                <name>Water_industry_explained</name>
+            </dataCategory>
+            <label>About us</label>
+            <name>About_us</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Viewing and receiving my bill</label>
+                <name>Viewing_and_receiving_my_bill</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Understanding my water use</label>
+                <name>Understanding_my_water_use</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Understanding my bill</label>
+                <name>Understanding_my_bill</name>
+            </dataCategory>
+            <label>Billing</label>
+            <name>Billing</name>
+        </dataCategory>
+        <dataCategory>
+            <label>Concessions</label>
+            <name>Concessions</name>
+        </dataCategory>
+        <dataCategory>
+            <label>Moving in and moving out</label>
+            <name>Moving_in_and_moving_out</name>
+        </dataCategory>
+        <dataCategory>
+            <label>mySouthEastWater</label>
+            <name>mysoutheastwater</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Payment assistance</label>
+                <name>Payment_assistance</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Payment options</label>
+                <name>Payment_options</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Payment plans</label>
+                <name>Payment_Plans</name>
+            </dataCategory>
+            <dataCategory>
+                <label>More time to pay</label>
+                <name>More_time_to_pay</name>
+            </dataCategory>
+            <label>Payments</label>
+            <name>Payments</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Water prices</label>
+                <name>Water_prices</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Drainage charge</label>
+                <name>Drainage_charge</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Parks Charge</label>
+                <name>Parks_Charges</name>
+            </dataCategory>
+            <label>Pricing and charges</label>
+            <name>Pricing_and_Charges</name>
+        </dataCategory>
+        <dataCategory>
+            <label>Products and services</label>
+            <name>Products_and_services</name>
+        </dataCategory>
+        <dataCategory>
+            <label>Faults and emergencies</label>
+            <name>Faults_and_emergencies</name>
+        </dataCategory>
+        <dataCategory>
+            <label>Trade waste</label>
+            <name>Trade_waste</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>My Snapshot</label>
+                <name>My_Snapshot</name>
+            </dataCategory>
+            <dataCategory>
+                <label>My Usage</label>
+                <name>My_Usage</name>
+            </dataCategory>
+            <dataCategory>
+                <label>My Profile</label>
+                <name>My_Profile</name>
+            </dataCategory>
+            <dataCategory>
+                <label>My Smart Solution</label>
+                <name>My_Smart_Solution</name>
+            </dataCategory>
+            <label>Digital Meter Trial</label>
+            <name>Digital_Meter_Trial</name>
+        </dataCategory>
+        <label>All</label>
+        <name>All</name>
+    </dataCategory>
+    <label>Categories</label>
+    <objectUsage>
+        <object>KnowledgeArticleVersion</object>
+    </objectUsage>
+</DataCategoryGroup>

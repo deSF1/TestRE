@@ -1,0 +1,104 @@
+<apex:component >
+	
+    <!--
+        Description: Displays the sidebar in the registration page
+
+        History:
+            15-Mar-2011 D.Thong (Salesforce)    Created
+            28-May-2014 N.Patterson				Added live chat
+    -->
+    <style>
+        .pbTitle.sideBarTitle {
+            width: 75%; float: left; margin-bottom: 20px;
+        }
+        
+        .sideBarIcon {
+            float: right; margin-top: 5px
+        }
+            
+    </style>
+    <!-- style for live chat -->
+    <style>
+        .livechatcontainer {
+            width: 205px;
+            color: #fff;
+        }
+        
+        .livechatcontainer a:hover {
+            cursor: pointer;
+        }
+        
+        .livechatinnerdiv {
+            background: url("/resource/LiveChatIcon") no-repeat scroll 140px 10px #EF7C00;
+            margin-bottom: 1px;
+            padding: 10px;
+        }
+        
+    </style>
+
+
+    <apex:attribute name="showContactYouFlag" type="boolean" default="true" description="determines if Have Us Contact You is displayed"/>
+
+    <apex:pageBlock >
+        <div class="pbHeader">
+            <div class="pbTitle sideBarTitle">
+                <h2>Are you a business customer?</h2>
+            </div>
+            <div class="businessIconSmall sideBarIcon"/>
+            <div class="clear"/>
+        </div>
+    
+        <apex:commandButton style="width:100%"
+                value="Register your details here"
+                onclick="window.open('http://www.southeastwater.com.au/SiteCollectionDocuments/PULSE_Documentation/Online_Services_Authorisation_Form.pdf'); return false;"/>
+    
+    </apex:pageBlock>
+    
+    <apex:pageBlock >
+        <script type='text/javascript' src='https://c.{!$Setup.PortalSettings__c.LiveChat_URL__c}.salesforceliveagent.com/content/g/js/30.0/deployment.js'></script>
+		<script type='text/javascript'>
+            liveagent.setChatWindowHeight(520);
+            liveagent.setChatWindowWidth(434);
+            if ('{!$User.ContactId}' != '') {
+                liveagent.addCustomDetail("ContactId", "{!$User.ContactId}").saveToTranscript("ContactId");
+                // auto exactly match - Ji Zhang
+                //liveagent.addCustomDetail("ContactId", "{!$User.ContactId}").map("Contact", "Id", true, true, true);
+                //liveagent.addCustomDetail("Contact Name", "{!$User.firstname} {!$User.lastname}").map("Contact", "Name", true, true, true);
+            }
+
+			liveagent.init('https://d.{!$Setup.PortalSettings__c.LiveChat_URL__c}.salesforceliveagent.com/chat', '{!$Setup.PortalSettings__c.LiveChat_Deployment_Id__c}', '{!LEFT($Organization.Id, 15)}');
+		</script>
+		<a id="liveagent_button_online_57390000000GnWR" href="javascript://Chat" style="display: none;" onclick="liveagent.startChat('{!$Setup.PortalSettings__c.LiveChat_Button_Id__c}')">
+			<!-- Online Chat Content -->
+			<apex:image id="theOnlineImage" value="{!$Resource.LWCRegistrationOnline}" height="177px"/>
+		</a>
+		
+		<div id="liveagent_button_offline_57390000000GnWR" style="display: none;">
+			<div class="pbHeader">
+	            <div class="pbTitle sideBarTitle">
+	                <h2>Need help registering?</h2>
+	            </div>
+	            <div class="helpIconSmall sideBarIcon"/>
+	            <div class="clear"/>
+	        </div>
+	    
+	        <apex:commandButton value="Have us contact you"
+	            immediate="true"
+	            rendered="{!showContactYouFlag}"
+	            style="width:100%; margin-bottom: 10px"
+	            onclick="RequestAssist(); return false;"
+	            id="requestAssistBtn"/>                                     
+	        <br/>
+		</div>
+		
+		<script type="text/javascript">
+			if (!window._laq) { window._laq = []; }
+				window._laq.push(function(){
+					liveagent.showWhenOnline('{!$Setup.PortalSettings__c.LiveChat_Button_Id__c}', document.getElementById('liveagent_button_online_57390000000GnWR'));
+					liveagent.showWhenOffline('{!$Setup.PortalSettings__c.LiveChat_Button_Id__c}', document.getElementById('liveagent_button_offline_57390000000GnWR'));
+				});
+		</script>
+        
+    </apex:pageBlock>
+
+</apex:component>

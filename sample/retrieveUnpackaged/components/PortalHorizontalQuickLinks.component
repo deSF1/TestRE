@@ -1,0 +1,174 @@
+<apex:component controller="PortalPageWithAccounts_Virtual_Con">
+    <!--
+        Description: Horizontal Quick Links
+
+        History:
+            15-May-2012 Ji Zhang (Coretec Solutions) Created
+            16-May-2012 AVergara modified payment plan link
+            24-May-2012 AVergara link for support icon
+            12-Dec-2013 A. Recio (Cloudsherpas) Placed portal knowledge sidebar component inside a form
+            03-Feb-2014 B. Trinidad Added DMT quick links
+            28-May-2014 N.Patterson				Added live chat
+    -->
+        
+    <head>
+        <apex:stylesheet value="{!$Resource.PortalIcons_Styles}"/>
+    </head>
+
+    <apex:attribute name="mode" description="Determines what gets displayed"
+                    type="String" required="false" default="Default"/>
+                    
+    
+    <style>
+        .verticalAlignTop {
+            vertical-align: top;
+        }
+        
+        .helpIconSmall{display:none;}
+        
+        .borderDottedBlueRight{height:130px !important;}
+        
+        .livechatcontainer{margin-top:-20px;}
+        
+        .pbHeader{border-bottom:none !important;} 
+        
+        .borderDottedMedGreyBottom{border-bottom: 1px dotted #fff !important;}
+        
+        .faq{
+            width:205px;
+            position:relative;
+            top:-100px;
+            top:-86px\9;
+        }
+    </style>
+    <!--  NAVIGATION LINKS -->
+    <div class="pbTransparent">
+        <apex:pageBlock title="Quick links">
+            <apex:panelGrid columns="4" cellpadding="0" cellspacing="0" columnClasses="verticalAlignTop">
+                <apex:outputPanel layout="block" 
+                                  rendered="{!customerType == 'Residential' && mode == 'waterUseList'}"
+                                  styleClass="actionCell first borderDottedBlueRight">
+                    <apex:outputLink value="{!$Page.PortalPaymentPlan_Select}" title="Set up payment plan">
+                        <div class="moreTimeToPayIcon"/>
+                    </apex:outputLink>
+                    <div class="actionText">Looking for more certainty?</div>
+                    <div class="actionLink">    
+                        <apex:outputLink value="{!$Page.PortalPaymentPlan_Select}">Set up payment plan</apex:outputLink>
+                    </div>
+                </apex:outputPanel>
+                
+                <!-- waterUseList -->
+                <apex:outputPanel layout="block" 
+                                  styleClass="actionCell borderDottedBlueRight"
+                                  rendered="{!customerType == 'Business' && mode == 'waterUseList'}">
+                    <apex:outputLink value="{!$Page.PortalSubmitMeterRead}" title="Submit a meter reading">
+                        <div class="meterReadIcon"/>
+                    </apex:outputLink>
+                    <div class="actionText">Need to submit a meter read?</div>
+                    <div class="actionLink">    
+                        <apex:outputLink value="{!$Page.PortalSubmitMeterRead}">Submit a meter reading</apex:outputLink>
+                    </div>
+                </apex:outputPanel> 
+                
+                <!-- waterUseGraph --> 
+                <apex:outputPanel layout="block" 
+                                  styleClass="actionCell borderDottedBlueRight" rendered="{!mode == 'waterUseGraph'}">
+                    <apex:outputLink value="{!$Page.PortalBillPreferences}" title="Go paperless">
+                        <div class="paperlessBillingIcon"/>
+                    </apex:outputLink>
+                    <div class="actionText">Stop bill in the post</div>
+                    <div class="actionLink">    
+                        <apex:outputLink value="{!$Page.PortalBillPreferences}">Go paperless</apex:outputLink>
+                    </div>
+                </apex:outputPanel> 
+                
+                <!-- waterUseCompare--> 
+                <apex:outputPanel layout="block" 
+                                  styleClass="actionCell borderDottedBlueRight" rendered="{!mode == 'waterUseCompare'}">
+                    <apex:outputLink value="{!$Page.PortalAddAnAccount}" title="Add an account">
+                        <div class="addAccountIcon"/>
+                    </apex:outputLink>
+                    <div class="actionText">Can't see your property?</div>
+                    <div class="actionLink">    
+                        <apex:outputLink value="{!$Page.PortalAddAnAccount}">Add an account</apex:outputLink>
+                    </div>
+                </apex:outputPanel>    
+                
+                <!--  Payment Options && Direct Debit-->
+                <apex:outputPanel layout="block" 
+                                  styleClass="actionCell borderDottedBlueRight" rendered="{!mode == 'paymentOptions' || mode == 'directDebit'}">
+                    <apex:outputLink value="{!$Page.PortalMoreTimeToPay}" title="Request more time">
+                        <div class="moreTimeToPayIcon"/>
+                    </apex:outputLink>
+                    <div class="actionText">Need more time to pay?</div>
+                    <div class="actionLink">    
+                        <apex:outputLink value="{!$Page.PortalMoreTimeToPay}">Request more time</apex:outputLink>
+                    </div>
+                </apex:outputPanel> 
+                
+                <!-- enquiries  -->
+                <apex:outputPanel layout="block" 
+                                  styleClass="actionCell borderDottedBlueRight" rendered="{!mode == 'enquiries'}">
+                    <apex:outputLink value="{!$Page.PortalEnquiries}?type=feedback" title="Provide feedback">
+                        <div class="feedbackIcon"/>
+                    </apex:outputLink>
+                    <div class="actionText">Comments or suggestions?</div>
+                    <div class="actionLink">    
+                        <apex:outputLink value="{!$Page.PortalEnquiries}?type=feedback">Provide feedback</apex:outputLink>
+                    </div>
+                </apex:outputPanel>                                 
+                
+                <apex:outputPanel layout="block" 
+                                    styleClass="actionCell borderDottedBlueRight" rendered="{!mode != 'DMT'}">
+                    <apex:outputLink title="Get support" value="{!$Page.pkb_Home}">
+                        <div class="helpLargeIcon"/>
+                    </apex:outputLink>
+                    <div class="actionText">Have a question?</div>
+                    <div class="actionLink">    
+                        <apex:outputLink value="{!$Page.pkb_Home}">Get support</apex:outputLink>
+                    </div>
+                </apex:outputPanel>
+               
+                <!-- DMT -->
+			    <apex:outputPanel layout="block" 
+			    	 				styleClass="actionCell borderDottedBlueRight" rendered="{!mode='DMT'}">				
+					<apex:outputLink value="{!$Page.PortalMoreTimeToPay}" title="Request more time">
+						<div class="moreTimeToPayIcon" />
+					</apex:outputLink>
+					<div class="actionText">Need more time to pay?</div>
+					<div class="actionLink">
+						<apex:outputLink value="{!$Page.PortalMoreTimeToPay}">Request more time</apex:outputLink>
+					</div>	
+				</apex:outputPanel>
+				
+				<apex:outputPanel layout="block"
+				 					styleClass="actionCell borderDottedBlueRight" rendered="{!mode='DMT'}">
+					<apex:outputLink value="{!$Page.PortalEnquiries}" target="_new" title="Provide trial feedback">
+						<div class="feedbackIcon" />
+					</apex:outputLink>
+					<div class="actionText">Comments or suggestions?</div>
+					<div class="actionLink">
+						<apex:outputLink value="{!$Page.PortalEnquiries}?type=feedback" target="_new">Provide trial feedback</apex:outputLink>
+					</div>
+				</apex:outputPanel>
+				
+                <apex:outputPanel layout="block" 
+                                    styleClass="actionCell borderDottedBlueRight">
+                    <apex:form >
+	                    <c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+	                            divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey faq"
+	                            nbrOfItems="2"
+	                            />
+                    </apex:form>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="block" 
+                                    styleClass="actionCell" style="top: -15px; position: relative;">
+                    <c:LiveChat />
+                </apex:outputPanel>
+                
+                
+            </apex:panelGrid>
+        </apex:pageBlock>
+    </div>  
+</apex:component>

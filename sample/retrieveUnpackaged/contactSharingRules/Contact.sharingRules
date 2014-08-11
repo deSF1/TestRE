@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContactSharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <ownerRules>
+        <fullName>ExecutivesI</fullName>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Executives</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>Executives</roleAndSubordinates>
+        </sharedFrom>
+        <contactAccessLevel>Edit</contactAccessLevel>
+        <name>ExecutivesI</name>
+    </ownerRules>
+    <ownerRules>
+        <fullName>IOTA_Contact_Sharing</fullName>
+        <sharedTo>
+            <roleAndSubordinatesInternal>IOTA_Group</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>IOTA_Group</roleAndSubordinatesInternal>
+        </sharedFrom>
+        <contactAccessLevel>Edit</contactAccessLevel>
+        <name>IOTA Contact Sharing</name>
+    </ownerRules>
+</ContactSharingRules>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Livelink Settings</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Livelink Settings</value>
+    </caseValues>
+    <fields>
+        <help><!-- The trailing static URL component for opening a Livelink document (suffix - after the object Id) --></help>
+        <label><!-- OpenDocumentURLSuffix --></label>
+        <name>OpenDocumentURLSuffix__c</name>
+    </fields>
+    <fields>
+        <help><!-- The trailing static URL component for opening a Livelink folder (suffix - after the object Id) --></help>
+        <label><!-- OpenFolderURLSuffix --></label>
+        <name>OpenFolderURLSuffix__c</name>
+    </fields>
+    <fields>
+        <help><!-- The static, common URL component for opening a Livelink object (node Id) - either a document or folder --></help>
+        <label><!-- OpenObjectURL --></label>
+        <name>OpenObjectURL__c</name>
+    </fields>
+    <fields>
+        <help><!-- The static URL component for searching the Livelink ECM for historical content related to the customer or property. --></help>
+        <label><!-- SearchLivelinkURL --></label>
+        <name>SearchLivelinkURL__c</name>
+    </fields>
+    <fields>
+        <help><!-- The base Livelink server URL applicable for the environment - e.g. http://llprod/ --></help>
+        <label><!-- ServerBase --></label>
+        <name>ServerBase__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

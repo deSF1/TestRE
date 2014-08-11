@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Consumption and Charge</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Consumption and Charges</value>
+    </caseValues>
+    <fields>
+        <label><!-- Adhoc Charge ($) --></label>
+        <name>Adhoc_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Adjusted --></label>
+        <name>Adjusted__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing Account --></label>
+        <name>Billing_Account__c</name>
+        <relationshipLabel><!-- Consumption and Charges --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Billing Frequency --></label>
+        <name>Billing_Frequency__c</name>
+        <picklistValues>
+            <masterLabel>Annual</masterLabel>
+            <translation><!-- Annual --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Monthly</masterLabel>
+            <translation><!-- Monthly --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Quarterly</masterLabel>
+            <translation><!-- Quarterly --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Concession Amount ($) --></label>
+        <name>Concession_Amount__c</name>
+    </fields>
+    <fields>
+        <help><!-- Current consumption meter read date. --></help>
+        <label><!-- Current Read Date --></label>
+        <name>Current_Read_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Drainage Charge ($) --></label>
+        <name>Drainage_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Date --></label>
+        <name>End_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Financial Year --></label>
+        <name>Financial_Year__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fire Service Usage Cost ($) --></label>
+        <name>Fire_Service_Usage_Cost__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fire Service Volume (KL) --></label>
+        <name>Fire_Service_Volume__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Current Year --></label>
+        <name>Is_Current_Year__c</name>
+    </fields>
+    <fields>
+        <label><!-- Misc Charge --></label>
+        <name>Misc_Charge__c</name>
+    </fields>
+    <fields>
+        <help><!-- Number of days in the consumption period (based on meter read dates) --></help>
+        <label><!-- Number of Days --></label>
+        <name>Number_of_Days__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parks Charge ($) --></label>
+        <name>Parks_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Period --></label>
+        <name>Period__c</name>
+        <picklistValues>
+            <masterLabel>April</masterLabel>
+            <translation><!-- April --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>August</masterLabel>
+            <translation><!-- August --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>December</masterLabel>
+            <translation><!-- December --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>February</masterLabel>
+            <translation><!-- February --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>January</masterLabel>
+            <translation><!-- January --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>July</masterLabel>
+            <translation><!-- July --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>June</masterLabel>
+            <translation><!-- June --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>March</masterLabel>
+            <translation><!-- March --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>May</masterLabel>
+            <translation><!-- May --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>November</masterLabel>
+            <translation><!-- November --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>October</masterLabel>
+            <translation><!-- October --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Quarter 1</masterLabel>
+            <translation><!-- Quarter 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Quarter 2</masterLabel>
+            <translation><!-- Quarter 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Quarter 3</masterLabel>
+            <translation><!-- Quarter 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Quarter 4</masterLabel>
+            <translation><!-- Quarter 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>September</masterLabel>
+            <translation><!-- September --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Previous consumption meter read date --></help>
+        <label><!-- Previous Read Date --></label>
+        <name>Previous_Read_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recycled Water Cost ($) --></label>
+        <name>Recycled_Water_Cost__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recycled Water Service ($) --></label>
+        <name>Recycled_Water_Service_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recycled Water Volume (KL) --></label>
+        <name>Recycled_Water_Volume__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sewage Disposal Cost ($) --></label>
+        <name>Sewage_Disposal_Cost__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sewage Disposal Volume (KL) --></label>
+        <name>Sewage_Disposal_Volume__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sewage Service ($) --></label>
+        <name>Sewage_Service_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Source --></label>
+        <name>Source__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Billed</masterLabel>
+            <translation><!-- Billed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Billing Pending</masterLabel>
+            <translation><!-- Billing Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Exception Pending</masterLabel>
+            <translation><!-- Exception Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Read</masterLabel>
+            <translation><!-- Read --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Read Requested</masterLabel>
+            <translation><!-- Read Requested --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Read in Progress</masterLabel>
+            <translation><!-- Read in Progress --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rebilled</masterLabel>
+            <translation><!-- Rebilled --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Trade Waste Agreement ($) --></label>
+        <name>Trade_Waste_Agreement__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trade Waste Usage Cost ($) --></label>
+        <name>Trade_Waste_Cost__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trade Waste Volume (KL) --></label>
+        <name>Trade_Waste_Volume__c</name>
+    </fields>
+    <fields>
+        <label><!-- Universal Id --></label>
+        <name>Universal_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Water Usage Cost ($) --></label>
+        <name>Water_Cost__c</name>
+    </fields>
+    <fields>
+        <label><!-- Water Service ($) --></label>
+        <name>Water_Service_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Water Use Range --></label>
+        <name>Water_Use_Range__c</name>
+    </fields>
+    <fields>
+        <label><!-- Water Volume (KL) --></label>
+        <name>Water_Volume__c</name>
+    </fields>
+    <layouts>
+        <layout>Consumption and Charge Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- New Section --></label>
+            <section>New Section</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Consumption and Charges Layout (portal)</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

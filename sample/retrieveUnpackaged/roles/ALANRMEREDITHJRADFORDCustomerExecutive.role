@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>None</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>ALAN  R &amp; MEREDITH J RADFORD Customer Executive</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>ALAN  R &amp; MEREDITH J RADFORD Customer Executive</name>
+    <opportunityAccessLevel>None</opportunityAccessLevel>
+    <parentRole>Executives</parentRole>
+</Role>

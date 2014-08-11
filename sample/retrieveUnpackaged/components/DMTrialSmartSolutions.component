@@ -1,0 +1,161 @@
+<!-- 
+* @author Original: Eugene Jandusay Cloud Sherpas
+* @date Original: 17/02/2014
+* @description VF component for smart solutions
+	History
+		17/3/2014	ejandusay	added info message,trial site only banner and hover over installation date
+-->
+<apex:component controller="PortalPageWithAccounts_Virtual_Con" >
+
+    <apex:attribute name="pageNameStr" description="My smart solutions" type="String"/>
+    <style type="text/css">
+            .cell {
+                clear: both;
+                width: 40%;
+                //width: 400px;
+                vertical-align: top;
+                padding-bottom: 25px;
+                padding-left: 5px;
+            }
+            .cellHeaderText {
+                font-weight: bold;
+                font-size: 15pt;
+                float: left;
+                padding-top: 10px;
+            }
+            
+            .cellHeaderIcon {
+                float: left;
+                margin-right: 10px;
+                width: 45px;
+            }
+            .cellText, .cellBtn {
+                margin: 10px 15px 15px 55px;
+                clear: both;
+                width: 250px;
+            }
+            .cellText {
+                height: 75px;
+                width:  300px;
+            }
+            .cellBtn {
+                width: 165px;
+                padding: 5px 20px 5px 7px !important;       
+                display: block;
+                margin-left: 55px; 
+                margin-top: 35px;
+            }
+            .cellBtnReadMore {
+                width: 68px;
+                padding: 5px 20px 5px 7px !important;       
+                display: block; 
+                margin-left: 50px;
+                
+            }
+            .cellBtnReadMoreBottom {
+                width: 68px;
+                padding: 5px 20px 5px 7px !important;       
+                display: block; 
+                margin-left: 50px;
+                margin-top: 20px;
+                
+            }
+            .cellBtnBottom {
+                width: 165px;
+                padding: 5px 20px 5px 7px !important;       
+                display: block;
+                margin-left: 55px;  
+                margin-top: 51px;
+            }
+            
+        </style>
+     <apex:form id="theForm">
+        <apex:actionFunction name="checkUserConfirm" action="{!CheckRedirectConfirmed}" />
+        <div class="contentCellDiv" style="width:860px;">
+            <!-- Page Block Header -->
+            <apex:sectionheader subtitle="Smart solutions"/> 
+            
+            <img style="height:70px;margin-left:180px;margin-top:-30px;margin-bottom:10px;" src="{!$Resource.TrialOnlyBanner}"/>
+          
+            
+            <apex:pageBlock >
+            <apex:pageMessage escape="false" strength="3" severity="info" summary="The availability and accuracy of this site and the data, information, materials and/or records presented on this page may vary throughout the trial. *<a href=/portal/articles/FAQ/Terms-of-Use-Digital-meter-trial>More information</a>"/>
+    	
+                <apex:panelGrid cellspacing="0" 
+                            cellpadding="0"
+                            style="width: 100%; padding-top: 15px"
+                            columns="2" columnClasses="cell">
+                            
+					
+                    <apex:panelgroup >
+                    
+                        <apex:image value="{!$Resource.DMTwaterIcon}" width="45" height="45" styleClass="cellHeaderIcon"/> 
+                        
+                        <div class="cellHeaderText">Understand your water use</div>
+                        <div class="cellText">
+                            Where do you use the most water?Shower,outdoors or kitchen?
+                            <br/><br/>
+                            Could you be saving water at home and money on your bill?
+                        </div>
+                        <br/>
+                        <apex:outputLink styleClass="btn btnLink cellBtnReadMore"
+                                value="/articles/FAQ/How-can-I-use-water-wisely" >
+                            Read more
+                        </apex:outputLink>
+                    </apex:panelgroup>
+
+                    <apex:panelgroup rendered="{!customertype == 'Residential'}">
+                        <div class="creditCardIconSmall cellHeaderIcon"/>
+                        <div class="cellHeaderText">Go direct. It's convenient</div>
+                        <div class="cellText">
+                            Set up direct debit and take the hassle out of bill payments. Choose from quarterly, monthly or fortnightly options to balance your payments.
+                        </div>
+                        <apex:outputLink styleClass="btn btnLink cellBtn"  value="{!$Page.PortalDirectDebit_Select}">
+                            Manage direct debit                    
+                        </apex:outputLink>
+                    </apex:panelgroup>
+
+                    <apex:panelgroup >
+                        <apex:image value="{!$Resource.DMTfaucetIcon}" width="45" height="45" styleClass="cellHeaderIcon"/>
+                        <div class="cellHeaderText">Water leak at your property?</div>
+                        <div class="cellText">
+                            Has your digital water meter shown usage when you're asleep or not at home?
+                            <br/>
+                            <br/>
+                            A leak on your property can contribute to high water use and a sudden increase in the cost of your water bill. 
+                        </div>
+                         <br/>
+                        <apex:outputLink styleClass="btn btnLink cellBtnReadMoreBottom" 
+                                            value="/articles/FAQ/How-do-I-check-for-a-water-leak">
+                            Read more
+                        </apex:outputLink>
+                    </apex:panelgroup>
+
+
+                    <apex:panelgroup >
+                    	
+                        <div class="paperlessBillingIconSmall cellHeaderIcon"/>
+                        <div class="cellHeaderText">Go paperless</div>
+                        <div class="cellText">
+                            You're already online. Shouldn't your bill be too?Set up paperless billing and let email be your bill choice of delivery.
+                        </div>
+                         <apex:outputLink styleClass="btn btnLink cellBtnBottom" 
+                                            value="{!$Page.PortalBillPreferences}">
+                            Manage paperless billing
+                        </apex:outputLink>
+                    </apex:panelgroup>
+					<apex:outputPanel layout="block" style="font-size:13px;margin-top:20px;">
+		                   		<b>Questions or feedback regarding the trial?</b>
+		                   		<br/>                  		
+		                   		<apex:outputLink value="{!$Page.PortalEnquiries}">Email</apex:outputLink><apex:outputText value=" or call us on" />
+		                   		<b> 1800 337 775 </b>
+		                   		<br/>
+		                   		(Monday to Friday, 8am to 5.30pm).
+		                   	</apex:outputPanel>
+                </apex:panelGrid>
+            </apex:pageBlock>           
+            
+            
+        </div>
+    </apex:form>
+</apex:component>

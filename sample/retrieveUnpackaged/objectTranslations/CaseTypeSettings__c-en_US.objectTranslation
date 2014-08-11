@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>CaseTypeSettings</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>CaseTypeSettings</value>
+    </caseValues>
+    <fields>
+        <label><!-- Auto Suspend? --></label>
+        <name>Is_Auto_Suspend__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing Account Only? --></label>
+        <name>Is_Billing_Account_Only__c</name>
+    </fields>
+    <fields>
+        <label><!-- Create Case? --></label>
+        <name>Is_Create_Case__c</name>
+    </fields>
+    <fields>
+        <label><!-- Process? --></label>
+        <name>Is_Process__c</name>
+    </fields>
+    <fields>
+        <label><!-- Quick Notes? --></label>
+        <name>Is_Quick_Notes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order --></label>
+        <name>Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- Visualforce Page --></label>
+        <name>Visualforce_Page__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

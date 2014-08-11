@@ -1,0 +1,43 @@
+<apex:component controller="PortalSidebarController">
+    <!--
+        Description: Horizontal subtabs
+
+        History:
+            2-Mar-2012 D.Thong    Created
+    -->
+
+    <apex:attribute: name="groupName" type="String" required="true" description="Group name (e.g. 'Billing_Account__c')" assignTo="{!groupName}"/>
+    <apex:attribute: name="currentDevName" type="String" required="false" default="null" description="Current developer name (to match with the item's Name field in the PortalSidebarItem Custom Settings)" assignTo="{!currentDevName}"/>
+    <apex:attribute: name="currentAccRecordType" type="String" description="Current account record's developer name (to match with the Visible Account Record Types field in the PortalSidebarItem Custom Settings)" assignTo="{!currentAccRecordType}"/>    
+
+    <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+
+	<apex:outputPanel layout="block" style="width: 97%">
+		<apex:outputPanel style="float: right">
+			<table class="subTabBar" cellpadding="0" cellspacing="0"><tr>
+	            <apex:repeat value="{!filteredPortalSidebarItemWrappers}" var="item">
+	            	<td>
+		                <apex:outputLink value="{!item.linkURL}" 
+		                		styleclass="{!IF(currentDevName==item.name, 'currentTab', '')}" 
+		                		rendered="{!NOT(item.psiRec.Wizard__c)}"
+		                		target="_top"
+		                		title="{!IF(currentDevName==item.name, item.label + ' - Selected', item.label)}">
+		                    {!item.label}
+		                </apex:outputLink>
+ 		                <apex:commandLink action="{!WizNavigate}"
+		                		styleclass="{!IF(currentDevName==item.name, 'currentTab', '')}" 
+		                		rendered="{!(item.psiRec.Wizard__c)}"
+		                		target="_top"
+		                		title="{!IF(currentDevName==item.name, item.label + ' - Selected', item.label)}">
+		                	<apex:param name="vfpage" assignTo="{!selectedPage}" value="{!item.psiRec.Link_or_VF_Page__c}"/>
+		                    {!item.label}
+		                </apex:commandLink>
+ 
+					</td>
+				</apex:repeat>				
+			</tr></table>
+		</apex:outputPanel>
+	</apex:outputPanel>
+	<div style="clear:both"/>
+
+</apex:component>

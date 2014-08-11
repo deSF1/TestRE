@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>WaterMAP</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>WaterMAPs</value>
+    </caseValues>
+    <fields>
+        <label><!-- ANZSIC Benchmark Indicator --></label>
+        <name>ANZSIC_Benchmark_Indicator__c</name>
+        <relationshipLabel><!-- WaterMAPs --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- ANZSIC --></label>
+        <name>ANZSIC__c</name>
+        <relationshipLabel><!-- WaterMAPs --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- About Your Site --></label>
+        <name>About_Your_Site__c</name>
+    </fields>
+    <fields>
+        <label><!-- Additional Comments --></label>
+        <name>Additional_Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Anzic Description for customer plan --></label>
+        <name>Anzic_Description_for_customer_plan__c</name>
+    </fields>
+    <fields>
+        <label><!-- Authorised By: Email --></label>
+        <name>Authorised_By_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Authorised By: Name --></label>
+        <name>Authorised_By_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Authorised By: Organisation --></label>
+        <name>Authorised_By_Organisation__c</name>
+    </fields>
+    <fields>
+        <label><!-- Authorised By: Phone --></label>
+        <name>Authorised_By_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Authorised By: Title --></label>
+        <name>Authorised_By_Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing Account Id --></label>
+        <name>Billing_Account_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing Account --></label>
+        <name>Billing_Account__c</name>
+        <relationshipLabel><!-- WaterMAPs --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Count of Active Submissions --></label>
+        <name>Count_of_Active_Submissions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer ID --></label>
+        <name>Customer_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Name --></label>
+        <name>Customer_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Number --></label>
+        <name>Customer_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer --></label>
+        <name>Customer__c</name>
+        <relationshipLabel><!-- WaterMAPs --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- EREP for customer plan --></label>
+        <name>EREP_for_customer_plan__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comment on changes in efficiency --></label>
+        <name>Efficiency_Change_Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Equipment, Infrastructure and Processes --></label>
+        <name>Equipment_Infrastructure_Processes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Forecast Sewage Disposal Cost (%) --></label>
+        <name>Forecast_Sewage_Disposal_Pct__c</name>
+    </fields>
+    <fields>
+        <label><!-- Forecast Trade Waste Cost (%) --></label>
+        <name>Forecast_Trade_Waste_Cost_Pct__c</name>
+    </fields>
+    <fields>
+        <label><!-- Forecast Water Cost (%) --></label>
+        <name>Forecast_Water_Cost_Pct__c</name>
+    </fields>
+    <fields>
+        <label><!-- Forecast Water Use KL (%) --></label>
+        <name>Forecast_Water_Use_Pct__c</name>
+    </fields>
+    <fields>
+        <label><!-- Im The Customer Owner --></label>
+        <name>Im_The_Customer_Owner__c</name>
+    </fields>
+    <fields>
+        <help><!-- Key Customer Manager&apos;s comment on Action Items for KCP. --></help>
+        <label><!-- Internal Comments --></label>
+        <name>Internal_Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- KBAI Description --></label>
+        <name>KBAI_Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- KBAI Type --></label>
+        <name>KBAI_Type__c</name>
+        <picklistValues>
+            <masterLabel>Average</masterLabel>
+            <translation><!-- Average --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sum</masterLabel>
+            <translation><!-- Sum --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Long Term (3-5 Years) Target --></label>
+        <name>Long_Term_Conservation_Target__c</name>
+    </fields>
+    <fields>
+        <label><!-- Migration Id --></label>
+        <name>Migration_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Organisation Name --></label>
+        <name>Organisation_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Member of peak industry bodies --></label>
+        <name>Peak_industry_body__c</name>
+        <picklistValues>
+            <masterLabel>AUSVEG</masterLabel>
+            <translation><!-- AUSVEG --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Aged &amp; Community Care Victoria (ACCV)</masterLabel>
+            <translation><!-- Aged &amp; Community Care Victoria (ACCV) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Aquatics Recreation Victoria (ARV)</masterLabel>
+            <translation><!-- Aquatics Recreation Victoria (ARV) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Assoc of Independent Schools (AISV)</masterLabel>
+            <translation><!-- Assoc of Independent Schools (AISV) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Aust Chicken Meat Federation (ACMF)</masterLabel>
+            <translation><!-- Aust Chicken Meat Federation (ACMF) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Aust Golf Course Super Assoc (AGCSA)</masterLabel>
+            <translation><!-- Aust Golf Course Super Assoc (AGCSA) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Aust Hotels Association (AHA)</masterLabel>
+            <translation><!-- Aust Hotels Association (AHA) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Aust Industry Group (AIG)</masterLabel>
+            <translation><!-- Aust Industry Group (AIG) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Aust Inst Refrig Aircond &amp; Heat (AIRAH)</masterLabel>
+            <translation><!-- Aust Inst Refrig Aircond &amp; Heat (AIRAH) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Aust Inst of Hotel Engineers (AIHE)</masterLabel>
+            <translation><!-- Aust Inst of Hotel Engineers (AIHE) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Aust Inst of Surface Finishing (AISF)</masterLabel>
+            <translation><!-- Aust Inst of Surface Finishing (AISF) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Aust Meat Industry Council (AMIC)</masterLabel>
+            <translation><!-- Aust Meat Industry Council (AMIC) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Building Owners Mgrs Assoc Aust (BOMA)</masterLabel>
+            <translation><!-- Building Owners Mgrs Assoc Aust (BOMA) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cement Concrete &amp; Aggregates Aust (CCAA)</masterLabel>
+            <translation><!-- Cement Concrete &amp; Aggregates Aust (CCAA) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Clubs Victoria (ClubsVIC)</masterLabel>
+            <translation><!-- Clubs Victoria (ClubsVIC) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dairy Australia</masterLabel>
+            <translation><!-- Dairy Australia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Facilities Managers Association (FMA)</masterLabel>
+            <translation><!-- Facilities Managers Association (FMA) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Health Care Australia (HCA)</masterLabel>
+            <translation><!-- Health Care Australia (HCA) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nursery &amp; Garden Ind Vic (NGIV)</masterLabel>
+            <translation><!-- Nursery &amp; Garden Ind Vic (NGIV) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Plastics &amp; Chemicals Ind Assoc (PACIA)</masterLabel>
+            <translation><!-- Plastics &amp; Chemicals Ind Assoc (PACIA) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Primesafe Victoria</masterLabel>
+            <translation><!-- Primesafe Victoria --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Vic Employ Chamb Commerce &amp; Ind (VECCI)</masterLabel>
+            <translation><!-- Vic Employ Chamb Commerce &amp; Ind (VECCI) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Vic Parks</masterLabel>
+            <translation><!-- Vic Parks --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Victorian Caravan Parks Association</masterLabel>
+            <translation><!-- Victorian Caravan Parks Association --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Victorian Chicken Meat Council</masterLabel>
+            <translation><!-- Victorian Chicken Meat Council --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- People and Culture --></label>
+        <name>People_and_Culture__c</name>
+    </fields>
+    <fields>
+        <label><!-- Postal Code --></label>
+        <name>Postal_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Postal Mailing Name --></label>
+        <name>Postal_Mailing_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Postal Name --></label>
+        <name>Postal_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Postal State --></label>
+        <name>Postal_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Postal Street --></label>
+        <name>Postal_Street__c</name>
+    </fields>
+    <fields>
+        <label><!-- Postal Suburb --></label>
+        <name>Postal_Suburb__c</name>
+    </fields>
+    <fields>
+        <label><!-- Preferred Postal Contact Type --></label>
+        <name>Preferred_Postal_Contact_Type__c</name>
+        <picklistValues>
+            <masterLabel>Mailing</masterLabel>
+            <translation><!-- Mailing --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Prepared By: Email --></label>
+        <name>Prepared_By_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Prepared By: Name --></label>
+        <name>Prepared_By_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Prepared By: Organisation --></label>
+        <name>Prepared_By_Organisation__c</name>
+    </fields>
+    <fields>
+        <label><!-- Prepared By: Phone --></label>
+        <name>Prepared_By_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Prepared By: Title --></label>
+        <name>Prepared_By_Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary Contact: Email --></label>
+        <name>Primary_Contact_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary Contact: Mobile --></label>
+        <name>Primary_Contact_Mobile__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary Contact: Name --></label>
+        <name>Primary_Contact_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary Contact: Organisation --></label>
+        <name>Primary_Contact_Organisation__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary Contact: Phone --></label>
+        <name>Primary_Contact_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary Contact: Title --></label>
+        <name>Primary_Contact_Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary Contact --></label>
+        <name>Primary_Contact__c</name>
+        <relationshipLabel><!-- WaterMAPs (Primary Contact) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Prior Yr Fcst Sewage Disposal Cost (%) --></label>
+        <name>Prior_Yr_Fcst_Sewage_Disposal_Cost_Pct__c</name>
+    </fields>
+    <fields>
+        <label><!-- Prior Yr Fcst Trade Waste Cost (%) --></label>
+        <name>Prior_Yr_Fcst_Trade_Waste_Cost_Pct__c</name>
+    </fields>
+    <fields>
+        <label><!-- Prior Yr Fcst Water Cost (%) --></label>
+        <name>Prior_Yr_Fcst_Water_Cost_Pct__c</name>
+    </fields>
+    <fields>
+        <label><!-- Prior Yr Fcst Water Use KL (%) --></label>
+        <name>Prior_Yr_Fcst_Water_Use_KL_Pct__c</name>
+    </fields>
+    <fields>
+        <label><!-- Property Id --></label>
+        <name>Property_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Registration Sent Date --></label>
+        <name>Registration_Sent_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Registration Sent Datetime --></label>
+        <name>Registration_Sent_Datetime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Report Data Drainage Charge --></label>
+        <name>Report_Data_Drainage_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Report Data Parks Charge --></label>
+        <name>Report_Data_Parks_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Report Data Recycled Water Cost --></label>
+        <name>Report_Data_Recycled_Water_Cost__c</name>
+    </fields>
+    <fields>
+        <label><!-- Report Data Recycled Water Volume --></label>
+        <name>Report_Data_Recycled_Water_Volume__c</name>
+    </fields>
+    <fields>
+        <label><!-- Report Data Sewage Cost --></label>
+        <name>Report_Data_Sewage_Cost__c</name>
+    </fields>
+    <fields>
+        <label><!-- Report Data Sewage Disposal Volume --></label>
+        <name>Report_Data_Sewage_Volume__c</name>
+    </fields>
+    <fields>
+        <label><!-- Report Data Trade Waste Cost --></label>
+        <name>Report_Data_Trade_Waste_Cost__c</name>
+    </fields>
+    <fields>
+        <label><!-- Report Data Trade Waste Volume --></label>
+        <name>Report_Data_Trade_Waste_Volume__c</name>
+    </fields>
+    <fields>
+        <label><!-- Report Data Water Cost --></label>
+        <name>Report_Data_Water_Cost__c</name>
+    </fields>
+    <fields>
+        <label><!-- Report Data Water Volume --></label>
+        <name>Report_Data_Water_Volume__c</name>
+    </fields>
+    <fields>
+        <label><!-- Report Data Year --></label>
+        <name>Report_Data_Year__c</name>
+    </fields>
+    <fields>
+        <label><!-- Secondary Contact: Email --></label>
+        <name>Secondary_Contact_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Secondary Contact: Mobile --></label>
+        <name>Secondary_Contact_Mobile__c</name>
+    </fields>
+    <fields>
+        <label><!-- Secondary Contact: Name --></label>
+        <name>Secondary_Contact_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Secondary Contact: Organisation --></label>
+        <name>Secondary_Contact_Organisation__c</name>
+    </fields>
+    <fields>
+        <label><!-- Secondary Contact: Phone --></label>
+        <name>Secondary_Contact_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Secondary Contact: Title --></label>
+        <name>Secondary_Contact_Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- Secondary Contact --></label>
+        <name>Secondary_Contact__c</name>
+        <relationshipLabel><!-- WaterMAPs (Secondary Contact) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Short Term (1-2 Years) Target --></label>
+        <name>Short_Term_Conservation_Target__c</name>
+    </fields>
+    <fields>
+        <label><!-- Site Address --></label>
+        <name>Site_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Site Manager: Email --></label>
+        <name>Site_Manager_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Site Manager: Mobile --></label>
+        <name>Site_Manager_Mobile__c</name>
+    </fields>
+    <fields>
+        <label><!-- Site Manager: Name --></label>
+        <name>Site_Manager_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Site Manager: Organisation --></label>
+        <name>Site_Manager_Organisation__c</name>
+    </fields>
+    <fields>
+        <label><!-- Site Manager: Phone --></label>
+        <name>Site_Manager_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Site Manager: Title --></label>
+        <name>Site_Manager_Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- Site Manager --></label>
+        <name>Site_Manager__c</name>
+        <relationshipLabel><!-- WaterMAPs (Site Manager) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Site Organisation Name --></label>
+        <name>Site_Organisation_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Start Year --></label>
+        <name>Start_Year__c</name>
+        <picklistValues>
+            <masterLabel>2004/05</masterLabel>
+            <translation><!-- 2004/05 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2005/06</masterLabel>
+            <translation><!-- 2005/06 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2006/07</masterLabel>
+            <translation><!-- 2006/07 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2007/08</masterLabel>
+            <translation><!-- 2007/08 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2008/09</masterLabel>
+            <translation><!-- 2008/09 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2009/10</masterLabel>
+            <translation><!-- 2009/10 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2010/11</masterLabel>
+            <translation><!-- 2010/11 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2011/12</masterLabel>
+            <translation><!-- 2011/12 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2012/13</masterLabel>
+            <translation><!-- 2012/13 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2013/14</masterLabel>
+            <translation><!-- 2013/14 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2014/15</masterLabel>
+            <translation><!-- 2014/15 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation><!-- Active --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Awaiting Registration</masterLabel>
+            <translation><!-- Awaiting Registration --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Inactive</masterLabel>
+            <translation><!-- Inactive --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New</masterLabel>
+            <translation><!-- New --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Insert team members (name and position) --></label>
+        <name>Team_Members__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Mandatory</masterLabel>
+            <translation><!-- Mandatory --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Voluntary</masterLabel>
+            <translation><!-- Voluntary --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Universal Id --></label>
+        <name>Universal_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comments --></label>
+        <name>Water_Use_Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Influencing Factors --></label>
+        <name>Water_Use_Influencing_Factors__c</name>
+    </fields>
+    <fields>
+        <label><!-- Outlook description --></label>
+        <name>Water_Use_Outlook__c</name>
+    </fields>
+    <layouts>
+        <layout>Water Map Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Indicators and Targets --></label>
+            <section>Indicators and Targets</section>
+        </sections>
+        <sections>
+            <label><!-- Key Business Activity Indicator --></label>
+            <section>Key Business Activity Indicator</section>
+        </sections>
+        <sections>
+            <label><!-- Opportunities to Save Water --></label>
+            <section>Opportunities to Save Water</section>
+        </sections>
+        <sections>
+            <label><!-- Site Info Comments --></label>
+            <section>Site Info Comments</section>
+        </sections>
+        <sections>
+            <label><!-- Site Information --></label>
+            <section>Site Information</section>
+        </sections>
+        <sections>
+            <label><!-- Water Consumption --></label>
+            <section>Water Consumption</section>
+        </sections>
+        <sections>
+            <label><!-- WaterMAP Contacts --></label>
+            <section>WaterMAP Contacts</section>
+        </sections>
+        <sections>
+            <label><!-- additional contacts --></label>
+            <section>additional contacts</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>WaterMAP Layout (Portal)</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Baseline_Usage_Breakdown --></label>
+        <name>Baseline_Usage_Breakdown</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Baseline_Usage_Comparison --></label>
+        <name>Baseline_Usage_Comparison</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_From_BillingAccount --></label>
+        <name>New_From_BillingAccount</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_from_Customer --></label>
+        <name>New_from_Customer</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Registration_Letter --></label>
+        <name>Registration_Letter</name>
+    </webLinks>
+</CustomObjectTranslation>

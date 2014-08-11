@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ConvertLead</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Create_Opportunity</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>CampaignId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ContactId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>LeadId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>LeadSource</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Advertisement</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employee Referral</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>External Referral</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Partner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Public Relations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seminar - Internal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seminar - Partner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Trade Show</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Construction site</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Council</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Event</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Leader</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Letter from SE Water</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mornington Peninsula Magazine</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Outdoor advertising</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Radio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rye office</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SE Water bill insert</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SE Water website</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Social media</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Southern Peninsula News</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Word of mouth</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don&apos;t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tender</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Inactive_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Inactive Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Level_Code_Null__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF( PAM__Level__c  = NULL,0, PAM__Level__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Level Code Null</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PAM__Level_Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>CASE (PAM__Level__c,
+0,&quot;Pending&quot;,
+1,&quot;Sent&quot;,
+2,&quot;Opened&quot;,
+3,&quot;Clicked&quot;,
+4,&quot;Completed&quot;,
+&quot;&quot;
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Level</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PAM__Level_Label__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Status label for report sorting purposes</description>
+        <externalId>false</externalId>
+        <formula>IF(PAM__Level_Code_Null__c=0, &quot;1. Pending&quot;,(IF(PAM__Level_Code_Null__c=1, &quot;2. Sent&quot;,(IF(PAM__Level_Code_Null__c=2, &quot;3. Opened&quot;,(IF(PAM__Level_Code_Null__c=3, &quot;4. Clicked&quot;,(IF(PAM__Level_Code_Null__c=4, &quot;5. Completed&quot;,null)))))))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Status label for report sorting purposes</inlineHelpText>
+        <label>Level Label</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PAM__Level__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Level Code</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PAM__Reason_Code_Null__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF( PAM__Reason__c  = NULL,0, PAM__Reason__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reason Code Null</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PAM__Reason_Description__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Reason for not reaching the members inbox</description>
+        <externalId>false</externalId>
+        <formula>CASE (PAM__Reason__c,
+0,&quot;Not Synced&quot;,
+1,&quot;&quot;,
+3,&quot;Inactive&quot;,
+20,&quot;invalid&quot;,
+21,&quot;Invalid MX&quot;,
+22,&quot;Missing Email&quot;,
+23,&quot;Bounced&quot;,
+24,&quot;Duplicate&quot;,
+25,&quot;Opt Out - Direct&quot;,
+31,&quot;Opt Out - Campaign&quot;,
+38,&quot;Opt Out - Complaint&quot;,
+39,&quot;Opt Out - Indirect&quot;,
+40,&quot;Opt Out - Previous&quot;,
+41,&quot;Bounce - Previous&quot;,
+&quot;&quot;
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Reason for not reaching the members inbox</inlineHelpText>
+        <label>Reason</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PAM__Reason__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Reason Code</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Person_Customer_Relationship__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Person Customer Relationship</label>
+        <referenceTo>Person_Customer_Relationship__c</referenceTo>
+        <relationshipLabel>Campaign Members</relationshipLabel>
+        <relationshipName>Campaign_Members</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Salutation</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Mr.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ms.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mrs.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dr.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Prof.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Status</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Booked</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Booking</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bounced</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Campaign OptOut</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Clicked</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Declined</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Deleted</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Duplicate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Invalid</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Masterlist</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No Response</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Opened</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Opt In - Electronic</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Opt-in - Electronic</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Opt In - Hardcopy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Opt-in - Hardcopy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OptOut</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Previous Bounce</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Previous OptOut</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Responded</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Responded - Booked</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Responded - No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Works Complete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>true</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+</CustomObject>

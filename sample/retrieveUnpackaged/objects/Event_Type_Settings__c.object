@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <description>This custom object describes the settings for each event type including the colours and images to be displayed on the mapping page</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Active</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Event_Colour__c</fullName>
+        <defaultValue>&quot;BBBBBB&quot;</defaultValue>
+        <description>RGB code for the Event colour</description>
+        <externalId>false</externalId>
+        <label>Event Colour</label>
+        <length>6</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Help_Body_Text__c</fullName>
+        <externalId>false</externalId>
+        <label>Help Body Text</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Help_Link_Text__c</fullName>
+        <externalId>false</externalId>
+        <label>Help Link Text</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Help_Link_URL__c</fullName>
+        <externalId>false</externalId>
+        <label>Help Link URL</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Icon_Static_Resource_Name_Large__c</fullName>
+        <externalId>false</externalId>
+        <label>Icon Static Resource Name Large</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Icon_Static_Resource_Name__c</fullName>
+        <description>The name of the icon static resource for the event</description>
+        <externalId>false</externalId>
+        <label>Icon Static Resource Name</label>
+        <length>255</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Public_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Public Name</label>
+        <length>100</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Resolved_Icon_Static_Resource_Large__c</fullName>
+        <externalId>false</externalId>
+        <label>Resolved Icon Static Resource Large</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Resolved_Icon_Static_Resource__c</fullName>
+        <description>The link to the resolved icon</description>
+        <externalId>false</externalId>
+        <label>Resolved Icon Static Resource</label>
+        <length>255</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sort_Number__c</fullName>
+        <description>The number to sort the list by</description>
+        <externalId>false</externalId>
+        <label>Sort Number</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Event Type Settings</label>
+</CustomObject>

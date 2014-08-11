@@ -1,0 +1,57 @@
+<apex:page id="UnsubscribePage" sidebar="false" showHeader="false" title="Unsubscribe">
+	<!--
+        Description: Site login paged rebranded for SEW
+
+        History:
+            29-May-2011 D.Thong (Salesforce)    Created
+    -->
+	<head>
+<title>South East Water - Unsubscribe</title>
+<link rel="shortcut icon" href="https://southeastwater.secure.force.com/portal/favicon.ico" />
+
+	</head>
+
+	<style>
+		.siteLabel {width: 170px;}
+		ul {
+			margin-left: 1em;
+			padding-left: 0px;
+		}
+		.sitePanel {margin-top: 2%;}
+	</style>
+
+	<apex:includeScript value="{!URLFOR($Resource.jqueryui1816, '/js/jquery-1.6.2.min.js')}" />
+	<apex:includeScript value="{!URLFOR($Resource.jqueryui1816, '/js/jquery-ui-1.8.16.custom.min.js')}" />
+	<apex:includeScript value="https://aws.predictiveresponse.net/unsub.js" />
+	<apex:stylesheet value="{!URLFOR($Resource.jqueryui1816, '/css/custom-theme/jquery-ui-1.8.16.custom.css')}" />
+
+	
+	<apex:composition template="{!$Site.Template}">
+		<apex:define name="body">
+			<div style="margin-top: 50px; margin-bottom: 50px; margin-left: auto; margin-right: auto; padding: 45px 60px 45px 60px; width: 670px" class="bPageBlock brandSecondaryBrd apexDefaultPageBlock secondaryPalette">
+				Dear <script> printFirstName() </script> <script> printLastName() </script>,<br/> <br/> 
+				Occasionally, we send email messages to keep you updated about our products and services. If you would prefer not to receive such messages in the future, please choose ‘submit’ below to remove yourself from our email list:<br/><br/>
+				Please remove my address from your email list:<br/><br/>
+				<table cellpadding="5px">
+					<tr>
+						<td><script> getSubmitButton("http://www.southeastwater.com.au");
+					var x=document.getElementsByTagName("input");
+					for (var i = 0; i < x.length; i++){
+						if(x[i].value == "Submit"){
+							x[i].className = "btnGreen";
+							x[i].value = "  Submit  ";
+						}
+					}
+  				</script>
+						</td>
+						<td>
+						<input class="btn btnLightGrey" type="submit" style="margin: 4px 0px" onclick="window.location='http://www.southeastwater.com.au'; return false;" value="    Close    "/><br/>
+						</td>
+					</tr>
+				</table>
+				
+			</div>
+		</apex:define>
+	</apex:composition>
+
+</apex:page>

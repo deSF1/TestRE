@@ -1,0 +1,126 @@
+<apex:page showHeader="false">
+
+    <!--
+        Description: Live chat chatlet.
+
+        History:
+        
+        06-Jun-2012	DYu		CR: 5183
+    -->
+    
+    <head>
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:stylesheet value="{!$Resource.SEWPortalStyles}"/>
+        <apex:stylesheet value="{!$Resource.LiveChatStyle}"/>
+        <style>
+        	#liveAgentMessageContainer button 
+        	{display:none;}
+        </style>
+        <script type="text/javascript"> 
+            var j$ = jQuery.noConflict();
+           
+        </script>
+    </head>
+
+<!--     
+    <a href="{!$Site.CurrentSiteUrl + 'pkb_Home'}" onclick="window.open('{!$Site.CurrentSiteUrl + 'pkb_Home'}'); window.close(); return false;">foo2</a>
+ -->    
+
+    <!-- The root element for the chat window. This element gets a CSS class dynamically applied to indicate the state of the chat window. 
+    Available states are:  
+        “liveAgentStateWaiting” - indicates that the chat has not yet been answered.  
+        “liveAgentState” - indicates that the chat is engaged  
+        “liveAgentStateStatusMessage” - indicates that a status message is being displayed to the user.  
+        “liveAgentStateEnded” - indicates that the chat has ended. --> 
+
+    <liveAgent:clientchat >  
+
+        <div id="chatHeader">
+            <apex:image url="{!$Resource.SEWPortalLogo}" 
+                    alt="South East Water" 
+                    title="South East Water"/>
+        </div>
+    
+        <liveAgent:clientChatMessages />  
+        
+        <div id="waitingMessage" class="modal" > 
+            <apex:image value="{!$Resource.AjaxAnimation}" alt="Connecting..."/>
+            <em>Connecting you to our Customer Support team may take a few minutes.</em> 
+
+			<script>
+    			liveagent.addQueueUpdateHandler(function(i) {        
+    				document.getElementById("queueposition").innerHTML = i;
+
+    				if (i != null && i != '' && i != '0') 
+    					document.getElementById("queueinformation").style.display="inline";    
+    				else
+    					document.getElementById("queueinformation").style.display="none";    
+    				
+    				}
+    			); 
+			</script>
+
+			<div id="queueinformation" style="display:none">
+	            <p>
+	                There are currently&nbsp;<span id="queueposition"></span>&nbsp;person(s) in front of you.
+	            </p>
+	            <p>
+	                If you don't want to wait, try again later <br/>or visit the 'Support' page.
+	            </p>
+	            <center>
+	                <br />
+	                <input type="button" class="btnGreen" value="Cancel"
+	                    onclick="liveagent.endChat(); window.close(); return false;" tabindex="1" id="closetermswindow"/>
+	            </center>
+            </div>
+            
+            <!-- <liveAgent:clientChatQueuePosition id="chatQueuePosition"/>  -->
+        </div> 
+        <!-- save transcript btn -->
+        <div class="saveTranscript">
+            <liveAgent:clientChatSaveButton label="Save transcript"/>
+        </div>
+        <div id="chatControls" class="endChat"> 
+            <liveAgent:clientChatEndButton label="End chat" /> 
+        </div>
+        
+        <br/><br/> 
+        
+        <!-- main message window -->
+        <liveAgent:clientChatLog />  
+        
+        <div id="chatInput" class="pod"> 
+            <liveagent:clientChatInput /> 
+            <!-- <script>
+                document.getElementById("{!$Component.liveAgentChatInput}").size = 1;
+            </script>  -->
+            <liveAgent:clientChatSendButton label="Send" />   
+        </div>  
+        
+        <div id="closebtn" style="margin-top: 10px">
+            <center>
+                <br />
+                <input type="button" class="btnGreen" value="Close"
+                    onclick="javascript:window.close(); return false;" tabindex="1" id="closewindow2"/>
+            </center>        
+        </div>
+        
+    </liveAgent:clientchat>  
+    
+    <!-- You can customize the window title with the js below --> 
+    <script type="text/javascript"> 
+        document.title = "mySouthEastWater Live Chat"; 
+        document.forms[0].innerHTML = '<textarea class="liveAgentChatElement" rows="2" cols="25" id="liveAgentChatInput"></textarea>';
+
+		j$( '#liveAgentChatInput' ).keypress(function( e ){
+		    if( e.keyCode == 13 ){
+				liveagent.sendMessage();
+				e.preventDefault(); 
+				this.value = '';
+				return false;
+		    }
+		});
+
+    </script>  
+
+</apex:page>

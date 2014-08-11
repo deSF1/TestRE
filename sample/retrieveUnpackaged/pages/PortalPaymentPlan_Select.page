@@ -1,0 +1,280 @@
+<apex:page sidebar="false" showHeader="true" standardController="Case"  tabstyle="Portal_Payment_Options__tab" action="{!CheckRedirectConfirmed}"
+extensions="PortalPaymentPlanWizard_Controller" doctype="html-5.0">
+<!--
+        Description: Payment Plan 
+                     This is step 1 - Select address, plan and calculate
+        History:
+           30-Apr-2012 A.Vergara Created
+           1-June-2012 A.Vergara 5138
+           4-Jun-2012  D.Yu      Update: 5161 - Update header 
+           14-Jun-2012 D.Yu      Update: remove outstanding message must be shown after removal of payment plan
+           14-May-2013 N.Rangas	 TT10622
+           02-Oct-2013 N.Rangas	 TT#11689 Remove 'Reset Calculation' step
+
+ --> 
+    <html>
+        <!-- Head -->
+        <head>
+            
+            <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+            <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+            <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+            <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+          
+            <script type="text/javascript"> 
+               function nextCCField(){
+               	   var nextField =  "{$Component.
+               }
+            </script>
+            
+            <style type="text/css">
+                .bPageBlock .detailList .labelCol {
+                width: 40%;
+            }
+            .data2Col {
+                color: #252525;
+                width: 60%
+            }
+                
+                .radioButton tr td {
+                display: block;
+                vertical-align: inherit;
+                border-color: inherit;
+                margin-left: -8px;
+                }
+            
+                .radioButton tr td label {
+                margin-top: -20px;
+                display: block;
+                vertical-align: inherit;
+                border-color: inherit;
+                margin-left: 25px;
+                }
+                
+                .paymentHeader {
+                    font-size: 15pt;
+                }
+                
+                .higlightcontainer {
+                background-color: #D8EFF7;
+                margin-bottom: 1px;
+                padding: 10px;
+                }
+                
+               
+                
+            </style>
+            
+        </head>
+        <!-- Body -->
+        <body>
+            <apex:form id="form">
+                <!--  sidebar -->
+                <div class="pbTransparent sideBarCellDiv">
+                      <c:PortalSidebar id="sidebar" groupName="PaymentOptions" 
+                                currentAccRecordType="{!customer.RecordType.DeveloperName}" 
+                                currentDevName="PaymentOptions_SetUpAPlan" title="Payment options"
+                                />
+                </div>  
+                <!--  MAIN CONTENT -->
+                 <apex:outputPanel id="contentCellDiv" layout="block" styleClass="contentCellDiv" >
+                    <!-- TITLE LHS-->
+                    <apex:sectionHeader subtitle="Manage payment plan"/>
+                    
+                    <div class="clear"/>
+                    
+                    <apex:pageBlock id="contentCellPageblock" >
+                          <!-- Left HAND SIDE CONTENT -->
+                         
+                            
+                         <apex:outputPanel id="innerContentLHSDiv" styleClass="innerContentLHSDiv" >
+                            <script>
+                                    function changePaymentValue(frequency)
+                                    {
+                                       //change payment amount only if payment has been calculated
+                                       monthlyAmount = document.getElementById('{!$Component.form.contentCellPageblock.planDetails.monthly}').value;
+                                       fortnightlyAmount = document.getElementById('{!$Component.form.contentCellPageblock.planDetails.fortnight}').value;
+                                        if(document.getElementById('{!$Component.form.contentCellPageblock.planDetails.estimatePaymentPlanCheckOKResult}').value == 'true'){
+                                            changeAmount();
+                                        }
+                                    
+                                    }
+                                </script> 
+                          <!-- PAGE MESSAGES - ALWAYS DISPLAYED -->
+                            <apex:outputPanel id="pageMessages" layout="block" >
+                                <apex:pageMessages id="msgTop" escape="false" />
+                            </apex:outputPanel>
+                            <!--  <apex:outputPanel layout="block" rendered="{!paymentPlanExist && currentBillAcct.Balance__c > 0}"
+                                     style="margin-top: 20px">
+                                <apex:pageMessage escape="false" strength="2" severity="info" summary="Any outstanding balance on your account must be paid in full. You can pay by <a href={!$Page.PortalCCPayment}>credit card</a> or set up <a href={!$Page.PortalDirectDebit_Select}>direct debit</a> to have the amount automatically debited from your account."/>
+                            </apex:outputPanel>-->
+                            <apex:outputText >
+                               A payment plan lets you pay your bills through regular fixed 
+                               instalments over a 12 month period.  
+                            <br/>
+                            <br/>
+                              We simply estimate your bill for this period and average it out over a monthly or fortnightly 
+                              basis. This spreads the cost of your services evenly throughout the year, providing certainty
+                              and helping you manage your budget. Payments are also easily monitored so adjustments
+                               and notifications can be arranged if you’re paying too much or not quite enough.
+                               
+                            </apex:outputText>
+                            <apex:actionFunction name="changeAmount" action="{!setPAmount}" rerender="innerContentLHSDiv" status="loading"/>
+                            <br></br><br></br>
+                            <apex:pageBlockSection rendered="{!thereAreResidentialBillingAccounts}" id="planDetails" columns="1" title="Your details" showHeader="false" collapsible="false" >
+                                <apex:pageblockSectionItem id="property" >
+                                    <apex:outputLabel value="Select property:" />
+                                    <apex:selectList disabled="{!resetCalculation}" style="width:250px" id="billingAccountList" size="1" label="Property" value="{!selectedBillingAccountId}">
+                                        <apex:selectOptions value="{!residentialBillAcctOptions}" />
+                                        <apex:actionSupport event="onchange" status="loading" action="{!setBillingAccount}" rerender="innerContentLHSDiv" />
+                                    </apex:selectList>
+                                </apex:pageblockSectionItem>
+                                
+                                <!-- REMOVE -->
+                                <apex:pageblockSectionItem rendered="{!paymentPlanExist}" >
+                                    <apex:outputLabel />
+                                    <apex:outputPanel >
+                                    <apex:commandButton value="Remove" 
+                                            action="{!removePaymentPlanCall}"
+                                            styleClass="btnGreen" 
+                                            style="width: 80px"
+                                            id="nextbtn" />
+                                    <apex:commandButton value="Cancel" styleClass="btnClearGreenText"
+                                    action="{!fullCancel}"
+                                    />        
+                                    </apex:outputPanel>
+                                </apex:pageblockSectionItem> 
+                                <apex:pageblockSectionItem rendered="{!!paymentPlanExist}"  >
+                                    <apex:outputLabel value="Length of plan:" />
+                                   <!--  apex:selectRadio disabled="{!resetCalculation}" styleClass="radioButton" id="billingAccountList" label="Plan duration" value="{!currentCase.Term__c}" -->
+                                   <!--  apex:selectOptions value="{!planDurationList}" / -->
+                                   <!-- /apex:selectRadio --> 
+                                <apex:outputLabel value="{!currentCase.Term__c} payment plan" />
+                                </apex:pageblockSectionItem>
+                                <apex:inputHidden id="fortnight" value="{!paymentAmountFortnight}"/>
+                                <apex:inputHidden id="monthly" value="{!paymentAmountMonthly}"/>
+                                <apex:inputHidden id="estimatePaymentPlanCheckOKResult" value="{!estimatePaymentPlanCheckOKResult}"/>
+                                
+                                
+                                <apex:pageblockSectionItem rendered="{!!paymentPlanExist}" >
+                                    <apex:outputLabel value="Select payment frequency:" />
+                                    <apex:selectRadio onchange="changePaymentValue(this.value);" styleClass="radioButton" id="billingAccountList" label="Plan frequency" value="{!currentCase.Repayment_Frequency__c}" >
+                                        <apex:selectOptions value="{!planFrequencyList}" />
+                                    </apex:selectRadio>
+                                </apex:pageblockSectionItem>
+                               
+                                <apex:pageblockSectionItem rendered="{!!paymentPlanExist}" > 
+                                    <apex:outputLabel />
+                                    <apex:commandButton rendered="{!!resetCalculation}" value="Calculate your payment" action="{!calculatePaymentPlan}" disabled="{!!isSetUpPlanOK}"
+                                            rerender="innerContentLHSDiv" status="loading"   />
+                                 </apex:pageblockSectionItem>  
+                                <apex:pageblockSectionItem rendered="{!!paymentPlanExist}" > 
+                            <apex:outputLabel />
+                              <!-- apex:commandButton styleClass="btnClearGreenText" value="Reset calculation" action="{!resetCalculation}" rendered="{!resetCalculation}" rerender="innerContentLHSDiv" status="Loading"/ --> 
+                                </apex:pageblockSectionItem>
+                                <br/>
+                                 <apex:pageblockSectionItem rendered="{!estimatePaymentPlanCheckOKResult}" >  
+                                    <apex:outputLabel /> 
+                                    <apex:outputPanel ><div class="higlightcontainer">
+                                        This plan allows for a payment of
+                                        <br/>
+                                        <span style="font-size: 24pt;">$</span><span style="font-size: 24pt; margin-left: -2px;"> 
+                                            <apex:outputText id="pAmount" value="{0, number, ###,###,##0.00}">
+                                                    <apex:param value="{!currentCase.Payment_Amount__c}" /> 
+                                                </apex:outputText>
+                                            <apex:outputText value="{!IF(currentCase.Repayment_Frequency__c = 'Fortnightly','  per fortnight',' per month')}"/>
+                                        </span>
+                                        </div>
+                                    </apex:outputPanel>
+                                    
+                                 </apex:pageblockSectionItem>   
+                                <br/>
+                                <apex:pageblockSectionItem rendered="{!estimatePaymentPlanCheckOKResult}" >  
+                                    <apex:outputLabel /> 
+                                    <apex:outputPanel >
+                                        <apex:outputText value="with first payment on  " />
+                            <apex:inputField id="firstDate" value="{!currentCase.First_Payment_Date__c}">
+                            
+                                  <script type="text/javascript">
+                                // hide the date defaulter
+                                var datefield = document.getElementById("{!$Component.firstDate}");
+                                datefield.nextSibling.style.display="none";
+                                    </script>
+                            </apex:inputField>
+                                    </apex:outputPanel>
+                                    
+                                 </apex:pageblockSectionItem>   
+                                <br/>
+                        
+                                
+                                
+                                <apex:pageblockSectionItem rendered="{!!paymentPlanExist}" >
+                                    <apex:outputLabel /> 
+                                    <apex:outputPanel >
+                                    <apex:commandButton value="Next" disabled="{!!estimatePaymentPlanCheckOKResult}"
+                                            action="{!selectPaymentMethod}"
+                                            styleClass="btnGreen" 
+                                            style="width: 80px"
+                                            id="nextbtn" />
+                                    <apex:commandButton value="Cancel" styleClass="btnClearGreenText"
+                                    action="{!fullCancel}"
+                                    />        
+                                    </apex:outputPanel>
+                                </apex:pageblockSectionItem> 
+                                
+                                
+                            </apex:pageBlockSection>
+                         
+                         
+                         </apex:outputPanel>
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         <!-- RIGHT HAND SIDE CONTENT -->
+                         <apex:outputPanel id="innerContentRHSDiv" layout="block" styleClass="innerContentRHSDiv" >
+                             <!--  live chat -->
+                             <c:LiveChat />
+                            <c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+                            divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+                            divStyle="width: 205px"/>
+                            <!--  quick links -->
+                            <div style="position: relative;"><c:PortalQuickLinks /></div>
+                        </apex:outputPanel>
+    
+                        <div style="clear:both"/>
+                    </apex:pageBlock>
+                     
+                    
+                   
+                    
+               </apex:outputPanel>
+                
+               <!-- Action Status that are not position dependent -->
+                 <apex:actionStatus id="loading">
+                    <apex:facet name="start">
+                        <c:EnhancedActionStatus BackColor="#ffffff"
+                                               borderColor="#6B6B6B"
+                                               borderSize="1"
+                                               height="50px"
+                                               width="120px"
+                                               margintop="-25px"
+                                               marginleft="-60px"
+                                               ImageUrl="{!$Resource.AjaxAnimation}"
+                                               Message="Loading..."/>
+                    </apex:facet>
+                 </apex:actionStatus>
+            </apex:form>
+            
+            
+        </body>
+       
+   </html>
+</apex:page>

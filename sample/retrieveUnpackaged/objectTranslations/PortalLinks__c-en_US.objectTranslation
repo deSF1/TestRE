@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Portal Links</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Portal Links</value>
+    </caseValues>
+    <fields>
+        <label><!-- Concession Help Link --></label>
+        <name>Concession_Help_Link__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

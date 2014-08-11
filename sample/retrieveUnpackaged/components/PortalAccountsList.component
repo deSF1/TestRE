@@ -1,0 +1,88 @@
+<!-- 
+    Type:       VF Component
+    Purpose:    Displays the Account List
+    ---------------------------------------------------------------
+    History:
+        23-Sep-2013 N.Patterson 	- TT10401: View multiple customers for a single Portal user
+    -->
+
+<apex:component controller="PortalAccountList_Controller">
+	<apex:attribute name="billingAccountId" 
+					assignTo="{!selectedBillingAccountId}"
+					description="Current Billing Account record in the calling standardController" 
+					type="String" 
+					required="false" />
+	<apex:attribute name="displayAccountList" 
+					assignTo="{!displayAccountList}"
+					description="Indicates whether to display the list of Accounts or not" 
+					type="Boolean" 
+					required="false" /> <!-- TT10401-Attribute to show or hide the account list -->
+
+    <apex:outputPanel layout="block" styleclass="pageBlockHeader">
+           <apex:outputPanel layout="block" styleclass="pageBlockTitle midGrey">
+           		Accounts
+           </apex:outputPanel>
+	</apex:outputPanel>
+
+	<div class="pbNoTopPad" style="padding-bottom: 0px !important;">
+		<apex:pageBlock id="sidebarpb">
+			<apex:outputPanel layout="block" styleclass="borderDottedWhiteBottom" style="width:100%"/>
+			<apex:outputPanel layout="block" styleclass="contentsLinkCell borderDottedWhiteBottom"> <!-- TT10401-Added menu item -->
+                <apex:outputLink value="{!$Page.PortalAccountDetailPage}" styleclass="contentsLink" target="_top">
+                    Account List
+                </apex:outputLink>
+            </apex:outputPanel>
+			<apex:repeat value="{!accounts}" var="acct" rendered="{!displayAccountList}"> <!-- TT10401-Added ability to show or hide the account list -->
+				<!-- TODO: Include style into styleClass -->
+				<apex:outputPanel layout="block" styleclass="contentsLinkCell borderDottedWhiteBottom" >
+					<apex:outputLink value="{!$Page.PortalAccountDetailPage}?id={!acct.id}" styleclass="{!IF(acct.id == billingAccountId, 'contentsLinkActive', 'contentsLink')}" style="padding-left:20px !important;" target="_top">
+						<apex:outputText value="{!acct.HiAF_Account_Number_Check_Digit__c}" rendered="{!ISBLANK(acct.Property__c)}"/>
+						<apex:outputText value="{!acct.Property__r.Street_Address_Proper__c}" rendered="{!NOT(ISBLANK(acct.Property__c))}"/>
+					</apex:outputLink>
+				</apex:outputPanel>
+			</apex:repeat>
+			<apex:inputHidden value="{!totalNoOfPages}" id="nbrpages"/>
+			<div id="paginator" style="display:none">
+				<apex:outputPanel layout="block" styleClass="navigationBox" 
+							style="margin-top: 10px; display: block; width: 80px"
+							id="navPanel" 
+							>
+					<apex:panelGrid columns="2">
+						<apex:outputText value="Page"/>
+						<apex:actionRegion >
+							<apex:selectList size="1" value="{!currentPageNumber}" 
+									style="vertical-align: middle" >
+								<apex:selectOptions value="{!pageNbrOptions}" />
+								<apex:actionSupport event="onchange" rerender="sidebarpb" status="loading"
+													oncomplete="ShowHidePaginator()"/>
+							</apex:selectList>
+						</apex:actionRegion> 
+					</apex:panelGrid>                              	
+				</apex:outputPanel>
+			</div>
+			<!-- TODO: Include style into styleClass -->
+			<apex:outputPanel layout="block" rendered="{!nbrOfAccounts=0}" style="padding: 14px;">
+				<i>You have no accounts with us</i>
+			</apex:outputPanel>
+		</apex:pageBlock>
+	</div>
+	
+
+	<script>
+	
+		ShowHidePaginator();
+	
+		function ShowHidePaginator() {
+			try {
+				var nbrPages = parseInt(document.getElementById('{!$Component.sidebarpb.nbrpages}').value);
+				if (nbrPages > 1 && {!displayAccountList}) {
+					document.getElementById('paginator').style.display="inline";    
+				}
+				
+			} catch (e)
+			{}	
+		}		
+	</script>
+
+	
+</apex:component>

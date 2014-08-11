@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>API_Hostname__c</fullName>
+        <description>Used by the registration process</description>
+        <externalId>false</externalId>
+        <label>API Hostname</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Disable_Segmentation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Disable Segmentation</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>LiveChat_Button_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>LiveChat Button Id</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveChat_Deployment_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>LiveChat Deployment Id</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveChat_URL__c</fullName>
+        <externalId>false</externalId>
+        <label>LiveChat URL</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Portal_Contact_Phone__c</fullName>
+        <description>SEW Call center #</description>
+        <externalId>false</externalId>
+        <label>Portal Contact Phone</label>
+        <required>false</required>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Portal_Task_Default_User__c</fullName>
+        <externalId>false</externalId>
+        <label>Portal Task Default User</label>
+        <length>18</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sandbox_Name__c</fullName>
+        <description>Name of the sandbox</description>
+        <externalId>false</externalId>
+        <label>Sandbox Name</label>
+        <length>30</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Secure_Login_Url__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>The secure login URL used for redirecting from a non-secure login page</inlineHelpText>
+        <label>Secure Login Url</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>PortalSettings</label>
+</CustomObject>

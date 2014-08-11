@@ -1,0 +1,24 @@
+<!--  
+    Type:       Visualforce Page
+    Purpose:    Public Knowledge Base Articles Search            
+
+    Used By:    
+    ---------------------------------------------------------------
+    History:
+
+    15-May-2013 Mat Isidro (Cloud Sherpas)    Created (TT10625 - Public General Enquiry Form and Knowledge Base Articles)
+-->
+<apex:page cache="false"
+  standardStylesheets="false"
+  showHeader="false"
+  sidebar="false"
+  controller="pkb_Controller2"
+  tabstyle="Portal_Support__tab"
+  language="{!$CurrentPage.parameters.l}">
+
+<!-- this empty page simply invokes the PKB site template and gives us a page to set the Site homepage to -->
+<apex:composition template="pkb_Template2">
+  <apex:define name="body"></apex:define>
+</apex:composition>
+
+</apex:page>

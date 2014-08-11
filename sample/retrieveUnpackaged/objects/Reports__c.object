@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <description>Custom setting for reports</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>My_Financial_Hardships_for_Review_Today__c</fullName>
+        <externalId>false</externalId>
+        <label>My Financial Hardships for Review Today</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NumberOfCallsReportID__c</fullName>
+        <description>Report RecordID Reference to the Number Of Calls report</description>
+        <externalId>false</externalId>
+        <label>NumberOfCallsReportID</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PersonRoleID__c</fullName>
+        <externalId>false</externalId>
+        <label>PersonRoleID</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PropertiesInSubdivisionReportId__c</fullName>
+        <externalId>false</externalId>
+        <label>PropertiesInSubdivisionReportId</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SingleCustomerStoryBoardID__c</fullName>
+        <externalId>false</externalId>
+        <label>SingleCustomerStoryBoardID</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Year__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>YYYY/YY format e.g. 2008/09</inlineHelpText>
+        <label>Year</label>
+        <length>7</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Reports</label>
+</CustomObject>

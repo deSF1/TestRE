@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Billing_Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Billing Account</label>
+        <referenceTo>Billing_Account__c</referenceTo>
+        <relationshipLabel>Customer Classifications</relationshipLabel>
+        <relationshipName>Customer_Classifications</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Class_Code__c</fullName>
+        <externalId>false</externalId>
+        <formula>Classification__r.Name</formula>
+        <label>Class Code</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Classification_Description__c</fullName>
+        <externalId>false</externalId>
+        <formula>Classification__r.Short_Description__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Classification Description</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Classification_Message__c</fullName>
+        <externalId>false</externalId>
+        <formula>Classification__r.Message__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Classification Message</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Classification_Sort_Order__c</fullName>
+        <description>Sort order from the warning itself.</description>
+        <externalId>false</externalId>
+        <formula>Classification__r.Sort_Order__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Classification Sort Order</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Classification__c</fullName>
+        <externalId>false</externalId>
+        <label>Classification</label>
+        <referenceTo>Classification_Code__c</referenceTo>
+        <relationshipLabel>Customer Classifications</relationshipLabel>
+        <relationshipName>Customer_Classifications</relationshipName>
+        <relationshipOrder>1</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>true</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>true</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Comments</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Customer__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Customer Classifications</relationshipLabel>
+        <relationshipName>Customer_Warnings</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>true</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>zzzEnd Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>External_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>External Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>HiAF_Account_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>Billing_Account__r.HiAF_Account_Number__c</formula>
+        <label>HiAF Account Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Identifies if the classification is still active against the Customer/Billing Account</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Identifies if the classification is still active against the Customer/Billing Account</inlineHelpText>
+        <label>Is Active</label>
+        <trackHistory>true</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Last_Modified_By_User_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>LastModifiedBy.Username</formula>
+        <label>Last Modified By User Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Modified_By_User_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(LastModifiedBy.UserType)</formula>
+        <label>Last Modified By User Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reference__c</fullName>
+        <externalId>false</externalId>
+        <label>Reference</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <defaultValue>TODAY()</defaultValue>
+        <externalId>false</externalId>
+        <label>zzzStart Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <label>Customer Classification</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Classification__c</columns>
+        <columns>Billing_Account__c</columns>
+        <columns>Customer__c</columns>
+        <columns>Classification_Description__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{0000000000}</displayFormat>
+        <label>#</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Customer Classifications</pluralLabel>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Customer__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Billing_Account__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Classification__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Classification_Description__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Is_Active__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Customer__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Billing_Account__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Classification__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Classification_Description__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Is_Active__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Cannot_Create_CC</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISNEW() &amp;&amp; 
+NOT( 
+$Profile.Name == &quot;SEW Integration&quot; || 
+$Profile.Name == &quot;SEW Administrator&quot; || 
+$Profile.Name == &quot;System Administrator&quot; 
+) &amp;&amp; (Classification__r.Name == &quot;CC&quot;)</errorConditionFormula>
+        <errorDisplayField>Classification__c</errorDisplayField>
+        <errorMessage>You cannot create a new CC classification.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Cannot_Edit_BA</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISCHANGED( Billing_Account__c ) &amp;&amp; NOT(ISBLANK(PRIORVALUE(Billing_Account__c))) &amp;&amp; 
+NOT( 
+$Profile.Name == &quot;SEW Integration&quot; || 
+$Profile.Name == &quot;SEW Administrator&quot; || 
+$Profile.Name == &quot;System Administrator&quot; 
+)</errorConditionFormula>
+        <errorDisplayField>Billing_Account__c</errorDisplayField>
+        <errorMessage>Billing Account cannot be changed. If necessary, inactivate this classification and create a new one.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Cannot_Reactivate</fullName>
+        <active>true</active>
+        <errorConditionFormula>Is_Active__c &amp;&amp;  NOT(PRIORVALUE(Is_Active__c )) &amp;&amp; 
+NOT( 
+$Profile.Name == &quot;SEW Integration&quot; || 
+$Profile.Name == &quot;SEW Administrator&quot; || 
+$Profile.Name == &quot;System Administrator&quot; 
+)</errorConditionFormula>
+        <errorDisplayField>Is_Active__c</errorDisplayField>
+        <errorMessage>Inactive classifications cannot be reactivated. Please create a new one.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Credit_User_deals_with_Credit_Mgmt</fullName>
+        <active>true</active>
+        <description>Only SEW Credit Users can add a Credit Management classifications to a Customer or Billing Account</description>
+        <errorConditionFormula>(ISPICKVAL(Classification__r.Type__c, &quot;Credit Management&quot;) || ISPICKVAL(Classification__r.Type__c, &quot;Legal Credit Management&quot;)) &amp;&amp;
+NOT(
+ $Profile.Name == &quot;SEW Credit User&quot; ||
+ $Profile.Name == &quot;SEW Integration&quot; ||
+ $Profile.Name == &quot;SEW Administrator&quot; || 
+ $Profile.Name == &quot;System Administrator&quot;
+)</errorConditionFormula>
+        <errorDisplayField>Classification__c</errorDisplayField>
+        <errorMessage>Only SEW Credit Users can add a &quot;Credit Management&quot; classification to a Customer or Billing Account</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>If_CC_Class_cannot_edit_BA</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISCHANGED( Billing_Account__c ) &amp;&amp; 
+NOT( 
+$Profile.Name == &quot;SEW Integration&quot; || 
+$Profile.Name == &quot;SEW Administrator&quot; || 
+$Profile.Name == &quot;System Administrator&quot; 
+) &amp;&amp; (Classification__r.Name == &quot;CC&quot;)</errorConditionFormula>
+        <errorDisplayField>Billing_Account__c</errorDisplayField>
+        <errorMessage>Billing Account cannot be changed for &quot;CC&quot; Classification</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>If_CC_Class_cannot_edit_Comment</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISCHANGED(  Comments__c  ) &amp;&amp; 
+NOT( 
+$Profile.Name == &quot;SEW Integration&quot; || 
+$Profile.Name == &quot;SEW Administrator&quot; || 
+$Profile.Name == &quot;System Administrator&quot; 
+) &amp;&amp; (Classification__r.Name == &quot;CC&quot;)</errorConditionFormula>
+        <errorDisplayField>Comments__c</errorDisplayField>
+        <errorMessage>Comments cannot be changed for &quot;CC&quot; Classification</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>No_Tilde</fullName>
+        <active>true</active>
+        <errorConditionFormula>CONTAINS( Reference__c , &apos;~&apos;)</errorConditionFormula>
+        <errorDisplayField>Reference__c</errorDisplayField>
+        <errorMessage>The character &apos;~&apos; cannot be used in the Reference field.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Reference_Not_Editable</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISCHANGED(  Reference__c  ) &amp;&amp; 
+NOT( 
+$Profile.Name == &quot;SEW Integration&quot; || 
+$Profile.Name == &quot;SEW Administrator&quot; || 
+$Profile.Name == &quot;System Administrator&quot; 
+)</errorConditionFormula>
+        <errorDisplayField>Comments__c</errorDisplayField>
+        <errorMessage>The reference cannot be changed. If necessary, inactivate and create a new classification.</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Classification_Codes</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Classification Codes</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>/a0L?fcf={!$Setup.Classification__c.PulseCodesViewID__c}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Mass_Update</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Mass Update</masterLabel>
+        <openType>sidebar</openType>
+        <page>MassUpdateCustomerClassification</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+    <webLinks>
+        <fullName>New_Cust_Classif_BAcct_RList</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>New Customer Classification</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>if (typeof(srcUp) == &apos;function&apos;) { 
+navigateToUrl(&apos;/a0M/e?isdtp=vw&amp;CF{!$Setup.SystemSettings__c.CustClassifBAcctFieldId__c}={!Billing_Account__c.Name}&amp;CF{!$Setup.SystemSettings__c.CustClassifBAcctFieldId__c}_lkid={!Billing_Account__c.Id}&amp;retURL=%2F{!Billing_Account__c.Id}&amp;CF{!$Setup.SystemSettings__c.CustClassifCustFieldId__c}={!URLENCODE(Billing_Account__c.Customer_Name__c)}&amp;CF{!$Setup.SystemSettings__c.CustClassifCustFieldId__c}_lkid={!Billing_Account__c.Customer_Id__c}&apos;); 
+} else { 
+window.top.location = &quot;/a0M/e?CF{!$Setup.SystemSettings__c.CustClassifBAcctFieldId__c}={!Billing_Account__c.Name}&amp;CF{!$Setup.SystemSettings__c.CustClassifBAcctFieldId__c}_lkid={!Billing_Account__c.Id}&amp;retURL=%2F{!Billing_Account__c.Id}&amp;CF{!$Setup.SystemSettings__c.CustClassifCustFieldId__c}={!URLENCODE(Billing_Account__c.Customer_Name__c)}&amp;CF{!$Setup.SystemSettings__c.CustClassifCustFieldId__c}_lkid={!Billing_Account__c.Customer_Id__c}&quot;; 
+}</url>
+    </webLinks>
+</CustomObject>

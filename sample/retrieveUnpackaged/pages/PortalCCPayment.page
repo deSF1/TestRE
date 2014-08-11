@@ -1,0 +1,379 @@
+<apex:page sidebar="false" showHeader="true"
+    doctype="html-5.0"
+    tabstyle="Portal_Payment_Options__tab" action="{!CheckRedirectConfirmed}" 
+    controller="PortalCCPaymentController">
+    <!-- 
+    Type:       VF page
+    Purpose:    Displays HiAF Payment History For Portal User
+    ---------------------------------------------------------------
+    History:
+    
+        ??-Feb-2012 D.Thong     Created
+    -->
+    
+    <html>
+        <!-- Head -->
+        <head>
+            <META HTTP-EQUIV="EXPIRES" CONTENT="-1" />
+            <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+            <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+            <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+            <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+            <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>        
+            <apex:stylesheet value="{!$Resource.PortalPayment_Styles}"/>        
+    
+            <script type="text/javascript"> 
+                var j$ = jQuery.noConflict();
+
+                j$(function() {
+                    CreateCVN();
+                });
+                
+                function CreateCVN() {
+                    j$( "#cvn-popup" ).dialog({
+                        dialogClass: 'ui-dropshadow',
+                        autoOpen: false,
+                        width: 400,
+                        modal: true,
+                        resizable: false,
+                        title: 'Credit Card CVN'
+                    });             
+                }
+            </script>
+            
+            <style type="text/css">
+                .bPageBlock .detailList .labelCol {
+                    padding-bottom: 15px;
+                    padding-left: 0px !important;
+                    width: 33% !important;
+                }            
+
+                .bEditBlock .detailList .dataCol, .bEditBlock .detailList .data2Col {
+                    padding-left: 0px;
+                }
+
+            </style>
+            
+        
+        </head>
+
+        <!-- Body -->
+        <body>
+            <apex:form id="form">
+                <!-- hidden outputfields or input fields go here -->
+                <apex:outputfield rendered="false" value="{!userInputFields.Billing_Account__c}" />
+                <apex:inputhidden value="{!userInputFields.Customer_Account__c}" />
+                <apex:inputhidden value="{!userInputFields.Billing_Account__c}"/>
+
+                <!--  sidebar -->
+                <div class="pbTransparent sideBarCellDiv">
+                    <!--  sidebar -->                           
+                    <c:PortalSidebar id="sidebar" groupName="PaymentOptions" 
+                                currentAccRecordType="{!customer.RecordType.DeveloperName}" 
+                                currentDevName="PaymentOptions_CCPayment"
+                                title="Payment options"/>
+                </div>
+        
+                <!-- Start of real page content here-->
+        
+                <apex:outputPanel id="wholePage" layout="block" styleClass="contentCellDiv">
+    
+                    <apex:sectionheader subtitle="Pay by credit card"/>
+                    <div class="clear"/>
+    
+                    <apex:pageblock mode="edit" id="pb">
+    
+                        <!-- CONTENT -->
+                        
+                        <!--  normal CC payment pbs -->
+                        <div class="contentCellDiv">
+
+                            <apex:outputPanel id="innerContentLHSDiv" styleclass="innerContentLHSDiv">
+
+                                <!--  PAGE MESSAGES -->
+                                <div style="margin-top: 5px; text-align: left">
+                                    <apex:pageMessages id="msg" />
+                                </div>
+
+                                <apex:outputPanel layout="block" style="color:#959593 !important;font-size: 14pt" rendered="{!gateWayStatus}">
+                                    Pay your account securely by Visa or MasterCard.
+                                </apex:outputPanel>
+                                <br/>
+                                <c:PortalRequiredField styleclass="requiredFieldIndicatorRHSNoHeight" rendered="{!gateWayStatus}"/>
+                                <apex:pageBlockSection columns="1" id="pbs1" rendered="{!gateWayStatus}">
+                                    <h3>Enter your payment details below</h3>        
+                                    <!-- <div style="width:400px; margin-top: 10px">Pay your account securely by Visa or MasterCard.</div> -->
+                                    <p/>
+                                    <apex:pageBlockSectionItem >
+                                        <apex:outputLabel >Account</apex:outputLabel>
+                                        <apex:outputPanel layout="block" styleclass="requiredInput">                     
+                                            <apex:outputPanel layout="block" styleclass="requiredBlock"/>
+                                            <apex:actionRegion >
+                                                <apex:selectList value="{!userInputFields.Billing_Account__c}" 
+                                                            size="1" label="Account" id="billingaccountlist" 
+                                                            style="position:relative; top: -2px;"
+                                                            required="true">
+                                                    <apex:selectOptions value="{!billAcctOptions}" />
+                                                    <apex:actionsupport event="onchange" action="{!getAmount}" 
+                                                            rerender="msg,innerContentLHSDiv" status="accountloader"/>
+                                                </apex:selectList>
+                                            </apex:actionRegion>
+                                            <apex:actionStatus id="accountloader">
+                                                <apex:facet name="start"><apex:image value="{!$Resource.AjaxAnimation}" title="loading..."/></apex:facet>
+                                            </apex:actionStatus>
+                                        </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>
+                                    <apex:outputField label="Account balance" value="{!UserInputFields.Billing_Account__r.Balance__c}" 
+                                                        style="position:relative; top: 2px;"
+                                                        id="balance"/>
+            
+                                    <apex:outputPanel id="creditwarning" rendered="{!NOT(ISBLANK(UserInputFields.Billing_Account__r.Balance__c)) && UserInputFields.Billing_Account__r.Balance__c < 0}">
+                                        <apex:pagemessage summary="Your account is currently in credit. If you still wish to make a payment, please enter the payment amount."
+                                            severity="warning"
+                                            strength="2"/>
+                                    </apex:outputPanel>
+                                    
+                                    <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Credit card type"/>
+                                        <apex:outputPanel >
+                                            <apex:inputField value="{!userInputFields.Credit_Card_Type__c}" 
+                                                                style="position:relative; top: -2px;"
+                                                                id="cctype" required="true"/>
+                                            <apex:image url="{!URLFOR($Resource.Icons, 'Icons/mastercardvisalogo.gif')}" />
+                                        </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>
+                                    
+                                    <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Credit card number" />
+                                        <apex:outputPanel >
+                                            <table cellpadding="0" cellspacing="0" style="border-spacing: 0">
+                                                <tr>
+                                                    <td style="width: 40px; color: #fff">
+                                                        <apex:inputField value="{!userInputFields.Credit_Card_Number_1__c}"
+                                                            required="true"
+                                                            label="Credit card number"
+                                                            id="creditCardNumber1">
+                                                        </apex:inputField>
+                                                        <apex:message for="creditCardNumber1"/>
+                                                    </td>
+                                                    <td style="width: 40px"><apex:inputField value="{!userInputFields.Credit_Card_Number_2__c}"
+                                                            id="creditCardNumber2" style="margin-left:2px">
+                                                        </apex:inputField>
+                                                    </td>
+                                                    <td style="width: 40px"><apex:inputField value="{!userInputFields.Credit_Card_Number_3__c}"
+                                                            id="creditCardNumber3" style="margin-left:2px">
+                                                        </apex:inputField>
+                                                    </td>
+                                                    <td style="width: 40px"><apex:inputField value="{!userInputFields.Credit_Card_Number_4__c}"
+                                                            id="creditCardNumber4" style="margin-left:2px">
+                                                        </apex:inputField>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <script>
+                                                document.getElementById('{!$Component.creditCardNumber1}').autocomplete = "off";
+                                                document.getElementById('{!$Component.creditCardNumber2}').autocomplete = "off";
+                                                document.getElementById('{!$Component.creditCardNumber3}').autocomplete = "off";
+                                                document.getElementById('{!$Component.creditCardNumber4}').autocomplete = "off";
+                                                document.getElementById('{!$Component.creditCardNumber1}').size = "3";
+                                                document.getElementById('{!$Component.creditCardNumber2}').size = "3";
+                                                document.getElementById('{!$Component.creditCardNumber3}').size = "3";
+                                                document.getElementById('{!$Component.creditCardNumber4}').size = "3";
+            
+                                            </script>
+                                        </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>
+                                    <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Expiry date" />
+                                        <apex:outputPanel >
+                                            <table cellpadding="0" cellspacing="0" style="border-spacing: 0">
+                                                <tr>
+                                                    <td style="width: 80px">
+                                                        <apex:inputField value="{!userInputFields.Expiration_Date_Month__c}" label="Expiry date" required="true"/>
+                                                    </td>
+                                                    <td>
+                                                        <apex:selectList value="{!userInputFields.Expiration_Date_Year__c}"
+                                                            multiselect="false" size="1">
+                                                            <apex:selectOptions value="{!items}" />
+                                                        </apex:selectList>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>
+                                    <apex:inputField value="{!userInputFields.Name_on_Card__c}" label="Name on card" required="true" id="nameoncard" >
+                                        <script>
+                                            document.getElementById('{!$Component.nameoncard}').autocomplete = "off";
+                                        </script>
+                                    </apex:inputField>
+                                    <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="CVN"/>
+                                        <apex:outputPanel >
+                                            <apex:inputField value="{!userInputFields.CVN__c}" id="cvn" label="CVN" required="true" >
+                                                <script>
+                                                    document.getElementById('{!$Component.cvn}').autocomplete = "off";
+                                                    document.getElementById('{!$Component.cvn}').size="3";
+                                                </script>
+                                            </apex:inputField>
+                                            <span style="font-weight: bold">
+                                                <apex:outputLink onclick="j$('#cvn-popup').dialog('open'); return false;"
+                                                                style="position:relative; top: 5px;"
+                                                    >Show me where to find this</apex:outputLink>
+                                                <!-- 
+                                                <apex:outputLink value="#" onmouseover="showCVN()" onmouseout="hideCVN()">Show me</apex:outputLink>
+                                                <span id="cvnimage">
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/creditcardcvn.png')}"
+                                                            title="CVN Back Panel" />
+                                                </span>
+                                                 -->
+
+                                            </span>
+                                        </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>
+                                    <apex:inputField label="Payment amount" id="amountField" value="{!userInputFields.Amount__c}" required="true">
+                                        <script>
+                                            document.getElementById('{!$Component.amountField}').autocomplete = "off";
+                                        </script>
+                                    </apex:inputField>
+                                    <apex:pageBlockSectionItem >
+                                        <apex:outputLabel />
+                                        Payments may not be reflected in your account for up to 48 hours.
+                                    </apex:pageBlockSectionItem>
+                                    <br/>
+                                    <apex:pageBlockSectionItem >
+                                        <apex:outputLabel />
+                                        <apex:outputPanel >
+                                            <apex:commandButton action="{!submit}" 
+                                                    styleClass="btnPrimary"
+                                                    value="Submit"
+                                                    disabled="{!submitting}" 
+                                                    rerender="form"
+                                                    rendered="{!gateWayStatus}"
+                                                    oncomplete="doSubmitPayment();"
+                                                    status="loading" />
+                                            <apex:commandButton value="Cancel" styleClass="btnClearGreenText"
+                                                    onclick="goHome();return false" />
+                                        </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>
+
+                                </apex:pageBlockSection>
+                            
+                            </apex:outputPanel>
+
+                            <div class="innerContentRHSDiv">
+
+                                <!--  live chat -->
+                                <c:LiveChat />
+                                
+                                <c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+                                    divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+                                    divStyle="width: 205px"/>
+                                
+                                <!--  quick links -->
+                                <div style="position: relative;"><c:PortalQuickLinks mode="Payment"/></div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="clear"/>
+                        
+                    </apex:pageblock>
+
+                    <apex:actionPoller action="{!checkStatus}" interval="5"
+                        rendered="{!submitting}" rerender="msg,innerContentLHSDiv,redirectflag,timeoutflag" oncomplete="doRedirect()" />
+                    <apex:inputHidden value="{!redirect}" id="redirectflag" />
+                    <apex:inputHidden value="{!timeOut}" id="timeoutflag" />
+    
+                    <script>
+                        function doRedirect() {
+                            CreateCVN();
+                            
+                            var redirectFlag = document.getElementById('{!$Component.redirectflag}').value;
+                            var timeoutFlag = document.getElementById('{!$Component.timeoutflag}').value;
+        
+                            if (redirectFlag == 'true') {
+                                Redirect();
+                            }
+                            if (timeoutFlag == 'true') {
+                                Timeout();
+                            } 
+                        }
+                        function doSubmitPayment() {
+                            CreateCVN();
+                            if('{!Taskrec.id}' != '') {
+                                submitPayment();
+                            }
+                        }
+                        
+                        function goHome(){       
+                            window.location = "{!$Page.PortalMyAccountHomePage}";
+                        } 
+                    </script>
+                    <apex:actionFunction action="{!submitPayment}" name="submitPayment" />
+                    <apex:actionFunction action="{!Redirect}" name="Redirect" />
+                    <apex:actionFunction action="{!Timeout}" name="Timeout" />
+                </apex:outputPanel>
+    
+                <c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+                    borderSize="1" height="150px" width="300px" margintop="-50px"
+                    marginleft="-125px" ImageUrl="{!$Resource.AjaxAnimation}"
+                    Message="<b>Processing</b><br><br>Please do not shut down your browser or press the browser's stop, refresh or back buttons while your request is being processed" 
+                    rendered="{!submitting}" />
+    
+                <!-- Action Status that are not position dependent -->
+                <apex:actionStatus id="loading">
+                    <apex:facet name="start">
+                        <c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+                            borderSize="1" height="50px" width="120px" margintop="-25px"
+                            marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+                            Message="Processing..." />
+                    </apex:facet>
+                </apex:actionStatus>
+
+                <!-- sample bill popup -->
+                <div id="cvn-popup" class="clear">
+
+                    <div style="text-align: justify; overflow: auto; padding: 0px 10px; border: solid 1px #E4E2DD" class="radiusAll">
+                        <p>                     
+                            The CVN is the last 3 digits of the number on the signature panel found on the back of your credit card. 
+                        </p>    
+                        <apex:image url="{!URLFOR($Resource.Icons, 'Icons/creditcardcvn.png')}"
+                                title="CVN Back Panel" />
+                    </div>
+
+                    <center>
+                        <br/>
+                        <apex:commandButton styleClass="btnGreen" value="Close"
+                            onclick="hideCVN(); return false;" tabindex="1" id="closecvnwindow"/>
+                        <script>
+                            function hideCVN() {
+                                j$("#cvn-popup").dialog("close");
+                            }
+                        </script>
+                    </center>
+                </div>
+
+            </apex:form>
+        
+            <script type="text/javascript">
+                var previousOnload = window.onload;
+                window.onload = function() {
+                    window.scrollTo(0,0);
+                    try {
+                        j$(":input:enabled:visible:first").focus();
+                    } catch (e) {
+                        alert(e.toString());
+                    }
+                    // disable back button
+                    window.history.forward(1);
+                }
+            </script>
+        </body>
+        <head>
+            <META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
+            <META HTTP-EQUIV="EXPIRES" CONTENT="-1" />
+        </head>
+    </html>
+</apex:page>

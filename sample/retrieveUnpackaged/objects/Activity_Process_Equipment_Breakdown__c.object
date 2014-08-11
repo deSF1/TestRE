@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Activity_Process_Equipment__c</fullName>
+        <externalId>false</externalId>
+        <label>Activity/Process/Equipment</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Animal use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Boiler</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Building and Construction</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cleaning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Clean in Place (CIP)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cooling tower</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dairy shed and milk vat</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Domestic Residence - not accommodation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Evaporative Cooling/chillers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fire Service / Sprinkler Testing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Food Preparation, cooking, dishwashing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Food production/ washing for production (not irrigation)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Irrigation/plant watering</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Laundry</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Outdoor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pool and backwash</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Production process</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sterilising equipment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Taps, showers, toilets, urinals</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vehicle washing/ cleaning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Washdown equipment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Water into product</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other (please specify)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Details__c</fullName>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_of_Water_Use__c</fullName>
+        <externalId>false</externalId>
+        <label>Percentage of Water Use</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Specify_Other__c</fullName>
+        <externalId>false</externalId>
+        <label>Specify Other</label>
+        <length>200</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(BEGINS(TEXT(Activity_Process_Equipment__c), &apos;Other&apos;),  Specify_Other__c ,  TEXT(Activity_Process_Equipment__c) )</formula>
+        <label>Type</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Universal_Id__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <externalId>true</externalId>
+        <label>Universal Id</label>
+        <length>40</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>WaterMAP__c</fullName>
+        <externalId>false</externalId>
+        <label>WaterMAP</label>
+        <referenceTo>WaterMAP__c</referenceTo>
+        <relationshipName>Activity_Process_Equipment_Breakdown</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <label>Water Using Equipment/Process</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{00000000}</displayFormat>
+        <label>Activity/Process/Equipment Breakdown #</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Water Using Equipment/Processes</pluralLabel>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Type__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Percentage_of_Water_Use__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Type__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Percentage_of_Water_Use__c</lookupPhoneDialogsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

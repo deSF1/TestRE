@@ -1,0 +1,266 @@
+<apex:page sidebar="false" showHeader="true" doctype="html-5.0"
+    tabstyle="Portal_Enquiries__tab" action="{!CheckRedirectConfirmed}"
+    controller="PortalSubmitMeterRead_Controller" id="thePage">
+
+
+    <!-- 
+    Type:       VF page
+    Purpose:    Submits a meter read
+    ---------------------------------------------------------------
+    History:
+        12-Feb-2011 - Dennis Thong - Created
+        05-Apr-2012 - Dennis Thong - use a template instead
+        14-May-2012 - Ji Zhang     - update to new layout
+        12-Jun-2012 - Davey Yu     - Update: 5231 update error message for property field
+    -->
+
+    <head>
+        <!-- jquery -->
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+
+        <style type="text/css">
+            label {
+                display: block;
+                margin-bottom: 5px;
+                width: 130px;
+            }
+            
+            .caseField {
+                margin-top: 10px;
+                margin-bottom: 5px;
+                clear: both;
+                color: #252525;
+            }
+            
+            .bPageBlock .requiredInput .requiredBlock {
+                background: none;
+            }
+            
+            .infoText{
+                position:relative; left:-10px; margin-bottom:10px;color:#575756;
+            }
+        </style>
+        <script>
+            //var submitBtn;
+            //var isAcceptTAndCCheckbox;
+        </script>
+    </head>
+    
+    <apex:composition template="PortalPage_3Col_Template">
+        <apex:define name="sidebar">
+            <!--  sidebar -->
+            <c:PortalSidebar id="sidebar" groupName="Enquiries"
+                currentAccRecordType="{!customer.RecordType.DeveloperName}"
+                currentDevName="Enquiries_SubmitRead" title="Enquiries" />
+        </apex:define>
+
+        <apex:define name="title">
+            <!-- Page Block Header -->
+            <div class="pageBlockHeader">
+                <apex:outputPanel layout="block" styleclass="pageBlockTitle">
+                    Submit meter read                
+                </apex:outputPanel>
+            </div>
+        </apex:define>
+        <apex:define name="innerContentLHS">
+            <apex:outputPanel id="caseFieldsPanel" rendered="{!NOT(submitted)}">
+                A water meter measures the amount of water that your property uses. If we've asked you to read your
+                meter at a property, you can send it to us here.
+                <apex:actionRegion >
+                <apex:pageblockSection title="Meter details" columns="1" collapsible="false">
+                    <div class="infoText">
+                        Select the property and meter details:
+                    </div>
+                    <apex:pageblockSectionItem > 
+                        <apex:outputlabel >Property</apex:outputlabel>                 
+                        <apex:selectList value="{!caseRec.Billing_Account__c}"
+                            style="width:300px" size="1"
+                            id="billingaccountlist" label="Property">
+                            <apex:selectOptions value="{!activeBillAcctOptions}" />
+                            <apex:actionSupport event="onchange"
+                                action="{!PopulateBillingAccount}"
+                                rerender="caseFieldsPanel,meterseriallist,priorread,buttons,msg"
+                                onsubmit="document.body.style.cursor='wait'"
+                                oncomplete="document.body.style.cursor='default'"
+                                status="loading" focus="meterseriallist" />
+                        </apex:selectList>
+                    </apex:pageblockSectionItem> 
+                    <apex:pageblockSectionItem >
+                        <apex:outputlabel >Meter</apex:outputlabel>
+                        <apex:selectList value="{!caseRec.Meter1_Serial__c}"
+                            required="false" size="1" label="Meter" id="meterseriallist">
+                            <apex:selectOptions value="{!meteroptions}" />
+                            <apex:actionSupport event="onchange"
+                                rerender="caseFieldsPanel,priorread,buttons,msg,meterseriallist"
+                                onsubmit="document.body.style.cursor='wait'"
+                                oncomplete="document.body.style.cursor='default'"
+                                status="loading" focus="readingdatefield" />
+                        </apex:selectList>
+                    </apex:pageblockSectionItem>
+                </apex:pageblockSection>
+                </apex:actionRegion>
+                
+                <apex:pageblockSection title="Meter reading" columns="1" collapsible="false">
+                    <div class="infoText">
+                            Enter the details of the read:
+                    </div>
+                    <apex:pageblockSectionItem >
+                        <apex:outputlabel >Date taken</apex:outputlabel>
+                        <apex:outputPanel >
+                            <apex:inputfield value="{!caseRec.Reading_Date__c}"
+                            style="width:auto" id="readingdatefield"
+                            required="true" />
+                            <div style="clear: both" />
+                            <script type="text/javascript">
+                                // hide the date defaulter
+                                var readingdatefield = document.getElementById("{!$Component.readingdatefield}");
+                                readingdatefield.nextSibling.style.display="none";
+                                document.getElementById('{!$Component.readingdatefield}').size = "8";
+                            </script>
+                    </apex:outputPanel>     
+                    </apex:pageblockSectionItem>
+                    <apex:pageblockSectionItem >
+                         <apex:outputLabel for="readingfield" value="Current reading (kL)"/>
+                         <apex:inputfield value="{!caseRec.Meter1_Reading__c}" id="readingfield" required="true" label="Current reading" />
+                    </apex:pageblockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel >Previous reading (kL)</apex:outputLabel>
+                        <apex:outputText value="{0, number, ###,##0}" id="priorread"
+                            styleclass="darkGrey">
+                            <apex:param value="{!priorMeterRead}" />
+                        </apex:outputText>
+                    </apex:pageBlockSectionItem>                 
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel >Previous read date</apex:outputLabel>
+                        <apex:outputText value="{0,date,d MMMM yyyy}"
+                            styleclass="darkGrey">
+                                <apex:param value="{!priorMeterReadDate}" />
+                        </apex:outputText>
+                    </apex:pageBlockSectionItem>                 
+                
+                </apex:pageblockSection>
+
+                <div style="clear: both" />
+                
+                <div class="caseField" id="termsId">
+                    <!--  <apex:actionRegion > -->
+                        <apex:inputCheckBox id="isAcceptTAndCCheckbox" value="{!confirmed}" style="position:relative;left:-4px;" onclick="checkAcceptTandC(this);">
+                            <!--  <apex:actionSupport event="onclick" rerender="submitbtn"
+                                onsubmit="document.body.style.cursor='wait'"
+                                oncomplete="document.body.style.cursor='default'" />-->
+                                <script>
+                                    //var isAcceptTAndCCheckbox = document.getElementsByName("{!$Component.isAcceptTAndCCheckbox}").item(0);
+                                </script>
+                        </apex:inputCheckBox>
+                    <!--  </apex:actionRegion> -->
+                    <div class="checkboxText">
+                        <label style="width:420px!important;">I have reviewed this meter read against my previous reading.</label>
+                    </div>
+                </div>
+                
+                
+                <center style="margin-top: 20px" id="buttons">
+                    <apex:commandButton value="Submit" id="submitbtn"
+                        styleClass="btnPrimary" action="{!submit}"
+                        status="loading" 
+                        rendered="{!NOT(submitted)}">
+                         <script>
+                             var submitBtn = document.getElementById('{!$Component.submitbtn}');
+                             
+                         </script>
+                    </apex:commandButton>
+
+                    <apex:commandButton styleClass="btnClearGreenText" value="Cancel"
+                        action="{!home}" immediate="true" rendered="{!NOT(submitted)}" />
+
+                </center>
+
+            </apex:outputPanel>
+            <apex:outputPanel id="responsePanel" rendered="{!(submitted)}">
+                <div class="caseField">
+                    <p>Thank you {!userContact.FirstName}, your meter reading has
+                        been submitted. The details of this reading has been referred to
+                        our Customer Support team.</p>
+                    <p>
+                        Please allow two business days for us to process your reading.
+                        Your case reference number for this reading is <b>{!casenumber}</b>.
+                    </p>
+                    <p>
+                        <b>Note:</b> You can check the progress of your case at anytime by
+                        selecting the&nbsp;
+                        <apex:outputLink value="{!$Page.PortalEnquiriesMyCases}">'My cases'</apex:outputLink>
+                        tab on the Enquiry page.     
+                    </p>
+                </div>
+
+                <center style="margin-top: 20px">
+
+                    <apex:commandButton value="Home" action="{!home}" immediate="true"
+                        rendered="{!(submitted)}" />
+
+                    <apex:commandButton value="Submit another" styleClass="btnLightGrey"
+                        action="{!submitanother}" rendered="{!(submitted)}" />
+
+                </center>
+            </apex:outputPanel>
+
+        </apex:define>
+
+        <apex:define name="innerContentRHS">
+            <!--  live chat -->
+            <c:LiveChat />
+
+            <c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+                divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+                divStyle="width: 205px" />
+
+            <!--  quick links -->
+            <div style="position: relative;">
+                <c:PortalQuickLinks />
+            </div>
+
+        </apex:define>
+
+    </apex:composition>
+
+    <script type="text/javascript">
+        var j$ = jQuery.noConflict();
+    
+        var previousOnload = window.onload;
+        window.onload = function() {
+            try {
+                j$(":input:enabled:visible:first").focus();
+                checkAcceptTandC(false);
+            } catch (e) {
+            }
+        }
+        
+        /* Enable/disable Submit button */
+        function checkAcceptTandC(val){
+             var acceptTerms = document.getElementById('thePage:j_id5:theForm:pageblock:isAcceptTAndCCheckbox');
+             if(acceptTerms.checked){
+                 submitBtn.disabled = false;
+                 submitBtn.setAttribute("class", "btnGreen");
+                 submitBtn.setAttribute("className", "btnGreen");
+                 submitBtn.setAttribute("style","cursor:pointer;");
+             }else{
+                 submitBtn.disabled =   !val.checked;
+           
+                 if(submitBtn.disabled){
+                     submitBtn.setAttribute("class", "btnDarkGray");
+                     submitBtn.setAttribute("className", "btnDarkGray");
+                     submitBtn.setAttribute("style","cursor:default;");
+                 }else{
+                     submitBtn.disabled = false;
+                     submitBtn.setAttribute("class", "btnGreen");
+                     submitBtn.setAttribute("className", "btnGreen");
+                     submitBtn.setAttribute("style","cursor:pointer;");
+                 }
+             }
+          }
+        
+    </script>
+
+</apex:page>

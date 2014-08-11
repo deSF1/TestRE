@@ -1,0 +1,5 @@
+<apex:page >
+{!$Setup.SecurityNotice__c.Security_Notice_Article_Id__c}
+{!$Action.KnowledgeArticle.View}
+{!URLFOR($Action.KnowledgeArticle.View,$Setup.SecurityNotice__c.Security_Notice_Article_Id__c)}
+</apex:page>

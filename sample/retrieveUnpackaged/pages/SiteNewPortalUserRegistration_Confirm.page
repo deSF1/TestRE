@@ -1,0 +1,88 @@
+<apex:page controller="SiteNewPortalUserRegWizard_Controller" 
+            showHeader="false"
+            action="{!CheckRedirectStepComplete}"
+			doctype="html-5.0"
+            title="New User Registration">
+    <!--
+
+
+        Description: Site login paged rebranded for SEW
+                     Confirmation screen
+
+        History:
+            15-Feb-2012 D.Thong (Salesforce)    Created
+            16-Jul-2012 K.Noceda                Update: Removed the Confirmation Content
+            11-Dec-2012 J.Jayoma                Update: Change the action on the page into CheckRedirectStepComplete which is previously CheckRedirectStep3 - TP 616
+            16-Apr-2013 N. Patterson   			TT10610: Added Floodlight scripts into the page
+            05-Sep-2013 N.Patterson 			TT11538: Removed Floodlight scripts from the page
+    -->
+
+    <head>
+        <title>mySouthEastWater - New User Registration</title>
+        <link rel="shortcut icon"
+            href="https://southeastwater.secure.force.com/portal/favicon.ico" />
+
+		<apex:stylesheet value="{!$Resource.PortalSidebar_Styles}" />
+        <apex:stylesheet value="{!$Resource.PortalHomePage_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalIcons_Styles}"/>
+		<apex:stylesheet value="{!$Resource.SitePortalRegistration_Styles}" />
+
+        <style>
+            .bPageBlock .detailList .labelCol {
+                width: 30%;
+            }
+        </style>
+
+    </head>
+
+    <!-- Hidden fields -->
+
+    <apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+			
+            <apex:outputPanel id="wholePage" layout="block" styleclass="bodyDiv brdPalette"
+            			style="margin-bottom: 50px !important">
+                <apex:form forceSSL="true" id="theForm">
+					<div class="contentCell" style="width: 700px; margin: auto">
+
+						<!--  TITLE -->
+				        <div style="margin-bottom: 10px"/>
+				        <apex:sectionheader title="mySouthEastWater"
+				                            subtitle="Registration"/>
+				        <div style="clear:both"/>
+    	                
+    	                <!--  CONTENT -->
+    	                <apex:pageBlock id="pb">
+
+							<!-- Steps -->
+							<div class="completeImage">
+								<apex:panelGrid cellspacing="0" cellpadding="0" styleClass="stepInnerGrid">
+									<span class="step stepFirst">Step 1</span>
+									<span class="step">Step 2</span>
+									<span class="step">Step 3</span>
+									<span class="activeStep" style="margin-right: 0">Complete</span>
+								</apex:panelGrid>
+							</div>
+	                    
+	                        <!-- page messages -->
+	                        <div style="margin: 15px 0px">
+	                            <apex:pageMessages />
+	                        </div>
+	
+	                        <!-- Confirmation -->
+
+							<!-- <div style="margin-left: 100px"> --> 
+							<div>
+		                        <div style="margin: 15px 0px 15px; font-weight: bold; font-size: 12pt;text-align:center">
+									You will receive an email shortly with a link to mySouthEastWater to complete your registration.
+		                        </div>
+							</div>
+
+	                    </apex:pageBlock>					
+					</div>
+                </apex:form>
+            </apex:outputPanel>
+        </apex:define>
+    </apex:composition>
+
+</apex:page>

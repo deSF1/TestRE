@@ -1,0 +1,820 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>AddCampaign</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>AdvancedSetup</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>CampaignMemberRecordTypeId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ECO_Region__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>ECO Region</label>
+        <referenceTo>ECO_Region__c</referenceTo>
+        <relationshipLabel>Campaigns</relationshipLabel>
+        <relationshipName>Programs</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>OwnerId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Active_Members__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Campaign members that are synced and active in this campaign</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Campaign members that are synced and active in this campaign</inlineHelpText>
+        <label>Active Members</label>
+        <summaryFilterItems>
+            <field>CampaignMember.PAM__Reason__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </summaryFilterItems>
+        <summaryForeignKey>CampaignMember.CampaignId</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Bounce_Rate__c</fullName>
+        <deprecated>false</deprecated>
+        <description># emails bounced / # emails sent</description>
+        <externalId>false</externalId>
+        <formula>IF( PAM__Sent__c  = 0, 0, (PAM__Bounced__c /   PAM__Sent__c ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText># emails bounced / # emails sent</inlineHelpText>
+        <label>Bounce Rate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Bounced__c</fullName>
+        <deprecated>false</deprecated>
+        <description># emails with hard or soft bounces that occurred in this campaign</description>
+        <externalId>false</externalId>
+        <inlineHelpText># emails with hard or soft bounces that occurred in this campaign</inlineHelpText>
+        <label>Bounced</label>
+        <summaryFilterItems>
+            <field>CampaignMember.PAM__Reason__c</field>
+            <operation>equals</operation>
+            <value>23</value>
+        </summaryFilterItems>
+        <summaryForeignKey>CampaignMember.CampaignId</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Can_Not_Be_Sent_Rate__c</fullName>
+        <deprecated>false</deprecated>
+        <description># emails that cannot be sent / # total members</description>
+        <externalId>false</externalId>
+        <formula>IF(PAM__Total_Members__c = 0,0,(PAM__Can_Not_Be_Sent__c /  PAM__Total_Members__c ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText># emails that cannot be sent / # total members</inlineHelpText>
+        <label>Can Not Be Sent Rate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Can_Not_Be_Sent__c</fullName>
+        <deprecated>false</deprecated>
+        <description># of emails that cannot be sent - see reason code/status in Campaign Members section</description>
+        <externalId>false</externalId>
+        <inlineHelpText># of emails that cannot be sent - see reason code/status in Campaign Members section</inlineHelpText>
+        <label>Can Not Be Sent</label>
+        <summaryFilterItems>
+            <field>CampaignMember.PAM__Level__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>CampaignMember.PAM__Reason__c</field>
+            <operation>greaterThan</operation>
+            <value>1</value>
+        </summaryFilterItems>
+        <summaryForeignKey>CampaignMember.CampaignId</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Click_Rate__c</fullName>
+        <deprecated>false</deprecated>
+        <description># campaign members that clicked a link in a campaign email one time / # emails delivered</description>
+        <externalId>false</externalId>
+        <formula>IF(PAM__Delivered__c  = 0,0,(  PAM__Clicked__c  /  PAM__Delivered__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText># campaign members that clicked a link in a campaign email one time / # emails delivered</inlineHelpText>
+        <label>Click Rate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Click_To_Open_Rate__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Clicked / Opened</description>
+        <externalId>false</externalId>
+        <formula>IF( PAM__Opened__c = 0 ,0, (PAM__Clicked__c / PAM__Opened__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Clicked / Opened</inlineHelpText>
+        <label>Click To Open</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Clicked_Level__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Campaign Members who have clicked a link in the email at least once, but not yet registered a completion
+For Series and Newsletter this number refers to the current edition</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Campaign Members who have clicked a link in the email at least once, but not yet registered a completion
+For Series and Newsletter this number refers to the current edition</inlineHelpText>
+        <label>Clicked Level</label>
+        <summaryFilterItems>
+            <field>CampaignMember.PAM__Level__c</field>
+            <operation>equals</operation>
+            <value>3</value>
+        </summaryFilterItems>
+        <summaryForeignKey>CampaignMember.CampaignId</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Clicked__c</fullName>
+        <deprecated>false</deprecated>
+        <description># campaign members that clicked a link provided in a campaign email one time. For series and newsletter campaigns, this count refers to the current edition.</description>
+        <externalId>false</externalId>
+        <formula>PAM__Clicked_Level__c  + PAM__Completed_Level__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText># campaign members that clicked a link provided in a campaign email one time. For series and newsletter campaigns, this count refers to the current edition.</inlineHelpText>
+        <label>Clicked</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PAM__Complaint_Rate__c</fullName>
+        <deprecated>false</deprecated>
+        <description># complaints / # emails delivered</description>
+        <externalId>false</externalId>
+        <formula>IF( PAM__Delivered__c = 0,0, (PAM__Complaints_Rollup__c  /  PAM__Delivered__c ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText># complaints / # emails delivered</inlineHelpText>
+        <label>Complaint Rate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Complaints_Rollup__c</fullName>
+        <deprecated>false</deprecated>
+        <description># campaign members that submitted complaints via Yahoo, AOL or other feedback loop.  A complaint auto-generates an opt out status and will also be included in the Opt Out Direct count.</description>
+        <externalId>false</externalId>
+        <inlineHelpText># campaign members that submitted complaints via Yahoo, AOL or other feedback loop.  A complaint auto-generates an opt out status and will also be included in the Opt Out Direct count.</inlineHelpText>
+        <label>Complaints</label>
+        <summaryFilterItems>
+            <field>CampaignMember.PAM__Reason__c</field>
+            <operation>equals</operation>
+            <value>38</value>
+        </summaryFilterItems>
+        <summaryForeignKey>CampaignMember.CampaignId</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Completed_Level__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Active Members that have reached the completed level</description>
+        <externalId>false</externalId>
+        <formula>IF( PAM__Total_Members__c  - ( PAM__Pending_Level__c  +  PAM__Sent_Level__c + PAM__Opened_Level__c +  PAM__Clicked_Level__c ) &lt; 0,0,
+ PAM__Total_Members__c  - ( PAM__Pending_Level__c  +  PAM__Sent_Level__c + PAM__Opened_Level__c +  PAM__Clicked_Level__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Active Members that have reached the completed level</inlineHelpText>
+        <label>Completed Level</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PAM__Completed__c</fullName>
+        <deprecated>false</deprecated>
+        <description># campaign members that reached your defined completion level one time. For series and newsletter campaigns, this count refers to the current edition</description>
+        <externalId>false</externalId>
+        <formula>PAM__Completed_Level__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText># campaign members that reached your defined completion level one time. For series and newsletter campaigns, this count refers to the current edition</inlineHelpText>
+        <label>Completed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PAM__Completion_Rate__c</fullName>
+        <deprecated>false</deprecated>
+        <description># members that reached your defined completion level / # emails delivered</description>
+        <externalId>false</externalId>
+        <formula>IF( PAM__Delivered__c =0,0,( PAM__Completed__c /  PAM__Delivered__c ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText># members that reached your defined completion level / # emails delivered</inlineHelpText>
+        <label>Completion Rate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Completion_To_Open_Rate__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Completed / Opened</description>
+        <externalId>false</externalId>
+        <formula>IF( PAM__Opened__c = 0 ,0, (PAM__Completed__c / PAM__Opened__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Completed / Opened</inlineHelpText>
+        <label>Completion To Open</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Delivered__c</fullName>
+        <deprecated>false</deprecated>
+        <description># emails sent - # emails that bounced</description>
+        <externalId>false</externalId>
+        <formula>PAM__Sent__c  -  PAM__Bounced__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText># emails sent - # emails that bounced</inlineHelpText>
+        <label>Delivered</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PAM__Delivery_Rate__c</fullName>
+        <deprecated>false</deprecated>
+        <description># emails delivered / # emails sent</description>
+        <externalId>false</externalId>
+        <formula>IF(  PAM__Sent__c =0,0,(PAM__Delivered__c /  PAM__Sent__c ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText># emails delivered / # emails sent</inlineHelpText>
+        <label>Delivery Rate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Inactive_Members__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Total Members - Active Members</description>
+        <externalId>false</externalId>
+        <formula>PAM__Total_Members__c - PAM__Active_Members__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Total Members - Active Members</inlineHelpText>
+        <label>Inactive Members</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PAM__Open_Rate__c</fullName>
+        <deprecated>false</deprecated>
+        <description># emails opened one time / # emails delivered</description>
+        <externalId>false</externalId>
+        <formula>IF( PAM__Delivered__c = 0,0,(PAM__Opened__c  / PAM__Delivered__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText># emails opened one time / # emails delivered</inlineHelpText>
+        <label>Open Rate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Opened_Level__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Campaign Members who have opened the email at least once, but not yet registered a click
+For Series and Newsletter this number refers to the current edition</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Campaign Members who have opened the email at least once, but not yet registered a click
+For Series and Newsletter this number refers to the current edition</inlineHelpText>
+        <label>Opened Level</label>
+        <summaryFilterItems>
+            <field>CampaignMember.PAM__Level__c</field>
+            <operation>equals</operation>
+            <value>2</value>
+        </summaryFilterItems>
+        <summaryForeignKey>CampaignMember.CampaignId</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Opened__c</fullName>
+        <deprecated>false</deprecated>
+        <description># campaign members that have opened at least one campaign email one time. For series and newsletter campaigns, this count refers to the current edition.</description>
+        <externalId>false</externalId>
+        <formula>PAM__Opened_Level__c + PAM__Clicked_Level__c + PAM__Completed_Level__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText># campaign members that have opened at least one campaign email one time. For series and newsletter campaigns, this count refers to the current edition.</inlineHelpText>
+        <label>Opened</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PAM__Opt_Out_Direct__c</fullName>
+        <deprecated>false</deprecated>
+        <description># campaign members that clicked the unsubscribe link in an email for this campaign.</description>
+        <externalId>false</externalId>
+        <inlineHelpText># campaign members that clicked the unsubscribe link in an email for this campaign.</inlineHelpText>
+        <label>Opt Out Direct</label>
+        <summaryFilterItems>
+            <field>CampaignMember.PAM__Reason__c</field>
+            <operation>equals</operation>
+            <value>25,31</value>
+        </summaryFilterItems>
+        <summaryForeignKey>CampaignMember.CampaignId</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Opt_Out_Indirect__c</fullName>
+        <deprecated>false</deprecated>
+        <description># campaign members that unsubscribed from another campaign after being added to this campaign.</description>
+        <externalId>false</externalId>
+        <inlineHelpText># campaign members that unsubscribed from another campaign after being added to this campaign.</inlineHelpText>
+        <label>Opt Out Indirect</label>
+        <summaryFilterItems>
+            <field>CampaignMember.PAM__Reason__c</field>
+            <operation>equals</operation>
+            <value>39</value>
+        </summaryFilterItems>
+        <summaryForeignKey>CampaignMember.CampaignId</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Opt_Out_Rate__c</fullName>
+        <deprecated>false</deprecated>
+        <description># direct opt outs / # emails delivered</description>
+        <externalId>false</externalId>
+        <formula>IF( PAM__Delivered__c = 0,0,(PAM__Opt_Out_Direct__c  / PAM__Delivered__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText># direct opt outs / # emails delivered</inlineHelpText>
+        <label>Opt Out Rate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Outbox_Rate__c</fullName>
+        <deprecated>false</deprecated>
+        <description># of emails currently in the outbox / # total campaign members</description>
+        <externalId>false</externalId>
+        <formula>IF(PAM__Total_Members__c = 0,0,(PAM__Outbox__c /  PAM__Total_Members__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText># of emails currently in the outbox / # total campaign members</inlineHelpText>
+        <label>Outbox Rate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Outbox__c</fullName>
+        <deprecated>false</deprecated>
+        <description># pending emails - emails that cannot be sent</description>
+        <externalId>false</externalId>
+        <inlineHelpText># pending emails - emails that cannot be sent</inlineHelpText>
+        <label>Outbox</label>
+        <summaryFilterItems>
+            <field>CampaignMember.PAM__Level_Code_Null__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>CampaignMember.PAM__Reason_Code_Null__c</field>
+            <operation>lessOrEqual</operation>
+            <value>1</value>
+        </summaryFilterItems>
+        <summaryForeignKey>CampaignMember.CampaignId</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Pending_Level__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Not yet sent (sum of Outbox + what can not be sent)</description>
+        <externalId>false</externalId>
+        <formula>PAM__Outbox__c +  PAM__Can_Not_Be_Sent__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Not yet sent (sum of Outbox + what can not be sent)</inlineHelpText>
+        <label>Pending Level</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PAM__Pending__c</fullName>
+        <deprecated>false</deprecated>
+        <description># of emails waiting to be sent</description>
+        <externalId>false</externalId>
+        <formula>PAM__Outbox__c +  PAM__Can_Not_Be_Sent__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText># of emails waiting to be sent</inlineHelpText>
+        <label>Pending</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PAM__Sent_Level__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Unique number of Members which have received one or more emails in this Campaign, but have not yet registered an open</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Unique number of Members which have received one or more emails in this Campaign,  but have not yet registered an open</inlineHelpText>
+        <label>Sent Level</label>
+        <summaryFilterItems>
+            <field>CampaignMember.PAM__Level__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </summaryFilterItems>
+        <summaryForeignKey>CampaignMember.CampaignId</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Sent__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Unique # of campaign members that have been sent one or more emails in this campaign</description>
+        <externalId>false</externalId>
+        <formula>PAM__Sent_Level__c +  PAM__Opened_Level__c  +  PAM__Clicked_Level__c + PAM__Completed_Level__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Unique # of campaign members that have been sent one or more emails in this campaign</inlineHelpText>
+        <label>Sent</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PAM__Subscription_Line_Item__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The subscription this Campaign is assigned to - if any</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The subscription this Campaign is assigned to - if any
+A Campaign can be optionally be assigned to a Subscription, if you have chosen to use Subscription Management</inlineHelpText>
+        <label>Subscription</label>
+        <referenceTo>PAM__Subscription__c</referenceTo>
+        <relationshipLabel>Campaigns</relationshipLabel>
+        <relationshipName>Campaigns</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PAM__Total_Members__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Number of Leads + Number of Contacts - Converted Leads</description>
+        <externalId>false</externalId>
+        <formula>NumberOfContacts +  NumberOfLeads - NumberOfConvertedLeads</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Number of Leads + Number of Contacts - Converted Leads</inlineHelpText>
+        <label>Total Members</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ParentId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Program_Objectives__c</fullName>
+        <externalId>false</externalId>
+        <label>Program Objectives</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Status</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Aborted</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Planned</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Type</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Water Efficiency</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Local Government Engagement</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Policy Development</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Strategy Development</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Compliance Requirements</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Enforceable Undertaking</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>General Engagement</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Newsletter</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Series</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Letter</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>WSI_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>WSI Id</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <listViews>
+        <fullName>AllActiveCampaigns</fullName>
+        <columns>CAMPAIGN.NAME</columns>
+        <columns>CAMPAIGN.START_DATE</columns>
+        <columns>CAMPAIGN.END_DATE</columns>
+        <columns>CAMPAIGN.CAMPAIGN_TYPE</columns>
+        <columns>CAMPAIGN.STATUS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CAMPAIGN.ACTIVE</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>All Active Campaigns</label>
+    </listViews>
+    <listViews>
+        <fullName>All_Campaigns</fullName>
+        <columns>CAMPAIGN.NAME</columns>
+        <columns>CAMPAIGN.START_DATE</columns>
+        <columns>CAMPAIGN.END_DATE</columns>
+        <columns>CAMPAIGN.BUDGETED_COST</columns>
+        <columns>CAMPAIGN.ACTUAL_COST</columns>
+        <columns>CAMPAIGN.CAMPAIGN_TYPE</columns>
+        <columns>CAMPAIGN.STATUS</columns>
+        <columns>CAMPAIGN.CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All Campaigns</label>
+    </listViews>
+    <listViews>
+        <fullName>MyActiveCampaigns</fullName>
+        <columns>CAMPAIGN.NAME</columns>
+        <columns>CAMPAIGN.START_DATE</columns>
+        <columns>CAMPAIGN.END_DATE</columns>
+        <columns>CAMPAIGN.CAMPAIGN_TYPE</columns>
+        <columns>CAMPAIGN.STATUS</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>CAMPAIGN.ACTIVE</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>My Active Campaigns</label>
+    </listViews>
+    <searchLayouts>
+        <customTabListAdditionalFields>CAMPAIGN.NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CAMPAIGN.STATUS</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CAMPAIGN.START_DATE</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>CAMPAIGN.NAME</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CAMPAIGN.NAME</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>CAMPAIGN.NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
+    </searchLayouts>
+    <webLinks>
+        <fullName>CFL__ViewCampaignInfluenceReport</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>500</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>View Campaign Influence Report</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/00O?rt=117&amp;break0=CAN&amp;scope=1&amp;scopeid_lkid={!Campaign.Id}&amp;scopeid={!Campaign.Name}&amp;c=CAN&amp;c=MR&amp;c=PCS&amp;c=CFN&amp;c=RN&amp;c=ON&amp;c=OA&amp;c=OS&amp;c=OCD&amp;c=AN&amp;s=OA&amp;duel0=CAN%2CMR%2CCFN%2CRN%2CAN%2CON%2CPCS%2COS%2COCD%2COA&amp;details=yes&amp;format=t</url>
+        <width>500</width>
+    </webLinks>
+    <webLinks>
+        <fullName>Mass_Edit</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Mass Edit</masterLabel>
+        <openType>sidebar</openType>
+        <page>MassEditCampaign</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+    <webLinks>
+        <fullName>Mass_Update</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Mass Update</masterLabel>
+        <openType>sidebar</openType>
+        <page>MassUpdateCampaign</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+    <webLinks>
+        <fullName>PAM__Predictive_AM</fullName>
+        <availability>online</availability>
+        <description>Standard Predictive AM Button</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Predictive AM</masterLabel>
+        <openType>sidebar</openType>
+        <page>PAM__Standard_Predictive_AM_Campaign_Button</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>PAM__ViewCampaignInfluenceReport</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>500</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>View Campaign Influence Report</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/00O?rt=117&amp;break0=CAN&amp;scope=1&amp;scopeid_lkid={!Campaign.Id}&amp;scopeid={!Campaign.Name}&amp;c=CAN&amp;c=MR&amp;c=PCS&amp;c=CFN&amp;c=RN&amp;c=ON&amp;c=OA&amp;c=OS&amp;c=OCD&amp;c=AN&amp;s=OA&amp;duel0=CAN%2CMR%2CCFN%2CRN%2CAN%2CON%2CPCS%2COS%2COCD%2COA&amp;details=yes&amp;format=t</url>
+        <width>500</width>
+    </webLinks>
+    <webLinks>
+        <fullName>ViewAllCampaignMembers</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>500</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>View All Campaign Members</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/camp/rptcmpgncalldown.jsp?scope=1&amp;scopeid={!Campaign_Name}</url>
+        <width>500</width>
+    </webLinks>
+    <webLinks>
+        <fullName>ViewCampaignInfluenceReport</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>500</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>View Campaign Influence Report</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/00O?rt=117&amp;break0=CAN&amp;scope=1&amp;scopeid_lkid={!Campaign.Id}&amp;scopeid={!Campaign_Name}&amp;c=CAN&amp;c=MR&amp;c=PCS&amp;c=CFN&amp;c=RN&amp;c=ON&amp;c=OA&amp;c=OS&amp;c=OCD&amp;c=AN&amp;s=OA&amp;duel0=CAN%2CMR%2CCFN%2CRN%2CAN%2CON%2CPCS%2COS%2COCD%2COA&amp;details=yes&amp;format=t</url>
+        <width>500</width>
+    </webLinks>
+</CustomObject>

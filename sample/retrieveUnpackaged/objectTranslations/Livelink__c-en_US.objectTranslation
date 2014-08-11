@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Livelink Document</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Livelink Documents</value>
+    </caseValues>
+    <fields>
+        <label><!-- Billing Account --></label>
+        <name>Billing_Account__c</name>
+        <relationshipLabel><!-- Livelink Documents --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Case --></label>
+        <name>Case__c</name>
+        <relationshipLabel><!-- Livelink Documents --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Customer --></label>
+        <name>Customer__c</name>
+        <relationshipLabel><!-- Livelink Documents --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- The date/time the document was added to Livelink (not the same as the date this record was created) --></help>
+        <label><!-- Date Initiated --></label>
+        <name>Date_Initiated__c</name>
+    </fields>
+    <fields>
+        <help><!-- The parent folder unique Id for the Livelink document --></help>
+        <label><!-- Folder Id --></label>
+        <name>Folder_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Node Id --></label>
+        <name>Node_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Open Document --></label>
+        <name>Open_Document__c</name>
+    </fields>
+    <fields>
+        <label><!-- Open Parent Folder --></label>
+        <name>Open_Parent_Folder__c</name>
+    </fields>
+    <fields>
+        <label><!-- Property --></label>
+        <name>Property__c</name>
+        <relationshipLabel><!-- Livelink Documents --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>Livelink Record Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Vowel</startsWith>
+    <webLinks>
+        <label><!-- Mass_Update --></label>
+        <name>Mass_Update</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Search_Historical_Archive --></label>
+        <name>Search_Historical_Archive</name>
+    </webLinks>
+</CustomObjectTranslation>

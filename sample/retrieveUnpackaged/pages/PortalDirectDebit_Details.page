@@ -1,0 +1,648 @@
+<apex:page sidebar="false" showHeader="true"
+    doctype="html-5.0"
+    tabstyle="Portal_Payment_Options__tab" 
+    controller="PortalDirectDebitController">
+
+    <!-- 
+    Type:       VF page
+    Purpose:    Direct Debit - Step 2 - Details page for Amend and Delete
+    ---------------------------------------------------------------
+    History:
+        28-Mar-2012 D.Thong     Created
+        25-May-2012 A.Vergara   Modify T&C Content
+        28-May-2012 A.Vergara   added *indicates mandatory field text
+                                          display *required symbol before text boxes
+        4-Jun-2012  D.Yu        Update: 5161 - Update header 
+        19-Jul-2013 N.Patterson  TT11104 - Added credit card payments
+        26-Aug-2013 N.Patterson  TT10808 - Remove the payment plan when the direct debit is removed.
+    -->
+
+    <html>
+        <!-- Head -->
+        <head>
+            <META HTTP-EQUIV="EXPIRES" CONTENT="-1" />
+            <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+            <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+            <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+            <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+            <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>        
+            <apex:stylesheet value="{!$Resource.PortalPayment_Styles}"/> 
+            <apex:stylesheet value="{!$Resource.PortalActionLinks_Styles}"/>       
+    
+            <style>
+                .bPageBlock .detailList .labelCol {
+                    width: 25% !important;
+                }
+
+                
+                .tableHeader {
+                    background-color: #EFF8FD;
+                }
+                
+                a.btnGreen {
+                    color: #fff !important;
+                }
+                
+            </style>
+    
+            <script type="text/javascript"> 
+                var j$ = jQuery.noConflict();
+
+                j$(function() {
+                    CreateTermsPopup();
+                    //CreateCVN();
+                });
+                
+                function CreateTermsPopup() {
+                    j$( "#terms-popup" ).dialog({
+                        dialogClass: 'ui-dropshadow',
+                        autoOpen: false,
+                        width: 500,
+                        modal: true,
+                        resizable: false,
+                        title: 'Terms & conditions for direct debit'
+                    });             
+                }
+
+                function CreateCVN() {
+                    j$( "#cvn-popup" ).dialog({
+                        dialogClass: 'ui-dropshadow',
+                        autoOpen: false,
+                        width: 400,
+                        modal: true,
+                        resizable: false,
+                        title: 'Credit Card CVN'
+                    });             
+                }
+            </script>
+        
+        </head>
+
+        <!-- Body -->
+        <body>
+            <apex:form id="form">
+                <apex:inputhidden value="{!userInputFields.Customer_Account__c}" />
+                <apex:inputhidden value="{!userInputFields.Billing_Account__c}"/>
+                <apex:inputhidden value="{!userInputFields.Person__c}"/>
+                <apex:inputhidden value="{!userInputFields.DD_Account_Type__c}"/>
+
+                
+                <!--  sidebar -->
+                <div class="pbTransparent sideBarCellDiv" >
+                    <!--  sidebar -->                           
+                    <c:PortalSidebar id="sidebar" groupName="PaymentOptions" 
+                                currentAccRecordType="{!customer.RecordType.DeveloperName}" 
+                                currentDevName="PaymentOptions_SetUpADirectDebit"
+                                title="Payment options"/>
+                </div>
+        
+                <!-- Start of real page content here-->
+        
+                <apex:outputPanel id="wholePage" layout="block" styleClass="contentCellDiv" >
+    
+                    <apex:sectionheader subtitle="Manage direct debit"/>
+                    <div class="clear"/>
+    
+                    <apex:pageblock mode="edit" id="pb">
+        
+                        <!--  PAGE MESSAGES -->
+                        <div style="margin-top: 5px; text-align: left">
+                            <apex:pageMessages id="msg"  escape="false" />
+                        </div>
+
+                        <apex:pageMessage rendered="{!actionType=='Cancel' && selectedAccountsPaymentPlanBalanceExist}" severity="warning" strength="2" escape="false"
+                                                    summary="By removing the selected direct debits, the associated payment plans will also be removed.  The remaining balance for these plans ({!selectedAccountsPaymentPlanBalance}) will be payable within 14 days from today."/>
+						<apex:pageMessage rendered="{!actionType=='Cancel' && NOT(selectedAccountsPaymentPlanBalanceExist) && selectedAccountsPaymentPlanNoBalanceExist}" severity="warning" strength="2" escape="false"
+                                                    summary="By removing the selected direct debits, the associated payment plans will also be removed."/>
+    
+                        <!-- CONTENT -->
+                        <apex:outputPanel id="content">
+                            <div style="font-weight: bold">
+                                You have selected the following account(s) to {!if(actionType=='Add/Amend', 'add or amend', 'remove')} direct debit 
+                            </div>
+                            <br/>
+                            <div>
+                                <a id="hidelist" href="javascript:ToggleList();">Hide the list</a>
+                                <a id="showlist" href="javascript:ToggleList();" style="display:none">Show the list</a>
+                            </div>      
+                            <!-- Table of existing accounts -->
+                            <div id="accountsListDiv">
+                                <apex:pageBlockTable id="accountsListpbTable"
+                                        headerClass="tableHeader"
+                                        rowClasses="tableRowOdd,tableRowEven"
+                                        value="{!selectedBillingAccList}" var="acct" >
+                                        
+                                        
+                                    <!-- 
+                                    <apex:column headerValue="Customer #" 
+                                                style="width: 90px"
+                                                value="{!acct.billingAccount.HiAF_Account_Number_Check_Digit__c}"/>
+                                    --> 
+                                    
+                                    <apex:column headerValue="Account"
+                                                style="width: 170px">
+                                        <apex:outputText value="{!IF(NOT(ISBLANK(acct.billingAccount.Property__c)), acct.billingAccount.Property__r.Street_Address_Proper__c + '<br/>' + acct.billingAccount.Property__r.Suburb_Proper__c + ' ' + acct.billingAccount.Property__r.Postal_Code__c, acct.billingAccount.HiAF_Account_Number_Check_Digit__c)}"
+                                                        escape="false"/>
+                                    </apex:column>
+    
+                                    <apex:column headerValue="Direct debit">
+                                        <apex:outputText value="{!if(acct.billingAccount.Direct_Debit__c, 'Yes - ' + acct.billingAccount.Direct_Debit_Type__c, 'None')}"/>
+                                        <apex:outputPanel layout="block" rendered="{!not(isblank(acct.billingAccount.Direct_Debit_Details__c))}">
+                                            <apex:outputText value="{!acct.billingAccount.Direct_Debit_Details__c}"/>
+                                        </apex:outputPanel>
+                                    </apex:column>
+    
+                                    <apex:column headerValue="Payment plan" rendered="{!CustomerType=='Residential'}">
+                                        <apex:outputText value="{!if(acct.billingAccount.Is_Payment_Plan__c, acct.billingAccount.Payment_Plan_Frequency__c + ' ', 'None')}"
+                                            id="paymentplan"/>
+                                    </apex:column>
+                                    
+                                     
+                                    <apex:column headerValue="Balance"  headerClass="headerRowRight"
+                                                    style="text-align: right; padding-right: 5px"
+                                                    value="{!acct.billingAccount.Balance__c}"/>
+                                                   
+                                                 
+    
+                                </apex:pageBlockTable>
+                            </div>
+
+                            <!-- ADD/AMEND DIRECT DEBIT -->                             
+                            <apex:outputPanel id="addamenddirectdebitdetails"
+                                                rendered="{!actionType=='Add/Amend'}">
+
+                                <apex:outputPanel layout="block" rendered="{!selectedAccountsHaveBalance}"
+                                                    style="margin-top: 20px">
+                                    <apex:pageMessage severity="info" strength="2" escape="false"
+                                                summary="{!positiveBalanceMsg}"/>
+                                </apex:outputPanel>
+                                
+                                <div><br/>
+                                    We need at least four business days notice to apply a direct debit to an account. If you have an existing direct debit with payment due within this time, please ensure there are sufficient funds in the bank accounts nominated above. 
+                                </div>
+                                 
+                                <apex:outputPanel layout="block" id="directdebitdetails" style="margin-top: 20px">
+                                 <div style="position:relative; top:-1px;">
+                                                <c:PortalRequiredField styleclass="requiredFieldIndicatorRHSNoHeight"/>
+                                    </div> 
+                                 <h3>
+                                        Enter payment details for direct debit
+                                    </h3>
+                                    <p/>
+                                    <apex:outputPanel layout="block" style="margin-left: 50px; margin-bottom: 20px" id="accountdetails">
+                                        
+                                        <apex:actionRegion >
+                                            <apex:pageBlockSection columns="1" id="accounttypepbs">
+                                                <apex:inputField value="{!userInputFields.DD_Account_Type__c}" id="accounttype" required="true" label="Account type">
+                                                    <apex:actionSupport event="onchange"  
+                                                                        focus="accounttype"
+                                                                        onsubmit="document.body.style.cursor='wait'"
+                                                                        oncomplete="document.body.style.cursor='default'"
+                                                                        rerender="accountdetails,msg"/>
+                                                </apex:inputField>
+                                            </apex:pageBlockSection>
+                                        </apex:actionRegion>
+    
+                                        <apex:pageBlockSection columns="1" rendered="{!userInputFields.DD_Account_Type__c == 'Bank Account'}" 
+                                                        id="bankacctpbs">   
+                                                <apex:inputField label="Financial institution" value="{!userInputFields.DD_Financial_Institution__c}" id="bank" required="true"/>
+                                                <apex:inputField label="BSB number" value="{!userInputFields.DD_BSB_No__c}" id="bsb" required="true"/>
+                                                <apex:inputField label="Account number" value="{!userInputFields.DD_Account_No__c}" id="accountNumber" required="true"/> 
+                                                <apex:inputField label="Account name" value="{!userInputFields.DD_Account_Name__c}" id="accountName" required="true"/>
+                                                <script>
+                                                    // fixed auto complete references
+                                                    document.getElementById('{!$Component.bsb}').autocomplete = "off";
+                                                    document.getElementById('{!$Component.bank}').autocomplete = "off";
+                                                    document.getElementById('{!$Component.accountName}').autocomplete = "off";
+                                                    document.getElementById('{!$Component.accountNumber}').autocomplete = "off";
+                                                </script>
+                                        </apex:pageBlockSection> 
+                                        
+                                        <apex:outputPanel rendered="{!userInputFields.DD_Account_Type__c == 'Credit Card'}" id="creditcrdpbs">
+		                                	<c:PortalCreditCardDetails ddc="{!Controller}"/>
+		                                </apex:outputPanel>
+                                        <!-- 
+                                        <apex:pageBlockSection columns="1" rendered="{!userInputFields.DD_Account_Type__c == 'Credit Card'}"
+                                                        id="creditcardpbs">
+                                            <apex:pageBlockSectionItem id="cctypepbs">
+                                                <apex:outputLabel value="Credit Card Type"/>
+                                                <apex:outputPanel >
+                                                    <apex:inputField id="cctype" 
+                                                                required="true"
+                                                                value="{!userInputFields.Credit_Card_Type__c}" />
+                                                    <apex:image url="{!URLFOR($Resource.Icons, 'Icons/mastercardvisalogo.gif')}" />
+                                                </apex:outputPanel>
+                                            </apex:pageBlockSectionItem>
+    
+                                            <apex:pageBlockSectionItem id="ccnumberpbs">
+                                                <apex:outputLabel value="Credit Card Number" />
+                                                <apex:outputPanel >
+                                                    <table cellpadding="0" cellspacing="0" style="border-spacing: 0">
+                                                        <tr>
+                                                            <td style="width: 40px">
+                                                                <apex:inputField value="{!userInputFields.Credit_Card_Number_1__c}"
+                                                                    label="Credit Card Number"
+                                                                    id="creditCardNumber1"/>
+                                                                <apex:message for="creditCardNumber1"/>
+                                                            </td>
+                                                            <td style="width: 40px" class="hideReqField">
+                                                                <apex:inputField value="{!userInputFields.Credit_Card_Number_2__c}"
+                                                                    id="creditCardNumber2" 
+                                                                    style="margin-left:2px"/>
+                                                            </td>
+                                                            <td style="width: 40px"><apex:inputField value="{!userInputFields.Credit_Card_Number_3__c}"
+                                                                    id="creditCardNumber3" style="margin-left:2px">
+                                                                </apex:inputField>
+                                                            </td>
+                                                            <td ><apex:inputField value="{!userInputFields.Credit_Card_Number_4__c}"
+                                                                    id="creditCardNumber4" style="margin-left:2px">
+                                                                </apex:inputField>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <script>
+                                                        document.getElementById('{!$Component.creditCardNumber1}').autocomplete = "off";
+                                                        document.getElementById('{!$Component.creditCardNumber2}').autocomplete = "off";
+                                                        document.getElementById('{!$Component.creditCardNumber3}').autocomplete = "off";
+                                                        document.getElementById('{!$Component.creditCardNumber4}').autocomplete = "off";
+                                                        document.getElementById('{!$Component.creditCardNumber1}').size = "3";
+                                                        document.getElementById('{!$Component.creditCardNumber2}').size = "3";
+                                                        document.getElementById('{!$Component.creditCardNumber3}').size = "3";
+                                                        document.getElementById('{!$Component.creditCardNumber4}').size = "3";
+                    
+                                                    </script>
+                                                </apex:outputPanel>
+                                            </apex:pageBlockSectionItem>
+    
+                                            <apex:pageBlockSectionItem id="expirydatepbs">
+                                                <apex:outputLabel value="Expiry Date" />
+                                                <apex:outputPanel >
+                                                    <table cellpadding="0" cellspacing="0" style="border-spacing: 0">
+                                                        <tr>
+                                                            <td style="width: 80px">
+                                                                <apex:inputField value="{!userInputFields.Expiration_Date_Month__c}"
+                                                                                required="true" />
+                                                            </td>
+                                                            <td>
+                                                                <apex:selectList value="{!userInputFields.Expiration_Date_Year__c}"
+                                                                    multiselect="false" size="1">
+                                                                    <apex:selectOptions value="{!items}" />
+                                                                </apex:selectList>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </apex:outputPanel>
+                                            </apex:pageBlockSectionItem>
+                                            
+                                            <apex:inputField value="{!userInputFields.Name_on_Card__c}" id="nameoncard" required="true" >
+                                                <script>
+                                                    document.getElementById('{!$Component.nameoncard}').autocomplete = "off";
+                                                </script>
+                                            </apex:inputField>
+                                            
+                                            <apex:pageBlockSectionItem id="cvnpbs">
+                                                <apex:outputLabel value="CVN"/>
+                                                <apex:outputPanel >
+                                                    <apex:inputField value="{!userInputFields.CVN__c}" id="cvn" required="true" >
+                                                        <script>
+                                                            document.getElementById('{!$Component.cvn}').autocomplete = "off";
+                                                            document.getElementById('{!$Component.cvn}').size="3";
+                                                        </script>
+                                                    </apex:inputField>
+                                                    <span style="font-weight: bold; position: relative; top: 3px;">
+                                                        <apex:outputLink onclick="j$('#cvn-popup').dialog('open'); return false;">Show me where to find this</apex:outputLink>
+                                                    </span>
+                                                </apex:outputPanel>
+                                            </apex:pageBlockSectionItem>
+                                        </apex:pageBlockSection> --> 
+    
+                                        <apex:pageBlockSection columns="1" id="termspbs">
+                                            <apex:pageBlockSectionItem id="confirmation">
+                                                <apex:outputLabel />
+                                                <apex:outputPanel >
+                                                    <apex:actionRegion >
+                                                        <apex:inputCheckBox value="{!agreedTerms}">
+                                                            <apex:actionSupport event="onclick" 
+                                                                                rerender="submitBtn"
+                                                                                onsubmit="document.body.style.cursor='wait'"
+                                                                                oncomplete="document.body.style.cursor='default'"/> 
+                                                        </apex:inputCheckBox>
+                                                    </apex:actionRegion>
+                                                    <label>I have read and understood the 
+                                                        <apex:outputLink onclick="javascript:j$('#terms-popup').dialog('open'); return false;">
+                                                            terms and conditions
+                                                        </apex:outputLink>
+                                                    </label>
+                                                </apex:outputPanel>
+                                            </apex:pageBlockSectionItem>                                    
+                                        </apex:pageBlockSection>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+
+                            <!--  REMOVE DIRECT DEBIT -->
+                            <apex:outputPanel layout="block" style="margin: 15px 0" rendered="{!actionType=='Cancel'}"> 
+                                <div><br/>
+                                    We need at least four business days notice to remove a direct debit from an account. If you have an existing direct debit with payment due within this time, please ensure there are sufficient funds in the bank accounts nominated. 
+                                </div><br/>
+                                <apex:pageMessage severity="confirm" strength="2" escape="false"
+                                                    summary="Please select 'Submit' to confirm that you wish to remove the direct debit and any associated payment plans from the above account(s)."/>
+                            </apex:outputPanel>
+
+                            <!--  BUTTONS -->
+                            <div style="margin-top:10px; margin-left: 50px">
+                                <apex:pageBlockSection id="buttonspbs" columns="1">
+                                    <apex:pageBlockSectionItem >
+                                        <apex:outputLabel />
+                                        <apex:outputPanel >
+                                            <apex:outputPanel rendered="{!actionType='Add/Amend'}" >
+                                                <apex:commandButton id="submitBtn" 
+                                                        value="Submit"
+                                                        action="{!Submit}"
+                                                        disabled="{!(NOT(agreedTerms)||Submitting)}"
+                                                        rerender="form"
+                                                        status="loading"
+                                                        oncomplete="doSubmit()"
+                                                        styleClass="btnPrimary"/>
+                                            </apex:outputPanel>
+                                            <apex:commandButton id="removeBtn" disabled="{!Submitting}"
+                                                        value="Submit"
+                                                        action="{!Submit}"
+                                                        rendered="{!actionType=='Cancel'}"
+                                                        rerender="form"
+                                                        status="loading"
+                                                        oncomplete="doSubmit()"
+                                                        styleClass="btnPrimary"/>
+
+                                            <script type="text/javascript">
+                                                function doSubmit() {
+                                                    if ('{!newTaskList}'!= '' && '{!newTaskList}'!= '[]') {
+                                                        registerDeregisterCustomer();
+                                                    }
+                                                }
+                                            </script>
+                                            
+                                            <!--        
+                                            <apex:commandButton value="Start Again" immediate="true" action="{!StartAgain}"/>
+                                             -->
+                                             
+                                            <apex:outputLink styleClass="btn btnLink btnClearBlueText"
+                                                        style="position:relative; top: 2px"
+                                                        value="{!$Page.PortalPaymentOptions}">
+                                                Cancel
+                                            </apex:outputLink>
+                                        </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>
+                                </apex:pageBlockSection>
+                            </div>
+
+                            <div class="clear"/>
+
+                            <!--  ACTION FUNCTIONS -->
+                            <apex:actionFunction action="{!registerDeregisterCustomer}" name="registerDeregisterCustomer"/>          
+
+                        </apex:outputPanel>
+                        
+                        
+                        <div class="clear"/>
+
+
+                    </apex:pageblock>
+                </apex:outputPanel>       
+                
+                <!-- Action Status that are not position dependent -->
+                <apex:actionStatus id="loading">
+                    <apex:facet name="start">
+                        <c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+                            borderSize="1" height="50px" width="120px" margintop="-25px"
+                            marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+                            Message="Processing..." />
+                    </apex:facet>
+                </apex:actionStatus>                     
+                            
+            </apex:form>
+            
+            <div>
+                <c:PortalHorizontalQuickLinks mode="directDebit"/>
+            </div>
+
+            <div id="terms-popup" class="clear">
+
+                <div style="height: 190px; text-align: justify; overflow: auto; padding: 0px 10px; border: solid 1px #E4E2DD" class="radiusAll">
+                    <!-- T&C -->
+                        <p>
+                            This agreement sets out the responsibilities and obligations between South East Water,
+                            ABN 89 066 902 547 (we) and our customers (you) in regard to the use of our direct debit
+                            system.
+                        </p>
+                        <p></p>
+                        <p>
+                            <b>
+                            Our commitment to you</b>
+                        </p>
+                        <p></p>
+                        <ul>  
+                            <li>
+                                We will send an account to you as normal.
+                            </li>
+                            <li>
+                                    The direct debit payment will be processed on the due date shown on your account,
+                                        or if you have entered into a budget plan, debits will be processed on the agreed dates.
+                                        We will not alter the frequency of direct debit payments without first consulting you and seeking prior approval. 
+                            </li>
+                            <li>
+                                We will provide you with at least
+                                        14 days notice in writing prior to making any changes to the terms of our arrangement with you.
+                                
+                            </li>
+                            <li>
+                                In the event that a payment is due on a day
+                                        which is not a working day, we will defer the processing of direct debits until the next working day. This will not impact
+                                        your payment dates.
+                            </li>
+                            <li>
+                                We will ensure that your personal details are kept strictly confidential and used only by our direct
+                                        debit officers for your direct debit payments, or in accordance with this agreement, or as required by law.
+                            </li>
+                            <li>
+                                We will handle all personal information we receive from you in accordance with our 
+                                
+                                    <a href="http://www.southeastwater.com.au/Footer/Pages/Privacy.aspx" tabindex="-1" target="_blank">
+                                    privacy policy.
+                                    </a>
+                            </li>
+                            <li>
+                                The terms of the customer charter,
+                                        or any other express agreement between you and South East Water, apply to South East Water&rsquo;s services provided to you,
+                                        except to the extent that those terms are inconsistent with this agreement
+                            </li>
+                        </ul>
+                        <p></p>
+                        <p>
+                        <b>Your rights</b>
+                        </p><p></p>
+                        <ul>
+                            <li>
+                                If at any time, the direct debit system no longer suits your needs, 
+                                    you can withdraw from the service by contacting us on 131 851.</li>
+                            <li>
+                                You may also withdraw in writing by giving at least 10 days&#39; notice. 
+                            </li>
+                            <li>
+                                You may also contact your financial institution.
+                            </li>
+                            <li>
+                                To alter a payment plan, the withdrawal must be made at least
+                                        four working days from a payment date.
+                            </li>
+                            <li>
+                                
+                                    We request that all queries in relation to direct debit requests for cancellation or deferral of payments
+                                    be directed to us, as the first point of contact, prior to notifying your financial institution.
+                            </li>
+                        </ul>
+                        <p></p>
+                        <p>
+                        <b>
+                            Disputes
+                        </b>
+                        </p>
+                        <p></p>
+                        <ul>
+                            <li>
+                                        In the event that a debit drawing is disputed, you should contact us in the first instance, or your financial 
+                                        institution. We will respond to the dispute within seven working days of your contact with us and will endeavour to resolve 
+                                        the dispute within a further seven working days. In the event that an error has been made by us, a refund equal to the 
+                                        disputed amount will be paid in accordance with your instructions.
+                                
+                            </li>
+                            <li>
+                                We will, on request from your financial institution,
+                                provide information in connection with a claim made on it relating to an alleged incorrect or wrongful debit.
+                            </li>
+                        </ul>
+                        <p></p>
+                        <p>
+                            <b>
+                            Your commitment to us
+                            </b>
+                        </p>
+                        <p></p>
+                        <ul>
+                            <li>
+                                The direct debit system is not available on all accounts, so if you&rsquo;re unsure about your 
+                                account type or other information, such as account number or what a &lsquo;BSB&rsquo; number is, you should
+                                contact your bank.
+                            </li>
+                            <li>
+                                You must advise us if the nominated account is transferred or closed
+                                or if your details have changed.
+                            </li>
+                            <li>
+                                It is your responsibility to ensure that
+                                sufficient clear funds are available in your nominated account at the time
+                                of payment. In the event that insufficient funds are available, you can, 
+                                by contacting us or your financial institution at least four working days
+                                from a payment date, request the cancellation or deferral of a payment.
+                                In the case of deferring a quarterly payment, a quarterly payment must be
+                                deferred for a minimum of seven working days.
+                            </li>
+                            <li>
+                                In the event that an amount is returned as unpaid from your financial institution,
+                                we will debit your account with an amount equal to the unpaid amount.
+                                Standard bank dishonour fees and normal debit fees may apply,
+                                so you should check this with your financial institution.
+                                &nbsp;We reserve the right to cancel any direct debit 
+                                request in the event of two or more debits being returned as unpaid. If the amount remains unpaid, 
+                                it may be listed with a credit reporting agency, which could affect your credit rating.
+                            </li>
+                        </ul>
+                        <p></p>
+                        <p>
+                            We reserve the right to withdraw this product, stop
+                            or change individual payment plans at any time. We will provide you with 14 days prior
+                            notice of any changes. &nbsp;In the event we cease to trade, all payment plans will be cancelled immediately
+                            and both you and your financial institution will be notified.</p>
+                        <p></p>
+                        <p><b>
+                            Updates to the terms and conditions</b>
+                        </p>
+                        <p>
+                            South East Water may amend or update these 
+                            terms from time to time without notice to you. Such additional terms and
+                            conditions are incorporated by reference into these terms and conditions
+                            and you agree that you will comply with any additional terms and conditions
+                            that will be made available to you.&nbsp; You may deregister your account
+                            at any time if you do not agree to these terms and conditions or any amendments
+                            or updates we may make from time to time.
+                        </p>
+                    <!-- END T&C -->  
+                </div>
+
+                <center>
+                    <br />
+                    <apex:outputLink styleClass="btn btnLink btnGreen" 
+                        style="color: #fff;"
+                        onclick="hideTerms(); return false;" tabindex="1" id="closetermswindow">Close</apex:outputLink>
+                    <script>
+                        function hideTerms() {
+                            j$("#terms-popup").dialog("close");
+                        }
+                    </script>
+                </center>
+            </div>
+
+            <!-- sample bill popup -->
+            <!-- <div id="cvn-popup" class="clear">
+
+                <div style="text-align: justify; overflow: auto; padding: 0px 10px; border: solid 1px #E4E2DD" class="radiusAll">
+                    <p>                     
+                        The CVN is the last 3 digits of the number on the signature panel found on the back of your credit card. 
+                    </p>    
+                       <apex:image url="{!URLFOR($Resource.Icons, 'Icons/creditcardcvn.png')}"
+                               title="CVN Back Panel" />
+                </div>
+
+                <center>
+                    <br/>
+                    <apex:outputLink styleClass="btn btnLink btnGreen" style="color: #fff;" 
+                        onclick="hideCVN(); return false;" tabindex="1" id="closecvnwindow">Close</apex:outputLink>
+                    <script>
+                        function hideCVN() {
+                            j$("#cvn-popup").dialog("close");
+                        }
+                    </script>
+                </center>
+            </div>
+             -->
+            <script type="text/javascript">
+                var previousOnload = window.onload;
+                window.onload = function() {
+                    window.scrollTo(0,0);
+                    try {
+                        j$(":input:enabled:visible:first").focus();
+                    } catch (e) {
+                        alert(e.toString());
+                    }
+                    // disable back button
+                    //window.history.forward(1);
+                }
+                
+                function ToggleList() {
+                    j$('#accountsListDiv').toggle();
+                    j$('#showlist').toggle();
+                    j$('#hidelist').toggle();
+                }
+            </script>           
+            
+            
+        </body> 
+        <head>
+            <META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
+            <META HTTP-EQUIV="EXPIRES" CONTENT="-1" />
+        </head>
+    </html>
+
+
+
+</apex:page>

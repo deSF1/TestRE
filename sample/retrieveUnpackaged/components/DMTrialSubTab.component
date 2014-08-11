@@ -1,0 +1,111 @@
+<apex:component controller="DMTrialSubTabController">
+
+ <apex:attribute name="activeTab" description="active tab flag" type="String"/>
+
+ <style>
+	.dmtActiveTabClass {
+
+		padding-top:1px;
+		padding-bottom:1px;
+		padding-left:5px;
+		padding-right:5px;
+		
+		cursor: pointer;
+		
+		background-color:#97D700;
+		border-style:none;
+		background-image:none;
+		font-size:10px;
+		color:#FFF;
+		height: 70px; 
+		width:200px;
+		margin-top:0px;
+		
+	}
+	
+	.dmtInactiveTabClass {
+
+		padding-top:1px;
+		padding-bottom:1px;
+		padding-left:10px;
+		padding-right:10px;
+		
+		cursor: pointer;
+		
+		background-color:#509E2F;
+		border-style:none;
+		background-image:none;
+		font-size:10px;
+		color:#FFF;
+		height: 70px;
+		width: 200px;	
+		margin-top:0px;	
+	}
+	.mainTitle{
+		text-align: center;
+		font-size:21px;
+		height:30px;
+	}
+			
+	.subTitle{
+		text-align: center;
+		font-size:15px;
+		margin-top:-10px;
+	}
+	
+
+</style>
+
+<apex:form >
+	<apex:actionFunction name="redirectMySnapShot" action="{!redirectMySnapShot}"/>
+	<apex:actionFunction name="redirectMyUsage" action="{!redirectMyUsage}"/>
+	<apex:actionFunction name="redirectMyProfile" action="{!redirectMyProfile}"/>
+	<apex:actionFunction name="redirectMySSolution" action="{!redirectMySSolution}"/>
+	
+</apex:form>
+
+<apex:panelGrid columns="4">
+
+<apex:outputPanel layout="block" styleClass="{!IF(activeTab=='Snap Shot','dmtActiveTabClass','dmtInactiveTabClass')} fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll" onclick="redirectMySnapShot();">
+	<apex:outputPanel layout="block" styleClass="mainTitle">
+		<apex:outputText value="My snapshot"/>
+	</apex:outputPanel>
+	<br/>
+	<apex:outputPanel layout="block" styleClass="subTitle">
+		<apex:outputText value="How is my water usage tracking?"/>
+	</apex:outputPanel>
+</apex:outputPanel>
+
+<apex:outputPanel layout="block" styleClass="{!IF(activeTab=='Usage','dmtActiveTabClass','dmtInactiveTabClass')} fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll" onclick="redirectMyUsage();">
+	<apex:outputPanel layout="block" styleClass="mainTitle">
+		<apex:outputText value="My usage"/>
+	</apex:outputPanel>
+	<br/>
+	<apex:outputPanel layout="block" styleClass="subTitle">
+		<apex:outputText value="View and compare your water usage"/>
+	</apex:outputPanel>
+</apex:outputPanel>
+
+<apex:outputPanel layout="block" styleClass="{!IF(activeTab=='Profile','dmtActiveTabClass','dmtInactiveTabClass')} fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll" onclick="redirectMyProfile();">
+	<apex:outputPanel layout="block" styleClass="mainTitle">
+		<apex:outputText value="My profile & settings"/>
+	</apex:outputPanel>
+	<br/>
+	<apex:outputPanel layout="block" styleClass="subTitle">
+		<apex:outputText value="Setup your profile and usage target"/>
+	</apex:outputPanel>
+</apex:outputPanel>
+
+<apex:outputPanel layout="block" styleClass="{!IF(activeTab=='Solution','dmtActiveTabClass','dmtInactiveTabClass')} fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll" onclick="redirectMySSolution();">
+	<apex:outputPanel layout="block" styleClass="mainTitle">
+		<apex:outputText value="My smart solutions"/>
+	</apex:outputPanel>
+	<br/>
+	<apex:outputPanel layout="block" styleClass="subTitle">
+		<apex:outputText value="Tap into smart water and payment solutions"/>
+	</apex:outputPanel>
+</apex:outputPanel>
+
+</apex:panelGrid>
+
+</apex:component>

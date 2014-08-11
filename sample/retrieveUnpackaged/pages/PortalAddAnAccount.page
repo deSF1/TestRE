@@ -1,0 +1,289 @@
+<apex:page sidebar="false" showHeader="true"
+    tabstyle="Portal_Enquiries__tab"
+    doctype="html-5.0" action="{!CheckRedirectConfirmed}"
+    controller="PortalAddAnAccount_Controller">
+    <!-- 
+    Type:       VF page
+    Purpose:    Adds an account
+    ---------------------------------------------------------------
+    History:
+        12-Mar-2011 - Dennis Thong - Created
+        28-Jun-2012 - Matt Watson - TT 5315, minor copy changes
+    -->
+
+    <head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <!-- jquery -->
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}" />
+        <apex:stylesheet value="{!$Resource.PortalIcons_Styles}"/>
+        <apex:stylesheet value="{!$Resource.SitePortalRegistration_Styles}" />
+
+        <style>
+            .bPageBlock .detailList .labelCol {
+                width: 30%;
+                padding-top: 5px;
+            }
+
+            /* use a * for required field 
+            .bPageBlock .requiredInput .requiredBlock {
+                position: absolute;
+                left: -12px;
+                width: 16px;
+                top: 7px;
+                bottom: 1px;
+                background: url(resource/RequiredFieldIcon) no-repeat transparent;
+            } */
+            
+            .requiredFieldIndicatorRHSNoHeight{
+                top:40px;
+            }
+        </style>
+        
+        <script type="text/javascript">
+
+            var j$ = jQuery.noConflict();
+
+            var previousOnload = window.onload;
+            window.onload = function() {
+                window.scrollTo(0,0);
+                try {
+                    j$("input:text:visible:first").focus();
+                } catch (e) {
+                }
+    
+            }
+    
+            j$(function() {
+                j$( "#samplebill-popup" ).dialog({
+                    dialogClass: 'ui-dropshadow',
+                    autoOpen: false,
+                    height: 700,
+                    width: 700,
+                    modal: true,
+                    resizable: false
+                });
+                
+                j$( "#samplebill-popupCNumber" ).dialog({
+                    dialogClass: 'ui-dropshadow',
+                    autoOpen: false,
+                    height: 700,
+                    width: 700,
+                    modal: true,
+                    resizable: false
+                });
+              
+            });
+
+            function showBill() {
+                j$("#samplebill-popup").dialog("open");
+            }
+            
+            function showBillCNumber() {
+                j$("#samplebill-popupCNumber").dialog("open");
+            }
+         
+
+       </script>
+
+
+    </head>
+
+    <apex:form id="theForm">
+        <div class="sideBarCellDiv">
+            <!--  sidebar -->                           
+            <c:PortalSidebar id="sidebar" groupName="Enquiries" currentAccRecordType="{!customer.RecordType.DeveloperName}" 
+                            currentDevName="Enquiries_AddAnAccount" title="Enquiries"/>
+        </div>
+
+        <div class="contentCellDiv">
+
+            <!-- Page Block Header -->
+            <div class="pageBlockHeader">
+                <apex:outputPanel layout="block" styleclass="pageBlockTitle">
+                    Add account
+                </apex:outputPanel>
+            </div>
+            
+            <apex:pageBlock id="pageblock">
+                <!--  PAGE MESSAGES -->
+                <div style="margin-top: 5px">
+                    <apex:pageMessages id="msg" />
+                </div>
+                <div class="innerContentLHSDiv">
+                    <apex:outputPanel id="caseFieldsPanel" rendered="{!NOT(submitted)}">
+                	<div style="position:relative; top:20px;">
+                         <c:PortalRequiredField styleclass="requiredFieldIndicatorRHS"/>
+                     </div> <br/><br/>
+                     <apex:outputText >Put all your accounts online and get the convenience of viewing your information in one place, where and when you want it.<br/><br/></apex:outputText>                     
+                        <apex:pageBlockSection id="customerdetailspbs" columns="1" title="Customer details" collapsible="false"> 
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel >Customer number</apex:outputLabel>
+                                <apex:outputPanel >
+                                <apex:inputField required="true"
+                                        value="{!caseRec.Customer_Number_Portal__c}"/>
+                                <span class="fieldHelpLink">
+                                    <a href="javascript:showBillCNumber()" id="showbill">
+                                        What's this?
+                                    </a>    
+                                </span>
+                                </apex:outputPanel>                                          
+                            </apex:pageBlockSectionItem>
+                      
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Customer name"/>
+                                <apex:outputPanel >
+                                <apex:inputField required="true"
+                                        value="{!caseRec.Customer_Name_Portal__c}"/>
+                                <span class="fieldHelpLink">
+                                    <a href="javascript:showBill()" id="showbill">
+                                        What's this?
+                                    </a>    
+                                </span>
+                                </apex:outputPanel>                                 
+                            </apex:pageBlockSectionItem>
+                        
+                        </apex:pageBlockSection>                                                    
+                        
+                        <apex:pageBlockSection id="customeraddressspbs"
+                                collapsible="false" columns="1"
+                                title="Property details">
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Street address"/>
+                                <apex:inputField required="true"
+                                        label="Street Address"
+                                        value="{!caseRec.Street_Address_Portal__c}"/>                                           
+                            </apex:pageBlockSectionItem>
+                        
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Suburb"/>
+                                <apex:inputField required="true"
+                                        label="Suburb"
+                                        value="{!caseRec.City__c}"/>                                            
+                            </apex:pageBlockSectionItem>
+                        
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Postcode"/>
+                                <apex:inputField required="true"
+                                        label="Post Code"
+                                        value="{!caseRec.Postcode__c}"/>                                            
+                            </apex:pageBlockSectionItem>
+                        
+                        </apex:pageBlockSection>    
+                    </apex:outputPanel>
+    
+                    <apex:outputPanel id="responsePanel" rendered="{!(submitted)}">
+                        <div class="caseField">
+                            <p>
+                                Thank you {!userContact.FirstName}, your request has been submitted successfully.
+                                 Please allow at least two business days for us to process your request.  
+                                 We will email you when your request has been actioned.  
+                            </p>
+                            <p>
+                                Your case reference number for this request is <b>{!casenumber}</b>.
+                            </p>
+                        </div>
+                    </apex:outputPanel>
+    
+                    <div style="margin-top: 20px;"/>
+    
+                    <apex:pageBlockSection id="buttonspbs">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel />
+                            <apex:outputPanel >
+                                <apex:commandButton value="Submit" 
+                                    id="submitbtn"
+                                    styleClass="btnGreen" action="{!submit}" 
+                                    status="loading" rendered="{!NOT(submitted)}"/> 
+            
+                                <apex:commandButton value="Cancel" 
+                                    styleClass="btnClearGreenText"
+                                    action="{!home}" immediate="true" rendered="{!NOT(submitted)}"/> 
+            
+                                <apex:commandButton value="Home" action="{!home}" immediate="true" rendered="{!(submitted)}"/> 
+            
+                                <apex:commandButton value="Submit Another" 
+                                    styleClass="btnGreen" 
+                                    action="{!submitanother}"
+                                    rendered="{!(submitted)}"/> 
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+
+                </div>
+
+                <div class="innerContentRHSDiv">
+
+                    <!--  live chat -->
+                    <c:LiveChat />
+                    
+                    <c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+                        divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+                        divStyle="width: 205px"/>
+                    
+                    <!--  quick links -->
+                    <div style="position: relative;"><c:PortalQuickLinks /></div>
+                </div>
+    
+                <div style="clear:both"/>
+            </apex:pageBlock>
+        </div>
+
+        <!-- Action Status that are not position dependent -->
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+                    borderSize="1" height="50px" width="120px" margintop="-25px"
+                    marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+                    Message="Processing..." />
+            </apex:facet>
+        </apex:actionStatus>
+
+       <!-- sample bill popup -->
+        <div id="samplebill-popup"
+            title="Finding your customer name">
+    
+            <p style="margin-top: 10px" />
+            Your customer name is located on the top left hand corner of your bill.
+            <p />
+            <center>
+                <apex:image value="{!$Resource.BillCustomerNameLocation}"
+                    style="text-align:center;margin-bottom:25px" />
+                <p />
+                <apex:commandButton styleClass="btnGreen" value="Close"
+                    onclick="hideBill(); return false;" tabindex="1" id="closebillwindow"/>
+                <script>
+                    function hideBill() {
+                        j$("#samplebill-popup").dialog("close");
+                    }
+                </script>
+            </center>
+        </div>
+        
+        <!-- sample bill popup CNumber-->
+        <div id="samplebill-popupCNumber"
+            title="Finding your customer number">
+    
+            <p style="margin-top: 10px" />
+            Your customer number is located on the top right corner of your bill.
+            <p />
+            <center>
+                <apex:image value="{!$Resource.BillCustomerNbrLocation}"
+                    style="text-align:center;margin-bottom:25px" />
+                <p />
+                <apex:commandButton styleClass="btnGreen" value="Close"
+                    onclick="hideBillCNumber(); return false;" tabindex="1" id="closebillCNumberwindow"/>
+                <script>
+                    function hideBillCNumber() {
+                        j$("#samplebill-popupCNumber").dialog("close");
+                    }
+                </script>
+            </center>
+        </div>
+        
+    </apex:form>
+
+
+</apex:page>

@@ -1,0 +1,474 @@
+<apex:page controller="QuickNotesController" id="QuickNotesPage">
+<!-- 
+    Type:       VF page
+    Purpose:    Quick Notes
+    ---------------------------------------------------------------
+    History:
+    
+    30-Jul-2012 D.Yu (Cloud Sherpas)    Updated - Quicknotes search
+    09-Aug-2012 D.Yu (Cloud Sherpas)    ID#TP253 - Reupdate to bring back the old manual search functionality 
+    06-Sep-2012 D.Yu (Cloud Sherpas)    ID#TP253 - Bug fix on display of letter to send 
+ -->
+
+    <apex:includeScript value="/support/console/22.0/integration.js" />
+    <script type="text/javascript">
+       var resultid; //Selected result id 
+       var accountName ='';
+       var resultFound = false;
+       function setTabTitle() {
+        if(sforce.console.isInConsole())
+           sforce.console.setTabTitle('Quick Notes');
+       }
+
+       var previousOnload = window.onload;
+       window.onload = function() {
+            if (previousOnload) {
+                previousOnload();
+            }
+            document.getElementById('insertBtn').disabled = true;
+            document.getElementById('qosSearch').focus();
+            setTabTitle();
+       } 
+       
+       /*---------------------------------------------------------------------------------
+       /*#TP253 - Start 
+       - assignGroupName : update group based on the selected group name
+       - getRemoteQoS : display the drop down list in quick find checkbox
+       ----------------------------------------------------------------------------------*/
+       
+       //assign value to group
+       function assignGroupName(groupName2){
+            var groupName   = document.getElementById('{!$Component.QuickNotesPage.frm.notesCategories.noteCategoryPageBlock.groupItem.group}').value;
+            document.getElementById('{!$Component.QuickNotesPage.frm.notesCategories.noteCategoryPageBlock.groupName}').value = groupName;
+            resetGroup();
+       }
+       
+       //assign values to what/why/how 
+       function getRemoteQoS() {
+           accountName = document.getElementById('qosSearch').value;
+           QuickNotesController.getAccount(accountName, function(result, event){
+               if (event.status) {     
+                    document.getElementById('{!$Component.QuickNotesPage.frm.notesCategories.quickSearchSection.whatItem.outQoSWhat}').innerHTML = result.Level_1_Category__c;
+                    document.getElementById('{!$Component.QuickNotesPage.frm.notesCategories.quickSearchSection.whyItem.outQoSWhy}').innerHTML = result.Level_2_Category__c;
+                    document.getElementById('{!$Component.QuickNotesPage.frm.notesCategories.quickSearchSection.howItem.outQoSHow}').innerHTML = result.Level_3_Category__c;
+                    
+                    if(result.Response__c != null)
+                        document.getElementById('{!$Component.QuickNotesPage.frm.notesCategories.quickSearchSection.responsesItem.outQoSResponse}').innerHTML = result.Response__c;
+                    else
+                        document.getElementById('{!$Component.QuickNotesPage.frm.notesCategories.quickSearchSection.responsesItem.outQoSResponse}').innerHTML = 'Add notes:';
+                   
+                    resultid = result.Id;
+                    document.getElementById("{!$Component.QuickNotesPage.frm.notesCategories.level1}").value = result.Level_1_Category__c;
+                    document.getElementById("{!$Component.QuickNotesPage.frm.notesCategories.level2}").value = result.Level_2_Category__c;
+                    document.getElementById("{!$Component.QuickNotesPage.frm.notesCategories.level3}").value = result.Level_3_Category__c;
+                    if(result.Response__c != null) 
+                        document.getElementById("{!$Component.QuickNotesPage.frm.notesCategories.Description}").value = result.Response__c;
+                    else
+                        document.getElementById("{!$Component.QuickNotesPage.frm.notesCategories.Description}").value = 'Add notes:';
+                    reset(); //refresh the outputpanel that contains the responses
+                    resultFound = true;
+           			
+               }
+           }, {escape:true});
+       }
+       
+       //insert text to notes details used in quick search only
+       function copytext(){
+           if(accountName == ''){
+           		alert('Please input keyword.');
+           }else if(resultFound == false){
+           		alert('No matching result found.');
+           }else{
+	           	copytextQS(resultid);
+	           	accountName = '';
+           }
+       }
+       
+       function resetResponse(){
+          document.getElementById('insertBtn').disabled = true;
+       	  document.getElementById('qosSearch').focus();
+       	  document.getElementById('{!$Component.QuickNotesPage.frm.notesCategories.quickSearchSection.responsesItem.outQoSResponse}').innerHTML = '';
+       }
+       
+       function enableInserBtn(){
+       	document.getElementById('insertBtn').disabled = false;
+       }
+       
+       /*---------------------------------------------------------------------------------
+       /*#TP253 - End
+       ----------------------------------------------------------------------------------*/
+       
+    </script>
+    <style type="text/css">
+        .bPageBlock .detailList .dataCol {
+            width: 100%;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0px;
+        }
+        
+        a { cursor: default }
+    </style>
+    <apex:sectionHeader title="Quick Notes" />
+    <apex:form id="frm">
+        <apex:actionFunction name="reset"  action="{!resetPredefinedText}" reRender="responsePanel" status="predefinedTextStatus" oncomplete="javascript:enableInserBtn();"/>
+        <apex:actionFunction name="resetGroup"  action="{!resetPredefinedText}" reRender="groupPanel, autoPanel"/>
+      	<apex:actionFunction name="copytextQS" action="{!copyText}" rerender="frm" status="copyTextStatus" oncomplete="javascript:resetResponse();">
+            <apex:param name="responseId" value="responseId" assignTo="{!selectedPredefinedTextId}" />
+        </apex:actionFunction>                       
+        <apex:outputPanel id="wholePage">
+            <apex:pageblock mode="edit" title="1 - Customer Information">
+                <apex:pagemessages />
+                <apex:pageBlockSection rendered="{!ISNULL(currentQuickNotesTask.id)}">
+                    <apex:inputField value="{!userInputFields.AccountId}"
+                        required="true" />
+                    <apex:inputField value="{!userInputFields.ContactId}" />
+                    <apex:pageblocksectionItem >
+                        <apex:outputLabel value="Billing Account" />
+                        <apex:outputPanel id="balanceLabel">
+                            <apex:inputField value="{!userInputFields.Billing_Account__c}"
+                                required="true">
+                                <apex:actionsupport event="onchange" rerender="balanceLabel" />
+                            </apex:inputField>
+                            <apex:outputLabel value="Balance: "
+                                rendered="{!NOT(ISNULL(userInputFields.Billing_Account__r))}" />
+                            <apex:outputText value="${0, number, ###,###,##0.00}"
+                                rendered="{!NOT(ISNULL(userInputFields.Billing_Account__r))}">
+                                <apex:param value="{!userInputFields.Billing_Account__r.Balance__c}" />
+                            </apex:outputText>
+                        </apex:outputPanel>
+                    </apex:pageblocksectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Interaction Type" />
+                        <apex:selectList size="1" value="{!interactionTypeDefault}">
+                            <apex:selectOptions value="{!interactionTypeSelectOptions}" />
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection rendered="{!NOT(ISNULL(currentQuickNotesTask.id))}">
+                    <apex:outputField value="{!userInputFields.AccountId}" />
+                    <apex:outputField value="{!userInputFields.ContactId}" />
+                    <apex:pageblocksectionItem >
+                        <apex:outputLabel value="Billing Account" />
+                        <apex:outputPanel >
+                            <apex:outputField value="{!userInputFields.Billing_Account__c}" />
+                            <apex:outputLabel value="Balance: "
+                                rendered="{!NOT(ISNULL(userInputFields.Billing_Account__r))}" />
+                            <apex:outputText value="${0, number, ###,###,##0.00}"
+                                rendered="{!NOT(ISNULL(userInputFields.Billing_Account__r))}">
+                                <apex:param value="{!userInputFields.Billing_Account__r.Balance__c}" />
+                            </apex:outputText>
+                        </apex:outputPanel>
+                    </apex:pageblocksectionItem>
+                    <apex:outputField value="{!currentQuickNotesTask.Interaction_Type__c }" />
+                </apex:pageBlockSection>
+            </apex:pageblock>
+<!-----------------------------------------------------------------------------------
+   /*#TP253 - Start 
+   - Change the drop down fields to ouputtext.  
+   - Auto populate what/why/how/response once search button is clicked
+   - Remove the response table
+------------------------------------------------------------------------------------>
+            <table style="width: 100%;">
+                <tr style="vertical-align: top">
+                    <td style="width:60%"><apex:actionRegion >
+                            <apex:pageblock mode="edit" title="2 - Note Categories"
+                                id="notesCategories">
+                           
+                                 <apex:outputPanel id="responsePanel" style="width:1000px;">
+                                    <apex:inputHidden id="level1" value="{!level1}"/>
+                                    <apex:inputHidden id="level2" value="{!level2}"/>
+                                    <apex:inputHidden id="level3" value="{!level3}"/>
+                                    <apex:inputHidden id="Description" value="{!descriptionQS}"/>
+                                </apex:outputPanel>
+                                <apex:pageBlockSection columns="1" id="noteCategoryPageBlock">
+                                    <apex:pageblockSectionItem >
+                                        <apex:outputLabel />
+                                        <a
+                                            href="http://aquanet/OUR_TEAMS/CUSTOMERS_AND_COMMUNITY/CUSTOMER_SUPPORT/Pages/QuickNotes.aspx"
+                                            target="_blank">Products and Services Information (PSI)</a>
+                                    </apex:pageblockSectionItem>
+                                    <apex:pageBlockSectionItem id="groupItem">
+                                        <apex:outputLabel value="Group" for="group"/>
+                                        <apex:inputField id="group" value="{!currentQuickNotesTask.Group__c}" onchange="assignGroupName(this.value); return null;"/>
+                                    </apex:pageBlockSectionItem>
+                               
+                                    <apex:outputPanel id="groupPanel">
+                                        <apex:inputHidden id="groupName" value="{!currentQuickNotesTask.Group__c}"/>
+                                    </apex:outputPanel>
+                                    
+                                    <apex:pageBlockSectionItem id="searchItem">
+                                        <apex:outputLabel value="Search"/>
+                                        <input type="checkbox" id="quickFind" checked="true" onchange="hideUnhideManualSearch();"/>
+                                    </apex:pageBlockSectionItem>
+                                   
+                                    <apex:pageBlockSectionItem id="quickSearchItem">
+                                        <apex:outputLabel value="Quick Find"/>
+                                        <apex:outputPanel id="autoPanel">
+                                            <div>
+                                                <input id="qosSearch" type="text" onkeypress="getRemoteQoS();"/>
+                                                <c:AutoComplete objectname="Quick_QoS_Response__c" additionalfield="Level_1_Category__c,Level_2_Category__c,Level_3_Category__c" autocomplete_textbox="qosSearch" groupName="{!currentQuickNotesTask.Group__c}"/>
+                                                <input type="button" id="insertBtn" value="Insert" onclick="copytext(); return null;"/> 
+                                            </div>
+                                        </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>
+                                </apex:pageBlockSection>
+                                
+                                <!-- Start of Quick Search Section -->
+                                <apex:pageBlockSection id="quickSearchSection" columns="1">
+                                   <apex:pageBlockSectionItem id="whatItem">
+                                        <apex:outputLabel value="What" for="outQoSWhat"/>
+                                        <apex:outputText id="outQoSWhat" value="{!currentQuickNotesTask.Category_Level_1__c}" />
+                                    </apex:pageBlockSectionItem>
+                                    
+                                    <apex:pageBlockSectionItem id="whyItem">
+                                        <apex:outputLabel value="Why" for="outQosWhy"/>
+                                        <apex:outputText id="outQosWhy" value="{!currentQuickNotesTask.Category_Level_2__c}"/> 
+                                    </apex:pageBlockSectionItem>
+                                    
+                                    <apex:pageBlockSectionItem id="howItem">
+                                        <apex:outputLabel value="How" for="outQosHow"/>
+                                        <apex:outputText id="outQosHow" value="{!currentQuickNotesTask.Category_Level_3__c}"/>
+                                    </apex:pageBlockSectionItem>
+                                    
+                                    <apex:pageBlockSectionItem id="responsesItem">
+                                        <apex:outputLabel value="Response" for="outQosResponse"/>
+                                        <apex:outputText id="outQosResponse" value="{!currentQuickNotesTask.Description}"/>
+                                    </apex:pageBlockSectionItem>
+                                
+                                 
+                                </apex:pageblockSection>    
+                                <!-- End of Quick Search Section -->
+                                
+                                <!-- Start of Manual Search Section -->
+                                <apex:pageBlockSection id="manualSearchSection" columns="1">
+                                    <apex:inputField id="catLevel1" value="{!currentQuickNotesTask.Category_Level_1__c}"/>
+                                    
+                                    <apex:inputField value="{!currentQuickNotesTask.Category_Level_2__c}"
+                                        id="catLevel2">
+                                        <apex:actionSupport event="onchange"
+                                            oncomplete="document.getElementById('{!$Component.catLevel2}').focus()"
+                                            action="{!resetPredefinedText}" reRender="predefinedText"
+                                            status="predefinedTextStatus" />
+                                    </apex:inputField>
+
+                                    <apex:inputField value="{!currentQuickNotesTask.Category_Level_3__c}"
+                                        id="catLevel3">
+                                        <apex:actionSupport event="onchange"
+                                            oncomplete="document.getElementById('{!$Component.catLevel3}').focus()"
+                                            action="{!resetPredefinedText}" reRender="predefinedText"
+                                            status="predefinedTextStatus" />
+                                    </apex:inputField>
+                                
+                                    <script>
+                                       
+                                        function cursor_wait() {
+                                            document.body.style.cursor = 'wait';
+                                        }
+    
+                                        function cursor_clear() {
+                                            document.body.style.cursor = 'default';
+                                        }
+                                        
+                                    </script>
+                                </apex:pageblockSection>
+                                <!-- End of Manual Search Section -->
+                                    <div style="width:100%;">
+                                        <apex:pageBlockSection id="responseSection">
+                                            <apex:pageblockSectionItem id="responseSectionItem"> 
+                                                <apex:outputLabel value="Response" />
+                                                <apex:outputPanel id="predefinedText">
+                                                    <apex:actionStatus id="predefinedTextStatus">
+                                                        <apex:facet name="start">
+                                                            <apex:outputPanel layout="none">
+                                                                <apex:image value="{!$Resource.AjaxAnimation}" />&nbsp;
+                                                            </apex:outputPanel>
+                                                        </apex:facet>
+                                                        <apex:facet name="stop">
+                                                            <apex:outputPanel id="renderPanel" style="width:100%;">
+                                                                <apex:pageblockTable value="{!quickQoSResponsesList}" var="quickQoSResponse" rendered="{!quickQoSResponsesList.size>0}" width="100%">
+                                                                    <apex:column headerValue="Response Text" value="{!quickQoSResponse.Response__c}"/>Response id: {!quickQoSResponse.Id}
+                                                                    <apex:column headerValue="Mode" value="{!quickQoSResponse.Mode__c}"/>
+                                                                    <apex:column >
+                                                                        <apex:actionStatus id="copyTextStatus">
+                                                                            <apex:facet name="start">
+                                                                                <apex:outputPanel layout="none">
+                                                                                    <apex:image value="{!$Resource.AjaxAnimation}" />&nbsp;
+                                                                                </apex:outputPanel>
+                                                                            </apex:facet>
+                                                                            <apex:facet name="stop">
+                                                                                <apex:commandLink value="Copy" action="{!copyText}" rerender="noteDetailsPB" status="copyTextStatus">
+                                                                                    <apex:param id="selectedPredefinedTextId" name="selectedPredefinedTextId" value="{!quickQoSResponse.Id}" assignTo="{!selectedPredefinedTextId}"/>
+                                                                                </apex:commandLink>
+                                                                            </apex:facet>
+                                                                        </apex:actionStatus>
+                                                                    </apex:column>
+                                                                </apex:pageblockTable>
+                                                                <apex:outputText rendered="{!quickQoSResponsesList.size=0}">No Response Text Available - please ensure the picklists above are filled.</apex:outputText>
+                                                            </apex:outputPanel>
+                                                        </apex:facet>
+                                                    </apex:actionStatus>
+                                                </apex:outputPanel>
+                                            </apex:pageblockSectionItem>
+                                        </apex:pageblockSection>
+                                    </div>
+
+                                    <script type="text/javascript">
+                                        //show hide the manual search or quick search
+                                        function hideUnhideManualSearch(){
+                                            var quickSearch = document.getElementById('quickFind').checked; 
+                                            
+                                            if(quickSearch){
+                                                document.getElementById('{!$Component.QuickNotesPage.frm.notesCategories.quickSearchSection}').style.display = "inline";
+                                                document.getElementById('qosSearch').disabled = false;
+                                                //document.getElementById('{!$Component.QuickNotesPage:frm:notesCategories:noteCategoryPageBlock:quickSearchItem:insertBtn}').disabled = false;
+                                                document.getElementById('insertBtn').disabled = false;
+                                                document.getElementById('{!$Component.QuickNotesPage.frm.notesCategories.manualSearchSection}').style.display = "none";
+                                                document.getElementById('{!$Component.QuickNotesPage.frm.notesCategories.responseSection}').style.display = "none";
+                                   
+                                            }else{
+                                                document.getElementById('{!$Component.QuickNotesPage.frm.notesCategories.quickSearchSection}').style.display = "none";
+                                                document.getElementById('qosSearch').disabled = true;
+                                                document.getElementById('insertBtn').disabled = true;
+                                                document.getElementById('{!$Component.QuickNotesPage.frm.notesCategories.manualSearchSection}').style.display = "inline";
+                                                document.getElementById('{!$Component.QuickNotesPage.frm.notesCategories.responseSection}').style.display = "inline";
+                                            }
+                                        }
+                                        hideUnhideManualSearch();
+                                   </script>
+                            </apex:pageblock>
+<!-----------------------------------------------------------------------------------
+   /*#TP253 - End 
+ ------------------------------------------------------------------------------------>
+                        </apex:actionRegion></td>
+                      
+                           
+          <apex:actionRegion >
+                    <td><apex:pageblock mode="edit" title="3 - Note Details"
+                            id="noteDetailsPB">
+                            <apex:pageblockSection columns="1">
+                                <apex:inputField value="{!currentQuickNotesTask.Subject}"
+                                    style="width:300px" />
+                                <apex:inputField value="{!currentQuickNotesTask.No_of_Contacts__c}"/>
+                                <apex:inputField value="{!currentQuickNotesTask.Hot_Issue__c}"/>
+                                <apex:inputField value="{!currentQuickNotesTask.Mode__c}"/>
+                                <apex:inputField value="{!currentQuickNotesTask.Description}"
+                                    style="width:300px;height:120px" />
+                                <apex:pageblockSectionItem rendered="{!qosLetterCheckList.size>0 && isNew}">
+                                    <apex:outputLabel value="Letter to Send" />
+                                    <apex:repeat value="{!qosLetterCheckList}"
+                                        var="qosResponseWrapper">
+                                        <apex:outputPanel >
+                                            <apex:actionStatus id="checkLetterSelectedStatus">
+                                                <apex:facet name="start">
+                                                    <apex:image value="{!$Resource.AjaxAnimation}" />
+                                                </apex:facet>
+                                                <apex:facet name="stop">
+                                                    <apex:inputCheckbox value="{!qosResponseWrapper.isSelected}">
+                                                        <apex:actionSupport event="onclick"
+                                                            reRender="noteDetailsPB"
+                                                            status="checkLetterSelectedStatus" />
+                                                    </apex:inputCheckbox>
+                                                </apex:facet>
+                                            </apex:actionStatus>
+                                                &nbsp;{!IF(ISNULL(qosResponseWrapper.responseRec.Letter_Name__c),qosResponseWrapper.responseRec.Letter_Code__c,qosResponseWrapper.responseRec.Letter_Name__c)}
+                                            </apex:outputPanel>
+                                    </apex:repeat>
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem rendered="{!isNew && isLetterSelectedToSend}">
+                                    <apex:outputLabel value="Send to" />
+                                    <apex:inputField value="{!currentQuickNotesTask.Letter_Sent_to__c}"
+                                        required="true" />
+                                </apex:pageblockSectionItem>
+                                <apex:outputField value="{!currentQuickNotesTask.Letter_Sent__c}"
+                                    rendered="{!NOT(isNew)&&NOT(ISNULL(currentQuickNotesTask.Letter_Sent__c))}" />
+                                <apex:outputField value="{!currentQuickNotesTask.Letter_Sent_to__c}"
+                                    rendered="{!NOT(ISNULL(currentQuickNotesTask.Letter_Sent__c))&&NOT(isNew)}" />
+                            </apex:pageblockSection>
+                            <apex:pageblockButtons location="bottom">
+                                <apex:commandbutton value="{!IF(isNew,'Add','Update')}"
+                                    action="{!upsertTask}" disabled="{!NOT(hasCopiedResponse)}"/>
+                            </apex:pageblockButtons>
+                        </apex:pageblock></td>
+                        </apex:actionRegion>
+                </tr>
+            </table>
+           
+            <apex:pageblock title="Notes Created"
+                rendered="{!quickNotesTasks.size>0}">
+                <apex:pageblocktable value="{!quickNotesTasks}" var="taskWrapper">
+                    <apex:column >
+                        <apex:commandlink action="{!editCreatedTask}" value="Edit">
+                            <apex:param name="taskIdToEdit" value="{!taskWrapper.taskRec.id}"
+                                assignTo="{!taskIdToEdit}" />
+                        </apex:commandlink>
+                    </apex:column>
+                    <apex:column value="{!taskWrapper.taskRec.Category_Level_1__c}" />
+                    <apex:column value="{!taskWrapper.taskRec.Category_Level_2__c}" />
+                    <apex:column value="{!taskWrapper.taskRec.Category_Level_3__c}" />
+                    <apex:column value="{!taskWrapper.taskRec.Subject}" />
+                    <apex:column value="{!taskWrapper.taskRec.Letter_Sent__c}" />
+                    <apex:column headerValue="Create Case">
+                        <apex:selectList multiselect="false" size="1"
+                            onchange="QuickCase('{!$Component.quickprocess}');"
+                            id="quickprocess">
+                            <apex:selectOptions value="{!quickNoteSelectOptions}" />
+                        </apex:selectList>
+                        <script type="text/javascript">
+                            var caseRecordTypeSelectField;
+                            var caseRecordTypeId;
+
+                            function QuickCase(compId) {
+                                caseRecordTypeSelectField = document.getElementById(compId);
+                                caseRecordTypeId = caseRecordTypeSelectField.options[caseRecordTypeSelectField.selectedIndex].value;
+                                if(sforce.console.isInConsole()){
+                                    sforce.console.getEnclosingPrimaryTabId(openCase );
+                                }
+                                else{
+                                    if(caseRecordTypeId.indexOf("012", 0) == 0){
+                                        window.open('{!taskWrapper.quickCaseURLPrefix}&RecordType='+caseRecordTypeId);
+                                    }else{
+                                        window.open(caseRecordTypeId+'{!taskWrapper.urlParameterSuffix}');
+                                    }
+                                }
+                                caseRecordTypeSelectField.selectedIndex=0;
+                            }
+
+                            var openCase = function openCase (result) {
+                                if(caseRecordTypeId.indexOf("012", 0) == 0){
+                                    sforce.console.openSubtab(result.id ,'{!taskWrapper.quickCaseURLPrefix}&isdtp=vw&RecordType='+caseRecordTypeId, true,
+                                    '', null);
+                                }else{
+                                    sforce.console.openSubtab(result.id ,caseRecordTypeId+'{!taskWrapper.urlParameterSuffix}&isdtp=vw', true,
+                                    '', null);
+                                }
+                            }
+                        </script>
+                    </apex:column>
+                </apex:pageblocktable>
+                <apex:pageblockButtons location="bottom">
+                    <apex:commandButton value="Close Page"
+                        onclick="testCloseTab();return false" />
+                    <script type="text/javascript">
+                          function testCloseTab() {
+                              if(sforce.console.isInConsole()){
+                                  sforce.console.getEnclosingTabId(closeSubtab);
+                              }
+                              else{
+                                  <!--back to the original page-->
+                                  window.location = "{!retURL}";
+                              }
+                          }
+                          
+                          var closeSubtab = function closeSubtab(result) {
+                              var tabId = result.id;
+                              sforce.console.closeTab(tabId);
+                          };
+                      </script>
+                </apex:pageblockButtons>
+            </apex:pageblock>
+
+        </apex:outputPanel>
+    </apex:form>
+</apex:page>

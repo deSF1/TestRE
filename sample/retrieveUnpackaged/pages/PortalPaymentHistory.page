@@ -1,0 +1,213 @@
+<apex:page controller="PortalPaymentHistoryExCon" doctype="html-5.0"
+    sidebar="false" showHeader="true" tabstyle="Bill_Payment_History__tab" >
+    <!-- 
+    Type:       VF page
+    Purpose:    Displays HiAF Payment History For Portal User
+    ---------------------------------------------------------------
+    History:
+
+    16-Feb-2012 Manu Erwin (Salesforce.com) - Updated
+    UPDATE: Make this page have same sub-header content (i.e., currently selected Billing Account, selectList)
+            as PortalBillHistory.page and when the other page's 'tab' is selected, redirect to that page.
+    28-Mar-2012 Richard Enojas (Salesforce.com)
+    UPDATE: Page styling
+    23-Apr-2012 DYU 
+        UPDATE: Update paperless billing link
+    23-May-2012 DYU
+        UPDATE: Added validation for invalid selected timeframe
+    23-May-2012 RDELACRUZ
+        UPDATE: Commented validation for invalid selected timeframe
+    24-May-2012 AVergara
+        UPDATE: Include commented timeframe validation
+    29-May-2012 AVergara
+        UPDATE: 5097
+    04-Jun-2012 DYu
+        UPDATE: 5145: Update invalid timeframe error message
+                5155
+    30-Nov-2012 ICastillo
+        UPDATE: Proper case titles
+    12-Dec-2013 A. Recio (Cloudsherpas) 
+    	UPDATE: Placed portal knowledge sidebar component inside a form
+     -->
+
+    <head> 
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <apex:stylesheet value="{!$Resource.PortalIcons_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalActionLinks_Styles}"/>
+         <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalHomePage_Styles}"/>
+    </head>
+
+    <script type="text/javascript">
+       var previousOnload = window.onload;
+       window.onload = function() {
+            if (previousOnload) {
+                previousOnload();
+            }
+            performPopulatePaymentHistory();
+       }
+    </script>
+
+    <apex:form id="theForm">
+    <div class="contentCellDiv">
+        <apex:outputPanel id="sectionHeaderAndTabs" layout="block" style="width:700px">
+            
+            <apex:sectionHeader title="Bill & payment history"
+                subtitle="{!if(not(isblank(selectedBillingAccount.Property__c)), selectedBillingAccount.Property__r.Street_Address_Proper__c + ', ' + selectedBillingAccount.Property__r.Suburb_Proper__c + ' ' + selectedBillingAccount.Property__r.Postal_Code__c, selectedBillingAccount.HiAF_Account_Number_Check_Digit__c)}"/>
+            <div style="clear:both"/>
+        </apex:outputPanel>
+
+        <!-- Begin -->
+        <apex:outputPanel styleclass="pbTransparent pbNoLeftPad pbNoRightPad fullPageTableOuterDiv">
+        <apex:pageblock id="pb" >
+            <c:PortalSubTab groupName="Bills"
+                                currentDevName="Bill_PaymentHistory"
+                                currentAccRecordType="{!customer.RecordType.DeveloperName}"/>
+                                
+                                
+            <apex:outputPanel id="billHistoryTable" 
+                                    layout="block"
+                                    styleClass="fullPageTableInnerDiv whiteBack sewRoundedCorner shadowAll">
+
+            <apex:outputPanel id="filter" layout="block" styleclass="filterPanel">
+                <apex:panelGrid columns="2">
+                    <apex:outputlabel >Property</apex:outputlabel>
+                    <apex:outputLabel >Select timeframe (financial year)</apex:outputLabel>
+
+                    <apex:outputPanel >                     
+                        <apex:selectList size="1" label="Property" value="{!selectedBillingAccountId}"
+                                            id="billingAccountSelectList" style="width:350px">
+                                    <apex:actionSupport event="onchange" rerender="theForm" status="loading"
+                                                        action="{!populatePaymentHistory}"/>
+                                    <apex:selectOptions value="{!billAcctOptions}"/>
+                        </apex:selectList>
+                    </apex:outputPanel>
+                    <apex:outputPanel id="years"> 
+                        <apex:actionRegion >                    
+                            <apex:selectList value="{!startYear}" 
+                                            size="1" label="Period (Start)" 
+                                            id="fystartlist">
+                                <apex:selectOptions value="{!finYearOptions}"/>
+                                <apex:actionSupport event="onchange" rerender="theForm" status="loading"/>
+                            </apex:selectList>
+                            <apex:outputLabel style="margin: 0px 5px;">to</apex:outputLabel>
+                            <apex:selectList value="{!endYear}" 
+                                            size="1" label="Period (End)" 
+                                            id="fyendlist">
+                                <apex:selectOptions value="{!finYearOptions}"/>
+                                <apex:actionSupport event="onchange" rerender="theForm" status="loading"/>
+                            </apex:selectList>
+                        </apex:actionRegion>                    
+                    </apex:outputPanel>
+                </apex:panelGrid>
+            </apex:outputPanel>
+
+            <!--  PAGE MESSAGES -->
+            <div style="text-align: left">
+                        <apex:pageMessages id="msg" />
+            </div>
+            
+            <apex:outputPanel style="margin: 10px" layout="block">
+                <apex:pageMessage escape="false"
+                    severity="info"
+                    strength="2"
+                    summary="View your last 25 payments here. For payments older than this, send us an <a href={!$Page.PortalEnquiries}>enquiry</a> outlining the payment(s) you are looking for (costs may apply).<br/>Note: It may take up to 48 hours for mySouthEastWater to display your most recent payment(s)."/>
+            </apex:outputPanel>
+              
+             <!-- PAGE MESSAGE WHEN TIMEFRAME SELECTED IS INVALID -->
+             <apex:outputPanel id="detailedReasonAndattachment" layout="block">
+                 <apex:pageBlockSection id="detailedReason" columns="1" collapsible="false" rendered="{!invalidResult}">
+                      <apex:pageMessage strength="3" severity="error" summary="Please select a timeframe where the financial year in the first field either matches or precedes the second field."/>
+                 </apex:pageBlockSection>
+             </apex:outputPanel>
+             
+            <!-- CONTENT -->
+            <apex:outputPanel layout="block" rendered="{!nbrPaymentsDisplayed==0}" style="padding:15px 15px; font-style: italic" >
+                <i>No records to display</i>
+            </apex:outputPanel>
+             <apex:outputPanel layout="block" rendered="{!nbrPaymentsDisplayed!=0}" >
+                
+                <apex:pageBlockTable id="pbTablePayHistory"
+                            headerClass="tableHeader"
+                            rowClasses="tableRowOdd,tableRowEven"
+                            columnClasses="tableCol"
+                            value="{!paymentsDisplayed}" var="pay">
+                
+                    <apex:column headervalue="Date" style="white-space: nowrap" width="20%" >
+                        <apex:outputText value="{0,date,d MMMM yyyy}" styleClass="smallFontSize Grey resetLineHeight" >
+                           <apex:param value="{!pay.DatePosted}" />
+                        </apex:outputText>
+                    </apex:column>
+                    <apex:column headervalue="Method" style="white-space: nowrap">
+                        <apex:outputText value="{!pay.Method}" styleClass="smallFontSize Grey resetLineHeight"/>
+                    </apex:column>
+                    <apex:column headervalue="Amount" headerClass="tableHeaderEmphasise"  styleClass="tableRowEmphasise" style="white-space: nowrap" width="20%" >
+                        <apex:outputText value="${!pay.Amount}" styleClass="largeFontSize Grey resetLineHeight"/>
+                    </apex:column>
+                </apex:pageblockTable>
+            </apex:outputPanel>
+        
+
+                <apex:outputPanel layout="block"  style="margin: 15px 0 0">
+                    <apex:commandButton onclick="window.location='{!$Page.PortalManageConcession}'; return false;"
+                                style="margin-left:15px"
+                                styleClass="btnLightGrey" 
+                                value="+  Add concession details"/> 
+                    <apex:commandButton onclick="window.location='{!$Page.PortalBillPreferences}'; return false;"
+                                style="margin-left:15px"
+                                styleClass="btnLightGrey" 
+                                value="Set up paperless billing"/>
+                    <apex:commandButton onclick="window.location='{!$Page.PortalPaymentOptions}'; return false;"
+                                style="margin-left:15px"
+                                styleClass="btnLightGrey" 
+                                value="View payment options"/>
+                </apex:outputPanel>
+            </apex:outputPanel>
+        </apex:pageblock>
+
+        </apex:outputPanel>
+        </div>
+        <!-- End -->
+        
+
+        <!-- Action Status that are not position dependent -->
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff"
+                                       borderColor="#6B6B6B"
+                                       borderSize="1"
+                                       height="50px"
+                                       width="120px"
+                                       margintop="-25px"
+                                       marginleft="-60px"
+                                       ImageUrl="{!$Resource.AjaxAnimation}"
+                                       Message="Loading..."/>
+            </apex:facet>
+        </apex:actionStatus>
+        <apex:actionFunction name="performPopulatePaymentHistory"
+            action="{!populatePaymentHistory}" status="loading"
+            rerender="theForm" />
+            
+		<div class="sideBarCellDiv" >
+
+	        <div id="livechatdiv" style="margin: 20px 0;" >
+	            <c:LiveChat />
+	        </div>
+	
+	        <c:PortalKnowledgeSidebar rowClass="borderDottedWhiteBottom"
+	                divClass="pbTransparent pbWhiteDottedHeader pbNoPad"
+	                divStyle="width: 205px"
+	                />
+	
+	        <!--  quick links -->
+	        <c:PortalQuickLinks />
+
+    	</div>
+    </apex:form>
+    
+    <!-- 
+    <div style="margin-left: 15px;">
+        <c:PortalWaterUsageActionLinks />
+    </div>
+     -->
+</apex:page>

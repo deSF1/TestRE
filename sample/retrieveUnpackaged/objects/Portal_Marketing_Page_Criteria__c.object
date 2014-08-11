@@ -1,0 +1,2051 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Defines the criteria in which to select brokers who will be shown the marketing page.</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Condition__c</fullName>
+        <description>The condition for the criteria.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The condition for the criteria.</inlineHelpText>
+        <label>Condition</label>
+        <picklist>
+            <picklistValues>
+                <fullName>equals</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>not equal to</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>less than</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>greater than</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>less or equal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>greater or equal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>contains</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>does not contain</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>starts with</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ends with</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Criteria_Matches__c</fullName>
+        <description>This field indicates whether the criteria needs to match all Billing Accounts, etc. for the user or just any Billing Account, etc.  E.g. Does all billing accounts need to have Billing method set to Mail or just one of the Billing Accounts?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This field indicates whether the criteria needs to match all Billing Accounts, etc. for the user or just any Billing Account, etc.  E.g. Does all billing accounts need to have Billing method set to Mail or just one of the Billing Accounts?</inlineHelpText>
+        <label>Criteria Matches</label>
+        <picklist>
+            <controllingField>Object__c</controllingField>
+            <picklistValues>
+                <fullName>Any Billing Account</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>All Billing Accounts</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Any Property for a Billing Account</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>All Properties for all Billing Accounts</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Any Consumption and Charge</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>All Consumption and Charges for a single Billing Account</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>All Consumption and Charges for All Billing Accounts</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Criteria_Number__c</fullName>
+        <description>An auto set value starting from 1 which is used to define the Criteria Logic (on the Portal Marketing Page object).</description>
+        <externalId>false</externalId>
+        <label>Criteria Number</label>
+        <precision>2</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field__c</fullName>
+        <description>The field of the object to which the criteria applies.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The field of the object to which the criteria applies.</inlineHelpText>
+        <label>Field</label>
+        <picklist>
+            <controllingField>Object__c</controllingField>
+            <picklistValues>
+                <fullName>Agent&apos;s Name</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Agent&apos;s Phone</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Alternate Email Address</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Alternate Email Address 2</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Assistant Name</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Assistant Phone</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Birthdate</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Concession Number</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Contact Type</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Department</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Description</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Drivers License Number</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Email</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fax</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>First name</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Full Name</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Has Insurance Claim</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Home Phone</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Is Active</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Key Customer Person</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Last Name</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Last Stay-in-Touch Request Date</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Last Stay-in-Touch Save Date</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lead Source</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mail Opt Out</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mailing Address DPID</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Marketing Opt In</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mobile Phone</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Organisation Name</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other Address DPID</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other Phone</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pager</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Person Number</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phone</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Portal Self-Registered</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Portal User</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Portal User Since</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Portal User Type</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Position</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Preferred Contact Type</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Preferred Language</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Preferred Phone Number</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Preferred Phone Type</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Primary / Secondary Contact</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stakeholder Person</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Title</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Trading Name</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Updated Touchpoints</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Updated Touchpoints Timestamp</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Website</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName># Main Group Accounts</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ABN</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Account Name</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Account Number</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Account Record Type</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Account Site</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Account Source</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ACN</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Active WaterMAP</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Active WaterMAP Count</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Additional Phone</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Annual Revenue</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Applicable Date</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Balance Owing All Accounts</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Billing Accounts linked to Mailing</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Billing Accounts linked to Primary</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Profile</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Type</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Company Email</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Concession cnt</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Counter</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Number</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Portal Account</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Data Check Phone is NOT number</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Data Check-Address special charactor</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dedup Flag</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employees</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EWOV Alert</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EWOV Assisted Complaint</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EWOV Investigative Complaint?</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Facebook Account</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Has Concession</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Has Rebate</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Industry</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Initials</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Invalid Mailing Address</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Invalid Primary Address</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Is Agent</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Is EREP</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Is Key Customer</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Is Main Group Customer</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Is Stakeholder</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Key Customer Type</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mailing Address Equals Postal Address</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mailing Country</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mailing Postcode</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mailing State</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mailing Street</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mailing Suburb</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No. of Billing Account</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Number of Active Billing Accounts</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Number of Billing Accounts</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Number of Closed Billing Accounts</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Number of Overdue Billing Accounts</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Overdue Amount Indicator</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Overdue Balance All Accounts</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ownership</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Postal Address</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Preferred Key Customer Visit Frequency</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Primary Address DPID</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Primary Country</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Primary Postcode</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Primary State</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Primary Street</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Primary Suburb</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q1. Your property a house or unit/apt</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q2. How many people in your household?</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q29a Water Saving Frequency</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q3. What is your age?</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q31a. Installing devices too expensive</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q31c. Open to receiving help</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q31e. Want my business to save water</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q39e. How appealing is a service</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q39i. How appealing is a regular visit</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q4. How much household protect envnmnt?</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q43. How much your biz protect envionmnt</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q5. How often use more than you should?</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q7. Agree on &quot;not interested in water&quot;</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q8. Agree on &quot;want to save more water&quot;</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rating</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rebate cnt</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Segment Image</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Segment Name Image</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Segment Profile Last Reviewed</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Segment Profile Next Review Date</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Segment Review Overdue?</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Segment Reviewed Channel</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Segment Usage Last Updated</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Segment Usage_Quartile</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Segmentation Overdue</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SIC Code</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SIC Description</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stakeholder 3rd Level Category</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stakeholder Category</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stakeholder Sub-Category</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ticker Symbol</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Twitter Account</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Type</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Universal Id</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>?Status Date</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>&gt; 3 Consecutive Estimated Reads</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Account Address</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Account Closed</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Account Opened</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Address Warnings</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Attention</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Average Daily Water Usage (KL)</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Balance</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bill To Parent</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Billed</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Billing Account #</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Billing Address Same As</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Card Firstname</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Card Lastname</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Card Type</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Care Of</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CIS Property Id</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>City</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Clerical</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Concession End Date</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Concession Holder</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Concession Start Date</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Concession_cnt</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Council</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Council Property Type</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Country</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Current Bill B/F Balance</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Current Bill Billed Amount</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Current Bill Due Date</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Name</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Universal Id</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Data Check Address Special Charactor</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Days Overdue</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Direct Debit</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Direct Debit Commencement Date</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Direct Debit Details</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DPID</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>eBill Method</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>eBill Recipient Prior First Name</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>eBill Recipient Prior Last Name</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Group Customer Address</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Group HiAF Account Number</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Has Other</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HiAF Account #</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HiAF Account Number (Check Digit)</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ICE Customer Ref</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Invalid Billing Address</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Last Bill Date</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Last Bill Number</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Last Modified By User Name</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Last Modified By User Type</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Last Payment Date</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Last Payment Made</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Last Read Date</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Next Bill Date (Approx)</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Number of Payments</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Overdue Amount</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OverdueFlags</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Payment Method</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Payment Plan Amount</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Payment Plan End Date</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Payment Plan Frequency</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Payment Plan Start Date</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Payment Plan?</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Portal Sort Order</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Postal Code</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Prior Recipient Email</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Prior Recipient Email First Name</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Property</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Property Address</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Property DPID</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Property Usage</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recipient Email</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recipient Mobile</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RecordTypeName</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recovery Last Action</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recovery Last Action Date</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recovery Next Action</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recovery Next Action Date</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recovery Path</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recovery Suspended To Date</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Reminder Method</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Residential or Non-Residential</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Risk Factor</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Role</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Run From Workflow</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Same Name As Customer</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Send Mail To</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>State</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Status</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Street Address</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Total # of Consumption Days</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Total Water Usage (KL)</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Update Sub Account Addresses</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Updated_Touchpoints</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Updated_Touchpoints_Timestamp</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Valid Concession</fullName>
+                <controllingFieldValues>Billing Account</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1 Meter with Multiple Properties</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Address Also Known As</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Allotment Area</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ANZSIC</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Body Corporate</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Council Property Reference No</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Directory Reference</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Directory Type</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Grid Coordinate X</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Grid Coordinate Y</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Logical Meter Count</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lot No</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NSM</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Private Extension Available</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Property Name</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Property Type</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PSP Number</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recycled Meter Count</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recycled Stormwater - Avenview Estate</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recycled Water Available</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Street Address (Proper)</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subdivision Plan No</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Suburb</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Suburb (Proper)</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Trade Waste Code</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Valuation Amount</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Valuation Date</fullName>
+                <controllingFieldValues>Property</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Adhoc Charge ($)</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Adjusted</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Billing Frequency</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Concession Amount ($)</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Consumption Period</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Current Read Date</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Drainage Charge ($)</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>End Date</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Financial Year</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Is Current Year</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Misc Charge</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Number of Days</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Parks Charge ($)</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Period</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Previous Read Date</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recycled Water Cost ($)</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recycled Water Service ($)</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recycled Water Volume (KL)</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sewage Disposal Cost ($)</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sewage Disposal Volume (KL)</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sewage Service ($)</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Source</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Trade Waste Cost ($)</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Trade Waste Volume (KL)</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Water Service ($)</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Water Usage Cost ($)</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Water Use Range</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Water Volume (KL)</fullName>
+                <controllingFieldValues>Consumption and Charge</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>About Me</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Admin Info Emails</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Alias</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Allow Forecasting</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approver</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cell</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Community Nickname</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Company Name</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Confirm Password</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Division</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>E-mail</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Email Encoding</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employee Number</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Extension</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Info Emails</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Language</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Locale</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Name</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Password</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Portal Role Level</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Profile Name</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Require Portal Password Reset</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SAML Federation ID</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Secret Answer</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Secret Question</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Self-Registered via Customer Portal</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Team</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Time Zone</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Username</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>State/Province</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Zip/Postal Code</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Street</fullName>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Fax</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Person Description</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Work Phone</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mailing City</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other City</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other Country</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other Postal Code</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other State</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other Street</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Last Login</fullName>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <controllingFieldValues>User</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Fax</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Record Type</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Type</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer’s Annual Revenue</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Description</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Primary City</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mailing Postal Code</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <controllingFieldValues>Person</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Preferred Phone</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Primary Postal Code</fullName>
+                <controllingFieldValues>Customer</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Object__c</fullName>
+        <description>The object to which the criteria applies</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The object to which the criteria applies</inlineHelpText>
+        <label>Object</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Person</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Billing Account</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Property</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Consumption and Charge</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>User</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Portal_Marketing_Page__c</fullName>
+        <description>The Portal Marketing Page to which this criteria applies.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Portal Marketing Page to which this criteria applies.</inlineHelpText>
+        <label>Portal Marketing Page</label>
+        <referenceTo>Portal_Marketing_Page__c</referenceTo>
+        <relationshipLabel>Portal Marketing Pages Criterion</relationshipLabel>
+        <relationshipName>Portal_Marketing_Pages_Criterion</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Value__c</fullName>
+        <description>The value for the criteria</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The value for the criteria.  Values can have the following format:
+Date: 2013-02-19 
+Date/Time: 2013-02-18T00:00:00+10:00 (where +10:00 is for AEST) 
+Boolean: true or false</inlineHelpText>
+        <label>Value</label>
+        <length>255</length>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Portal Marketing Page Criteria</label>
+    <nameField>
+        <displayFormat>CRIT{00000}</displayFormat>
+        <label>Criteria Reference</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Portal Marketing Pages Criterion</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

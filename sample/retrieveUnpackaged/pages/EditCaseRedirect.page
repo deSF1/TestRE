@@ -1,0 +1,13 @@
+<apex:page standardController="Case" extensions="NewCaseRedirectExCon" action="{!redirectToEditCase}">
+    <!--
+        Description: Redirects the edit button for case
+
+        History:
+            24-Apr-2012 - D.Thong - Created
+    -->
+
+    <apex:pagemessages />
+
+    <apex:outputField value="{!case.RecordType.DeveloperName}"/>
+
+</apex:page>

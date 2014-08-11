@@ -1,0 +1,96 @@
+<apex:page doctype="html-5.0" standardController="Expression_of_Interest__c" showHeader="false" sidebar="false" showChat="false" 
+                title="Sewering the Southern Peninsula - ECO">
+
+<!-- 
+    Name: 		ECOExpressionOfInterestFeedback
+    Type:       VF page
+    Purpose:    Displays the Expression of Interest feedback, confirming the ECO Backlog program EOI has been successfully submitted
+    ---------------------------------------------------------------
+    History:
+    
+    	27-Nov-2013 N.Patterson				Created
+    
+ -->
+ 	<head>
+ 		<apex:stylesheet value="{!$Resource.PortalHeaderFooterStyles}"/>
+ 		<apex:stylesheet value="{!$Resource.SEWStyles}"/>
+ 		<apex:stylesheet value="{!$Resource.PortalHomePage_Styles}"/>
+ 		<meta http-equiv="X-UA-Compatible" content="IE=8" />
+ 	</head>
+ 	
+ 	<style>
+		.pageForm {
+		    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+		    border: medium none;
+		    display: block;
+		    margin: auto;
+		    padding-bottom: 5px;
+		    width: 600px;
+		}
+		
+		body {
+			background-color: #ffffff !important;
+			border: none !important;
+			box-shadow: #ffffff !important;
+		}
+ 	</style>
+	<div class="header-footer">
+        <div class="header-content" style="height: 100px">
+            <div style="float: left; width: 250px; padding-left: 25px; padding-top: 3px">
+                <apex:outputLink value="http://southeastwater.com.au" target="_top">
+                    <apex:image url="{!$Resource.SEWPortalLogo}" 
+                            style="align: left" alt="South East Water" 
+                            title="South East Water"/>
+                </apex:outputLink>
+            </div>
+            <div style="float: left; width: 97px; padding-left: 465px; padding-top: 54px">
+            	<apex:image url="{!$Resource.SEW_Healthy_Water_Logo}" height="23px"
+                    style="align: left" alt="Healthy water for life" 
+                    title="Healthy water for life"/>
+            </div>
+        </div>
+ 	</div>
+
+    <div style="display: block; position:relative; top: 10px;">
+    	<div class="header-content" style="position:relative; z-index:2;">
+        	<div style="margin-left: 24px; margin-top: 10px; float: left; font-size:3em; color:#85BB41; ">
+    			Peninsula ECO (Early Connection Option)
+    		</div>
+    	</div>
+    	<div style="float: left; width: 97px; padding-left: 116px; padding-top: 20px">
+            <apex:image url="{!$Resource.ECO_Logo}" height="200px"
+                    style="align: left" alt="Early Connection Option" 
+                    title="Early Connection Option"/>
+        </div>
+    </div>
+    <div style="height:100px;"></div>
+ 
+ 	<apex:pagemessages id="messages" />
+ 	<br/>
+	<apex:form forceSSL="true" id="theForm">
+		<div class="pageForm">	
+            <apex:pageBlock id="contentCellPageblock">
+            	<apex:pageBlockSection id="questionaire" columns="1" collapsible="false">
+            		<apex:pageBlockSectionItem >
+            			
+            			<div style="padding:20px 10px; border-style:solid; border-width:2px; border-color:#0097D2; position:relative; width:666px; top:-94px; left: -196px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;">
+            			 	<table>	
+            					<tr>
+            						<td>
+            							<img src="{!$Resource.CheckBox}" style="height: 40px;"/>
+            						</td>
+            						<td>
+            							<div style="padding-left: 10px; color:#555555; font-size:16px; font-family: Calibri,'Trebuchet MS',sans-serif;">Thanks for registering your interest in Peninsula ECO. We have received your details and will contact you within two business days to answer your questions.</div>
+            						</td>
+            					</tr>
+            				</table>
+            			</div>
+            		</apex:pageBlockSectionItem>
+            	</apex:pageBlockSection>
+            </apex:pageBlock>
+            
+        </div>
+
+	</apex:form>
+	
+</apex:page>

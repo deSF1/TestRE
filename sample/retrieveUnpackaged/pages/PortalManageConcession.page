@@ -1,0 +1,580 @@
+<apex:page sidebar="false" showHeader="true" tabstyle="PortalAccounts__tab" doctype="html-5.0" action="{!CheckRedirectConfirmed}"
+    controller="PortalManageConcessionExCon" >
+    <!--
+    Type:      VF page
+    Purpose:    Displays Concession information and options to residential customers
+    ---------------------------------------------------------------
+    History:
+
+    01-Mar-2012 Manu Erwin (Salesforce.com) - Updated per Epic 114
+    14-May-2012 I.Castillo - update labels
+    23-May-2012 D. Yu - updated to add validation on creation of concession between specified date
+    25-May-2012 R. Dela Cruz    Commented time validation   
+                                Update terms and Condition
+    05-Jun-2012 D.Yu			Update: 5152
+    23-Sep-2013 N.Patterson     TT10401: View multiple customers for a single Portal user
+    08-Nov-2013 A.Recio     	Added validation to make sure input for Card number is only alphanumeric characters. 
+    13-Nov-2013 A.Recio     	Updated jqueryUI library to 1.10.3 to support tooltip method. 
+    19-Nov-2013 A.Recio     	Added section on concession success page for confirm email option
+    -->
+
+    <head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+
+        <!-- jquery -->
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" /> 
+        <!-- <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" /> -->
+        <apex:includeScript value="{!$Resource.jqueryUI_1_10_3}" />
+        <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+
+        <script>
+            var j$ = jQuery.noConflict();
+							
+            j$(function() {
+                BuildTermsDialog();
+            });
+
+            j$("#terms-popup").parent().appendTo(j$("#{!SUBSTITUTE($Component.theForm,':','\\\\:')}")); 
+
+            function BuildTermsDialog() {
+                j$( "#terms-popup" ).dialog({
+                    dialogClass: 'ui-dropshadow',
+                    autoOpen: false,
+                    width: 500,
+                    modal: true,
+                    resizable: false,
+                    title: 'Terms & conditions for concession'
+                });         
+            }
+
+            function hideTerms() {
+                j$("#terms-popup").dialog("close");
+            }
+
+            var isAcceptTAndCCheckbox;
+            var submitBtn;
+
+            function checkAcceptTandC(){
+                /* Enable/disable Submit button */
+                submitBtn.disabled = !isAcceptTAndCCheckbox.checked;
+                
+                if(submitBtn.disabled){
+                    submitBtn.setAttribute("class", "btnDarkGray");
+                    submitBtn.setAttribute("className", "btnDarkGray");
+                }else{
+                    submitBtn.setAttribute("class", "btnGreen");
+                    submitBtn.setAttribute("className", "btnGreen");
+                }
+            }
+ 
+            // Creator: Adrian Recio - CloudSherpas
+            // Date: 11/13/2013
+            // Description: This javascript method calls tooltip jquery UI 
+            //				method to allow jquery control over Customer Number field tooltip.
+			
+			function setCNToolTip(){
+				try{
+					// Set tooltip using jquery UI tooltip method and specify styleClass as tooltipUI
+					j$('#toolTipId').tooltip({ tooltipClass: 'tooltipUI', position: {my: 'left center',at: 'right center'}}); 
+				}catch(err){
+					// Alert on error
+					alert(err);
+				}// End Catch
+			}// End setCNToolTip Method
+							
+			// Creator: Adrian Recio - CloudSherpas
+            // Date: 11/8/2013
+            // Description: This javascript method filters Card Number field input to Alphanumeric, backspace and arrow keys.
+			// Note: Uncomment Alerts for Keycode Debugging.
+						
+			function validateFormat(evt) {											  
+				  var theEvent = evt; 
+				  
+				  //alert('keycode:' + theEvent.keyCode);
+				  //alert('which:' + theEvent.which);
+				  
+				  var key = theEvent.which; 
+				  
+				  // If which is null pull from keycode
+				  if(key == null){
+				  	key = theEvent.keyCode;
+				  }// End If
+				  
+				  //alert(key);
+				  
+				  var keyEntered = String.fromCharCode( key );
+				  
+				  // Specify Range for input, allow only, capital/small letters and digits
+				  var regex = /[0-9]|[a-z]|[A-Z]/;
+
+				  // 8 = BackSpace
+				  // 0 = Arrow Keys
+				  // 118 = Cntrl + V
+				  // 37 = Quote	
+			      // 39 = Percent	
+
+				  // Special check for BackSpace and Arrow Keys
+				  if(key != 8 && key != 0){	
+				     // Condition to block all character inputs not in the regular expression
+				     // and Copy - Paste operations since it will allow input of not allowed characters.
+				     if(!regex.test(keyEntered) || key == 118) {
+					    theEvent.returnValue = false;
+					    if(theEvent.preventDefault){
+					    	theEvent.preventDefault();
+					    }// End If
+								
+						// Display Tooltip and close it after 3 seconds
+						try{
+							j$('#toolTipId').tooltip('open');
+							setTimeout(function(){j$('#toolTipId').tooltip('close');},6000);
+						}catch(err){
+							alert(err);
+						}// End Catch
+											
+					  }// End If  
+				  }// End If
+			}// End validateFormat Method
+
+        </script>
+        
+        <apex:stylesheet value="{!$Resource.SEWPortalStyles}"/>
+        <!-- TODO: merge this into the master styleSheet -->
+        <style type="text/css">
+            /* INCREASED LABEL WIDTH */
+            .bPageBlock .detailList .labelCol {
+                width: 30%;
+            }
+            .coreContentContainer {
+                width: 70%;
+                float: left;
+            }
+            .checkboxText {
+                top: -20px;
+                position: relative;
+                left: 30px;
+                width: 290px;
+            }
+            /* CARD NUMBER FIELD TOOLTIP */
+            .tooltipUI {
+            	width: 187px;
+            	font-size:11px;
+            	padding:3px 3px 3px 3px;
+            	border-color: black;
+            	color:black;
+            }
+        </style>
+    </head>
+
+    <apex:form id="theForm">
+
+        <!--  SIDEBAR CONTENT -->
+        <apex:outputPanel id="sidebarContainer" layout="block" styleClass="sideBarCellDiv" >
+            <apex:outputPanel id="accountsListAndSidebar" layout="block" styleClass="pbTransparent" >
+                <c:PortalAccountsList displayAccountList="false"/> <!-- TT10401-hide the account list -->
+                <div style="margin-top:-65px;"><!-- TT10401-shift up 65 px to remove gap -->
+                <c:PortalSidebar id="sidebar" groupName="Accounts" currentAccRecordType="{!customer.RecordType.DeveloperName}"
+                    currentDevName="Accounts_Concessions" /><!-- TT10401-Don't show Menu title anymore -->
+                </div>
+            </apex:outputPanel>
+        </apex:outputPanel>
+
+
+        <!--  MAIN CONTENT -->
+        <apex:outputPanel id="contentCellDiv" layout="block" styleClass="contentCellDiv" >
+
+            <!-- APPLY FOR CONCESSIONS TITLE -->
+            <apex:sectionHeader subtitle="Concession" rendered="{!thereAreActiveBillingAccounts && !concessionBillAcctExists}" />
+
+            <!-- REMOVE CONCESSIONS TITLE -->
+            <apex:sectionHeader subtitle="Manage concession" rendered="{!concessionBillAcctExists}" />
+
+            <div class="clear"/>
+            
+            <apex:pageBlock id="contentCellPageblock" >
+               
+                <!-- LEFT HAND SIDE CONTENT -->
+                <apex:outputPanel id="innerContentLHSDiv" styleClass="innerContentLHSDiv" >
+                    <!-- MESSAGE THAT ONLY RESIDENTIAL CUSTOMERS CAN APPLY FOR CONCESSIONS -->
+                    <apex:outputPanel id="adviseNoConcessions" layout="block" styleClass="" rendered="{!!customerIsResidential}">
+                        <apex:pageMessage strength="3" severity="warn" summary="Concessions can only be applied for residential customers."/>
+                    </apex:outputPanel>
+                    
+                    <!-- PAGE MESSAGE THAT DOES NOT ALLOW CONCESSIONS BETWEEN SPECIFIED TIME 
+                     <apex:outputPanel id="detailedReasonTop" rendered="{!notAllowed}" layout="block">
+                          <apex:pageMessage escape="false" strength="3" severity="error" summary="We’re unable to process concessions on weeknights between 6.15pm and 8.30pm. You can submit your concession details below outside these hours or send us the details in an online <a href={!$Page.PortalEnquiries}>enquiry</a>."/>
+                     </apex:outputPanel>
+                    -->
+    
+                    <!-- MESSAGE THAT THERE ARE NO ACTIONS AVAILABLE AT THIS POINT IN TIME E.G., NO ACTIVE BILLING ACCOUNTS AND NO CONCESSIONS APPLIED -->
+                    <apex:outputPanel id="adviseNoActionAvailable" layout="block" styleClass="" rendered="{!!thereAreActiveBillingAccounts && !concessionBillAcctExists}">
+                        <apex:pageMessage strength="3" severity="info" summary="There are no actions available for you at this time as you do not have any active accounts or applied concessions."/>
+                    </apex:outputPanel>
+    
+                    <!--  SUCCESSFUL SUBMISSION OF ADDITION OR DELETION NOTICE -->
+                    <apex:outputPanel id="submitSuccessfulContent" layout="block" rendered="{!isSubmitSuccessful}" >
+                        <!-- SUCCESSFUL -->
+                        <apex:pageMessage escape="false" strength="3" severity="info" rendered="{!postTransactionCase.Rebilled_Amount__c == 0 && isRemoveOrAdd == 'Remove'}"
+                            summary="Thank you {!$User.FirstName}, you have successfully removed the concession. If you wish to reapply the concession to your new primary residence or add new concession details (if applicable), please select ‘add concession’.. <br /> <br /> 
+                            Your reference number is {!postTransactionCase.CaseNumber}."/>
+
+                        <!-- SUCCESSFUL WITH REBILL AMOUNT -->
+                        <apex:pageMessage escape="false" strength="3" severity="info" rendered="{! postTransactionCase.Rebilled_Amount__c != null && postTransactionCase.Rebilled_Amount__c > 0 && isRemoveOrAdd == 'Remove'}"
+                           summary="Thank you {!$User.FirstName}, you have successfully removed the concession. If you wish to reapply the concession to your new primary residence or add new concession details (if applicable), please select ‘add concession’.. <br /> <br /> 
+                            Your reference number is {!postTransactionCase.CaseNumber}."/>
+                            
+                       <!-- SUCCESSFUL -->
+                        <apex:pageMessage escape="false" strength="3" severity="info" rendered="{!isRemoveOrAdd == 'Remove'}"
+                            summary="Thank you {!$User.FirstName}, you have successfully removed the concession. If you wish to reapply the concession to your new primary residence or add new concession details (if applicable), please select ‘add concession’.. <br /> <br /> 
+                            Your reference number is {!postTransactionCase.CaseNumber}."/>
+
+						<!-- Successful add -->   
+                        <!--<apex:pageMessage escape="false" strength="3" severity="info" rendered="{! (isblank(postTransactionCase.Rebilled_Amount__c) || postTransactionCase.Rebilled_Amount__c == 0) && isRemoveOrAdd == 'Add'}"
+                            summary="Thank you {!$User.FirstName}, you have successfully added the concession<br /> <br /> 
+                            Your reference number is {!postTransactionCase.CaseNumber}."/>--> 
+	                            
+					    <apex:outputpanel Id="pageBlockAId">
+	                        <!-- Successful add -->  
+	                        <apex:pageMessage escape="false" strength="3" severity="info" rendered="{! (isblank(postTransactionCase.Rebilled_Amount__c) || postTransactionCase.Rebilled_Amount__c == 0) && isRemoveOrAdd == 'Add' && emailSentBoolean == false}"
+	                            summary="Thank you {!$User.FirstName}, you have successfully added the concession<br /> <br /> 
+	                            Your reference number is {!postTransactionCase.CaseNumber}."/> 
+                        	<!-- Confirm receipt email -->
+	                        <apex:outputPanel rendered="{! (isblank(postTransactionCase.Rebilled_Amount__c) || postTransactionCase.Rebilled_Amount__c == 0) && isRemoveOrAdd == 'Add' && emailSentBoolean == false}">
+	                        	<apex:outputText escape="false" value="Do you require an email confirmation for your records?<br/><br/>"/>	
+	                        	<apex:commandButton styleClass="btnPrimary" value="yes, please" action="{!sendConcessionEmail}" rerender="pageBlockAId"/> &nbsp;&nbsp;
+	                        	<apex:commandButton styleClass="btnPrimary" value="no, thank you" action="{!redirectConcessionPage}" rerender="pageBlockAId"/>
+	                        </apex:outputPanel>
+	                        
+	                         <apex:pageMessage id="emailSentPanelId" escape="false" strength="3" severity="info" rendered="{!emailSentBoolean}"
+	                            summary="Thank you, a confirmation email has been sent to your registered email address."/>
+                        </apex:outputpanel>
+
+                        <!--  Successful add w/ adjustment -->
+                        <apex:pageMessage escape="false" strength="3" severity="info" rendered="{! not(isblank(postTransactionCase.Rebilled_Amount__c )) && postTransactionCase.Rebilled_Amount__c > 0 && isRemoveOrAdd == 'Add'}"
+                            summary="Thank you {!$User.FirstName}, you have successfully added the concession.  An adjustment of ${!postTransactionCase.Rebilled_Amount__c} has been made.<br /> <br /> 
+                            Your reference number is {!postTransactionCase.CaseNumber}."/>  
+                        
+                        <!-- SUCCESS BUTTONS -->
+                        <apex:outputPanel style="vertical-align: text-top">
+                            <!-- TODO: Move style into styleClass -->
+                            <!-- NOTE: the concessionBillAcctExists variable will not have been refreshed when this pageBlock renders -->
+                            <apex:outputPanel layout="block"  rendered="{!concessionBillAcctExists}">
+                                <apex:commandButton styleClass="btnPrimary" value="Add Concession" action="{!refreshPage}" />
+                                <apex:commandButton styleClass="btnClearGreenText" value="Return to Account" action="{!returnToAccountDetailsPage}"/>
+                            </apex:outputPanel>
+
+                        </apex:outputPanel>
+                        <br/>
+                    </apex:outputPanel>
+                        
+                     <!-- PAGE MESSAGES - ALWAYS DISPLAYED -->
+                    <apex:outputPanel id="pageMessages" layout="block" >
+                        <apex:pageMessages id="msgTop" />
+                    </apex:outputPanel>
+                    <!-- CONTAINER FOR ALL CONCESSION PROCESSING OF ADDITIONS AND DELETIONS -->
+                    <apex:outputPanel id="concessionsContentContainer" layout="block" styleClass="" rendered="{!!isSubmitSuccessful}" >
+                        <apex:outputPanel rendered="{!thereAreActiveBillingAccounts && !concessionBillAcctExists}"> 
+                        
+                        <div>A concession can help make water and sewerage services more affordable.  If you hold an eligible card simply grab this and register your details below. <br/><br/>
+                        <span style="font-weight: bold;">Please note:</span> A concession can only be applied to the water account for your principal place of residence.</div>
+                        <br/>
+    
+    					<!-- US 208 Pending Parts -->
+                        <!--  <div>
+	                        <apex:outputText escape="false" value="{!$Label.CardHolders}" />
+	                        <br/>
+	                        <div><center><apex:image value="{!$Resource.ConcessionImage}" /></center></div>
+							<br/>
+	                        <apex:outputText escape="false" value="{!$Label.CardHolders2}"/> 
+                        </div> -->
+
+                        </apex:outputPanel>
+                        <apex:outputPanel id="concessionsContent" layout="block" rendered="{!customerIsResidential && (thereAreActiveBillingAccounts || concessionBillAcctExists)}" >
+                            <!-- Indicates a required field
+                            <c:PortalRequiredField styleclass="requiredFieldIndicatorRHSNoHeight"/>  -->
+                            <!-- CUSTOMER DETAILS FROM CASE -->
+                            <div style="width: 100%;">
+                            <apex:pageBlockSection id="accountDetails" columns="1" title="Account details" collapsible="false" rendered="{!thereAreActiveBillingAccounts && !concessionBillAcctExists}">
+                                <apex:outputField value="{!currentCase.Account.Name}" label="Customer name" styleclass="affect"/>
+                                <apex:outputText value="{!currentBillAcct.Property__r.Street_Address_Proper__c}, {!currentBillAcct.Property__r.Suburb_Proper__c} {!currentBillAcct.Property__r.Postal_Code__c}" 
+                                    label="Customer address"/>
+                                <apex:outputField value="{!currentCase.Billing_Account__r.HiAF_Account_Number_Check_Digit__c}" label="Customer number"/>
+                            </apex:pageBlockSection>
+                            </div>
+                            <br></br>
+                              <!-- ACTION REGION ENABLES CHOOSING DIFFERENT ACCOUNTS WITHOUT REQUIRED FIELD VALIDATION FIRING -->
+                            <apex:actionRegion >
+                                <!-- PROPERTY SELECTION -->
+                                <apex:pageBlockSection id="billingAccountSelection" columns="1" rendered="{!!concessionBillAcctExists} || "
+                                    title="Account details" collapsible="false" showHeader="false">
+                                    <!-- TODO: Move style into styleClass and consider 100% of width rather than px -->
+                                    <apex:selectList id="billingAccountList" size="1" label="Property concession will apply to" value="{!selectedBillingAccountId}" style="width:240px" required="true">
+                                        <apex:selectOptions value="{!activeBillAcctOptions}" />
+                                        <apex:actionSupport event="onchange" status="loading"
+                                            action="{!setBillingAccount}" rerender="concessionsContentContainer"
+                                            oncomplete="hideTerms(); checkAcceptTandC();"/>
+                                    </apex:selectList>
+                                </apex:pageBlockSection>
+                            </apex:actionRegion>
+                            
+                            <div><br/>
+                                If you wish to remove or transfer a concession, or if your concession entitlement or details have changed, please select ‘remove’. You will then have the opportunity to reapply the concession to your new primary residence or add new concession details (if applicable).
+                            </div><br/>
+
+                            <!-- EXISTING CONCESSION DETAILS -->
+                            <apex:pageBlockSection id="concessionCardDetails" columns="1" title="Concession card details" collapsible="false"
+                                    rendered="{!concessionBillAcctExists}" showHeader="true">
+                                <apex:outputField value="{!concessionBillingAccount.Card_Type__c}" label="Card type"/>
+                                <apex:outputField value="{!concessionBillingAccount.Concession_Number__c}" label="Card number"/>
+                                <apex:outputField value="{!concessionBillingAccount.Card_Firstname__c}" label="Firstname on card"/>
+                                <apex:outputField value="{!concessionBillingAccount.Card_Lastname__c}" label="Lastname on card" />
+                                <apex:outputField value="{!concessionBillingAccount.Concession_Start_Date__c}" label="Start date" />
+                                <apex:outputField value="{!concessionBillingAccount.Concession_End_Date__c}" label="Expiry date"/>
+                                <apex:outputText value="{!currentBillAcct.Property__r.Street_Address_Proper__c}, {!currentBillAcct.Property__r.Suburb_Proper__c} {!currentBillAcct.Property__r.Postal_Code__c}" 
+                                    label="Property applied to:"/>
+                            </apex:pageBlockSection> <!-- concessionCardDetails END -->
+                            
+                            
+                            <!-- REMOVE EXISTING CONCESSION -->
+                            <!--
+                            <apex:pageBlockSection id="removeConcession" columns="1" collapsible="false" rendered="{!concessionBillAcctExists}"
+                                    title="Remove concession details" >
+                                <p>"You already have a concession applied to this property (your previously advised primary residence).<br /><br />
+                                        If you have changed your primary residence, you must first remove the concession from this property (by clicking 'Remove Concession Details' below)
+                                         and then reapply it to your new primary residence. <br />
+                                         Note: Your concession card must reflect these changes.<br /><br />
+                                         Reminder: you are only allowed to apply one concession at a time (to your primary residence)."
+                                </p>
+                           
+                            
+                                
+                                <apex:pageMessage strength="1" severity="info" escape="false"
+                                    summary="You already have a concession applied to this property (your previously advised primary residence).<br /><br />
+                                        If you have changed your primary residence, you must first remove the concession from this property (by clicking 'Remove Concession Details' below)
+                                         and then reapply it to your new primary residence. <br />
+                                         Note: Your concession card must reflect these changes.<br /><br />
+                                         Reminder: you are only allowed to apply one concession at a time (to your primary residence)."/> 
+                                         
+                               
+                            </apex:pageBlockSection>
+                             -->
+                            
+                           <br></br>
+                            <!-- PROPERTY SELECTION - ACTION REGION USED TO IGNORE REQUIRED FIELD VALIDATION -->
+                            <apex:actionRegion >
+                                <!-- ADD CONCESSION -->
+                                <apex:pageBlockSection id="addConcession" columns="1" collapsible="false"
+                                        title="Add concession details" rendered="{!!concessionBillAcctExists}" showHeader="false">
+                                    <apex:pageBlockSectionItem >
+                                        <!-- TODO: refactor the style into a styleClass -->
+                                        <!-- <apex:outputLabel for="accountHolderSelect" value="{!$Label.PrimaryConcessionQuestion}" style="width: 500px; height: 300px;"/> -->
+                                        <apex:outputLabel for="accountHolderSelect" value="Are you the account and concession holder?" style="width: 500px; height: 300px;"/>
+                                        <!-- TODO: refactor the style into a styleClass -->
+                                        <apex:selectRadio id="accountHolderSelect" value="{!isAccHolder}" >
+                                            <apex:actionSupport event="onclick" reRender="concessionsContent" status="loading" oncomplete="hideTerms(); checkAcceptTandC()"/>
+                                            <apex:selectOption itemLabel="Yes" itemValue="true"/>
+                                            <apex:selectOption itemLabel="No" itemValue="false"/>
+                                        </apex:SelectRadio>
+                                    </apex:pageBlockSectionItem>
+                                </apex:pageBlockSection>
+                            </apex:actionRegion>
+                            
+                            <br></br>
+                             <!-- PAGE MESSAGE THAT DOES NOT ALLOW CONCESSIONS BETWEEN SPECIFIED TIME -->
+                            <apex:outputPanel layout="block" style="margin-left: -12px;">
+                                   <apex:pageBlockSection id="detailedReason" columns="1" collapsible="false">
+                                        <apex:pageMessage escape="false" strength="3" severity="info" summary="We’re unable to process concessions on weeknights between 6.15pm and 8.30pm. You can submit your concession details below outside these hours or send us the details in an online <a href={!$Page.PortalEnquiries}>enquiry</a>."/>
+                                   </apex:pageBlockSection>
+                             </apex:outputPanel>
+
+                            <!-- USER IS NOT THE ACCOUNT HOLDER - ADVISE CONTACT SE WATER -->
+                            <apex:pageBlockSection id="notAccountHolder" columns="1" collapsible="false" rendered="{!isAccHolder == 'false'}">
+                                <!--  <apex:pageMessage escape="false"; strength="3" severity="error" summary="{!$User.Name} while you are not the account and concession holder there are instances where 
+                                you may still be entitled to a concession.  Please submit an <a href={!$page.PortalEnquiries}>enquiry</a> or contact our Customer Support team on 131 851
+                                (Monday to Friday, 8:00am - 5:30pm) to discuss your entitlement."/> -->
+                                <apex:pageMessage escape="false" strength="3" severity="error" summary="{!$user.FirstName}, while you are not the account and concession holder there are instances where you may still be entitled to a concession. 
+                                    Please submit an <a href={!$page.PortalEnquiries}>enquiry</a> or contact our Customer Support team on 131 851 (Monday to Friday 8.00am - 5.30pm) to discuss your entitlement."/>
+                            </apex:pageBlockSection> 
+
+                            <!-- USER IS THE ACCOUNT HOLDER -->
+                            <!-- Currently fixing this part -->
+                            <c:PortalRequiredField rendered="{!isAccHolder == 'true'}" style="position:relative;top:15px;" styleclass="requiredFieldIndicatorRHSNoHeight" /> 
+                            
+                            <apex:pageBlockSection id="isAccountHolder" columns="1" collapsible="false" 
+                                    title="Concession details" rendered="{!isAccHolder == 'true'}">
+                                  
+                                <div style="margin-left: -10px;">Please enter the details exactly as they appear on your card.</div>
+                                <br/>
+                                <!-- CONCESSION CARD TYPE -->
+                                <apex:pageblockSectionItem >
+                                    <apex:outputLabel for="cardType" value="Card type"/>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputField id="cardType" value="{!currentCase.Concession_Card_Type__c}" required="true" />
+                                        <a href="{!$Setup.PortalLinks__c.Concession_Help_Link__c}" 
+                                                target="_new" 
+                                                title="What concession cards are eligible?"
+                                                class="fieldHelpLinkWithIcon" >
+                                            <apex:image value="{!$Resource.PortalHelpIcon}"/>
+                                        </a>
+                                    </apex:outputPanel>
+                                </apex:pageblockSectionItem>
+                                
+								<apex:pageblockSectionItem >
+                                    <apex:outputLabel for="cardNumber" value="Card Number"/>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputField id="cardNumber" value="{!currentCase.Concession_Card_Number__c}" required="true" onkeypress="validateFormat(event);"/>
+                                        <a Id="toolTipId" title="Please enter your card number exactly as it appears on your card including numbers and letters (but without special characters)." style="visibility:hidden;" class="fieldHelpLinkWithIcon" >
+                                            <apex:image value="{!$Resource.PortalHelpIcon}"/>
+                                        </a>
+                                    </apex:outputPanel>
+                                </apex:pageblockSectionItem>
+                                <script>
+									// Call setCNToolTip Method to set tooltip of 
+									// anchor tag with Id 'toolTipId' to jquery UI controlled version.
+									setCNToolTip();
+								</script>
+                                <apex:inputField id="firstName" value="{!currentCase.Concession_Card_Firstname__c}" required="true" label="First name on card" />
+                                <apex:inputField id="lastName" value="{!currentCase.Concession_Card_Lastname__c}" required="true" label="Last name on card" />
+
+                                <apex:pageBlockSectionItem id="tcpbsi">
+                                    <apex:outputPanel layout="block" id="tcpanel" >
+                                        <div  style="left: -12px;position: relative;width: 100%;">
+                                        <apex:inputField id="isAcceptTAndCCheckbox" value="{!currentCase.Privacy_Statement__c}"
+                                            onclick="checkAcceptTandC();" >
+                                            <script>
+                                                isAcceptTAndCCheckbox = document.getElementById("{!$Component.isAcceptTAndCCheckbox}");
+                                            </script>
+                                        </apex:inputField>
+                                        </div>
+                                        <div style=" left: 10px;position: relative;top: -20px;width: 100%;">
+                                            Yes, I have read and agree to South East Water's&nbsp;
+                                            <apex:outputLink onclick="j$('#terms-popup').dialog('open'); return false;" >
+                                                terms and conditions.
+                                            </apex:outputLink>
+                                        </div>
+                                    </apex:outputPanel>            
+                                </apex:pageBlockSectionItem>
+                            </apex:pageBlockSection> <!-- isAccountHolder END -->
+
+                            <!--  PAGE MESSAGES -->
+                            <apex:pageBlockSection id="pageMessagesConcessionsBottom" columns="1">
+                                <apex:pageMessages id="msgBottom" />
+                            </apex:pageBlockSection>
+                            
+                 
+                            <!--  BOTTOM BUTTONS -->
+                            <!-- TODO: Move style into styleClass -->
+                            <!-- <apex:outputPanel style="vertical-align: text-top"> -->
+                               
+                                <!-- TODO: Move style into styleClass -->
+                                <!-- Remove "Return to account details" button then replace label of "Submit concession details" to "Submit"-->
+                                <!--  <apex:outputPanel layout="block" style="float:left">
+                                    
+                                </apex:outputPanel> -->
+                            
+                            <!-- TODO: Move style into styleClass -->
+                            <apex:outputPanel layout="block">
+                                <div style="margin-left: 150px;">
+                                    <apex:commandButton id="submitBtn" value="{!IF(concessionBillAcctExists,'Remove',IF(isAccHolder=='true','Submit','Next'))}"
+                                        styleClass="btnPrimary" action="{!Next}" status="loading" rerender="innerContentLHSDiv,pageMessages" oncomplete="BuildTermsDialog();"
+                                            rendered="{!isAccHolder == 'true' ||
+                                                    ( isAccHolder == 'true' && NOT(isSubmitSuccessful) ) ||
+                                                    concessionBillAcctExists}" >
+                                        <script>
+                                            //submitBtn = document.getElementById('{!$Component.submitBtn}');
+                                        </script>
+                                    </apex:commandButton>
+                                    &nbsp;
+                                    <apex:commandButton styleClass="btnClearGreenText" value="Cancel" 
+                                                rendered="{!isAccHolder == 'true' ||
+                                                    ( isAccHolder == 'true' && NOT(isSubmitSuccessful) ) ||
+                                                    concessionBillAcctExists}"
+                                                action="{!returnToAccountDetailsPage}" immediate="true" />
+                                    <apex:commandButton value="Cancel" 
+                                                rendered="{!NOT(isAccHolder == 'true' ||
+                                                    ( isAccHolder == 'true' && NOT(isSubmitSuccessful) ) ||
+                                                    concessionBillAcctExists)}"
+                                                action="{!returnToAccountDetailsPage}" immediate="true" />
+                                </div>
+                            </apex:outputPanel>
+                            <!--  </apex:outputPanel> -->
+                            <br/>
+    
+                        </apex:outputPanel> <!-- concessionsContent END -->
+                    </apex:outputPanel> <!-- concessionsContentContainer END -->
+                </apex:outputPanel>
+
+                <!-- RIGHT HAND SIDE CONTENT -->
+                <apex:outputPanel id="innerContentRHSDiv" layout="block" styleClass="innerContentRHSDiv" >
+                    <!--  live chat -->
+                    <c:LiveChat />
+                    
+                    <c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+                        divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+                        divStyle="width: 205px"/>
+                    
+                    <!--  quick links -->
+                    <div style="position: relative;"><c:PortalQuickLinks mode="Concession"/></div>
+                </apex:outputPanel>
+    
+                <div style="clear:both"/>
+            </apex:pageBlock>
+
+        </apex:outputPanel> <!-- contentCellDiv END -->
+
+        <!-- TERMS AND CONDITIONS POPUP -->
+        <div id="terms-popup">
+            <div style="height: 400px; text-align: justify; overflow: auto; padding: 0px 10px; border: solid 1px #E4E2DD" class="radiusAll">
+                <!-- TODO: refactor the style into the CSS -->
+                <p style="text-align: justify;">
+                    The information provided is required to assess your eligibility for a concession. 
+                    The information will not be used for any other purpose without your consent. 
+                    The information will only be retained for the period required by the Public Records Act 1973. 
+                    You are entitled to access your personal information held by South East Water and seek to correct this information if necessary.
+                </p>
+                <p style="text-align: justify;">
+                    I declare that the above information is correct to the best of my knowledge. 
+                    I further declare that this is the principal place of residence and is used for residential purposes.
+                </p>
+                <!-- TODO: refactor the style into the CSS -->
+                <p style="text-align: justify;">
+                   I authorise Centrelink to confirm with South East Water the current status of my Commonwealth Benefit and other details as they pertain to my concessional entitlement. 
+                   This involves electronically matching details I have provided to South East Water with Centrelink or Department of Veterans’ Affairs (DVA) records to confirm whether or not I am currently receiving a Centrelink or DVA benefit.
+                </p>
+                <!-- TODO: refactor the style into the CSS -->
+                <p style="text-align: justify;">
+                    I understand that this consent, when provided, is effective only for the period I am a customer of South East Water. 
+                    I also understand that this consent, which is ongoing, can be revoked any time by giving written notice to South East Water. 
+                    I understand that if I withdraw my consent, I may not be eligible for the concession provided by South East Water.
+                </p>    
+                <h3>Updates to the terms and conditions</h3>
+                <p style="text-align: justify;">
+                South East Water may amend or update these terms from time to time without notice to you. 
+                Such additional terms and conditions are incorporated by reference into these terms and conditions and you agree that you will comply with any additional terms and conditions that will be made available to you.  
+                You may deregister your account at any time if you do not agree to these terms and conditions or any amendments or updates we may make from time to time.
+                </p>
+            </div>
+
+            <center>
+                <br />
+                <apex:commandButton styleClass="btnPrimary" value="Close"
+                    onclick="hideTerms(); return false;" tabindex="1" id="closetermswindow"/>
+            </center>
+        </div>
+
+        <!-- Action Status that are not position dependent -->
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff"
+                                       borderColor="#6B6B6B"
+                                       borderSize="1"
+                                       height="50px"
+                                       width="120px"
+                                       margintop="-25px"
+                                       marginleft="-60px"
+                                       ImageUrl="{!$Resource.AjaxAnimation}"
+                                       Message="Loading..."/>
+            </apex:facet>
+        </apex:actionStatus>
+
+    </apex:form>
+</apex:page>

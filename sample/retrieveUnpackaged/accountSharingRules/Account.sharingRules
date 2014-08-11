@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AccountSharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <criteriaBasedRules>
+        <fullName>Mercantile_Agency_Sharing</fullName>
+        <sharedTo>
+            <role>Mercantile_Agency</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Mercantile_Recovery__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <accountAccessLevel>Read</accountAccessLevel>
+        <caseAccessLevel>Read</caseAccessLevel>
+        <contactAccessLevel>Read</contactAccessLevel>
+        <name>Mercantile Agency Sharing</name>
+        <opportunityAccessLevel>None</opportunityAccessLevel>
+    </criteriaBasedRules>
+    <ownerRules>
+        <fullName>ExecutivesI</fullName>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Executives</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>Executives</roleAndSubordinates>
+        </sharedFrom>
+        <accountAccessLevel>Edit</accountAccessLevel>
+        <caseAccessLevel>Edit</caseAccessLevel>
+        <contactAccessLevel>Edit</contactAccessLevel>
+        <name>ExecutivesI</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>IOTA_Account_Sharing</fullName>
+        <sharedTo>
+            <roleAndSubordinatesInternal>IOTA_Group</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>IOTA_Group</roleAndSubordinatesInternal>
+        </sharedFrom>
+        <accountAccessLevel>Edit</accountAccessLevel>
+        <caseAccessLevel>Edit</caseAccessLevel>
+        <contactAccessLevel>Edit</contactAccessLevel>
+        <name>IOTA Account Sharing</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_IOTA_with_SEW_Admin</fullName>
+        <sharedTo>
+            <group>SEW_Admin</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>IOTA_Group</roleAndSubordinatesInternal>
+        </sharedFrom>
+        <accountAccessLevel>Edit</accountAccessLevel>
+        <caseAccessLevel>Edit</caseAccessLevel>
+        <contactAccessLevel>Edit</contactAccessLevel>
+        <name>Share IOTA with SEW Admin</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </ownerRules>
+</AccountSharingRules>

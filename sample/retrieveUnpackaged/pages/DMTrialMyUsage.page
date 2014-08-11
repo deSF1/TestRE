@@ -1,0 +1,23 @@
+<!-- 
+* @author Original: Adrian Recio Cloud Sherpas
+* @date Original: 2/3/2014
+* @description Digital Meter trial page that displays usage graph  
+-->
+
+<apex:page sidebar="false" action="{!profileBlock}" controller="DMTrialMainCC">
+	<head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <apex:stylesheet value="{!$Resource.PortalIcons_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalActionLinks_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalHomePage_Styles}"/> 
+    </head>	
+<c:DMTrialSubTab activeTab="Usage"></c:DMTrialSubTab>
+<c:DMTrialUsageGraph pageNameStr="My usage"></c:DMTrialUsageGraph>
+
+<br/>
+
+<c:PortalHorizontalQuickLinks mode="DMT"/> 
+
+
+</apex:page>

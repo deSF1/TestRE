@@ -1,0 +1,128 @@
+<!-- 
+    Type:       VF page
+    Purpose:    Visualforce page for Action button on Financial Hardship
+    ---------------------------------------------------------------
+    History:
+        01/08/2013	Eugene Jandusay		Created
+    -->
+<apex:page controller="FinancialHardshipActionController" id="Page" showHeader="false">
+	<script type="text/javascript">
+    function callActionFunction(){
+        callaction();
+    }
+    </script>
+    
+	<apex:form id="theForm">
+		<apex:pagemessages id="errors" ></apex:pagemessages>
+	
+	    <apex:pageBlock mode="edit" id="pageblock" rendered="{!showFirstBlock}">
+	        <apex:pageBlockSection columns="1" id="pbID"  >              
+	               <apex:PageBlockSectionItem id="pbSectionItem">
+	
+	                  <apex:outputPanel >
+	                      <div style="margin-left:80px; width:100%"><apex:outputLabel value="Action:" for="Action"></apex:outputLabel></div>
+	                  </apex:outputPanel>
+	                  <apex:outputPanel >
+	                      <div class="requiredInput" style="margin-left:80px;">
+	                          <div class="requiredBlock" style="margin-left:0px;"></div>
+	                              <apex:actionFunction name="callaction"  action="{!actionOnChange}"  reRender="theForm,newTerms,panel2" status="status2"  />
+	                              <apex:selectList required="true" id="Action" value="{!fhAction}" size="1" onchange="callActionFunction();">
+	                                       <apex:selectOptions value="{!Actions}"></apex:selectOptions>
+	                              </apex:selectList>
+	                              <apex:actionStatus id="status2">
+                                      <apex:facet name="start">                     
+                                          <apex:image value="{!$Resource.AjaxAnimation}" width="15" height="15"/>
+                                      
+                                      </apex:facet>
+                                  </apex:actionStatus>
+	                      </div>
+	
+	                  </apex:outputPanel>
+	
+	               </apex:PageBlockSectionItem>
+	        </apex:pageBlockSection><br/>
+	    </apex:pageBlock>
+	    
+	    <apex:pageblock id="panel2" rendered="{!showFields}">
+	    	<apex:pageblockSection columns="1">
+	    		<apex:repeat value="{!taskFHInfoWrapper}" var="fh">
+	    			<apex:inputField value="{!fh.fhTask.Group__c}" rendered="{!isNotChangeFHcaseOfficer}"/>
+	    			<apex:inputField value="{!fh.fhTask.Category_Level_1__c}" rendered="{!isNotChangeFHcaseOfficer}"/>
+	    			<apex:inputField value="{!fh.fhTask.Category_Level_2__c}" rendered="{!isNotChangeFHcaseOfficer}"/>
+	    			<apex:inputField value="{!fh.fhTask.Category_Level_3__c}" rendered="{!isNotChangeFHcaseOfficer}"/>
+	    			<apex:inputField value="{!fh.fhTask.Subject}" rendered="{!isNotChangeFHcaseOfficer}"/>
+	    			<apex:inputField value="{!fh.fhTask.Mode__c}" rendered="{!isNotChangeFHcaseOfficer}"/>
+	    			<apex:inputField value="{!fh.fhTask.Interaction_Type__c}" rendered="{!isNotChangeFHcaseOfficer}"/>
+	    			<apex:PageBlockSectionItem rendered="{!isChangeFHcaseOfficer}">	    			
+		    			<apex:outputLabel >Old Owner</apex:outputLabel>
+		    			<apex:outputPanel >
+		    				<apex:outputField value="{!fh.financialHardship.OwnerId}" />
+		    			</apex:outputPanel>	
+	    			</apex:PageBlockSectionItem> 				    			
+		    		<apex:inputField value="{!fh.financialHardship.Next_Review_Action__c}" rendered="{!isNotChangeFHcaseOfficer}"/>
+		    		<apex:inputField value="{!fh.financialHardship.Next_Review_Date__c}" rendered="{!isNotChangeFHcaseOfficer}"/>
+		    		<apex:inputField value="{!fh.financialHardship.Hardship_Status__c}" rendered="{!isNotChangeFHcaseOfficer}"/>		    		
+		    		<apex:outputField value="{!fh.financialHardship.Exception_Reason__c}" style="width: 500px; margin: 0px;" rendered="{!isNotChangeFHcaseOfficer}"/>
+		    		<apex:inputField value="{!fh.financialHardship.Next_Review_Status__c}" rendered="{!isNotChangeFHcaseOfficer}"/>
+		    		<apex:inputField value="{!fh.financialHardship.Last_Review_Date__c}" rendered="{!isNotChangeFHcaseOfficer}"/>
+		    		<apex:inputField value="{!fh.fhTask.WhoId}" rendered="{!isNotChangeFHcaseOfficer}"/>
+		    		<apex:inputField value="{!fh.fhTask.Other_Person_Name__c}" rendered="{!isNotChangeFHcaseOfficer}"/>
+		    		<apex:inputField value="{!fh.fhTask.Description}" style="width: 500px; height: 97px; margin: 0px;"/>
+		    		<apex:inputField value="{!fh.fhTask.Private__c}" rendered="{!isNotChangeFHcaseOfficer}"/>
+		    		<apex:inputField value="{!fh.financialHardship.End_Program_Balance__c}" rendered="{!isExit}" />
+		    		<apex:inputField value="{!fh.financialHardship.Exit_Date__c}" rendered="{!isExit}"/>
+		    		<apex:inputField value="{!fh.financialHardship.Exit_Reason__c}" rendered="{!isExit}"/>
+		    		<apex:inputField value="{!fh.fhTask.ActivityDate}" rendered="{!isNotChangeFHcaseOfficer}"/>
+		    		<apex:PageBlockSectionItem rendered="{!isChangeFHcaseOfficer}">	    			
+		    			<apex:outputLabel >New Owner</apex:outputLabel>
+		    			<apex:outputPanel >
+		    				<apex:inputField value="{!fh.financialHardship.OwnerId}" />
+		    			</apex:outputPanel>	
+	    			</apex:PageBlockSectionItem> 
+		    		<!-- apex:inputField value="{!fh.fhTask.OwnerId}"/> -->
+		    		
+		    	</apex:repeat>
+	    	</apex:pageblockSection>
+	    	<center>
+		    	<apex:actionStatus id="statusBottom">
+		            <apex:facet name="stop"> 
+			            <apex:outputPanel >
+			                <apex:commandButton value="Next" action="{!saveFHandTask}"  status="statusBottom" reRender="theForm,pageBlock,pbID,pbSectionItem,panel2,newTerms,errors,finish,finishSec"/>
+							<apex:commandButton value="Cancel" action="{!cancelButton}" status="statusBottom" />
+			            </apex:outputPanel> 
+		            </apex:facet>    
+	                <apex:facet name="start"> 
+		                <apex:outputPanel >
+		                    <apex:commandButton style="align:center;" value="Next" disabled="true"  status="statusBottom" reRender="theForm,pageBlock,pbID,pbSectionItem,panel2,newTerms,errors,finish,finishSec"/>
+		                    <apex:commandButton style="align:center;" value="Cancel" disabled="true"  status="statusBottom"/>
+		                    <apex:image value="{!$Resource.AjaxAnimation}" width="15" height="15"/>		                  
+		                 </apex:outputPanel>
+	                 </apex:facet>
+		         </apex:actionStatus>
+	         </center>
+	         
+	    </apex:pageblock>
+	    
+   	    <apex:pageBlock id="finish" rendered="{!showFinish}" title="Finish Action">
+		   	<apex:pageblockSection id="finishSec">
+	        	<center>
+			    	<apex:actionStatus id="status">
+			            <apex:facet name="stop"> 
+				            <apex:outputPanel >
+				                <apex:commandButton value="Finish" action="{!finishButton}" status="status" reRender="errors" />
+				                
+				            </apex:outputPanel> 
+			            </apex:facet>    
+		                <apex:facet name="start"> 
+			                <apex:outputPanel >
+			                    <apex:commandButton style="align:center;" value="Finish" disabled="true"  status="status" reRender="errors"/>
+			                    <apex:image value="{!$Resource.AjaxAnimation}" width="15" height="15"/>		                  
+			                 </apex:outputPanel>
+		                 </apex:facet>
+			         </apex:actionStatus>
+	         	</center>
+	        </apex:pageblockSection>
+	        <apex:commandLink value="<-- Back to Financial Hardship application" action="{!cancelButton}"/> 
+		</apex:pageblock>
+	</apex:form>
+</apex:page>

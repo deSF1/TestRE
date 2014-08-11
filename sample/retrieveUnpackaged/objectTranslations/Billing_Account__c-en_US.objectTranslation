@@ -1,0 +1,1285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Billing Account</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Billing Accounts</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account Address --></label>
+        <name>Account_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account Closed --></label>
+        <name>Account_Closed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account Name --></label>
+        <name>Account_Name_Formula__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account Name --></label>
+        <name>Account_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account Opened --></label>
+        <name>Account_Opened__c</name>
+    </fields>
+    <fields>
+        <label><!-- Address Warnings --></label>
+        <name>Address_Warnings__c</name>
+    </fields>
+    <fields>
+        <label><!-- Applicable Date --></label>
+        <name>Applicable_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Attention --></label>
+        <name>Attention__c</name>
+    </fields>
+    <fields>
+        <label><!-- Average Daily Water Usage (KL) --></label>
+        <name>Average_Daily_Water_Usage_KL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Balance --></label>
+        <name>Balance__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bill To Parent --></label>
+        <name>Bill_To_Parent__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billed --></label>
+        <name>Billed__c</name>
+    </fields>
+    <fields>
+        <help><!-- Please set flag None to change address in Billing Account. --></help>
+        <label><!-- Billing Address Same As --></label>
+        <name>Billing_Address_Same_As__c</name>
+        <picklistValues>
+            <masterLabel>Customer Mailing</masterLabel>
+            <translation><!-- Customer Mailing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Primary</masterLabel>
+            <translation><!-- Customer Primary --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Group Account</masterLabel>
+            <translation><!-- Group Account --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property</masterLabel>
+            <translation><!-- Property --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- CIS Property Id --></label>
+        <name>CIS_Property_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Card Firstname --></label>
+        <name>Card_Firstname__c</name>
+    </fields>
+    <fields>
+        <label><!-- Card Lastname --></label>
+        <name>Card_Lastname__c</name>
+    </fields>
+    <fields>
+        <label><!-- Card Type --></label>
+        <name>Card_Type__c</name>
+        <picklistValues>
+            <masterLabel>DVA - Gold Card</masterLabel>
+            <translation><!-- DVA - Gold Card --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DVA - Pensioner Concession Card</masterLabel>
+            <translation><!-- DVA - Pensioner Concession Card --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Health Care Card</masterLabel>
+            <translation><!-- Health Care Card --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pensioner Concession Card</masterLabel>
+            <translation><!-- Pensioner Concession Card --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Care Of --></label>
+        <name>Care_Of__c</name>
+    </fields>
+    <fields>
+        <label><!-- City --></label>
+        <name>City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Clerical --></label>
+        <name>Clerical__c</name>
+    </fields>
+    <fields>
+        <label><!-- Concession End Date --></label>
+        <name>Concession_End_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Relationship to the Billing Account holder. --></help>
+        <label><!-- Concession Holder --></label>
+        <name>Concession_Holder__c</name>
+        <picklistValues>
+            <masterLabel>A/C Holder Partner</masterLabel>
+            <translation><!-- A/C Holder Partner --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Account Holder</masterLabel>
+            <translation><!-- Account Holder --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Third Party</masterLabel>
+            <translation><!-- Third Party --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Concession Number --></label>
+        <name>Concession_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Concession Start Date --></label>
+        <name>Concession_Start_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Concession_cnt --></label>
+        <name>Concession_cnt__c</name>
+    </fields>
+    <fields>
+        <label><!-- Council Property Type --></label>
+        <name>Council_Property_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Council --></label>
+        <name>Council__c</name>
+    </fields>
+    <fields>
+        <label><!-- Country --></label>
+        <name>Country__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current Bill B/F Balance --></label>
+        <name>Current_Bill_B_F_Balance__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current Bill Billed Amount --></label>
+        <name>Current_Bill_Billed_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current Bill Due Date --></label>
+        <name>Current_Bill_Due_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Id --></label>
+        <name>Customer_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Name --></label>
+        <name>Customer_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Universal Id --></label>
+        <name>Customer_Universal_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer --></label>
+        <name>Customer__c</name>
+        <relationshipLabel><!-- Billing Accounts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- DPID --></label>
+        <name>DPID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Data Check Address Special Charactor --></label>
+        <name>Data_Check_Address_Special_Charactor__c</name>
+    </fields>
+    <fields>
+        <help><!-- Today - Current Bill Due Date --></help>
+        <label><!-- Days Overdue --></label>
+        <name>Days_Overdue__c</name>
+    </fields>
+    <fields>
+        <label><!-- Direct Debit Commencement Date --></label>
+        <name>Direct_Debit_Commencement_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Direct Debit Details --></label>
+        <name>Direct_Debit_Details__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Direct_Debit_Type__c</name>
+        <picklistValues>
+            <masterLabel>Bank Account</masterLabel>
+            <translation><!-- Bank Account --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Credit Card</masterLabel>
+            <translation><!-- Credit Card --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Direct Debit --></label>
+        <name>Direct_Debit__c</name>
+    </fields>
+    <fields>
+        <label><!-- EWOV Alert --></label>
+        <name>EWOV_Alert__c</name>
+    </fields>
+    <fields>
+        <label><!-- &gt; 3 Consecutive Estimated Reads --></label>
+        <name>Greater_3_Consecutive_Estimated_Reads__c</name>
+    </fields>
+    <fields>
+        <label><!-- Group Billing Account --></label>
+        <name>Group_Billing_Account__c</name>
+        <relationshipLabel><!-- Sub Accounts --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- This is the Group Account&apos;s Address. --></help>
+        <label><!-- Group Customer Address --></label>
+        <name>Group_Customer_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Group HiAF Account Number --></label>
+        <name>Group_HiAF_Account_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) Auto Suspend By Case? --></label>
+        <name>HIDDEN_Is_Auto_Suspend_By_Case__c</name>
+    </fields>
+    <fields>
+        <label><!-- HIDDEN_Synch_DD_BulkUpload --></label>
+        <name>HIDDEN_Synch_DD_BulkUpload__c</name>
+    </fields>
+    <fields>
+        <label><!-- Has Other --></label>
+        <name>Has_Other__c</name>
+    </fields>
+    <fields>
+        <label><!-- HiAF Account Number (Check Digit) --></label>
+        <name>HiAF_Account_Number_Check_Digit__c</name>
+    </fields>
+    <fields>
+        <label><!-- HiAF Account # --></label>
+        <name>HiAF_Account_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- ICE Customer Ref --></label>
+        <name>ICE_Customer_Ref__c</name>
+    </fields>
+    <fields>
+        <label><!-- Initials --></label>
+        <name>Initials__c</name>
+    </fields>
+    <fields>
+        <label><!-- Invalid Billing Address --></label>
+        <name>Invalid_Billing_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- EWOV Assisted Complaint --></label>
+        <name>Is_EWOV_Assisted_Complaint__c</name>
+    </fields>
+    <fields>
+        <label><!-- EWOV Investigative Complaint? --></label>
+        <name>Is_EWOV_Investigative_Complaint__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Plan? --></label>
+        <name>Is_Payment_Plan__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Bill Date --></label>
+        <name>Last_Bill_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Bill Number --></label>
+        <name>Last_Bill_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Modified By User Name --></label>
+        <name>Last_Modified_By_User_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Modified By User Type --></label>
+        <name>Last_Modified_By_User_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Payment Date --></label>
+        <name>Last_Payment_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Payment Made --></label>
+        <name>Last_Payment_Made__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Read Date --></label>
+        <name>Last_Read_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Next Bill Date (Approx) --></label>
+        <name>Next_Bill_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- OverdueFlags --></label>
+        <name>OverdueFlags__c</name>
+    </fields>
+    <fields>
+        <label><!-- Overdue Amount --></label>
+        <name>Overdue_Amount_Formula__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parent Account ID --></label>
+        <name>Parent_Account_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Method --></label>
+        <name>Payment_Method__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Plan Amount --></label>
+        <name>Payment_Plan_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Plan End Date --></label>
+        <name>Payment_Plan_End_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Plan Frequency --></label>
+        <name>Payment_Plan_Frequency__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of Payments --></label>
+        <name>Payment_Plan_Number_of_Payments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Plan Removal Due Date --></label>
+        <name>Payment_Plan_Removal_Due_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Plan Start Date --></label>
+        <name>Payment_Plan_Start_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Portal Sort Order --></label>
+        <name>Portal_Sort_Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- Portal Update User --></label>
+        <name>Portal_Update_User__c</name>
+        <relationshipLabel><!-- Billing Accounts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Postal Code --></label>
+        <name>Postal_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Prior Recipient Email First Name --></label>
+        <name>Prior_Recipient_Email_First_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Prior Recipient Email --></label>
+        <name>Prior_Recipient_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Property Address --></label>
+        <name>Property_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Property DPID --></label>
+        <name>Property_DPID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Property Id --></label>
+        <name>Property_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Property Usage --></label>
+        <name>Property_Usage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Property --></label>
+        <name>Property__c</name>
+        <relationshipLabel><!-- Billing Accounts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Recipient Email --></label>
+        <name>Recipient_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recipient Mobile --></label>
+        <name>Recipient_Mobile__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecordTypeName --></label>
+        <name>RecordTypeName__c</name>
+    </fields>
+    <fields>
+        <help><!-- Shows the date of the last recovery action against the billing account --></help>
+        <label><!-- Recovery Last Action Date --></label>
+        <name>Recovery_Last_Action_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Shows information regarding the last recovery action for the billing account --></help>
+        <label><!-- Recovery Last Action --></label>
+        <name>Recovery_Last_Action__c</name>
+    </fields>
+    <fields>
+        <help><!-- Shows the date of the next recovery action against the billing account --></help>
+        <label><!-- Recovery Next Action Date --></label>
+        <name>Recovery_Next_Action_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Shows information regarding the next recovery action against the billing account --></help>
+        <label><!-- Recovery Next Action --></label>
+        <name>Recovery_Next_Action__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recovery Path --></label>
+        <name>Recovery_Path__c</name>
+    </fields>
+    <fields>
+        <help><!-- Shows the date suspend recovery was applied until --></help>
+        <label><!-- Recovery Suspended To Date --></label>
+        <name>Recovery_Suspended_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reminder Method --></label>
+        <name>Reminder_Method__c</name>
+        <picklistValues>
+            <masterLabel>Email</masterLabel>
+            <translation><!-- Email --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mail</masterLabel>
+            <translation><!-- Mail --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SMS</masterLabel>
+            <translation><!-- SMS --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Residential or Non-Residential --></label>
+        <name>Residential_or_Non_Residential__c</name>
+        <picklistValues>
+            <masterLabel>Non-Residential</masterLabel>
+            <translation><!-- Non-Residential --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Residential</masterLabel>
+            <translation><!-- Residential --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Risk Factor --></label>
+        <name>Risk_Factor__c</name>
+    </fields>
+    <fields>
+        <label><!-- Role --></label>
+        <name>Role__c</name>
+        <picklistValues>
+            <masterLabel>Ad-Hoc</masterLabel>
+            <translation><!-- Ad-Hoc --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Body Corporate</masterLabel>
+            <translation><!-- Body Corporate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Group</masterLabel>
+            <translation><!-- Group --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Landlord</masterLabel>
+            <translation><!-- Landlord --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Owner</masterLabel>
+            <translation><!-- Owner --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Owner Occupier</masterLabel>
+            <translation><!-- Owner Occupier --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tenant</masterLabel>
+            <translation><!-- Tenant --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Run From Workflow --></label>
+        <name>Run_From_Workflow__c</name>
+    </fields>
+    <fields>
+        <label><!-- Same Name As Customer --></label>
+        <name>Same_Name_As_Customer__c</name>
+    </fields>
+    <fields>
+        <label><!-- Send Mail To --></label>
+        <name>Send_Mail_To__c</name>
+        <picklistValues>
+            <masterLabel>Another address</masterLabel>
+            <translation><!-- Another address --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>My business address</masterLabel>
+            <translation><!-- My business address --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>My home address</masterLabel>
+            <translation><!-- My home address --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>My mailing address</masterLabel>
+            <translation><!-- My mailing address --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>The property address</masterLabel>
+            <translation><!-- The property address --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- State --></label>
+        <name>State__c</name>
+    </fields>
+    <fields>
+        <label><!-- ?Status Date --></label>
+        <name>Status_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation><!-- Active --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Closed</masterLabel>
+            <translation><!-- Closed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending</masterLabel>
+            <translation><!-- Pending --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Street Address --></label>
+        <name>Street_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Temp) Billing City --></label>
+        <name>Temp_Billing_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Temp) Billing Country --></label>
+        <name>Temp_Billing_Country__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Temp) Billing DPID --></label>
+        <name>Temp_Billing_DPID__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Temp) Billing Postal Code --></label>
+        <name>Temp_Billing_Postal_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Temp) Billing State --></label>
+        <name>Temp_Billing_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Temp) Billing Street Address --></label>
+        <name>Temp_Billing_Street_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Title --></label>
+        <name>Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total # of Consumption Days --></label>
+        <name>Total_Consumption_Days__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Water Usage (KL) --></label>
+        <name>Total_Water_Usage_KL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trading Name --></label>
+        <name>Trading_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Update Sub Account Addresses --></label>
+        <name>Update_Sub_Account_Addresses__c</name>
+    </fields>
+    <fields>
+        <label><!-- Updated_Touchpoints_Timestamp --></label>
+        <name>Updated_Touchpoints_Timestamp__c</name>
+    </fields>
+    <fields>
+        <label><!-- Updated_Touchpoints --></label>
+        <name>Updated_Touchpoints__c</name>
+    </fields>
+    <fields>
+        <label><!-- Valid Concession --></label>
+        <name>Valid_Concession__c</name>
+    </fields>
+    <fields>
+        <label><!-- WaterMAP --></label>
+        <name>WaterMAP__c</name>
+        <relationshipLabel><!-- Billing Accounts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- eBill Method --></label>
+        <name>eBill_Method__c</name>
+        <picklistValues>
+            <masterLabel>BPAY View</masterLabel>
+            <translation><!-- BPAY View --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Email</masterLabel>
+            <translation><!-- Email --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mail</masterLabel>
+            <translation><!-- Mail --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- eBill Recipient Prior First Name --></label>
+        <name>eBill_Recipient_Prior_First_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- eBill Recipient Prior Last Name --></label>
+        <name>eBill_Recipient_Prior_Last_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- eBill Recipient Prior --></label>
+        <name>eBill_Recipient_Prior__c</name>
+        <relationshipLabel><!-- Billing Accounts (eBill Recipient Prior) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- eBill Recipient --></label>
+        <name>eBill_Recipient__c</name>
+        <relationshipLabel><!-- eBill Delivery Preferences --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>Billing Account - KCM</layout>
+        <sections>
+            <label><!-- Address Information --></label>
+            <section>Address Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Payment Plan --></label>
+            <section>Payment Plan</section>
+        </sections>
+        <sections>
+            <label><!-- Property Details --></label>
+            <section>Property Details</section>
+        </sections>
+        <sections>
+            <label><!-- Suspend Recovery Information --></label>
+            <section>Suspend Recovery Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Billing Account Layout (Portal)</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Billing Account Layout - Adhoc</layout>
+        <sections>
+            <label><!-- Additional Information --></label>
+            <section>Additional Information</section>
+        </sections>
+        <sections>
+            <label><!-- Address Information --></label>
+            <section>Address Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Direct Debit --></label>
+            <section>Direct Debit</section>
+        </sections>
+        <sections>
+            <label><!-- Payment Plan --></label>
+            <section>Payment Plan</section>
+        </sections>
+        <sections>
+            <label><!-- Suspend Recovery Information --></label>
+            <section>Suspend Recovery Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Billing Account Layout - Adhoc (Admin)</layout>
+        <sections>
+            <label><!-- Additional Information --></label>
+            <section>Additional Information</section>
+        </sections>
+        <sections>
+            <label><!-- Address Information --></label>
+            <section>Address Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Direct Debit --></label>
+            <section>Direct Debit</section>
+        </sections>
+        <sections>
+            <label><!-- Payment Plan --></label>
+            <section>Payment Plan</section>
+        </sections>
+        <sections>
+            <label><!-- Suspend Recovery Information --></label>
+            <section>Suspend Recovery Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Billing Account Layout - Adhoc (CSO and ECO)</layout>
+        <sections>
+            <label><!-- Additional Information --></label>
+            <section>Additional Information</section>
+        </sections>
+        <sections>
+            <label><!-- Address Information --></label>
+            <section>Address Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Direct Debit --></label>
+            <section>Direct Debit</section>
+        </sections>
+        <sections>
+            <label><!-- Payment Plan --></label>
+            <section>Payment Plan</section>
+        </sections>
+        <sections>
+            <label><!-- Suspend Recovery Information --></label>
+            <section>Suspend Recovery Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Billing Account Layout - CSO</layout>
+        <sections>
+            <label><!-- Additional Information --></label>
+            <section>Additional Information</section>
+        </sections>
+        <sections>
+            <label><!-- Address Information --></label>
+            <section>Address Information</section>
+        </sections>
+        <sections>
+            <label><!-- Bill Delivery Preferences --></label>
+            <section>Bill Delivery Preferences</section>
+        </sections>
+        <sections>
+            <label><!-- Concession Details --></label>
+            <section>Concession Details</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Direct Debit Details --></label>
+            <section>Direct Debit Details</section>
+        </sections>
+        <sections>
+            <label><!-- Payment Plan --></label>
+            <section>Payment Plan</section>
+        </sections>
+        <sections>
+            <label><!-- Property Details --></label>
+            <section>Property Details</section>
+        </sections>
+        <sections>
+            <label><!-- Suspend Recovery Information --></label>
+            <section>Suspend Recovery Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Billing Account Layout - CSO (Admin)</layout>
+        <sections>
+            <label><!-- Additional Information --></label>
+            <section>Additional Information</section>
+        </sections>
+        <sections>
+            <label><!-- Address Information --></label>
+            <section>Address Information</section>
+        </sections>
+        <sections>
+            <label><!-- Bill Delivery Preferences --></label>
+            <section>Bill Delivery Preferences</section>
+        </sections>
+        <sections>
+            <label><!-- Concession Details --></label>
+            <section>Concession Details</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Direct Debit Details --></label>
+            <section>Direct Debit Details</section>
+        </sections>
+        <sections>
+            <label><!-- Payment Plan --></label>
+            <section>Payment Plan</section>
+        </sections>
+        <sections>
+            <label><!-- Property Details --></label>
+            <section>Property Details</section>
+        </sections>
+        <sections>
+            <label><!-- Suspend Recovery Information --></label>
+            <section>Suspend Recovery Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Billing Account Layout - CSO and ECO</layout>
+        <sections>
+            <label><!-- Additional Information --></label>
+            <section>Additional Information</section>
+        </sections>
+        <sections>
+            <label><!-- Address Information --></label>
+            <section>Address Information</section>
+        </sections>
+        <sections>
+            <label><!-- Bill Delivery Preferences --></label>
+            <section>Bill Delivery Preferences</section>
+        </sections>
+        <sections>
+            <label><!-- Concession Details --></label>
+            <section>Concession Details</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Direct Debit Details --></label>
+            <section>Direct Debit Details</section>
+        </sections>
+        <sections>
+            <label><!-- Payment Plan --></label>
+            <section>Payment Plan</section>
+        </sections>
+        <sections>
+            <label><!-- Property Details --></label>
+            <section>Property Details</section>
+        </sections>
+        <sections>
+            <label><!-- Suspend Recovery Information --></label>
+            <section>Suspend Recovery Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Billing Account Layout - ECO</layout>
+        <sections>
+            <label><!-- Additional Information --></label>
+            <section>Additional Information</section>
+        </sections>
+        <sections>
+            <label><!-- Address Information --></label>
+            <section>Address Information</section>
+        </sections>
+        <sections>
+            <label><!-- Bill Delivery Preferences --></label>
+            <section>Bill Delivery Preferences</section>
+        </sections>
+        <sections>
+            <label><!-- Concession Details --></label>
+            <section>Concession Details</section>
+        </sections>
+        <sections>
+            <label><!-- Direct Debit Details --></label>
+            <section>Direct Debit Details</section>
+        </sections>
+        <sections>
+            <label><!-- Payment Plan --></label>
+            <section>Payment Plan</section>
+        </sections>
+        <sections>
+            <label><!-- Property Details --></label>
+            <section>Property Details</section>
+        </sections>
+        <sections>
+            <label><!-- Suspend Recovery Information --></label>
+            <section>Suspend Recovery Information</section>
+        </sections>
+        <sections>
+            <label><!-- Useful Links --></label>
+            <section>Useful Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Billing Account Layout - MSC</layout>
+        <sections>
+            <label><!-- Additional Information --></label>
+            <section>Additional Information</section>
+        </sections>
+        <sections>
+            <label><!-- Address Information --></label>
+            <section>Address Information</section>
+        </sections>
+        <sections>
+            <label><!-- Bill Delivery Preferences --></label>
+            <section>Bill Delivery Preferences</section>
+        </sections>
+        <sections>
+            <label><!-- Concession Details --></label>
+            <section>Concession Details</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Direct Debit Details --></label>
+            <section>Direct Debit Details</section>
+        </sections>
+        <sections>
+            <label><!-- Payment Plan --></label>
+            <section>Payment Plan</section>
+        </sections>
+        <sections>
+            <label><!-- Property Details --></label>
+            <section>Property Details</section>
+        </sections>
+        <sections>
+            <label><!-- Suspend Recovery Information --></label>
+            <section>Suspend Recovery Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Billing Account Layout - Main Group</layout>
+        <sections>
+            <label><!-- Address Information --></label>
+            <section>Address Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Direct Debit --></label>
+            <section>Direct Debit</section>
+        </sections>
+        <sections>
+            <label><!-- Payment Plan --></label>
+            <section>Payment Plan</section>
+        </sections>
+        <sections>
+            <label><!-- Suspend Recovery Information --></label>
+            <section>Suspend Recovery Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Billing Account Layout - Main Group (Admin)</layout>
+        <sections>
+            <label><!-- Address Information --></label>
+            <section>Address Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Direct Debit --></label>
+            <section>Direct Debit</section>
+        </sections>
+        <sections>
+            <label><!-- Payment Plan --></label>
+            <section>Payment Plan</section>
+        </sections>
+        <sections>
+            <label><!-- Suspend Recovery Information --></label>
+            <section>Suspend Recovery Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Billing Account Layout - Main Group MSC</layout>
+        <sections>
+            <label><!-- Additional Information --></label>
+            <section>Additional Information</section>
+        </sections>
+        <sections>
+            <label><!-- Address Information --></label>
+            <section>Address Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Direct Debit --></label>
+            <section>Direct Debit</section>
+        </sections>
+        <sections>
+            <label><!-- Payment Plan --></label>
+            <section>Payment Plan</section>
+        </sections>
+        <sections>
+            <label><!-- Suspend Recovery Information --></label>
+            <section>Suspend Recovery Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Billing Account Layout - Main Group MSC (ECO and CSO)</layout>
+        <sections>
+            <label><!-- Additional Information --></label>
+            <section>Additional Information</section>
+        </sections>
+        <sections>
+            <label><!-- Address Information --></label>
+            <section>Address Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Direct Debit --></label>
+            <section>Direct Debit</section>
+        </sections>
+        <sections>
+            <label><!-- Payment Plan --></label>
+            <section>Payment Plan</section>
+        </sections>
+        <sections>
+            <label><!-- Suspend Recovery Information --></label>
+            <section>Suspend Recovery Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Mercantile Recovery</layout>
+        <sections>
+            <label><!-- Address Information --></label>
+            <section>Address Information</section>
+        </sections>
+        <sections>
+            <label><!-- Bill Delivery Preferences --></label>
+            <section>Bill Delivery Preferences</section>
+        </sections>
+        <sections>
+            <label><!-- Concession Details --></label>
+            <section>Concession Details</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Direct Debit --></label>
+            <section>Direct Debit</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+        <sections>
+            <label><!-- Payment Plan --></label>
+            <section>Payment Plan</section>
+        </sections>
+        <sections>
+            <label><!-- Related Billing Accounts --></label>
+            <section>Related Billing Accounts</section>
+        </sections>
+        <sections>
+            <label><!-- Suspend Recovery Information --></label>
+            <section>Suspend Recovery Information</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Ad-Hoc --></label>
+        <name>Ad_Hoc</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Billing Account --></label>
+        <name>Billing_Account</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Group Billing Account --></label>
+        <name>Group_Billing_Account</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- quotes are not allowed in address formats --></errorMessage>
+        <name>Address_Special_Characters</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select an address type for the Bill To Parent. --></errorMessage>
+        <name>Bill_To_Parent_Check</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- quotes are not allowed in address formats --></errorMessage>
+        <name>City_Special_Characters</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- quotes are not allowed in address formats --></errorMessage>
+        <name>Country_Special_Characters</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- No Receipient Email exist. Please choose another Reminder Method. --></errorMessage>
+        <name>Must_have_Email_for_Reminder</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- No Receipient Mobile exist. Please choose another Reminder Method. --></errorMessage>
+        <name>Must_have_mobile_for_reminder</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You can&apos;t create a new Billing Account. --></errorMessage>
+        <name>No_New_Billing_Account</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- quotes are not allowed in address formats --></errorMessage>
+        <name>Post_Code_Special_Characters</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Billing Address Same As cannot be &quot;Group Account&quot; if no Group Billing Account is Selected --></errorMessage>
+        <name>Select_Group_Account</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- quotes are not allowed in address formats --></errorMessage>
+        <name>State_Special_Characters</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Cannot change eBill Method from or to BPAY. --></errorMessage>
+        <name>eBill_Method_BPAY_change</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- An eBill Recipient must be entered if the eBill Method is email or Reminder is SMS. --></errorMessage>
+        <name>eBill_Recipient_Check</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- eBill Recipient must have an email address for this eBill Method. --></errorMessage>
+        <name>eBill_Recipient_email_address</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- eBill Recipient must have a mobile number for this Reminder Method. --></errorMessage>
+        <name>eBill_Recipient_mobile_check</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Bill_History --></label>
+        <name>Bill_History</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- CC_Payment --></label>
+        <name>CC_Payment</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Concessions --></label>
+        <name>Concessions</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Copy_Billing_Address --></label>
+        <name>Copy_Billing_Address</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Customer_Verification --></label>
+        <name>Customer_Verification</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Direct_Debit --></label>
+        <name>Direct_Debit</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- ECO_Web_Mapping_Site --></label>
+        <name>ECO_Web_Mapping_Site</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Manage_Addresses_Billing_Account --></label>
+        <name>Manage_Addresses_Billing_Account</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Missed_Payment --></label>
+        <name>Missed_Payment</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- More_Time_To_Pay --></label>
+        <name>More_Time_To_Pay</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_BAcct_Customer_Rlist --></label>
+        <name>New_BAcct_Customer_Rlist</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_BAcct_Property_Rlist --></label>
+        <name>New_BAcct_Property_Rlist</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_Group_Account --></label>
+        <name>New_Group_Account</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Payment_History --></label>
+        <name>Payment_History</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Payment_Plan --></label>
+        <name>Payment_Plan</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Print_Latest_Bill --></label>
+        <name>Print_Latest_Bill</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Quick_Notes --></label>
+        <name>Quick_Notes</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Quick_View --></label>
+        <name>Quick_View</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- RefreshBillingAccount --></label>
+        <name>RefreshBillingAccount</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Validate_Address_button --></label>
+        <name>Validate_Address_button</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- View_Latest_Bill --></label>
+        <name>View_Latest_Bill</name>
+    </webLinks>
+</CustomObjectTranslation>

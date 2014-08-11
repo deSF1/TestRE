@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <description>Maps a service displayed in the portal to a list of tariffs</description>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Other_Authority_Flag__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Checked if its another authority</inlineHelpText>
+        <label>Other Authority?</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Tariff_Matcher__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Regular expression to match the tariff code</inlineHelpText>
+        <label>Tariff Matcher</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Portal Service To Tariff</label>
+</CustomObject>

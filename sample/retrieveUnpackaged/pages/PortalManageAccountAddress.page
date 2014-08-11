@@ -1,0 +1,1002 @@
+<apex:page id="thePage" controller="PortalManageAccountAddress_Controller"
+    doctype="html-5.0"
+    sidebar="false"
+    showHeader="true"
+    action="{!CheckRedirectConfirmed}"
+    tabstyle="PortalAccounts__tab" >
+    <!-- 
+    Type:       VF page
+    Purpose:    Manage Customer Account Address page 
+    ---------------------------------------------------------------
+    History:
+    
+    20-Apr-2012: MIsidro (Cloud Sherpas) - Created
+    26-Apr-2012: MIsidro (Cloud Sherpas) - Added Customer Accounts list
+    04-Jun-2012: DYu     (Cloud Sherpas) - 5158
+    07-Jun-2012: DYu     (Cloud Sherpas) - 5209
+    12-Jun-2012: DYu     (Cloud Sherpas) - Update: Address management change
+    14-Sep-2012 - DYu      TP379: Make state field mandatory
+    18-Mar-2013 - Nick Rangas ID#TT10405 - Amend addresss validation
+    19-SEP-2013 - Nathan Patterson TT10401 - Multiple Customer view
+    23-Sep-2013 - N.Patterson 	   TT10401: View multiple customers for a single Portal user
+    -->
+ 
+    <head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:stylesheet value="{!$Resource.SEWPortalStyles}"/>        
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+        <apex:includeScript value="{!$Resource.ValidateRules}"/> <!-- TT10405 -->
+        <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+        <style type="text/css">
+            /* INCREASED LABEL WIDTH */
+            .bPageBlock .detailList .labelCol {
+                width: 30%;
+            }
+            .linkText {
+            	padding-left: 17px;
+            	font-weight: bold;
+            	color: #0097D2;
+            	background: URL({!$Resource.ListBulletGT_Blue}) no-repeat 0 3px transparent;
+            	cursor: pointer;
+            }
+        </style>
+        
+        <script type="text/javascript">
+            var caller = 0;  
+            var mode = '';    
+            var changeLinkObj;
+            var updateType;
+            var selectCtr = 0;
+            var j$ = jQuery.noConflict();
+            j$(function() {
+                BuildQASDialog();
+                BuildCustomPopupDialog();    
+            });            
+            
+            function BuildQASDialog() {
+                j$( "#qas-popup").dialog({
+                    dialogClass: 'ui-dropshadow',
+                    autoOpen: false,
+                    height: 475,
+                    width: 450,
+                    modal: true,
+                    resizable: false,
+                    zIndex: 60,
+                    title: 'Address Entry'
+                });                            
+            }            
+                      
+            function ShowQASDialog(x) {
+               try {
+               		j$("#qas-popup").dialog("open");
+               		showSearch();
+                   	hideManual();
+                   	hideQASPageMessages();
+                   	checkSearchFrame();
+                   	caller = x;
+               } catch (e) { alert(e.toString()); }
+            }                
+         
+            function CloseQASDialog() {
+                try {
+                    j$("#qas-popup").dialog("close");
+                    //isSameAddress();                    
+                } catch (e) { alert(e.toString()); }
+            return false;
+            }                      
+                        
+            function showSearch() {
+               try {
+                   j$("#qaSearch").show();
+               } catch (e) { alert(e.toString()); }
+            }
+            
+            function hideSearch() {
+               try {
+                   j$("#qaSearch").hide();
+                   clearEntries();
+               } catch (e) { alert(e.toString()); }
+            }
+            
+            function hideManual() {
+
+               try {
+                   j$("#qaManual").hide();
+               } catch (e) { alert(e.toString()); }
+            }
+            
+            function showManual(x) {
+               try {
+                   mode = x;
+                   j$("#qaManual").show();
+                   clearEntries(x);
+                   hideSearch();
+               } catch (e) { alert(e.toString()); }
+            }                 
+            
+            <!-- TT10401 - Job to hide the messages on the QAS popup -->
+            
+            function hideQASPageMessages() {
+            	var popUpMessage = document.getElementById('qaspopupcomponentid');
+            	if (popUpMessage != null){
+            		popUpMessage.style.display = 'none';
+            	}
+            }
+            
+            function checkSearchFrame(){
+		    	var iframeDom = document.getElementById('searchFrame');
+		    	if (iframeDom != null){
+		    		if (iframeDom.src == null || iframeDom.src.length == 0 || iframeDom.src == iframeDom.baseURI){
+		    			reloadSearchFrameInternal();
+		    		}
+		    	}
+		    }
+            
+            <!-- Function that parses the address from QAS then display it on their respective component. -->            
+            
+            function ReceiveAddress(address) {            
+                var Street = address.AddressLines[0].Line;
+                var Street2 = address.AddressLines[1].Line;            
+                var Suburb = address.AddressLines[2].Line;
+                var State = address.AddressLines[3].Line;
+                var Postal = address.AddressLines[4].Line;
+                var Country = address.AddressLines[5].Line;
+                var completeAddress, fullStreet,StatePostal;                                             
+                
+                for (var i=0; i < address.Length; i++) {
+                    var line = address.AddressLines[i].Line;
+                    
+                    if (line != null & line != "") {
+                        if (completeAddress == null)
+                            completeAddress = line;
+                        else                    
+                            completeAddress = completeAddress + ', ' + line;
+                    }
+                }
+
+                if(Street2 != ''){
+                    fullStreet = Street +', '+Street2;
+                } 
+                else{
+                    fullStreet = Street;                           
+                }
+                
+                if (trim(State) == ''){
+                    StatePostal = Postal ; 
+                }    
+                else{    
+                    StatePostal = State + ', ' + Postal;          
+                }                                  
+
+                //document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.hiddenMailingAddress}').value = completeAddress; 
+                /** 
+                //jsPopulateDPID();
+                **/
+                
+                var obj = changeLinkObj;
+                if (updateType == 'ba'){
+	                var common = getIDPart(obj, 7);
+	                var billStreet = common + ':billAcctStreet';
+	                
+	                document.getElementById(common + ':billAcctStreet').innerHTML = fullStreet;
+	                document.getElementById(common + ':billAcctCity').innerHTML = Suburb;
+	                document.getElementById(common + ':billAcctState').innerHTML = State;
+	                document.getElementById(common + ':billAcctPostalCode').innerHTML = Postal;
+	                document.getElementById(common + ':billAcctCountry').innerHTML = Country;
+	                
+	                document.getElementById(common + ':hiddenMailingStreet').value = fullStreet;
+	                document.getElementById(common + ':hiddenMailingCity').value = Suburb;
+	                document.getElementById(common + ':hiddenMailingState').value = State;
+	                document.getElementById(common + ':hiddenMailingPostalCode').value = Postal;
+	                document.getElementById(common + ':hiddenMailingCountry').value = Country;  
+	            }
+	            else if (updateType == 'home'){ // TT10401 - allow them to update mailing and home address
+	            	var common = getIDPart(obj, 5);
+	                
+	                document.getElementById(common + ':shippingStreet').innerHTML = fullStreet;
+	                document.getElementById(common + ':shippingCity').innerHTML = Suburb;
+	                document.getElementById(common + ':shippingState').innerHTML = State;
+	                document.getElementById(common + ':shippingPostalCode').innerHTML = Postal;
+	                document.getElementById(common + ':shippingCountry').innerHTML = Country; 
+	                
+	                document.getElementById(common + ':hiddenCustomerHomeStreet').value = fullStreet;
+	                document.getElementById(common + ':hiddenCustomerHomeCity').value = Suburb;
+	                document.getElementById(common + ':hiddenCustomerHomeState').value = State;
+	                document.getElementById(common + ':hiddenCustomerHomePostalCode').value = Postal;
+	                document.getElementById(common + ':hiddenCustomerHomeCountry').value = Country; 
+	                
+	            }
+	            else if (updateType == 'mail'){ // TT10401 - allow them to update mailing and home address
+	            	var common = getIDPart(obj, 5);
+	                
+	                document.getElementById(common + ':billingStreet').innerHTML = fullStreet;
+	                document.getElementById(common + ':billingCity').innerHTML = Suburb;
+	                document.getElementById(common + ':billingState').innerHTML = State;
+	                document.getElementById(common + ':billingPostalCode').innerHTML = Postal;
+	                document.getElementById(common + ':billingCountry').innerHTML = Country;  
+	                
+	                document.getElementById(common + ':hiddenCustomerMailingStreet').value = fullStreet;
+	                document.getElementById(common + ':hiddenCustomerMailingCity').value = Suburb;
+	                document.getElementById(common + ':hiddenCustomerMailingState').value = State;
+	                document.getElementById(common + ':hiddenCustomerMailingPostalCode').value = Postal;
+	                document.getElementById(common + ':hiddenCustomerMailingCountry').value = Country;
+	            }
+                
+                //alert('INSIDE RECEIVE ADDRESS: hiddenMailingStreet= ' + document.getElementById(common + ':hiddenMailingStreet').value);      
+				
+				// TT10401 
+		        var savebtn = document.getElementById('{!$Component.thePage.theForm.contentCellPageblock.saveAccountAddressButton}');
+		        savebtn.disabled = false;
+	            savebtn.setAttribute("class", "btnGreen");
+	            savebtn.setAttribute("className", "btnGreen");
+	        	savebtn.setAttribute("style","cursor:pointer;");
+				
+				savebtn = document.getElementById('{!$Component.thePage.theForm.contentCellPageblock.saveCustomerAddressButton}');
+				savebtn.disabled = false;
+	            savebtn.setAttribute("class", "btnGreen");
+	            savebtn.setAttribute("className", "btnGreen");
+	        	savebtn.setAttribute("style","cursor:pointer;");
+	        	
+                CloseQASDialog();                            
+            }
+           
+            function copyMailingAddress(){            // Detail: Function that copies Mailing address details to Home/Business Address 
+                //var mStreet =  document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingStreetAddressSection.MailingStreetAdd}').innerHTML;               
+                //var mCity =  document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingCityAddressSection.MailingCityAdd}').innerHTML;                
+                //var mState =  document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingStateAddressSection.MailingStateAdd}').innerHTML;                
+
+                //document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressStreetSection.homeStreetAdd}').innerHTML = mStreet; 
+                //document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressCitySection.homeCityAdd}').innerHTML = mCity;
+                //document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressStateSection.homeStateAdd}').innerHTML = mState;
+            }
+            
+            function ReceiveAddressManually(){
+                var mStreet =  document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStreetItem.street}').value;
+                var mStreet2 =  document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStreet2Item.street2}').value;    
+                var mSuburb =  document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaSuburbItem.suburb}').value;               
+                var mState =  document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStateItem.state}').value;
+                var mPostal =  document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaPostal.postalCode}').value;
+                var mCountry =  document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaCountry.country}').value;
+                var mFullStreet; 
+                if (trim(mStreet2) != ''){
+                    mFullStreet = mStreet + ', ' + mStreet2 ;                     
+                } 
+                else{
+                    mFullStreet = mStreet;
+                }
+                /* TT10405 Moved validation to Static Recource
+                var mFullStreet, mStatePostal;                              
+                
+                if(mode == 'manual'){
+                    if ((trim(mStreet) == '') || (trim(mSuburb) == '') || (trim(mPostal) == '') || (trim(mCountry) == '') || (trim(mState) == '')) {
+                        alert('You must enter a value on all the required fields.');
+                        return false;               
+                    } 
+                }else{
+                    if ((trim(mStreet) == '') || (trim(mCountry) == '')) {
+                        alert('You must enter a value on all the required fields.');
+                        return false;               
+                    } 
+                }
+                
+                if (trim(mStreet2) != ''){
+                    mFullStreet = mStreet + ', ' + mStreet2 ;                     
+                } 
+                else{
+                    mFullStreet = mStreet;                           
+                }
+                
+                if (trim(mState) == ''){
+                    mStatePostal = mPostal ; 
+                }    
+                else{    
+                    mStatePostal = mState + ', ' + mPostal;          
+                }                
+				*/
+                var addrmessage = ValidateAddress (mStreet, mStreet2, mSuburb, mState, mPostal, mCountry, mode != "manual"); 
+                if (addrmessage.length > 0) {
+                    	alert (addrmessage);
+                    	return false;
+                }
+
+                var obj = changeLinkObj;
+                if (updateType == 'ba'){
+	                var common = getIDPart(obj, 7);
+	                var billStreet = common + ':billAcctStreet';
+	
+	                document.getElementById(common + ':billAcctStreet').innerHTML = mFullStreet;
+	                document.getElementById(common + ':billAcctCity').innerHTML = mSuburb;
+	                document.getElementById(common + ':billAcctState').innerHTML = mState;
+	                document.getElementById(common + ':billAcctPostalCode').innerHTML = mPostal;
+	                document.getElementById(common + ':billAcctCountry').innerHTML = mCountry;
+	                
+	                document.getElementById(common + ':hiddenMailingStreet').value = mFullStreet;
+	                document.getElementById(common + ':hiddenMailingCity').value = mSuburb;
+	                document.getElementById(common + ':hiddenMailingState').value = mState;
+	                document.getElementById(common + ':hiddenMailingPostalCode').value = mPostal;
+	                document.getElementById(common + ':hiddenMailingCountry').value = mCountry;     
+                }
+                else if (updateType == 'home'){ // TT10401 - allow them to update mailing and home address
+	            	var common = getIDPart(obj, 5);
+	                
+	                document.getElementById(common + ':shippingStreet').innerHTML = mFullStreet;
+	                document.getElementById(common + ':shippingCity').innerHTML = mSuburb;
+	                document.getElementById(common + ':shippingState').innerHTML = mState;
+	                document.getElementById(common + ':shippingPostalCode').innerHTML = mPostal;
+	                document.getElementById(common + ':shippingCountry').innerHTML = mCountry; 
+	                
+	                document.getElementById(common + ':hiddenCustomerHomeStreet').value = mFullStreet;
+	                document.getElementById(common + ':hiddenCustomerHomeCity').value = mSuburb;
+	                document.getElementById(common + ':hiddenCustomerHomeState').value = mState;
+	                document.getElementById(common + ':hiddenCustomerHomePostalCode').value = mPostal;
+	                document.getElementById(common + ':hiddenCustomerHomeCountry').value = mCountry; 
+	                
+	            }
+	            else if (updateType == 'mail'){ // TT10401 - allow them to update mailing and home address
+	            	var common = getIDPart(obj, 5);
+	                
+	                document.getElementById(common + ':billingStreet').innerHTML = mFullStreet;
+	                document.getElementById(common + ':billingCity').innerHTML = mSuburb;
+	                document.getElementById(common + ':billingState').innerHTML = mState;
+	                document.getElementById(common + ':billingPostalCode').innerHTML = mPostal;
+	                document.getElementById(common + ':billingCountry').innerHTML = mCountry;  
+	                
+	                document.getElementById(common + ':hiddenCustomerMailingStreet').value = mFullStreet;
+	                document.getElementById(common + ':hiddenCustomerMailingCity').value = mSuburb;
+	                document.getElementById(common + ':hiddenCustomerMailingState').value = mState;
+	                document.getElementById(common + ':hiddenCustomerMailingPostalCode').value = mPostal;
+	                document.getElementById(common + ':hiddenCustomerMailingCountry').value = mCountry;
+	            }
+                
+                
+				// TT10401 
+		        var savebtn = document.getElementById('{!$Component.thePage.theForm.contentCellPageblock.saveAccountAddressButton}');
+		        savebtn.disabled = false;
+	            savebtn.setAttribute("class", "btnGreen");
+	            savebtn.setAttribute("className", "btnGreen");
+	        	savebtn.setAttribute("style","cursor:pointer;");
+				
+				savebtn = document.getElementById('{!$Component.thePage.theForm.contentCellPageblock.saveCustomerAddressButton}');
+				savebtn.disabled = false;
+	            savebtn.setAttribute("class", "btnGreen");
+	            savebtn.setAttribute("className", "btnGreen");
+	        	savebtn.setAttribute("style","cursor:pointer;");
+	        	
+                CloseQASDialog();
+            }
+         
+         
+            function clearEntries(x){
+                document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStreetItem.street}').focus();
+                document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStreetItem.street}').value='';
+                document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStreet2Item.street2}').value='';    
+                document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaSuburbItem.suburb}').value='';               
+                document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStateItem.state}').value='';
+                document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaPostal.postalCode}').value='';
+                      
+                if(x == 'manual'){
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaCountry.country}').value="AUSTRALIA";  
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaCountry.country}').readOnly=true; 
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaSuburbItem.requiredInputDiv}').className="requiredInput";
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaSuburbItem.requiredBlockDiv}').className="requiredBlock"; 
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStateItem.requiredInputDivState}').className="requiredInput";
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStateItem.requiredBlockDivState}').className="requiredBlock"; 
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaPostal.requiredInputDivPostal}').className="requiredInput";
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaPostal.requiredBlockDivPostal}').className="requiredBlock"; 
+                }else if(x == 'overseas'){
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaCountry.country}').value="";  
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaCountry.country}').readOnly=false; 
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaSuburbItem.requiredInputDiv}').className="";
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaSuburbItem.requiredBlockDiv}').className=""; 
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStateItem.requiredInputDivState}').className="";
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStateItem.requiredBlockDivState}').className=""; 
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaPostal.requiredInputDivPostal}').className="";
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaPostal.requiredBlockDivPostal}').className="";  
+                }                    
+            
+            
+            }               
+         
+            function isSameAddress(){            
+/*
+                var billingAdd,shippingAdd;
+                var mStreet = document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingStreetAddressSection.MailingStreetAdd}').innerHTML;
+                var mCity = document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingCityAddressSection.MailingCityAdd}').innerHTML;
+                var mState = document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingStateAddressSection.MailingStateAdd}').innerHTML;
+                var mCountry = document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingCountryAddressSection.MailingCountryAdd}').innerHTML;
+           
+                var sStreet = document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressStreetSection.homeStreetAdd}').innerHTML;
+                var sCity = document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressCitySection.homeCityAdd}').innerHTML;
+                var sState = document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressStateSection.HomeStateAdd}').innerHTML;                    
+                var sCountry = document.getElementById('{!$Component.theForm:contentCellPageblock.contactDetails.homeCountryAddressSection.HomeCountryAdd}').innerHTML;
+                
+                billingAdd = mStreet + mCity + mState + mCountry;
+                shippingAdd = sStreet + sCity + sState + sCountry;               
+             
+                document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.billingAddressSection_.addlSection.sameCheckBox}').checked = (billingAdd == shippingAdd);
+*/
+            }            
+            
+            function promptMsg(acctSize){
+                if (acctSize == 1){
+                    return "Thank you {!$User.FirstName}, your address details have been successfully updated.";                    
+                }
+                else{
+                    
+                }
+            }
+            
+            function BuildCustomPopupDialog() {
+                j$( "#customPopup").dialog({
+                    dialogClass: 'ui-dropshadow',
+                    autoOpen: false,
+                    height: 150,
+                    width: 350,
+                    modal: true,
+                    resizable: false,
+                    zIndex: 60,
+                    title: 'Successfully changed.'
+                });                                 
+            } 
+            
+            function ShowCustomPopupDialog(msg) {
+               try {
+                   j$("#customPopup").dialog("open");
+                   j$("#customPopup").show();
+               } catch (e) { alert(e.toString()); }
+            }          
+            
+           
+            function CloseCustomPopupDialog() {
+               try {
+                   j$("#customPopup").dialog("close");
+               } catch (e) { alert(e.toString()); }
+            } 
+            
+            function getIDPart(obj, cnt) {
+                var SplitName = obj.id.split(":"); 
+                var idArray = new Array();
+                var idOutput;
+                idArray = SplitName.slice(0, cnt);
+                idOutput = idArray.join(":");
+                
+                return idOutput;    
+            }
+         
+            function checkAddress(sourceObject) {
+            	
+                var SplitName = sourceObject.id.split(":"); 
+                var firstSixIDArray = new Array();
+                var firstSixStr;
+                firstSixIDArray = SplitName.slice(0, 6);                
+                firstSixStr = firstSixIDArray.join(":");
+        		alert(firsSixStr);
+                if (sourceObject.value == "Customer Mailing") {
+                    
+                    document.getElementById(firstSixStr + ':addressSection1:billAcctStreet').innerHTML = document.getElementById('thePage:theForm:contentCellPageblock:addressDetails:addressSection1:billingStreet').innerHTML;
+                    document.getElementById(firstSixStr + ':addressSection1:billAcctCity').innerHTML = document.getElementById('thePage:theForm:contentCellPageblock:addressDetails:addressSection1:billingCity').innerHTML;
+                    document.getElementById(firstSixStr + ':addressSection1:billAcctState').innerHTML = document.getElementById('thePage:theForm:contentCellPageblock:addressDetails:addressSection1:billingState').innerHTML;
+                    document.getElementById(firstSixStr + ':addressSection1:billAcctPostalCode').innerHTML = document.getElementById('thePage:theForm:contentCellPageblock:addressDetails:addressSection1:billingPostalCode').innerHTML;
+                    document.getElementById(firstSixStr + ':addressSection1:billAcctCountry').innerHTML = document.getElementById('thePage:theForm:contentCellPageblock:addressDetails:addressSection1:billingCountry').innerHTML;
+                            
+                    document.getElementById(firstSixStr + ':addressSection1:hiddenMailingStreet').value = document.getElementById('thePage:theForm:contentCellPageblock:addressDetails:addressSection1:billingStreet').innerHTML;
+                    document.getElementById(firstSixStr + ':addressSection1:hiddenMailingCity').value = document.getElementById('thePage:theForm:contentCellPageblock:addressDetails:addressSection1:billingCity').innerHTML;
+                    document.getElementById(firstSixStr + ':addressSection1:hiddenMailingState').value = document.getElementById('thePage:theForm:contentCellPageblock:addressDetails:addressSection1:billingState').innerHTML;
+                    document.getElementById(firstSixStr + ':addressSection1:hiddenMailingPostalCode').value = document.getElementById('thePage:theForm:contentCellPageblock:addressDetails:addressSection1:billingPostalCode').innerHTML;
+                    document.getElementById(firstSixStr + ':addressSection1:hiddenMailingCountry').value =  document.getElementById('thePage:theForm:contentCellPageblock:addressDetails:addressSection1:billingCountry').innerHTML;
+                
+                } else if (sourceObject.value == "Customer Primary") {
+
+                    document.getElementById(firstSixStr + ':addressSection1:billAcctStreet').innerHTML = document.getElementById('thePage:theForm:contentCellPageblock:addressDetails:addressSection2:shippingStreet').innerHTML;
+                    document.getElementById(firstSixStr + ':addressSection1:billAcctCity').innerHTML = document.getElementById('thePage:theForm:contentCellPageblock:addressDetails:addressSection2:shippingCity').innerHTML;
+                    document.getElementById(firstSixStr + ':addressSection1:billAcctState').innerHTML = document.getElementById('thePage:theForm:contentCellPageblock:addressDetails:addressSection2:shippingState').innerHTML;
+                    document.getElementById(firstSixStr + ':addressSection1:billAcctPostalCode').innerHTML = document.getElementById('thePage:theForm:contentCellPageblock:addressDetails:addressSection2:shippingPostalCode').innerHTML;
+                    document.getElementById(firstSixStr + ':addressSection1:billAcctCountry').innerHTML = document.getElementById('thePage:theForm:contentCellPageblock:addressDetails:addressSection2:shippingCountry').innerHTML;
+                            
+                    document.getElementById(firstSixStr + ':addressSection1:hiddenMailingStreet').value = document.getElementById('thePage:theForm:contentCellPageblock:addressDetails:addressSection2:shippingStreet').innerHTML;
+                    document.getElementById(firstSixStr + ':addressSection1:hiddenMailingCity').value = document.getElementById('thePage:theForm:contentCellPageblock:addressDetails:addressSection2:shippingCity').innerHTML;
+                    document.getElementById(firstSixStr + ':addressSection1:hiddenMailingState').value = document.getElementById('thePage:theForm:contentCellPageblock:addressDetails:addressSection2:shippingState').innerHTML;
+                    document.getElementById(firstSixStr + ':addressSection1:hiddenMailingPostalCode').value = document.getElementById('thePage:theForm:contentCellPageblock:addressDetails:addressSection2:shippingPostalCode').innerHTML;
+                    document.getElementById(firstSixStr + ':addressSection1:hiddenMailingCountry').value =  document.getElementById('thePage:theForm:contentCellPageblock:addressDetails:addressSection2:shippingCountry').innerHTML;
+
+                } else if (sourceObject.value == "Property") {
+                    
+                    document.getElementById(firstSixStr + ':addressSection1:billAcctStreet').innerHTML = document.getElementById(firstSixStr + ':addressSection1:hiddenPropertyStreet').value;
+                    document.getElementById(firstSixStr + ':addressSection1:billAcctCity').innerHTML = document.getElementById(firstSixStr + ':addressSection1:hiddenPropertyCity').value;
+                    document.getElementById(firstSixStr + ':addressSection1:billAcctState').innerHTML = document.getElementById(firstSixStr + ':addressSection1:hiddenPropertyState').value;
+                    document.getElementById(firstSixStr + ':addressSection1:billAcctPostalCode').innerHTML = document.getElementById(firstSixStr + ':addressSection1:hiddenPropertyPostalCode').value;
+                    document.getElementById(firstSixStr + ':addressSection1:billAcctCountry').innerHTML = document.getElementById(firstSixStr + ':addressSection1:hiddenPropertyCountry').value;
+                            
+                } else if (sourceObject.value == "Other") {
+                
+                    var thelink = document.getElementById(firstSixStr + ':addressSection1:changeLink');
+                    //alert('THELINK: ' + thelink.id);
+                    if (typeof thelink.onclick == "function") {
+                        thelink.onclick.apply(thelink);
+                        setChangeLinkObj(thelink, 'ba');
+                    }                   
+                }                   
+            }         
+
+            function setChangeLinkObj(obj, ut) {
+            	//alert('THEOBJECT: ' + obj.id);
+            	updateType = ut;
+                changeLinkObj = obj;
+            }
+            
+        </script>
+    </head>
+    
+    <apex:form id="theForm">
+        <!--  SIDEBAR CONTENT -->
+        <div class="pbTransparent sideBarCellDiv">
+            <!--  account list -->                           
+            <c:PortalAccountsList displayAccountList="false"/> <!-- TT10401-hide the account list -->
+            <!--  sidebar -->                           
+            <div style="margin-top:-65px;">
+            	<c:PortalSidebar id="sidebar" groupName="Accounts" currentAccRecordType="{!customer.RecordType.DeveloperName}" currentDevName="Accounts_Addresses"/>
+            </div>
+        </div>
+        <!--  MAIN CONTENT -->
+        <apex:actionFunction name="customerChanged" action="{!changeSelectedCustomer}" status="loading" rerender="contentCellDiv,qasSearchId"/>
+        <apex:actionFunction name="reloadSearchFrameInternal" status="loading" rerender="qasSearchId"/>
+        
+        <apex:outputPanel id="contentCellDiv" layout="block" styleClass="contentCellDiv" >
+            <apex:sectionHeader id="sectionHeader" subtitle="Customer details" />
+
+            <apex:pageBlock id="contentCellPageblock" >
+    
+                <!-- LEFT HAND SIDE CONTENT -->
+                <apex:outputPanel id="innerContentLHSDiv" styleClass="innerContentLHSDiv" >
+                    <!-- PAGE MESSAGES - ALWAYS DISPLAYED -->
+                    <apex:outputPanel id="pageMessages" layout="block" >
+                        <apex:pageMessages id="msgTop" />
+                    </apex:outputPanel>
+                    <!-- MULTIPLE ACCOUNTS NOTIFY SECTION -->
+                    <!--  <apex:outputPanel id="infoManyAccounts" layout="block" styleClass="infoMessage" rendered="{! allAccounts.size > 1 && NOT(bSingle) && NOT(isSaved)}">
+                        <apex:pageMessage strength="3" severity="info" escape="false" 
+                        summary="Our records indicate that you have multiple accounts with us.  
+                        Please indicate for each account where you would like your bills and correspondence from South East Water sent to."/>
+                    </apex:outputPanel> -->
+                    
+                    <style>
+                    	.AccountPickList {
+                    		border-color: #999999;
+						    border-image: none;
+						    border-radius: 0 0 0 0;
+						    border-style: none none solid;
+						    border-width: 0 0 1px;
+						    font-size: 14pt;
+						    padding: 3px;
+						    min-width: 400px;
+                    	}
+                    	.AccountPickList option {
+                    		font-size: 11.25pt;
+                    	}
+                    </style>
+			
+                    <!-- CUSTOMER DETAILS -->
+                    Please select the Customer account you like to view / amend<br/><br/>
+                    <apex:selectList id="chooseCustomer" value="{!selectedCustomer}" size="1" onChange="customerChanged()" styleClass="AccountPickList"> 
+            			<apex:selectOptions value="{!customerOptionList}" />
+        			</apex:selectList> 
+                    <apex:pageBlockSection id="addressDetails" columns="2" title="Your address details" collapsible="false" rendered="{!if(selectedCustomer <> '' && selectedCustomer <> null, true, false)}">
+                        <apex:pageBlockSectionItem id="addressSection1" >
+                            <apex:outputPanel layout="block" rendered="{!NOT(ISBLANK(customer.BillingStreet))}">
+                                <apex:inputHidden id="hiddenCustomerMailingStreet" value="{!customer.BillingStreet}" />
+                                <apex:inputHidden id="hiddenCustomerMailingCity" value="{!customer.BillingCity}" />
+                                <apex:inputHidden id="hiddenCustomerMailingState" value="{!customer.BillingState}"  />
+                                <apex:inputHidden id="hiddenCustomerMailingPostalCode" value="{!customer.BillingPostalCode}" />
+                                <apex:inputHidden id="hiddenCustomerMailingCountry" value="{!customer.BillingCountry}"  />
+                                <apex:inputHidden id="hiddenCustomerMailingDPID" value="{!customer.Billing_Address_DPID__c}"  /> 
+                                
+                                <apex:outputLabel styleClass="darkGrey" value="Mailing address"/>
+                                <br/>
+                                <apex:outputField id="billingStreet" value="{!customer.BillingStreet}"/>
+                                <br/>
+                                <apex:outputField id="billingCity" value="{!customer.BillingCity}"/>
+                                <br/>
+                                <apex:outputField id="billingState" value="{!customer.BillingState}"/>{!IF(customer.BillingState=='','',', ')}
+                                <apex:outputField id="billingPostalCode" value="{!customer.BillingPostalCode}"/>
+                                <br/>
+                                <apex:outputField id="billingCountry" value="{!customer.BillingCountry}"/>
+                                <br/>
+                                <apex:outputPanel id="AmendHomeAddres" styleClass="linkText">
+                                	Amend address
+                                	<apex:actionSupport event="onclick" oncomplete="setChangeLinkObj(this, 'mail'); reloadSearchFrameInternal(); ShowQASDialog(1); return false;" rerender="addressSection1,repeaterID"/>
+                                	<script>
+                                        function enableSaveButtonAddrChange(buttonId){
+                                            var savebtn = document.getElementById(buttonId);
+                                            savebtn.disabled = false;
+                                            savebtn.setAttribute("class", "btnGreen");
+                                            savebtn.setAttribute("className", "btnGreen");
+                                            savebtn.setAttribute("style","cursor:pointer;");
+                                        }               
+                                    </script>
+                                	
+                                </apex:outputPanel>
+                            </apex:outputPanel>                    
+                        </apex:pageBlockSectionItem>                  
+
+                        <apex:pageBlockSectionItem id="addressSection2" >                   
+                            <apex:outputPanel layout="block" rendered="{!NOT(ISBLANK(customer.ShippingStreet))}">
+                            	<apex:inputHidden id="hiddenCustomerHomeStreet" value="{!customer.ShippingStreet}" />
+                                <apex:inputHidden id="hiddenCustomerHomeCity" value="{!customer.ShippingCity}" />
+                                <apex:inputHidden id="hiddenCustomerHomeState" value="{!customer.ShippingState}"  />
+                                <apex:inputHidden id="hiddenCustomerHomePostalCode" value="{!customer.ShippingPostalCode}" />
+                                <apex:inputHidden id="hiddenCustomerHomeCountry" value="{!customer.ShippingCountry}"  />
+                                <apex:inputHidden id="hiddenCustomerHomeDPID" value="{!customer.Primary_Address_DPID__c}"  /> 
+                            
+                                <apex:outputLabel styleClass="darkGrey" value="{!IF(customerType=='Residential','Home','Business')} address"/>
+                                <br/>                           
+                                <apex:outputField id="shippingStreet" value="{!customer.ShippingStreet}"/>
+                                <br/>
+                                <apex:outputField id="shippingCity" value="{!customer.ShippingCity}"/>
+                                <br/>
+                                <apex:outputField id="shippingState" value="{!customer.ShippingState}"/>{!IF(customer.ShippingState=='','',', ')}
+                                <apex:outputField id="shippingPostalCode" value="{!customer.ShippingPostalCode}"/>
+                                <br/>
+                                <apex:outputField id="shippingCountry" value="{!customer.ShippingCountry}"/>
+                                <br/>
+                                <apex:outputPanel id="AmendHomeAddres" styleClass="linkText">
+                                	Amend address
+                                	<apex:actionSupport event="onclick" oncomplete="setChangeLinkObj(this, 'home'); reloadSearchFrameInternal(); ShowQASDialog(1); return false;" rerender="addressSection2,repeaterID"/>
+                                	<script>
+                                        function enableSaveButtonAddrChange(buttonId){
+                                            var savebtn = document.getElementById(buttonId);
+                                            savebtn.disabled = false;
+                                            savebtn.setAttribute("class", "btnGreen");
+                                            savebtn.setAttribute("className", "btnGreen");
+                                            savebtn.setAttribute("style","cursor:pointer;");
+                                        }               
+                                    </script>
+                                	
+                                </apex:outputPanel>
+                                                                
+                            </apex:outputPanel>                            
+                        </apex:pageBlockSectionItem>                    
+
+                    </apex:pageBlockSection>
+                    
+                    <!-- ACCOUNT DETAILS -->
+                    
+                    <apex:outputPanel id="addressList" rendered="{!if(selectedCustomer <> '' && selectedCustomer <> null, true, false)}">
+                    <br/>
+                    <center>
+                        <apex:commandButton id="saveCustomerAddressButton" action="{!saveAccountAddress}" value="Save" styleClass="btnPrimary" rendered="{!if(selectedCustomer <> '' && selectedCustomer <> null, true, false)}"/>
+                        <script>
+                            if('{!enableSave}' == ''){
+                                var savebtnTop = document.getElementById('{!$Component.saveCustomerAddressButton}');
+                                savebtnTop.disabled = true;
+                                savebtnTop.setAttribute("class", "btnDarkGray");
+                                savebtnTop.setAttribute("className", "btnDarkGray");
+                            }
+                        </script>
+                        <apex:outputLink styleClass="btn btnLink btnClearGreenText"
+                                    style="position: relative; top: 2px"
+                                    value="{!$Page.PortalMyDetails}" rendered="{!if(selectedCustomer <> '' && selectedCustomer <> null, true, false)}">Cancel
+                        </apex:outputLink>
+                    </center>
+                    <br/>
+                    <br/>
+                    <apex:outputText style="font-weight:bold" value="Address options for my accounts" ></apex:outputText>
+                    <br/>
+                    <apex:repeat id="repeaterID" value="{!listBillingAccountsWrapper}" var="acct">
+                        <apex:pageBlockSection id="billingAddress" columns="2" title="{!IF(ISBLANK(acct.billAcct.Property__c), acct.billAcct.HiAF_Account_Number_Check_Digit__c, acct.billAcct.Property__r.Street_Address_Proper__c+', '+ acct.billAcct.Property__r.Suburb_Proper__c+' '+acct.billAcct.Property__r.Postal_Code__c)}" collapsible="false"> 
+                            <apex:pageBlockSectionItem id="addressSection1" >
+                                <apex:outputLabel >Billing address</apex:outputLabel>                    
+                                <apex:outputPanel id="mailingAddressPanel" layout="block" rendered="{!NOT(ISBLANK(acct.billAcct.Street_Address__c))}">
+
+                                    <!-- HIDDEN FIELDS -->
+                                    <apex:inputHidden id="hiddenMailingAddress" value="{!acct.billAddress}" />
+                                    <apex:inputHidden id="hiddenMailingStreet" value="{!acct.billAcct.Street_Address__c}" />
+                                    <apex:inputHidden id="hiddenMailingCity" value="{!acct.billAcct.City__c}" />
+                                    <apex:inputHidden id="hiddenMailingState" value="{!acct.billAcct.State__c}"  />
+                                    <apex:inputHidden id="hiddenMailingPostalCode" value="{!acct.billAcct.Postal_Code__c}" />
+                                    <apex:inputHidden id="hiddenMailingCountry" value="{!acct.billAcct.Country__c}"  />
+                                    <apex:inputHidden id="hiddenMailingDPID" value="{!acct.billAcct.DPID__c}"  /> 
+                                    
+                                    <apex:inputHidden id="hiddenPropertyStreet" value="{!acct.propertyStreet}" />
+                                    <apex:inputHidden id="hiddenPropertyCity" value="{!acct.propertyCity}" />
+                                    <apex:inputHidden id="hiddenPropertyState" value="{!acct.propertyState}"  />
+                                    <apex:inputHidden id="hiddenPropertyPostalCode" value="{!acct.propertyPostalCode}" />
+                                    <apex:inputHidden id="hiddenPropertyCountry" value="{!acct.propertyCountry}"  />
+
+                                    <apex:outputText id="billAcctStreet" value="{!acct.billAcct.Street_Address__c}"/>
+                                    <br/>
+                                    <apex:outputText id="billAcctCity" value="{!acct.billAcct.City__c}"/>
+                                    <br/>
+                                    <apex:outputText id="billAcctState" value="{!acct.billAcct.State__c}"/>{!IF(acct.billAcct.State__c=='','',', ')}
+                                    <apex:outputText id="billAcctPostalCode" value="{!acct.billAcct.Postal_Code__c}"/>
+                                    <br/>
+                                    <apex:outputText id="billAcctCountry" value="{!acct.billAcct.Country__c}"/>
+                                    <br/><br/>
+                                        
+                                    <script> 
+                                    var theText = document.getElementById("{!$Component.billAcctStreet}"); 
+                                    </script>                                       
+                                        
+                                    <apex:outputPanel id="changeLinkPanel" rendered="{!ISBLANK(acct.billAcct.Group_Billing_Account__c)}">
+                                        <apex:commandButton id="changeLink" styleClass="infoS1 btn btnLink"
+                                            rendered="{!acct.selectedOption = 'Other'}" 
+                                            style="position: relative; top: 2px"
+                                            onclick="setChangeLinkObj(this, 'ba'); reloadSearchFrameInternal(); ShowQASDialog(1); enableSaveButtonAddrChange('{!$Component.saveAccountAddressButton}'); enableSaveButtonAddrChange('{!$Component.saveCustomerAddressButton}'); return false;"
+
+                                            value="Change address">
+                                            <script>
+		                                        document.getElementById('{!$Component.sendMailTo}').disabled = {!NOT(ISBLANK(acct.billAcct.Group_Billing_Account__c))}; 
+		                                        function enableSaveButtonAddrChange(buttonId){
+		                                            var savebtn = document.getElementById(buttonId);
+		                                            savebtn.disabled = false;
+		                                            savebtn.setAttribute("class", "btnGreen");
+		                                            savebtn.setAttribute("className", "btnGreen");
+		                                            savebtn.setAttribute("style","cursor:pointer;");
+		                                        }               
+		                                    </script>
+                                        </apex:commandButton>
+<!--  
+                                        <script>document.getElementById('{!$Component.changeLink}').disabled = {!acct.billAcct.Group_Billing_Account__c != ''}; </script>
+-->
+                                    </apex:outputPanel>                            
+                                </apex:outputPanel> 
+                            </apex:pageBlockSectionItem>                  
+
+                            <apex:pageBlockSectionItem id="addressSection2">                   
+                                <apex:outputPanel id="accountFields">
+                                    <apex:outputLabel >Attention</apex:outputLabel>  
+                                    <apex:inputField id="attentionField" value="{!acct.billAcct.Attention__c}" style="display: block;" label="Attention" onchange="javascript: enableSaveButtonA(this.value, '{!acct.billAcct.Attention__c}', '{!$Component.saveAccountAddressButton}'); enableSaveButtonA(this.value, '{!acct.billAcct.Attention__c}', '{!$Component.saveCustomerAddressButton}'); "/>
+                                    <script>
+                                        document.getElementById('{!$Component.attentionField}').disabled = {!NOT(ISBLANK(acct.billAcct.Group_Billing_Account__c))}; 
+                                        function enableSaveButtonA(newVal, originalVal, buttonId){
+                                                var savebtn = document.getElementById(buttonId);
+                                                if(originalVal != newVal){
+                                                    savebtn.disabled = false;
+                                                    savebtn.setAttribute("class", "btnGreen");
+                                                    savebtn.setAttribute("className", "btnGreen");
+                                                    savebtn.setAttribute("style","cursor:pointer;");
+                                                }
+                                         }  
+                                    </script>
+                                    
+                                    <apex:outputLabel >Care Of</apex:outputLabel>  
+                                    <apex:inputField id="careOfField" value="{!acct.billAcct.Care_Of__c}" label="Care of" style="display: block;" onchange="javascript: enableSaveButtonC(this.value, '{!acct.billAcct.Care_Of__c}', '{!$Component.saveAccountAddressButton}'); enableSaveButtonC(this.value, '{!acct.billAcct.Care_Of__c}', '{!$Component.saveCustomerAddressButton}');"/>
+                                    <script>
+                                        document.getElementById('{!$Component.careOfField}').disabled = {!NOT(ISBLANK(acct.billAcct.Group_Billing_Account__c))}; 
+                                        function enableSaveButtonC(newVal, originalVal, buttonId){
+                                            var savebtn = document.getElementById(buttonId);
+                                            if(originalVal != newVal){
+                                                savebtn.disabled = false;
+                                                savebtn.setAttribute("class", "btnGreen");
+                                                savebtn.setAttribute("className", "btnGreen");
+                                                savebtn.setAttribute("style","cursor:pointer;");
+                                            }
+                                       }    
+                                    </script>
+                                    
+                                    <apex:outputLabel rendered="{!ISBLANK(acct.billAcct.Group_Billing_Account__c)}">Send bill to</apex:outputLabel>                                 
+                                    <apex:selectList id="sendMailTo" value="{!acct.selectedOption}" size="1" style="display: block;" rendered="{!ISBLANK(acct.billAcct.Group_Billing_Account__c)}">
+                                        <apex:actionSupport event="onchange" oncomplete="enableSaveButton('{!$Component.saveAccountAddressButton}'); enableSaveButton('{!$Component.saveCustomerAddressButton}'); checkAddress(this);" rerender="changeLinkPanel"/>
+                                        <apex:selectOptions value="{!acct.sendMailOptions}"/>
+                                    </apex:selectList>  
+                                    <script>
+                                        document.getElementById('{!$Component.sendMailTo}').disabled = {!NOT(ISBLANK(acct.billAcct.Group_Billing_Account__c))}; 
+                                        function enableSaveButton(buttonId){
+                                            var savebtn = document.getElementById(buttonId);
+                                            savebtn.disabled = false;
+                                            savebtn.setAttribute("class", "btnGreen");
+                                            savebtn.setAttribute("className", "btnGreen");
+                                            savebtn.setAttribute("style","cursor:pointer;");
+                                        }               
+                                    </script>
+
+                                </apex:outputPanel> 
+                            </apex:pageBlockSectionItem>  
+                        </apex:pageBlockSection>
+
+                        <!--  SUB ACCOUNT NOTIFY SECTION -->
+                            <apex:outputPanel id="infoSubAccount" layout="block" styleClass="infoMessage" rendered="{!NOT(ISBLANK(acct.billAcct.Group_Billing_Account__c))}">
+                                <apex:pageMessage strength="3" severity="warning" summary="This account is managed by a third party.  
+                                Please contact South East Water if you wish to change the account address."/>
+                        </apex:outputPanel>
+                        <br/>
+                    </apex:repeat>    
+                    </apex:outputPanel>
+                    <center>
+                        <apex:commandButton id="saveAccountAddressButton" action="{!saveAccountAddress}" value="Save" styleClass="btnPrimary" rendered="{!if(selectedCustomer <> '' && selectedCustomer <> null, true, false)}"/>
+                        <script>
+                            if('{!enableSave}' == ''){
+                                var savebtn = document.getElementById('{!$Component.saveAccountAddressButton}');
+                                savebtn.disabled = true;
+                                savebtn.setAttribute("class", "btnDarkGray");
+                                savebtn.setAttribute("className", "btnDarkGray");
+                            }
+                        </script>
+                        <apex:outputLink styleClass="btn btnLink btnClearGreenText"
+                                    style="position: relative; top: 2px"
+                                    value="{!$Page.PortalMyDetails}" rendered="{!if(selectedCustomer <> '' && selectedCustomer <> null, true, false)}">Cancel
+                        </apex:outputLink>
+                    </center>
+                    <br/>                    
+                </apex:outputPanel>
+                
+                <!-- RIGHT HAND SIDE CONTENT -->
+                <apex:outputPanel id="innerContentRHSDiv" styleClass="innerContentRHSDiv" >
+                    <!--  live chat -->
+                    <c:LiveChat />
+                    
+                    <c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+                        divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+                        divStyle="width: 205px"/>
+                    
+                    <!--  quick links -->
+                    <div style="position: relative;"><c:PortalQuickLinks mode="PersonDetail" /></div>
+                </apex:outputPanel>
+    
+                <div style="clear:both"/>
+            </apex:pageBlock>
+
+        </apex:outputPanel> <!-- contentCellDiv END -->
+
+        <!-- Action Status that are not position dependent -->
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+                    borderSize="1" height="50px" width="120px" margintop="-25px"
+                    marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+                    Message="Processing..." />
+            </apex:facet>
+        </apex:actionStatus>
+
+    </apex:form>
+    
+    <script language="javascript" type="text/javascript">
+		var timerVar;
+		
+		function ClearMsg (){
+		document.getElementById("Street1").style.display="none";
+		document.getElementById("Street2").style.display="none";
+		document.getElementById("suburbErr").style.display="none";
+		document.getElementById("postalCodeErr").style.display="none";
+		document.getElementById("stateErr").style.display="none";
+		document.getElementById("country").style.display="none";
+		}
+			
+		function limitText(limitField, limitNum, errorfield) {
+			if (limitField.value.length > limitNum) {
+				limitField.value = limitField.value.substring(0, limitNum);
+				document.getElementById(errorfield).style.display="block";
+				//if (!timerVar) {
+				clearTimeout(timerVar);
+				//}
+				timerVar = setTimeout(function(){ClearMsg()},3000);
+			} else
+			{//document.getElementById(errorfield).style.display="none";
+			}
+		}
+		
+		function lengthText(errorfield, lengthfield){
+			var Suburb = document.getElementById("{!$Component.qasForm.testBlock.qaSearchSection.qaSuburbItem.suburb}").value.length;
+			var State = document.getElementById("{!$Component.qasForm.testBlock.qaSearchSection.qaStateItem.state}").value.length;
+			var Postal =document.getElementById("{!$Component.qasForm.testBlock.qaSearchSection.qaPostal.postalCode}").value.length;
+			var AddrLength = Suburb + State + Postal;
+			
+			if (AddrLength > 28){
+				var totalLength = 0; 
+				var updateField;
+				if (lengthfield == 'Suburb'){
+					totalLength  = 28 - (State + Postal);
+					updateField = document.getElementById("{!$Component.qasForm.testBlock.qaSearchSection.qaSuburbItem.suburb}");
+				}else if (lengthfield == 'State'){
+					totalLength  = 28 - (Suburb + Postal);
+					updateField = document.getElementById("{!$Component.qasForm.testBlock.qaSearchSection.qaStateItem.state}");
+				}else if (lengthfield == 'Postal'){
+					totalLength  = 28 - (Suburb + State);
+					updateField = document.getElementById("{!$Component.qasForm.testBlock.qaSearchSection.qaPostal.postalCode}");
+				}
+				updateField.value = updateField.value.substring(0, totalLength);	
+					
+				document.getElementById(errorfield).style.display="block";
+				//if (!timerVar) {
+				clearTimeout(timerVar);
+				//}
+				timerVar = setTimeout(function(){ClearMsg()},3000);
+				} else
+			{//document.getElementById(errorfield).style.display="none";
+			}
+			if (totalLength < 0){
+				totalLength.value = 0
+			}	
+			
+		}
+		
+	</script>
+    
+    <!-- QAS Popup -->
+    <apex:form id="qasForm" >    
+        <div id="qas-popup">
+                <div id="qaSearch">
+                        <c:QaSPopupPulse id="qasSearchId"/>                    
+                </div> 
+                <div id="qaManual" class="pbTransparent requiredInput">
+                          
+                    <apex:pageBlock id="testBlock">                                                          
+                        Please enter your address details below.<br/><br/>                                                   
+                        <apex:pageBlockSection id="qaSearchSection" columns="1" >
+                            <apex:pageBlockSectionItem id="qaStreetItem">                                                                               
+                            <apex:outputLabel value="Street address 1"/> 
+                            <apex:outputPanel styleClass="requiredInput">  
+                            <apex:outputPanel styleClass="requiredBlock"/>
+                            <apex:inputTextarea rows="2" id="street" required="true" styleClass="requiredInput" style="width:250px" onKeyDown="limitText(this,30,'Street1');" onKeyUp="limitText(this,30,'Street1');" />                    			    
+                        	    	<div id="Street1" style="display:none; color: red; font-style: italic">The Street Address 1 field must not exceed 30 characters!
+                            		</div>
+                            </apex:outputPanel>                                   
+                        </apex:pageBlockSectionItem>
+                            
+                        <apex:pageBlockSectionItem id="qaStreet2Item">
+                            <apex:outputLabel value="Street address 2"/> 
+							<apex:outputPanel >
+                       		<apex:inputTextArea rows="2" label="Street" id="street2" required="true" styleClass="requiredInput" style="width:250px" onKeyDown="limitText(this,30,'Street2');" onKeyUp="limitText(this,30,'Street2');" />                   
+                              	<div id="Street2" style="display:none; color: red; font-style: italic">The Street Address 2 field must not exceed 30 characters!
+                            	</div>
+                       		</apex:outputPanel>         
+                       	 </apex:pageBlockSectionItem>
+                            
+                         <apex:pageBlockSectionItem id="qaSuburbItem">
+                            <apex:outputLabel value="Suburb"/>
+                            <apex:outputPanel styleClass="requiredInput" id="requiredInputDiv">  
+                            <apex:outputPanel styleClass="requiredBlock" id="requiredBlockDiv"/>                                    
+							<apex:inputText id="suburb" required="true" style="width:250px" onKeyDown="lengthText('suburbErr', 'Suburb');" onKeyUp="lengthText('suburbErr', 'Suburb');"/>
+                      		     <div id="suburbErr" style="display:none; color: red; font-style: italic">The Postal code, State and Suburb must be less than 28 characters (combined)
+                         		 </div>                       
+                            </apex:outputPanel>
+                       		</apex:pageBlockSectionItem>
+                         
+                      	  <apex:pageBlockSectionItem id="qaStateItem">
+                            <apex:outputLabel value="State"/> 
+                            <apex:outputPanel styleClass="requiredInput" id="requiredInputDivState">  
+                            <apex:outputPanel styleClass="requiredBlock" id="requiredBlockDivState"/>
+                            <apex:inputText id="state" required="true" style="width:250px" onKeyDown="lengthText('stateErr', 'State');" onKeyUp="lengthText('stateErr', 'State');"/>                   					     
+                      			 <div id="stateErr" style="display:none; color: red; font-style: italic">The Postal code, State and Suburb must be less than 28 characters (combined)
+                            	 </div>  
+                            </apex:outputPanel> 
+                      		</apex:pageBlockSectionItem>
+                            
+                        <apex:pageBlockSectionItem id="qaPostal">
+                            <apex:outputLabel value="Postal code"/>
+                            <apex:outputPanel styleClass="requiredInput" id="requiredInputDivPostal">  
+                            <apex:outputPanel styleClass="requiredBlock" id="requiredBlockDivPostal"/>
+                            <apex:inputText id="postalCode" required="true" style="width:250px" onKeyDown="lengthText('postalCodeErr', 'Postal');" onKeyUp="lengthText('postalCodeErr', 'Postal');"/>                      			       	
+                      		    <div id="postalCodeErr" style="display:none; color: red; font-style: italic">The Postal code, State and Suburb must be less than 28 characters (combined)
+                     	        </div>
+                            </apex:outputPanel>  
+                        </apex:pageBlockSectionItem>
+                            
+                        <apex:pageBlockSectionItem id="qaCountry">
+                            <apex:outputLabel value="Country"/>
+                            <apex:outputPanel styleClass="requiredInput">  
+                            <apex:outputPanel styleClass="requiredBlock"/>
+                            <apex:inputText id="country" required="true" style="width:250px" onKeyDown="limitText(this,30,'country');" onKeyUp="limitText(this,30,'country');" />                       				    
+                         	   <div id="country" style="display:none; color: red; font-style: italic">The country field must not exceed 30 characters!
+                      	       </div>
+                            </apex:outputPanel> 
+                        </apex:pageBlockSectionItem>
+                            
+                        <br/>
+                        <apex:pageBlockSectionItem id="qaButtons">
+                            <apex:outputLabel value=""/>
+                            <apex:pageBlockSectionItem >
+                                <apex:commandButton id="acceptSearchButton" onclick="ReceiveAddressManually();"  value="Accept" styleClass="btnPrimary" />
+                                <apex:commandButton onclick="CloseQASDialog();" value="Cancel"  immediate="true" styleclass="btnBlueText" /> 
+                            </apex:pageBlockSectionItem>                                        
+                        </apex:pageBlockSectionItem>                                                                     
+                    </apex:pageBlockSection>                              
+                </apex:pageBlock>                                             
+            </div>
+        </div>    
+    
+        <!-- <apex:actionFunction action="{!PopulateDPID}" name="jsPopulateDPID" oncomplete="GetValueDPID();"/> -->   
+     
+    </apex:form>  
+       
+</apex:page>

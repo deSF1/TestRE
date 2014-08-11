@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Portal Marketing Page</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Portal Marketing Pages</value>
+    </caseValues>
+    <fields>
+        <help><!-- The label which will be displayed on the button that takes the user to the appropriate page. --></help>
+        <label><!-- Button Label --></label>
+        <name>Button_Label__c</name>
+    </fields>
+    <fields>
+        <help><!-- When the button is pressed, the user is taken to this URL (in a new page). --></help>
+        <label><!-- Button URL --></label>
+        <name>Button_URL__c</name>
+    </fields>
+    <fields>
+        <help><!-- The label which will be displayed on the button that closes the marketing page. --></help>
+        <label><!-- Close Button Label --></label>
+        <name>Close_Button_Label__c</name>
+    </fields>
+    <fields>
+        <help><!-- (1 AND 2) OR 3 --></help>
+        <label><!-- Criteria Logic --></label>
+        <name>Criteria_Logic__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select how often the marketing page is to be displayed.  If Once only is selected, Display Frequency Value is ignored, otherwise, you need to enter a Display Frequency Value. --></help>
+        <label><!-- Display Frequency Type --></label>
+        <name>Display_Frequency_Type__c</name>
+        <picklistValues>
+            <masterLabel>Every # Days</masterLabel>
+            <translation><!-- Every # Days --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Every # Logins</masterLabel>
+            <translation><!-- Every # Logins --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Once Only</masterLabel>
+            <translation><!-- Once Only --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Enter how often the marketing page is to be displayed.  If Once only is selected, this value is ignored, otherwise, you need to enter this value. --></help>
+        <label><!-- Display Frequency Value --></label>
+        <name>Display_Frequency_Value__c</name>
+    </fields>
+    <fields>
+        <help><!-- The maximum number of times the page is displayed to any single user. --></help>
+        <label><!-- Display Maximum Times --></label>
+        <name>Display_Maximum_Times__c</name>
+    </fields>
+    <fields>
+        <help><!-- Indicates whether to display the link where the user can request not to display this Marketing Page again. --></help>
+        <label><!-- Display Opt Out Option --></label>
+        <name>Display_Opt_Out_Option__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select the date and time for when the marketing page should no longer be displayed to users. --></help>
+        <label><!-- End Timestamp --></label>
+        <name>End_Timestamp__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter the HTML code which will be displayed in the splash page. --></help>
+        <label><!-- HTML --></label>
+        <name>HTML__c</name>
+    </fields>
+    <fields>
+        <help><!-- The height of the marketing splash page. --></help>
+        <label><!-- Page Height --></label>
+        <name>Page_Height__c</name>
+    </fields>
+    <fields>
+        <help><!-- The text which is displayed at the top of the market page dialog --></help>
+        <label><!-- Page Title --></label>
+        <name>Page_Title__c</name>
+    </fields>
+    <fields>
+        <help><!-- The width of the marketing splash page. --></help>
+        <label><!-- Page Width --></label>
+        <name>Page_Width__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter the priority number. The value should be unique for all active marketing pages.  For random, enter 0. --></help>
+        <label><!-- Priority --></label>
+        <name>Priority__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select the start date and time for when the marketing page should be displayed to users. --></help>
+        <label><!-- Start Timestamp --></label>
+        <name>Start_Timestamp__c</name>
+    </fields>
+    <layouts>
+        <layout>Portal Marketing Page Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Page Details --></label>
+            <section>Page Details</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Preview --></label>
+        <name>Preview</name>
+    </webLinks>
+</CustomObjectTranslation>

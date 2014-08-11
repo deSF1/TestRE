@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Property</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Properties</value>
+    </caseValues>
+    <fields>
+        <label><!-- ANZSIC --></label>
+        <name>ANZSIC__c</name>
+        <relationshipLabel><!-- Properties --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Active --></label>
+        <name>Active__c</name>
+    </fields>
+    <fields>
+        <help><!-- Address also known as field to assit with alternative identification on the property. --></help>
+        <label><!-- Address Also Known As --></label>
+        <name>Address_Also_Known_As__c</name>
+    </fields>
+    <fields>
+        <label><!-- Allotment Area --></label>
+        <name>Allotment_Area__c</name>
+    </fields>
+    <fields>
+        <label><!-- Body Corporate --></label>
+        <name>Body_Corporate__c</name>
+    </fields>
+    <fields>
+        <label><!-- CIS Property Id --></label>
+        <name>CIS_Property_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Council Property Reference No --></label>
+        <name>Council_Property_Reference_No__c</name>
+    </fields>
+    <fields>
+        <label><!-- Council Property Type --></label>
+        <name>Council_Property_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Council --></label>
+        <name>Council__c</name>
+    </fields>
+    <fields>
+        <label><!-- DPID --></label>
+        <name>DPID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Daily Target per Person --></label>
+        <name>Daily_Target_per_Person__c</name>
+    </fields>
+    <fields>
+        <label><!-- Digital Meter --></label>
+        <name>Digital_Meter__c</name>
+    </fields>
+    <fields>
+        <label><!-- Directory Reference --></label>
+        <name>Directory_Reference__c</name>
+    </fields>
+    <fields>
+        <label><!-- Directory Type --></label>
+        <name>Directory_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Area --></label>
+        <name>ECO_Area__c</name>
+    </fields>
+    <fields>
+        <label><!-- Connected --></label>
+        <name>ECO_Connected__c</name>
+    </fields>
+    <fields>
+        <label><!-- Developer Backlog --></label>
+        <name>ECO_Developer_Backlog__c</name>
+    </fields>
+    <fields>
+        <label><!-- ECO Eligibility --></label>
+        <name>ECO_Eligibility__c</name>
+        <picklistValues>
+            <masterLabel>Eligible</masterLabel>
+            <translation><!-- Eligible --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ineligible</masterLabel>
+            <translation><!-- Ineligible --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Maybe-Eligible</masterLabel>
+            <translation><!-- Maybe-Eligible --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Multiple Parcel --></label>
+        <name>ECO_Multiple_Parcel__c</name>
+    </fields>
+    <fields>
+        <label><!-- Property Classification --></label>
+        <name>ECO_Property_Classification__c</name>
+        <picklistValues>
+            <masterLabel>No Owner</masterLabel>
+            <translation><!-- No Owner --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rated with other</masterLabel>
+            <translation><!-- Rated with other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Reserve</masterLabel>
+            <translation><!-- Reserve --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Vacant</masterLabel>
+            <translation><!-- Vacant --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- ECO Region --></label>
+        <name>ECO_Region__c</name>
+        <relationshipLabel><!-- Properties --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Sewer Available --></label>
+        <name>ECO_Sewer_Available__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sewer Type --></label>
+        <name>ECO_Sewer_Type__c</name>
+        <picklistValues>
+            <masterLabel>Gravity</masterLabel>
+            <translation><!-- Gravity --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pressure</masterLabel>
+            <translation><!-- Pressure --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Grid Coordinate X --></label>
+        <name>Grid_Coordinate_X__c</name>
+    </fields>
+    <fields>
+        <label><!-- Grid Coordinate Y --></label>
+        <name>Grid_Coordinate_Y__c</name>
+    </fields>
+    <fields>
+        <label><!-- Has Insurance Claim --></label>
+        <name>Has_Insurance_Claim__c</name>
+    </fields>
+    <fields>
+        <label><!-- Property Name --></label>
+        <name>House_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- ICE Property Id --></label>
+        <name>ICE_Property_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Logical Meter Count --></label>
+        <name>Logical_Meter_Count__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lot No --></label>
+        <name>Lot_No__c</name>
+    </fields>
+    <fields>
+        <label><!-- NSM --></label>
+        <name>NSM__c</name>
+    </fields>
+    <fields>
+        <label><!-- PSP Number --></label>
+        <name>PSP_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parent CIS Property Id --></label>
+        <name>Parent_CIS_Property_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- People over 18 --></label>
+        <name>People_over_18__c</name>
+    </fields>
+    <fields>
+        <label><!-- People under 18 --></label>
+        <name>People_under_18__c</name>
+    </fields>
+    <fields>
+        <label><!-- Postal Code --></label>
+        <name>Postal_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Private Extension Available --></label>
+        <name>Private_Extension_Available__c</name>
+    </fields>
+    <fields>
+        <label><!-- Profile Setup Complete --></label>
+        <name>Profile_Setup_Complete__c</name>
+    </fields>
+    <fields>
+        <label><!-- Property Type --></label>
+        <name>Property_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Property Usage --></label>
+        <name>Property_Usage__c</name>
+        <picklistValues>
+            <masterLabel>Body Corporate</masterLabel>
+            <translation><!-- Body Corporate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Commercial Building</masterLabel>
+            <translation><!-- Commercial Building --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Farmland</masterLabel>
+            <translation><!-- Farmland --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Park / Reserve</masterLabel>
+            <translation><!-- Park / Reserve --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unit / Flat</masterLabel>
+            <translation><!-- Unit / Flat --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unknown</masterLabel>
+            <translation><!-- Unknown --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Recycled Stormwater - Avenview Estate --></label>
+        <name>R6_Avenview__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recycled Meter Count --></label>
+        <name>Recycled_Meter_Count__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recycled Water Available --></label>
+        <name>Recycled_Water_Available__c</name>
+    </fields>
+    <fields>
+        <label><!-- Standard Parcel Id --></label>
+        <name>Standard_Parcel_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- State --></label>
+        <name>State__c</name>
+        <picklistValues>
+            <masterLabel>ACT</masterLabel>
+            <translation><!-- ACT --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NSW</masterLabel>
+            <translation><!-- NSW --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NT</masterLabel>
+            <translation><!-- NT --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>QLD</masterLabel>
+            <translation><!-- QLD --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SA</masterLabel>
+            <translation><!-- SA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>TAS</masterLabel>
+            <translation><!-- TAS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VIC</masterLabel>
+            <translation><!-- VIC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>WA</masterLabel>
+            <translation><!-- WA --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Street Address (Proper) --></label>
+        <name>Street_Address_Proper__c</name>
+    </fields>
+    <fields>
+        <label><!-- Street Address --></label>
+        <name>Street_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Subdivision Plan No --></label>
+        <name>Subdivision_Plan_No__c</name>
+    </fields>
+    <fields>
+        <label><!-- Suburb (Proper) --></label>
+        <name>Suburb_Proper__c</name>
+    </fields>
+    <fields>
+        <label><!-- Suburb --></label>
+        <name>Suburb__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trade Waste Code --></label>
+        <name>Trade_Waste_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Universal Id --></label>
+        <name>Universal_Id_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Valuation Amount --></label>
+        <name>Valuation_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Valuation Date --></label>
+        <name>Valuation_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Property has 1 Meter with Multiple Properties. 1M classification code in HiAffinity. --></help>
+        <label><!-- 1 Meter with Multiple Properties --></label>
+        <name>X1_Meter_Multi_Props__c</name>
+    </fields>
+    <layouts>
+        <layout>ECO Property Layout</layout>
+        <sections>
+            <label><!-- Details --></label>
+            <section>Details</section>
+        </sections>
+        <sections>
+            <label><!-- ECO Backlog --></label>
+            <section>ECO Backlog</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+        <sections>
+            <label><!-- Useful Links --></label>
+            <section>Useful Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Property ECO Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Details --></label>
+            <section>Details</section>
+        </sections>
+        <sections>
+            <label><!-- Early Connection Option --></label>
+            <section>Early Connection Option</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Property Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Details --></label>
+            <section>Details</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Property Layout (Portal)</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- ECO_Web_Mapping_Site --></label>
+        <name>ECO_Web_Mapping_Site</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Google_Maps --></label>
+        <name>Google_Maps</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_Billing_Account --></label>
+        <name>New_Billing_Account</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_Customer --></label>
+        <name>New_Customer</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Properties_in_the_Same_Subdivision --></label>
+        <name>Properties_in_the_Same_Subdivision</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Quick_View --></label>
+        <name>Quick_View</name>
+    </webLinks>
+</CustomObjectTranslation>

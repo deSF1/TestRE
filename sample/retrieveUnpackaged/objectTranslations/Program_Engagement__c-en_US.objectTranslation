@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Program Engagement</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Program Engagement</value>
+    </caseValues>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Date --></label>
+        <name>End_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Funding Amount --></label>
+        <name>Funding_Amount__c</name>
+    </fields>
+    <fields>
+        <help><!-- Primary Contact for program engagement. --></help>
+        <label><!-- Primary Contact --></label>
+        <name>Primary_Contact__c</name>
+        <relationshipLabel><!-- Program Engagement --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Relate to Program --></label>
+        <name>Relate_to_Program__c</name>
+        <relationshipLabel><!-- Program Engagement --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Stakeholder --></label>
+        <name>Stakeholder_Or_Corporate__c</name>
+        <relationshipLabel><!-- Program Engagement --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Start Date --></label>
+        <name>Start_Date__c</name>
+    </fields>
+    <layouts>
+        <layout>Project Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

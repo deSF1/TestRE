@@ -1,0 +1,29 @@
+<apex:component >
+    <!--
+    Type:      Component
+    Purpose:   Get the top 3 articles by category called in pkb_top3Articles component
+    
+    Used By:    pkb_Top3Articles Component
+    ---------------------------------------------------------------
+    History:
+
+    19-May-2012 DYu         Created
+    30-May-2012 DYu			Updated: open article on the same window
+    -->
+    <apex:attribute name="pkbCon" type="pkb_Controller" description="handle to the pkb controller" />
+    <apex:attribute name="catname" type="String" description="ID of the article" assignTo="{!pkbCon.categoryName}"/>
+    <apex:attribute name="params" type="String" description="URL parameters"/>
+    
+    <apex:repeat var="a" value="{!pkbCon.articleKnowledgeList}">
+        <apex:variable var="typeName" value="{!SUBSTITUTE(a.articleTypeName, pkbCon.kavExtension, '')}" />
+        <apex:variable var="siteArticleURL" value="{!pkbCon.currentSiteUrl}articles{!pkbCon.selectedLanguageURL}{!typeName}/{!a.urlName}/?" />
+        <apex:variable var="nonSiteArticleURL" value="{!$Page.pkb_Home}?id={!a.knowledgeArticleId}&" />
+        <apex:variable var="articleURL" value="{!IF( pkbCon.isSite, siteArticleURL, nonSiteArticleURL )}" />
+        <apex:outputText escape="false">  
+            <a href="{!articleURL}{!params}">{!a.title}</a>
+        </apex:outputText>
+        <br/>
+    </apex:repeat>
+    <apex:outputText value="No published articles..." rendered="{!pkbCon.articleSize = 0}"></apex:outputText>
+    <br/>
+</apex:component>

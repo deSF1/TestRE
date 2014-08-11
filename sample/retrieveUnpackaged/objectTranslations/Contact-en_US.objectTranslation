@@ -1,0 +1,1050 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Person</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Persons</value>
+    </caseValues>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Access</value>
+        </caseValues>
+        <name>contact_access</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Access Level</value>
+        </caseValues>
+        <name>contact_access_level</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Account</value>
+        </caseValues>
+        <name>contact_account</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Currency</value>
+        </caseValues>
+        <name>contact_currency</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Description</value>
+        </caseValues>
+        <name>contact_description</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Division</value>
+        </caseValues>
+        <name>contact_division</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Edit</value>
+        </caseValues>
+        <name>contact_edit</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Email</value>
+        </caseValues>
+        <name>contact_email</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Fax</value>
+        </caseValues>
+        <name>contact_fax</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Field</value>
+        </caseValues>
+        <caseValues>
+            <plural>true</plural>
+            <value>Person Fields</value>
+        </caseValues>
+        <name>contact_field</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person History</value>
+        </caseValues>
+        <name>contact_history</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person History Report</value>
+        </caseValues>
+        <name>contact_history_report</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person ID</value>
+        </caseValues>
+        <name>contact_id</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Information</value>
+        </caseValues>
+        <name>contact_information</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Mobile</value>
+        </caseValues>
+        <name>contact_mobile</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Name</value>
+        </caseValues>
+        <caseValues>
+            <plural>true</plural>
+            <value>Person Names</value>
+        </caseValues>
+        <name>contact_name</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Note</value>
+        </caseValues>
+        <name>contact_note</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Number</value>
+        </caseValues>
+        <name>contact_number</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Owner</value>
+        </caseValues>
+        <name>contact_owner</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Owner Alias</value>
+        </caseValues>
+        <name>contact_owner_alias</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Phone</value>
+        </caseValues>
+        <name>contact_phone</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Record Type</value>
+        </caseValues>
+        <caseValues>
+            <plural>true</plural>
+            <value>Person Record Types</value>
+        </caseValues>
+        <name>contact_record_type</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Reports To Person</value>
+        </caseValues>
+        <name>contact_reports_to</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Role</value>
+        </caseValues>
+        <caseValues>
+            <plural>true</plural>
+            <value>Person Roles</value>
+        </caseValues>
+        <name>contact_role</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Role ID</value>
+        </caseValues>
+        <name>contact_role_id</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Role Report</value>
+        </caseValues>
+        <caseValues>
+            <plural>true</plural>
+            <value>Person Role Reports</value>
+        </caseValues>
+        <name>contact_role_report</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Stage ID</value>
+        </caseValues>
+        <name>contact_stage_id</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Status</value>
+        </caseValues>
+        <name>contact_status</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person Type</value>
+        </caseValues>
+        <caseValues>
+            <plural>true</plural>
+            <value>Person Types</value>
+        </caseValues>
+        <name>contact_type</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Person View</value>
+        </caseValues>
+        <caseValues>
+            <plural>true</plural>
+            <value>Person Views</value>
+        </caseValues>
+        <name>contact_view</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Mailing State</value>
+        </caseValues>
+        <name>mailing_state_contact</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Mailing Postal Code</value>
+        </caseValues>
+        <name>mailing_zip_contact</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Other State</value>
+        </caseValues>
+        <name>other_state_contact</name>
+        <startsWith>Vowel</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Other Postal Code</value>
+        </caseValues>
+        <name>other_zip_contact</name>
+        <startsWith>Vowel</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Work Phone</value>
+        </caseValues>
+        <name>phone_contact</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <label><!-- AccountId_FORMULA --></label>
+        <name>AccountId_FORMULA__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agent&apos;s Name --></label>
+        <name>Agent_s_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agent&apos;s Phone --></label>
+        <name>Agent_s_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Alternate Email Address 2 --></label>
+        <name>Alternate_Email_Address_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Alternate Email Address --></label>
+        <name>Alternate_Email_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing Accounts Set To Email --></label>
+        <name>Billing_Accounts_Set_To_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Campaign Flow Test Count --></label>
+        <name>CFL__Campaign_Flow_Test_Count__c</name>
+    </fields>
+    <fields>
+        <label><!-- Concession Number --></label>
+        <name>Concession_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Duplicate Person Key --></label>
+        <name>DP_Key__c</name>
+        <relationshipLabel><!-- Duplicate Person Records --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Data Check Address Special Charactors --></label>
+        <name>Data_Check_Address_Special_Charactors__c</name>
+    </fields>
+    <fields>
+        <label><!-- Data Check Phone Not Number --></label>
+        <name>Data_Check_Phone_Not_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Drivers License Number --></label>
+        <name>Drivers_License_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) Is Portal User --></label>
+        <name>HIDDEN_Is_Portal_User__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) Send Portal Registration Email? --></label>
+        <name>HIDDEN_Is_Send_Portal_Registration_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) Portal Temporary Password --></label>
+        <name>HIDDEN_Portal_Temporary_Password__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) Portal User Confirmation --></label>
+        <name>HIDDEN_Portal_User_Confirmation__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) Portal Username --></label>
+        <name>HIDDEN_Portal_Username__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) Account Name --></label>
+        <name>HIDDNE_Account_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Has Insurance Claim --></label>
+        <name>Has_Insurance_Claim__c</name>
+    </fields>
+    <fields>
+        <label><!-- Has Opted Out of Phone --></label>
+        <name>Has_Opted_Out_of_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Active --></label>
+        <name>Is_Active__c</name>
+    </fields>
+    <fields>
+        <label><!-- Key Customer Person --></label>
+        <name>Key_Customer_Person__c</name>
+    </fields>
+    <fields>
+        <name>LeadSource</name>
+        <picklistValues>
+            <masterLabel>Advertisement</masterLabel>
+            <translation><!-- Advertisement --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Construction site</masterLabel>
+            <translation><!-- Construction site --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Council</masterLabel>
+            <translation><!-- Council --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Don&apos;t know</masterLabel>
+            <translation><!-- Don&apos;t know --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Employee Referral</masterLabel>
+            <translation><!-- Employee Referral --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Event</masterLabel>
+            <translation><!-- Event --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>External Referral</masterLabel>
+            <translation><!-- External Referral --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Leader</masterLabel>
+            <translation><!-- Leader --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Letter from SE Water</masterLabel>
+            <translation><!-- Letter from SE Water --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mornington Peninsula Magazine</masterLabel>
+            <translation><!-- Mornington Peninsula Magazine --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Outdoor advertising</masterLabel>
+            <translation><!-- Outdoor advertising --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Partner</masterLabel>
+            <translation><!-- Partner --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Public Relations</masterLabel>
+            <translation><!-- Public Relations --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Radio</masterLabel>
+            <translation><!-- Radio --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rye office</masterLabel>
+            <translation><!-- Rye office --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SE Water bill insert</masterLabel>
+            <translation><!-- SE Water bill insert --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SE Water website</masterLabel>
+            <translation><!-- SE Water website --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Seminar - Internal</masterLabel>
+            <translation><!-- Seminar - Internal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Seminar - Partner</masterLabel>
+            <translation><!-- Seminar - Partner --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Social media</masterLabel>
+            <translation><!-- Social media --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Southern Peninsula News</masterLabel>
+            <translation><!-- Southern Peninsula News --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tender</masterLabel>
+            <translation><!-- Tender --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Trade Show</masterLabel>
+            <translation><!-- Trade Show --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Web</masterLabel>
+            <translation><!-- Web --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Word of mouth</masterLabel>
+            <translation><!-- Word of mouth --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Mail Opt Out --></label>
+        <name>Mail_Opt_Out__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mailing Address DPID --></label>
+        <name>Mailing_Address_DPID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Marketing Opt In --></label>
+        <name>Marketing_Opt_In__c</name>
+    </fields>
+    <fields>
+        <label><!-- Most Recent DD Start Date --></label>
+        <name>Most_Recent_DD_Start_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of Active DD Billing Accounts --></label>
+        <name>Number_of_Active_DD_Billing_Accounts__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of Days Since Portal Registration --></label>
+        <name>Number_of_Days_Since_Portal_Registration__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of Days Since Sign up for Ebill --></label>
+        <name>Number_of_Days_Since_Sign_up_for_Ebill__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of days since last survey --></label>
+        <name>Number_of_days_since_last_survey__c</name>
+    </fields>
+    <fields>
+        <label><!-- Organisation Name --></label>
+        <name>Organisation_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Address DPID --></label>
+        <name>Other_Address_DPID__c</name>
+    </fields>
+    <fields>
+        <help><!-- Aggregated Contact Score Rating derived from email &amp; web activity --></help>
+        <label><!-- Contact Score Rating --></label>
+        <name>PAM__Contact_Score_Rating__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact score based on online activity such as email opens and web visits. --></help>
+        <label><!-- Contact Score --></label>
+        <name>PAM__Contact_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pager --></label>
+        <name>Pager__c</name>
+    </fields>
+    <fields>
+        <label><!-- Person Number --></label>
+        <name>Person_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Portal Self-Registered --></label>
+        <name>Portal_Self_Registered__c</name>
+    </fields>
+    <fields>
+        <label><!-- Portal User Since --></label>
+        <name>Portal_User_Since__c</name>
+    </fields>
+    <fields>
+        <label><!-- Portal User Type --></label>
+        <name>Portal_User_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Portal User --></label>
+        <name>Portal_User__c</name>
+    </fields>
+    <fields>
+        <label><!-- Position --></label>
+        <name>Position__c</name>
+    </fields>
+    <fields>
+        <label><!-- Predictive Trigger Field --></label>
+        <name>Predictive_Trigger_Field__c</name>
+    </fields>
+    <fields>
+        <label><!-- Preferred Contact Type --></label>
+        <name>Preferred_Contact_Type__c</name>
+        <picklistValues>
+            <masterLabel>Call</masterLabel>
+            <translation><!-- Call --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Email</masterLabel>
+            <translation><!-- Email --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mail</masterLabel>
+            <translation><!-- Mail --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>On Site Visit</masterLabel>
+            <translation><!-- On Site Visit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SMS</masterLabel>
+            <translation><!-- SMS --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Preferred Language --></label>
+        <name>Preferred_Language__c</name>
+        <picklistValues>
+            <masterLabel>Chinese</masterLabel>
+            <translation><!-- Chinese --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>English</masterLabel>
+            <translation><!-- English --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>French</masterLabel>
+            <translation><!-- French --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>German</masterLabel>
+            <translation><!-- German --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Greek</masterLabel>
+            <translation><!-- Greek --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Italian</masterLabel>
+            <translation><!-- Italian --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Japanese</masterLabel>
+            <translation><!-- Japanese --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Spanish</masterLabel>
+            <translation><!-- Spanish --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- This field will be updated based on your selection of Preferred Phone Type. --></help>
+        <label><!-- Preferred Phone Number --></label>
+        <name>Preferred_Phone_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Preferred Phone Type --></label>
+        <name>Preferred_Phone_Type__c</name>
+        <picklistValues>
+            <masterLabel>Agent</masterLabel>
+            <translation><!-- Agent --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Home</masterLabel>
+            <translation><!-- Home --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mobile</masterLabel>
+            <translation><!-- Mobile --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>None</masterLabel>
+            <translation><!-- None --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Work</masterLabel>
+            <translation><!-- Work --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Primary / Secondary Contact --></label>
+        <name>Primary_Secondary_Contact__c</name>
+        <picklistValues>
+            <masterLabel>Primary Contact</masterLabel>
+            <translation><!-- Primary Contact --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Secondary Contact</masterLabel>
+            <translation><!-- Secondary Contact --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Sandbox Name --></label>
+        <name>Sandbox_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Stakeholder Person --></label>
+        <name>Stakeholder_Person__c</name>
+    </fields>
+    <fields>
+        <label><!-- Survey Completion Date --></label>
+        <name>Survey_Completion_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trading Name --></label>
+        <name>Trading_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Billing</masterLabel>
+            <translation><!-- Billing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Employee</masterLabel>
+            <translation><!-- Employee --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Universal Id --></label>
+        <name>Universal_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Website --></label>
+        <name>Website__c</name>
+    </fields>
+    <fields>
+        <label><!-- Updated Touchpoints Timestamp --></label>
+        <name>experianqas__Updated_Touchpoints_Timestamp__c</name>
+    </fields>
+    <fields>
+        <label><!-- Updated Touchpoints --></label>
+        <name>experianqas__Updated_Touchpoints__c</name>
+    </fields>
+    <layouts>
+        <layout>ECO Person Layout</layout>
+        <sections>
+            <label><!-- Contact Details --></label>
+            <section>Contact Details</section>
+        </sections>
+        <sections>
+            <label><!-- New Section --></label>
+            <section>New Section</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>IOTA Contact Layout</layout>
+        <sections>
+            <label><!-- Contact Details --></label>
+            <section>Contact Details</section>
+        </sections>
+        <sections>
+            <label><!-- New Section --></label>
+            <section>New Section</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Mercantile Recovery</layout>
+        <sections>
+            <label><!-- Contact Details --></label>
+            <section>Contact Details</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Person Layout</layout>
+        <sections>
+            <label><!-- Contact Details --></label>
+            <section>Contact Details</section>
+        </sections>
+        <sections>
+            <label><!-- New Section --></label>
+            <section>New Section</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Person Layout (Admin)</layout>
+        <sections>
+            <label><!-- Contact Details --></label>
+            <section>Contact Details</section>
+        </sections>
+        <sections>
+            <label><!-- New Section --></label>
+            <section>New Section</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Person Layout (KCM)</layout>
+        <sections>
+            <label><!-- Contact Details --></label>
+            <section>Contact Details</section>
+        </sections>
+        <sections>
+            <label><!-- New Section --></label>
+            <section>New Section</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Person Layout (portal)</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Person Layout - ECO and CSO</layout>
+        <sections>
+            <label><!-- Contact Details --></label>
+            <section>Contact Details</section>
+        </sections>
+        <sections>
+            <label><!-- New Section --></label>
+            <section>New Section</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Stakeholder Person Page</layout>
+        <sections>
+            <label><!-- Contact Details --></label>
+            <section>Contact Details</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- IOTA Contact --></label>
+        <name>IOTA_Contact</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- If preferred contact type is email, the email can&apos;t be blank. --></errorMessage>
+        <name>Email_is_not_blank_if_type_selected</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Enter your phone number without spaces or special characters --></errorMessage>
+        <name>Home_Phone_have_to_be_number</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- If preferred phone type is home, home phone can&apos;t be blank. --></errorMessage>
+        <name>Home_phone_blank_if_picked</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- quotes are not allowed in address formats --></errorMessage>
+        <name>Mailing_City_Special_Characters</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- quotes are not allowed in address formats --></errorMessage>
+        <name>Mailing_Country_Special_Characters</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- quotes are not allowed in address formats --></errorMessage>
+        <name>Mailing_Post_Code_Special_Characters</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- quotes are not allowed in address formats --></errorMessage>
+        <name>Mailing_State_Special_Characters</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- quotes are not allowed in address formats --></errorMessage>
+        <name>Mailing_Street_Special_Characters</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- If preferred phone type is mobile, mobile number can&apos;t be blank. --></errorMessage>
+        <name>Mobile_is_not_blank_if_type_selected</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Your mobile phone number must only contain 10 digits. Enter your phone number without spaces or special characters --></errorMessage>
+        <name>Mobile_is_number_10_digits</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Mobile phone need to be in number 10 digits and has no spaces. --></errorMessage>
+        <name>Mobile_is_number_10_digits_no_space</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- quotes are not allowed in address formats --></errorMessage>
+        <name>Other_City_Special_Characters</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- quotes are not allowed in address formats --></errorMessage>
+        <name>Other_Country_Special_Characters</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- If preferred phone type is other, other phone can&apos;t be blank. --></errorMessage>
+        <name>Other_Phone_blank_if_preferred_is_picked</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Enter your phone number without spaces or special characters --></errorMessage>
+        <name>Other_Phone_have_to_be_number</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- quotes are not allowed in address formats --></errorMessage>
+        <name>Other_Post_Code_Special_Characters</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- quotes are not allowed in address formats --></errorMessage>
+        <name>Other_State_Special_Characters</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- quotes are not allowed in address formats --></errorMessage>
+        <name>Other_Street_Special_Characters</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Phone needs to be numbers. --></errorMessage>
+        <name>Phone_have_to_be_number</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Enter your phone number without spaces or special characters --></errorMessage>
+        <name>Work_Phone_have_to_be_number</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- If preferred phone type is work, work phone can&apos;t be blank. --></errorMessage>
+        <name>Work_is_blank_if_Preferred</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Conga_Mail_Merge --></label>
+        <name>APXTConga4__Conga_Mail_Merge</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- BLND_FormFactoryContactLink --></label>
+        <name>BLND_FormFactoryContactLink</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Customer_Verification --></label>
+        <name>Customer_Verification</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Find_Matching_Persons --></label>
+        <name>Find_Matching_Persons</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- GoogleMaps --></label>
+        <name>GoogleMaps</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- GoogleSearch --></label>
+        <name>GoogleSearch</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Manage_Duplicate_Records --></label>
+        <name>Manage_Duplicate_Records</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Mass_Edit --></label>
+        <name>Mass_Edit</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Mass_Update --></label>
+        <name>Mass_Update</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- OrgViewContactChart1 --></label>
+        <name>OrgViewContactChart1</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Predictive_AM_Activity --></label>
+        <name>PAM__Predictive_AM_Activity</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Person_Roles --></label>
+        <name>Person_Roles</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Program_Activities --></label>
+        <name>Program_Activities</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Quick_View --></label>
+        <name>Quick_View</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Search_Duplicate_Records --></label>
+        <name>Search_Duplicate_Records</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- SendGmail --></label>
+        <name>SendGmail</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Validate_Mailing_Address_button --></label>
+        <name>Validate_Mailing_Address_button</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Validate_Other_Address_button --></label>
+        <name>Validate_Other_Address_button</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- YahooMaps --></label>
+        <name>YahooMaps</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- YahooWeather --></label>
+        <name>YahooWeather</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Find_Mailing_Address_button --></label>
+        <name>experianqas__Find_Mailing_Address_button</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Find_Mailing_Address_link --></label>
+        <name>experianqas__Find_Mailing_Address_link</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Find_Other_Address_button --></label>
+        <name>experianqas__Find_Other_Address_button</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Find_Other_Address_link --></label>
+        <name>experianqas__Find_Other_Address_link</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Lookup_Mailing_Address_button --></label>
+        <name>experianqas__Lookup_Mailing_Address_button</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Lookup_Mailing_Address_link --></label>
+        <name>experianqas__Lookup_Mailing_Address_link</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Lookup_Other_Address_button --></label>
+        <name>experianqas__Lookup_Other_Address_button</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Lookup_Other_Address_link --></label>
+        <name>experianqas__Lookup_Other_Address_link</name>
+    </webLinks>
+</CustomObjectTranslation>

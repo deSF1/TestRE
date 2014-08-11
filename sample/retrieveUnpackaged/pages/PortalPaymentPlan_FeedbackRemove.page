@@ -1,0 +1,186 @@
+<apex:page sidebar="false" showHeader="true" tabstyle="Portal_Payment_Options__tab"
+    standardController="Case" 
+extensions="PortalPaymentPlanWizard_Controller" doctype="html-5.0">
+<!--
+        Description: Payment Plan
+                     Completion
+
+        History:
+           11-May-2012 A.Vergara Created
+           4-Jun-2012  D.Yu      Update: 5161 - Update header 
+           13-Jun-2012 D.Yu      Update: removed successful message
+ -->
+    <html>
+        <!-- Head -->
+        <head>
+            <META HTTP-EQUIV="EXPIRES" CONTENT="-1" />
+            <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+            <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+            <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+            <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+            <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>        
+            <apex:stylesheet value="{!$Resource.PortalPayment_Styles}"/>        
+            
+            
+            <style type="text/css">
+                .bPageBlock .detailList .labelCol {
+                    padding-bottom: 0px;
+                    padding-left: 0px !important;
+                    width: 33% !important;
+                }            
+
+                .bEditBlock .detailList .dataCol, .bEditBlock .detailList .data2Col {
+                    padding-left: 0px;
+                }
+                
+                .radioButton tr td {
+                display: block;
+                vertical-align: inherit;
+                border-color: inherit;
+                margin-left: -8px;
+               }
+            
+                .radioButton tr td label {
+                margin-top: -20px;
+                display: block;
+                vertical-align: inherit;
+                border-color: inherit;
+                margin-left: 25px;
+                }
+                
+                .paymentHeader {
+                    font-size: 15pt;
+                }
+                
+                .higlightcontainer {
+                background-color: #D8EFF7;
+                margin-bottom: 1px;
+                padding: 10px;
+                }
+                
+                
+                
+            </style>
+        </head>
+        <!-- Body -->
+        <body>
+            <apex:form id="form">
+                <!--  sidebar -->
+                <div class="pbTransparent sideBarCellDiv">
+                                             
+                    <c:PortalSidebar id="sidebar" groupName="PaymentOptions" 
+                                currentAccRecordType="{!customer.RecordType.DeveloperName}" 
+                                currentDevName="PaymentOptions_SetUpAPlan" title="Payment options"
+                                />
+                                
+                          
+                </div>
+                <!--  MAIN CONTENT -->
+                 <apex:outputPanel id="contentCellDiv" layout="block" styleClass="contentCellDiv" >
+                    
+                    
+                    <!-- TITLE LHS-->
+                    <apex:sectionHeader subtitle="Manage payment plan"/>
+                    <div class="clear"/>
+                    
+                    <apex:pageBlock id="contentCellPageblock" >
+                          <!-- Left HAND SIDE CONTENT -->
+                         
+                         <apex:outputPanel id="innerContentLHSDiv" styleClass="innerContentLHSDiv" >
+                            <!-- PAGE MESSAGES - ALWAYS DISPLAYED -->
+                            <apex:outputPanel id="pageMessages" layout="block" >
+                                <apex:pageMessages id="msgTop" escape="false" />
+                            </apex:outputPanel>
+                            
+                            
+                         <!--  <apex:pageMessage severity="confirm" strength="2" escape="false"
+                                                    summary="{!successMessagePaymentPlan}"/> -->
+                                                    
+                         <apex:outputPanel layout="block" style="margin-top: 20px">
+                                <apex:pageMessage escape="false" strength="2" severity="info" summary="Payment plan removed. Any outstanding balance on your account must be paid in full. You can pay by <a href={!$Page.PortalCCPayment}>credit card</a> or set up <a href={!$Page.PortalDirectDebit_Select}>direct debit</a> to have the amount automatically debited from your account."/>
+                        </apex:outputPanel>
+                         <!--  <apex:outputLabel >
+                         Note that any outstanding balance on your account must be paid in full.
+                          You can pay by credit card&nbsp;
+                          <apex:outputLink style="border:0;" value="{!$Page.PortalCCPayment}">here</apex:outputLink>&nbsp;
+                 
+                          or setup&nbsp;<apex:outputLink style="border:0;" value="{!$Page.PortalDirectDebit_Select}">direct debit</apex:outputLink> to have the amount automatically
+                           debited from your account.
+                         </apex:outputLabel> -->
+                                                    
+                          <div style="text-align: center; margin-top: 30px">
+                            <apex:commandButton value="Back to payment plans"
+                                            action="{!fullCancel}"
+                                            styleClass="btnGreen" 
+                                            style="width: 150px"
+                                            id="nextbtn" />
+                            <apex:outputLink value="{!$Page.PortalMyAccountHomePage}"
+                                            styleClass="btn btnLink" 
+                                            >
+                                Home
+                            </apex:outputLink>
+                        </div>                           
+                            	<!--START: email notification -->
+			                    <!-- action status -->
+								<apex:actionStatus id="sending">
+							            <apex:facet name="start">
+							                <c:EnhancedActionStatus BackColor="#ffffff"
+							                                       borderColor="#6B6B6B"
+							                                       borderSize="1"
+							                                       height="50px"
+							                                       width="120px"
+							                                       margintop="-25px"
+							                                       marginleft="-60px"
+							                                       ImageUrl="{!$Resource.AjaxAnimation}"
+							                                       Message="Sending..."/>
+							            </apex:facet>
+				        		</apex:actionStatus>
+				        		<apex:actionFunction action="{!hideEmailNotifPanel}" name="hideEmailNotifPanel_af" rerender="emailNotifMainPanel"/>
+								 <br/>
+								 <center>					 
+								 	<apex:outputPanel id="emailNotifMainPanel">
+										<apex:outputPanel id="emailNotifPanelId" rendered="{!showHidePanel}">
+					                    	
+					                    		<apex:outputText value="{!$Label.EmailNotification}"/> 
+					                    			<br/> <br/>
+					                    		       	
+					                    		<apex:commandButton action="{!paymentPlanProcessEmail}" oncomplete="hideEmailNotifPanel_af();" styleClass="btnPrimary" rerender="form" status="sending" value="Yes"/>
+					                    		<apex:commandButton styleClass="btnPrimary" action="{!hideEmailNotifPanel}" rerender="emailNotifMainPanel" value="No thanks"/>
+					                    	
+					                    </apex:outputPanel>
+			                    	</apex:outputPanel>
+			                    </center>
+			                    <!--END: email notification -->
+                         </apex:outputPanel>
+                         
+                         
+                    
+                         
+                         <!-- RIGHT HAND SIDE CONTENT -->
+                         <apex:outputPanel id="innerContentRHSDiv" layout="block" styleClass="innerContentRHSDiv" >
+                             <!--  live chat -->
+                             <c:LiveChat />
+                            <c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+                            divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+                            divStyle="width: 205px"/>
+                            <!--  quick links -->
+                            <div style="position: relative;"><c:PortalQuickLinks /></div>
+                        </apex:outputPanel>
+    
+                        <div style="clear:both"/>
+                        
+                       
+                    </apex:pageBlock>
+                     
+                    
+                   
+                    
+               </apex:outputPanel>
+                
+            </apex:form>
+            
+            
+        </body>
+       
+   </html>
+</apex:page>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Sent Communication</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Sent Communications</value>
+    </caseValues>
+    <fields>
+        <label><!-- Communication --></label>
+        <name>Communication__c</name>
+        <relationshipLabel><!-- Sent Communications --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Subscriber --></label>
+        <name>Subscriber__c</name>
+        <relationshipLabel><!-- Sent Communications --></relationshipLabel>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

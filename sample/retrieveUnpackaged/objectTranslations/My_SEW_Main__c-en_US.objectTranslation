@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>MySEWMaintenance</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>MySEWMaintenance</value>
+    </caseValues>
+    <fields>
+        <label><!-- Custom Message --></label>
+        <name>Custom_Message__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

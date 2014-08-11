@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Future Address</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Future Addresses</value>
+    </caseValues>
+    <fields>
+        <help><!-- The Customer for which the future address will apply to. --></help>
+        <label><!-- Customer --></label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- Future Addresses --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Address Type --></label>
+        <name>Address_Type__c</name>
+        <picklistValues>
+            <masterLabel>Billing Only</masterLabel>
+            <translation><!-- Billing Only --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mailing</masterLabel>
+            <translation><!-- Mailing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Primary</masterLabel>
+            <translation><!-- Primary --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Applicable Date --></label>
+        <name>Applicable_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account --></label>
+        <name>Billing_Account_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account --></label>
+        <name>Billing_Account_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing Account --></label>
+        <name>Billing_Account__c</name>
+        <relationshipLabel><!-- Future Addresses --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Future City to mail to, as per logged request --></help>
+        <label><!-- City --></label>
+        <name>City__c</name>
+    </fields>
+    <fields>
+        <help><!-- Future Country to mail to --></help>
+        <label><!-- Country --></label>
+        <name>Country__c</name>
+    </fields>
+    <fields>
+        <help><!-- Future DPID Reference --></help>
+        <label><!-- DPID --></label>
+        <name>DPID__c</name>
+    </fields>
+    <fields>
+        <help><!-- Flag to indicate that the Future Address change is done --></help>
+        <label><!-- Done --></label>
+        <name>Done__c</name>
+    </fields>
+    <fields>
+        <help><!-- Future Postal Code to mail to, as per logged request --></help>
+        <label><!-- Postal Code --></label>
+        <name>Postal_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Process --></label>
+        <name>Process__c</name>
+    </fields>
+    <fields>
+        <help><!-- Future City to mail to --></help>
+        <label><!-- State --></label>
+        <name>State__c</name>
+    </fields>
+    <fields>
+        <help><!-- Future Street Address --></help>
+        <label><!-- Street Address --></label>
+        <name>Street_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Updated_Touchpoints_Timestamp --></label>
+        <name>Updated_Touchpoints_Timestamp__c</name>
+    </fields>
+    <fields>
+        <label><!-- Updated_Touchpoints --></label>
+        <name>Updated_Touchpoints__c</name>
+    </fields>
+    <layouts>
+        <layout>Future Address Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Applicable date can only be in the future. --></errorMessage>
+        <name>Applicable_Date_cannot_be_in_the_past</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Lookup_Address --></label>
+        <name>Lookup_Address</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Manage_Addresses_Future_Address --></label>
+        <name>Manage_Addresses_Future_Address</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Mass_Update --></label>
+        <name>Mass_Update</name>
+    </webLinks>
+</CustomObjectTranslation>

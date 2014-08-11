@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Segment Snapshot</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Segment Snapshots</value>
+    </caseValues>
+    <fields>
+        <label><!-- No. of Customer --></label>
+        <name>Number_of_Customer__c</name>
+    </fields>
+    <fields>
+        <label><!-- Segment Snapshot Type --></label>
+        <name>Segment_Snapshot_Type__c</name>
+        <picklistValues>
+            <masterLabel>Business</masterLabel>
+            <translation><!-- Business --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Residential</masterLabel>
+            <translation><!-- Residential --></translation>
+        </picklistValues>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

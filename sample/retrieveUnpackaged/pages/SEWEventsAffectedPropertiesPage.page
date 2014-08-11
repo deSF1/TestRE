@@ -1,0 +1,14 @@
+<!--
+    Type:      Component
+    Purpose:   SEW Events Map for all related event affected property of event
+    
+    Used By:    
+    ---------------------------------------------------------------
+    History:
+
+    16/04/2014 ejandusay(Cloud Sherpas)         Created
+-->
+<apex:page standardController="SEW_Event__c" showHeader="false" sidebar="false">
+	<apex:variable var="paramId" value="{!SEW_Event__c.Id}" />
+	<c:SEWEventsAffectedPropertiesMapComponent componentValue="{!paramId}"/>
+</apex:page>

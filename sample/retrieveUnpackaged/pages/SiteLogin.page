@@ -1,0 +1,55 @@
+<apex:page id="loginPage" 
+		doctype="html-5.0"
+		showHeader="false" 
+		title="Customer Portal - Login"
+		cache="false">
+    <!--
+        Description: Site login paged rebranded for SEW
+
+        History:
+            29-May-2011 D.Thong (Salesforce)    Created
+            25-Apr-2012 D.Yu                    New: change the site label "Login" to "Log in"
+    -->
+    <head>
+        <title>mySouthEastWater - Login</title>
+        <link rel="shortcut icon" href="https://southeastwater.secure.force.com/portal/favicon.ico" />
+
+		<apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+
+		<script type="text/javascript">
+
+			var j$ = jQuery.noConflict();
+
+	        var previousOnload = window.onload;
+	        window.onload = function() {
+	            window.scrollTo(0,0);
+				try {
+					j$("input:text:visible:first").focus();
+				} catch (e) {
+				}
+	
+	        }
+
+			if (window.location.href.substring(0, 5) != 'https') {
+				window.location.href = '{!$Setup.PortalSettings__c.Secure_Login_Url__c}'; 
+			}
+		</script>
+    </head>
+	    <apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+        	<script language="JavaScript" src="https://aws.predictiveresponse.net/trac.js"> </script>
+			<script language="JavaScript"> trackPredictive(); </script>
+            <div style="margin: auto; width: 520px; display: block" >
+                <div class="sitePanel" >
+                    <div style="margin: auto; width: 400px">
+                        <br/>
+                        <apex:outputText styleClass="siteTitle" value="Log in"/>
+                        <br/>
+                        <c:SiteLogin id="siteLogin"/>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+        </apex:define>
+    </apex:composition>
+</apex:page>

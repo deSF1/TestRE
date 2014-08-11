@@ -1,0 +1,1481 @@
+<!--  
+    Type:       VF page
+    Purpose:    Submits Feedback
+    -----------------------------------------------------------------
+    History:
+        21-May-2013		Mat Isidro (Cloud Sherpas)	Created (TT10625 - Public General Enquiry Form and Knowledge Base Articles)
+        06-Jun-2013		Mat Isidro (Cloud Sherpas)	Modified for theme matching with portal
+        12-Aug-2013     Nathan Patterson			TT10625 - Removed QAS slightly more thoroughly (commenting out just in case they want it again)
+-->
+<apex:page sidebar="false" showHeader="false" id="thePage" controller="PublicEnquiriesController" doctype="html-5.0">
+    <head>
+		<apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />        
+        <apex:includeScript value="{!$Resource.ValidateRules}"/> <!-- TT10405 -->
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+
+<!--  
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalHomePage_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalPayment_Styles}"/>  
+        
+        <apex:stylesheet value="{!$Resource.SEWPortalStyles}"/>           
+-->        
+        <apex:stylesheet value="{!$Resource.SEWPortalStyles}"/>   
+ 
+		<style type="text/css">        
+			body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+			    background-color: #FFFFFF;
+			    border-bottom: 0;
+			    border-left: 0px solid #FFFFFF;
+			    border-radius: 0px 0px 0px 0px;
+			    border-right: 0px solid #FFFFFF;
+			}    
+			
+			.secondaryPalette.bPageBlock {
+			    background-color: #FFFFFF;
+			    border-bottom: 0px solid #FFFFFF;
+			    border-left: 0px solid #FFFFFF;
+			    border-radius: 0px 0px 0px 0px;
+			    border-right: 0px solid #FFFFFF;
+			    box-shadow: none;
+			}
+	
+			.pbHeader > table {
+				border-bottom: none !important;
+			}
+/*		
+			.bPageBlock .labelCol {
+			    color: #333333;
+			    font-size: 91%;
+			    font-weight: bold;
+			    padding: 2px 10px 2px 2px;
+			    text-align: left;
+			}	
+*/
+			.results table {
+				align: left;
+			}		
+			
+			.bPageBlock .detailList .labelCol {
+			    width: 40%;
+			}
+			
+
+			.pbTitle {
+				width: 100%;
+			}	
+			
+			.bPageBlock .requiredInput {
+				float: left;
+				padding-right: 3px;	
+			}
+
+			.bPageBlock .requiredInput .requiredBlock {
+				position: absolute;
+				left: -12px;
+				width: 16px;
+				top: 9px;
+				bottom: 1px;
+				background: url(PortalRequiredFieldIcon) no-repeat transparent;
+			}
+				
+			.pbTransparent .secondaryPalette .bPageBlock {
+				background-color: transparent;
+				background-image: none !important;
+				border: none;
+				-webkit-border-bottom-right-radius: 0px;
+				-moz-border-radius-bottomright: 0px;
+				border-bottom-right-radius: 0px;
+				-moz-box-shadow: none;
+				-webkit-box-shadow: none;
+				box-shadow: none;
+			}	
+			
+			body .btnPrimaryGreen:hover{
+			    background-color: #3F8418;
+			    color: white;
+			}
+			
+			body .btnPrimaryGreen {
+			    background-color: #5DA22A;
+			    background-image: none;
+			    background-repeat: repeat-x;
+			    border: 0 none !important;
+			    border-radius: 3px 3px 3px 3px;
+			    border-spacing: 0 !important;
+			    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+			    color: white;
+			    display: inline;
+			    font-family: Calibri,"Trebuchet MS",sans-serif;
+			    font-size: 11.25pt;
+			    font-weight: bold;
+			    margin: 2px 3px 2px 0;
+			    overflow: visible;
+			    padding: 3px 8px;
+			}
+			
+			body .btnClearGreenText {
+				overflow: visible;
+				background-repeat: repeat-x;
+				border: 0 !important;
+				border-spacing: 0 !important;
+				background-image: none;
+				color: #fff;
+				display: inline;
+				font-family: Calibri, "Trebuchet MS", sans-serif; !important;
+				font-weight: bold;
+				font-size: 11.25pt;
+				margin: 2px 3px 2px 0px;
+				border-radius:3px;
+				-webkit-border-radius:3px;
+				-moz-border-radius:3px;
+				padding: 3px 8px;
+				-moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+				-webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+				box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+			}				
+			
+			body .btnClearGreenText, body .btnClearGreenText:focus {
+				background-color: transparent;
+				color: #5da22a !important;
+				-moz-box-shadow: none;
+				-webkit-box-shadow: none;
+				box-shadow: none;
+			}
+			
+			body .btnClearGreenText:hover { 	
+				background-color: transparent;
+				color: #3f8418 !important; 
+			}	
+
+			select, input, textarea {
+			    border: 1px solid #0097D2;
+			    padding: 3px;
+			}
+			
+			select, input, textarea {
+			    color: #252525;
+			    font-family: Calibri,"Trebuchet MS",sans-serif;
+			    font-size: 11.25pt;
+			}				
+			
+			select:focus, input:focus, textarea:focus {
+				-moz-box-shadow: 0px 0px 6px #0097D2;
+				-webkit-box-shadow: 0px 0px 6px #0097D2;
+				box-shadow: 0px 0px 6px #0097D2;
+				outline: none; 
+			}
+			
+								
+					
+		</style>
+        
+        <script type="text/javascript">
+            var caller = 0;    
+            var mode = '';        
+            var j$ = jQuery.noConflict();
+            j$(function() {
+                //BuildQASDialog();
+                //BuildCustomPopupDialog();  
+                   
+            });            
+            
+            window.onload = function() { isSameAddress();  }
+                
+                
+            function BuildQASDialog() {
+                j$( "#qas-popup").dialog({
+                    dialogClass: 'ui-dropshadow',
+                    autoOpen: false,
+                    height: 475,
+                    width: 450,
+                    modal: true,
+                    resizable: false,
+                    zIndex: 60,
+                    title: 'Address Entry'
+                });                            
+            }            
+                      
+            function ShowQASDialog(x) {
+               try {
+               	   var popupObject = document.getElementById("qas-popup");
+               	   popupObject.style.visibility = 'visible';
+                   j$("#qas-popup").dialog("open");
+                   showManual('manual');
+                   hideSearch();
+                   caller = x;
+               } catch (e) { alert(e.toString()); }
+            }                
+         
+            function CloseQASDialog() {
+                try {
+                    j$("#qas-popup").dialog("close"); 
+                    var popupObject = document.getElementById("qas-popup");
+               	   	popupObject.style.visibility = 'hidden';
+                    //isSameAddress();               
+                } catch (e) { alert(e.toString()); }
+            return false;
+            }                      
+                        
+            function showSearch() {
+               try {
+                   j$("#qaSearch").show();
+               } catch (e) { alert(e.toString()); }
+            }
+            
+            function hideSearch() {
+               try {
+                   j$("#qaSearch").hide();
+                   clearEntries();
+               } catch (e) { alert(e.toString()); }
+            }
+            
+            function hideManual() {
+
+               try {
+                   j$("#qaManual").hide();
+               } catch (e) { alert(e.toString()); }
+            }
+            
+            function showManual(x) {
+               try {
+                   mode = x;
+                   j$("#qaManual").show();
+                   clearEntries(x);
+                   hideSearch();
+               } catch (e) { alert(e.toString()); }
+            }                 
+            
+            <!-- Function that parses the address from QAS then display it on their respective component. -->
+            
+            function ReceiveAddress(address) {  
+            
+            	//alert("IN QAS");
+                  
+                var Street = address.AddressLines[0].Line;
+                var Street2 = address.AddressLines[1].Line;            
+                var Suburb = address.AddressLines[2].Line;
+                var State = address.AddressLines[3].Line;
+                var Postal = address.AddressLines[4].Line;
+                var Country = address.AddressLines[5].Line;
+                var completeAddress, fullStreet,StatePostal;                                             
+                
+                for (var i=0; i < address.Length; i++) {
+                    var line = address.AddressLines[i].Line;
+                    
+                    if (line != null & line != "") {
+                        if (completeAddress == null)
+                            completeAddress = line;
+                        else                    
+                            completeAddress = completeAddress + ', ' + line;
+                    }
+                }
+
+                if(Street2 != ''){
+                    fullStreet = Street +', '+Street2;
+                } 
+                else{
+                    fullStreet = Street;                           
+                }
+                
+                if (trim(State) == ''){
+                    StatePostal = Postal ; 
+                }    
+                else{    
+                    StatePostal = State + ', ' + Postal;          
+                }                                  
+
+                //document.getElementById("{!$Component.theForm.pageblock.address}").value = completeAddress;
+                //document.getElementById("{!$Component.theForm.pageblock.addressVisible}").innerHTML = completeAddress;
+                
+                
+                document.getElementById('{!$Component.theForm.pageblock.hiddenCompleteAddress}').value = completeAddress; 
+                //document.getElementById('{!$Component.theForm.pageblock.hiddenProperty}').value = completeAddress; 
+				//document.getElementById('{!$Component.theForm.pageblock.propertySection.pbsItem.propertyfield}').value=completeAddress; 
+                //jsPopulateDPID();
+                
+                if(caller == 1){
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenDPID}').value=''; 
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenStreet}').value=fullStreet;
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenCity}').value=Suburb;
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenState}').value=State;
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenPostalCode}').value=Postal;
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenCountry}').value=Country;
+                    
+                    //document.getElementById('{!$Component.theForm.pageblock.propertySection.pbsItem.propertyfield}').value=Street + ' ' + Street2 + ' ' + Suburb;
+                    
+/*                    
+                    document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingStreetAddressSection.MailingStreetAdd}').innerHTML=fullStreet;
+                    document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingCityAddressSection.MailingCityAdd}').innerHTML=Suburb;
+                    document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingStateAddressSection.MailingStateAdd}').innerHTML=State;
+                    document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingPostalAddressSection.MailingPostalAdd}').innerHTML=Postal;                            
+                    document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingCountryAddressSection.MailingCountryAdd}').innerHTML=Country;
+*/
+                }
+                else if(caller == 2){                
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenDPID}').value=' ';
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenStreet}').value=fullStreet;
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenCity}').value=Suburb;
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenState}').value=State;
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenPostalCode}').value=Postal;
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenCountry}').value=Country;
+                    
+                    //document.getElementById('{!$Component.theForm.pageblock.propertySection.pbsItem.propertyfield}').value=Street + ' ' + Street2 + ' ' + Suburb;
+                                        
+/*                       
+                    document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressStreetSection.homeStreetAdd}').innerHTML=fullStreet;
+                    document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressCitySection.homeCityAdd}').innerHTML=Suburb;
+                    document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressStateSection.HomeStateAdd}').innerHTML=State;
+                    document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressPostalSection.HomePostalAdd}').innerHTML=Postal;                       
+                    document.getElementById('{!$Component.theForm:contentCellPageblock.contactDetails.homeCountryAddressSection.HomeCountryAdd}').innerHTML=Country;
+*/                    
+                }
+                
+                CloseQASDialog();                            
+            }
+           
+            <!-- Function that copies Billing address details to Shipping Address -->
+/*                        
+            function copyMailingAddress(){         
+                
+                var Street = document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.hiddenMailingStreet}').value ;
+                var Suburb = document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.hiddenMailingCity}').value ;
+                var State = document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.hiddenMailingState}').value ;
+                var Postal = document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.hiddenMailingPostalCode}').value ;
+                var Country = document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.hiddenMailingCountry}').value; 
+                var StatePostal = document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingStateAddressSection.MailingStateAdd}').innerHTML;
+                    
+                document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.hiddenShippingStreet}').value=Street;
+                document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.hiddenShippingCity}').value=Suburb;
+                document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.hiddenShippingState}').value=State;
+                document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.hiddenShippingPostalCode}').value=Postal;
+                document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.hiddenShippingCountry}').value=Country;                    
+                   
+                document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressStreetSection.homeStreetAdd}').innerHTML=Street;
+                document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressCitySection.homeCityAdd}').innerHTML=Suburb;
+                document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressStateSection.HomeStateAdd}').innerHTML=State;  
+                document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressPostalSection.HomePostalAdd}').innerHTML=Postal;                  
+                document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeCountryAddressSection.HomeCountryAdd}').innerHTML=Country;
+                
+                isSameAddress();
+            }
+*/            
+            function ReceiveAddressManually(){
+                 
+				//alert("IN MANUAL");
+                            
+                var mStreet =  document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStreetItem.street}').value;
+                var mStreet2 =  document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStreet2Item.street2}').value;    
+                var mSuburb =  document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaSuburbItem.suburb}').value;               
+                var mState =  document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStateItem.state}').value;
+                var mPostal =  document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaPostal.postalCode}').value;
+                var mCountry =  document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaCountry.country}').value;
+                var mFullStreet; 
+                if (trim(mStreet2) != ''){
+                    mFullStreet = mStreet + ', ' + mStreet2 ;                     
+                } 
+                else{
+                    mFullStreet = mStreet;
+                }
+                /* TT10405 Moved validation to Static Recource
+                var mFullStreet, mStatePostal;                              
+                if(mode == 'manual'){
+                    if ((trim(mStreet) == '') || (trim(mSuburb) == '') || (trim(mPostal) == '') || (trim(mCountry) == '') || (trim(mState) == '')) {
+                        alert('You must enter a value on all the required fields.');
+                        return false;               
+                    } 
+                }else{
+                    if ((trim(mStreet) == '') || (trim(mCountry) == '')) {
+                        alert('You must enter a value on all the required fields.');
+                        return false;               
+                    } 
+                }
+                
+                if (trim(mStreet2) != ''){
+                    mFullStreet = mStreet + ', ' + mStreet2 ;                     
+                } 
+                else{
+                    mFullStreet = mStreet;                           
+                }
+                
+                if (trim(mState) == ''){
+                    mStatePostal = mPostal ; 
+                }    
+                else{    
+                    mStatePostal = mState + ', ' + mPostal;          
+                }                
+                */
+                var addrmessage = ValidateAddress (mStreet, mStreet2, mSuburb, mState, mPostal, mCountry, mode != "manual"); 
+                if (addrmessage.length > 0) {
+                    	alert (addrmessage);
+                    	return false;
+                }
+                
+                //document.getElementById("{!$Component.theForm.pageblock.address}").value = mFullStreet;
+                //document.getElementById("{!$Component.theForm.pageblock.addressVisible}").innerHTML = mFullStreet;                
+                
+                if(caller == 1){
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenDPID}').value=' '; 
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenStreet}').value=mFullStreet;
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenCity}').value=mSuburb;
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenState}').value=mState;
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenPostalCode}').value=mPostal;
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenCountry}').value=mCountry;  
+                    
+                    //document.getElementById('{!$Component.theForm.pageblock.propertySection.pbsItem.propertyfield}').value=mStreet + ' ' + mStreet2 + ' ' + mSuburb;
+                                      
+/*                    
+                    document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingStreetAddressSection.MailingStreetAdd}').innerHTML=mFullStreet;
+                    document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingCityAddressSection.MailingCityAdd}').innerHTML=mSuburb;
+                    document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingStateAddressSection.MailingStateAdd}').innerHTML=mState;
+                    document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingPostalAddressSection.MailingPostalAdd}').innerHTML=mPostal;
+                    document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingCountryAddressSection.MailingCountryAdd}').innerHTML=mCountry;
+*/
+                }
+                else if(caller == 2){                
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenDPID}').value=' ';
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenStreet}').value=mFullStreet;
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenCity}').value=mSuburb;
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenState}').value=mState;
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenPostalCode}').value=mPostal;
+                    document.getElementById('{!$Component.theForm.pageblock.hiddenShippingCountry}').value=mCountry;                    
+
+                    //document.getElementById('{!$Component.theForm.pageblock.propertySection.pbsItem.propertyfield}').value=mStreet + ' ' + mStreet2 + ' ' + mSuburb;
+
+/*                       
+                    document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressStreetSection.homeStreetAdd}').innerHTML=mFullStreet;
+                    document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressCitySection.homeCityAdd}').innerHTML=mSuburb;
+                    document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressStateSection.HomeStateAdd}').innerHTML=mState;
+                    document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressPostalSection.HomePostalAdd}').innerHTML=mPostal;                      
+                    document.getElementById('{!$Component.theForm:contentCellPageblock.contactDetails.homeCountryAddressSection.HomeCountryAdd}').innerHTML=mCountry;
+*/                
+                }
+                CloseQASDialog();
+            }
+            
+            function clearEntries(x){
+                
+                document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStreetItem.street}').focus();
+                document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStreetItem.street}').value='';
+                document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStreet2Item.street2}').value='';    
+                document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaSuburbItem.suburb}').value='';               
+                document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStateItem.state}').value='';
+                document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaPostal.postalCode}').value='';
+                
+                if(x == 'manual'){
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaCountry.country}').value="AUSTRALIA";  
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaCountry.country}').readOnly=true; 
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaSuburbItem.requiredInputDiv}').className="requiredInput";
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaSuburbItem.requiredBlockDiv}').className="requiredBlock"; 
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStateItem.requiredInputDivState}').className="requiredInput";
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStateItem.requiredBlockDivState}').className="requiredBlock"; 
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaPostal.requiredInputDivPostal}').className="requiredInput";
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaPostal.requiredBlockDivPostal}').className="requiredBlock"; 
+                }else if(x == 'overseas'){
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaCountry.country}').value="";  
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaCountry.country}').readOnly=false; 
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaSuburbItem.requiredInputDiv}').className="";
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaSuburbItem.requiredBlockDiv}').className=""; 
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStateItem.requiredInputDivState}').className="";
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaStateItem.requiredBlockDivState}').className=""; 
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaPostal.requiredInputDivPostal}').className="";
+                    document.getElementById('{!$Component.qasForm.testBlock.qaSearchSection.qaPostal.requiredBlockDivPostal}').className="";  
+                }                    
+            }                      
+            
+            function isSameAddress(){
+            
+                var billingAdd,shippingAdd;
+                var mStreet = document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingStreetAddressSection.MailingStreetAdd}').innerHTML;
+                var mCity = document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingCityAddressSection.MailingCityAdd}').innerHTML;
+                var mState = document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingStateAddressSection.MailingStateAdd}').innerHTML;
+                var mPostal = document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingPostalAddressSection.MailingPostalAdd}').innerHTML;
+                var mCountry = document.getElementById('{!$Component.theForm.contentCellPageblock.personalDetails.MailingCountryAddressSection.MailingCountryAdd}').innerHTML;
+           
+                var sStreet = document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressStreetSection.homeStreetAdd}').innerHTML;
+                var sCity = document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressCitySection.homeCityAdd}').innerHTML;
+                var sState = document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressStateSection.HomeStateAdd}').innerHTML;
+                var sPostal = document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.homeAddressPostalSection.HomePostalAdd}').innerHTML;                      
+                var sCountry = document.getElementById('{!$Component.theForm:contentCellPageblock.contactDetails.homeCountryAddressSection.HomeCountryAdd}').innerHTML;
+                
+                billingAdd = mStreet + mCity + mState + mPostal + mCountry;
+                shippingAdd = sStreet + sCity + sState + sPostal + sCountry;               
+             
+                //document.getElementById('{!$Component.theForm.contentCellPageblock.contactDetails.billingAddressSection_1.sameCheckBox}').checked = (billingAdd == shippingAdd);
+            }            
+/*          
+            function BuildCustomPopupDialog() {
+                j$( "#customPopup").dialog({
+                    dialogClass: 'ui-dropshadow',
+                    autoOpen: false,
+                    height: 200,
+                    width: 350,
+                    modal: true,
+                    resizable: false,
+                    zIndex: 60,
+                    title: 'Successfully changed.'
+                });                                 
+            } 
+            
+           function ShowCustomPopupDialog(msg) {
+               try {
+               	   
+                   j$("#customPopup").dialog("open");
+                   j$("#customPopup").show();
+               } catch (e) { alert(e.toString()); }
+            }               
+          
+           function CloseCustomPopupDialog() {
+               try {
+                   j$("#customPopup").dialog("close");
+               } catch (e) { alert(e.toString()); }
+            } 
+            
+           function hideCustomPopup(){
+               try { 
+                   j$("#frmPopup").hide();               
+               } catch (e) { alert(e.toString());}           
+           }
+
+ */     
+ 
+			function clearFields() {
+				document.getElementById('{!$Component.thePage:theForm:pageblock:firstNameSection:pbsItem:firstnamefield}').value=''; 			
+				document.getElementById('{!$Component.thePage:theForm:pageblock:lastNameSection:pbsItem:lastnamefield}').value=''; 			
+				document.getElementById('{!$Component.thePage:theForm:pageblock:preferredContactNumberSection:pbsItem:preferredcontactnumberfield}').value=''; 			
+				document.getElementById('{!$Component.thePage:theForm:pageblock:emailSection:pbsItem:emailfield}').value=''; 			
+				document.getElementById('{!$Component.thePage:theForm:pageblock:customerNumberSection:pbsItem:customernumberfield}').value=''; 			
+				document.getElementById('{!$Component.thePage:theForm:pageblock:propertySection:pbsItem:propertyfield}').value=''; 			
+				document.getElementById('{!$Component.thePage:theForm:pageblock:subjectSection:pbsItem:subjectfield}').value=''; 			
+				document.getElementById('{!$Component.thePage:theForm:pageblock:descriptionSection:pbsItem:descriptionfield}').value=''; 			
+			} 
+
+        </script>    
+<!--      
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+
+
+        <style type="text/css">
+            label {
+                display: block;
+                margin-bottom: 5px; 
+                padding-top: 2px;
+                padding-right:35px;
+            }
+            
+            .caseField {
+                margin-top: 10px;
+                margin-bottom: 5px;
+                clear: both;                
+            }
+            
+            .owange{
+            	position: absolute;
+				left: -12px;
+				width: 16px;
+				top: 9px;
+				bottom: 1px;
+				background: url(PortalRequiredFieldIcon) no-repeat transparent;
+            }
+            .message .errorM3{
+            	width: 460px;
+            }
+            
+        </style>
+-->        
+		
+    </head>
+
+	<body style="background-color: #FFFFFF;">
+		<apex:form id="theForm">
+			<apex:inputHidden id="searchText" value="{!searchText}"></apex:inputHidden>
+	        <div class="contentCellDiv">
+				
+	            <!-- Page Block Header -->
+	 			<apex:pageBlock id="pageblock" title="Submit an enquiry" >
+					<div class="innerContentLHSDiv">
+						<!--  PAGE MESSAGES -->
+   
+	                 	<apex:outputPanel >
+		                 	<div style="margin-top: 5px;">
+		                    	<apex:pageMessages id="msg"/>
+		                	</div>
+	                 	</apex:outputPanel>
+                 	
+<!-- 		              	
+	                 	<apex:outputPanel id="FirstName" layout="block" rendered="{!bBlankFirstName}" >
+	                 		<div style="width:460px;">
+		                   		<apex:pageMessage escape="false" strength="2" severity="error" summary="<h4>Error:</h4>First name: You must enter a value below."/>
+	                		</div>
+	                 	</apex:outputPanel>
+	                 
+	                 	<apex:outputPanel id="LastName" layout="block" rendered="{!bBlankLastName}" >
+	                 		<div style="width:460px;">
+		                   		<apex:pageMessage escape="false" strength="2" severity="error" summary="<h4>Error:</h4>Last name: You must enter a value below."/>
+	                		</div>
+	                 	</apex:outputPanel>
+	                 
+	                 	<apex:outputPanel id="PreferredContactNumber" layout="block" rendered="{!bBlankPreferredContactNumber}" >
+	                 		<div style="width:460px;">
+		                   		<apex:pageMessage escape="false" strength="2" severity="error" summary="<h4>Error:</h4>Preferred contact number: You must enter a value below."/>
+	                		</div>
+	                 	</apex:outputPanel>
+	                 
+	                 	<apex:outputPanel id="Email" layout="block" rendered="{!bBlankEmail}" >
+	                 		<div style="width:460px;">
+		                   		<apex:pageMessage escape="false" strength="2" severity="error" summary="<h4>Error:</h4>Email address: You must enter a value below."/>
+	                		</div>
+	                 	</apex:outputPanel>
+	                 
+	                 	<apex:outputPanel id="Subject" layout="block" rendered="{!bBlankSubject}" >
+	                 		<div style="width:460px;">
+		                   		<apex:pageMessage escape="false" strength="2" severity="error" summary="<h4>Error:</h4>Subject: You must enter a value below."/>
+	                		</div>
+	                 	</apex:outputPanel>
+	                 
+	                 	<apex:outputPanel id="Description" layout="block" rendered="{!bBlankDescription}" >
+	                 		<div style="width:460px;">
+		                   		<apex:pageMessage escape="false" strength="2" severity="error" summary="<h4>Error:</h4>Description: You must enter a value below."/>
+	                		</div>
+	                 	</apex:outputPanel>
+-->	                 
+	                 
+	<!--                  
+						<div style="position:relative; top:20px;">
+							<c:PortalRequiredField styleclass="requiredFieldIndicatorRHSNoHeight"/>
+						</div> 
+	-->					
+						<apex:outputText value="{!pageInfo}" escape="false" rendered="{!NOT(submitted)}"/>
+	                    
+						<apex:outputPanel id="caseFieldsPanel" rendered="{!NOT(submitted) && NOT(bAttaching)}"> 
+	
+							<!-- First Name Field --> 		
+							<apex:pageBlockSection columns="1" id="firstNameSection" rendered="{!NOT(submitted)}">
+	                        	 <apex:pageBlockSectionItem id="pbsItem">
+	 	                        	 <apex:outputLabel value="First name" for="firstnamefield"/>
+		                        	 <apex:outputPanel styleClass="requiredInput" style="top:0px;">
+										<apex:image style="position:ABSOLUTE; top:10px; left:-10px" url="{!$Resource.PortalRequiredFieldIcon}" />	
+		                                <apex:inputText value="{!sFirstName}"
+											id="firstnamefield" label="First name" style="width:290px" styleClass="{!styleClassFirstName}">
+		                                </apex:inputText>  
+		                                
+		                        	</apex:outputPanel>
+	                        	</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection>
+
+						
+	                        <!-- First Name Error -->
+							<apex:pageBlockSection columns="1" id="FirstNameError">
+	                        	 <apex:pageBlockSectionItem id="pbsItemError">
+		                        	 <apex:outputLabel value=""/>
+		                        	 <apex:outputPanel >
+				                        <div style="{!if(bBlankFirstName, 'display:block;margin-left:0px;', 'display:none; margin-left:0px;')}">
+				                    		<apex:image value="{!$Resource.ListBulletCross_Orange}"></apex:image>
+				                    		<strong>Error in First name:</strong> You must enter a value
+				                    	</div> 
+		                        	</apex:outputPanel>
+	                        	</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection> 	
+	                        
+<!--  
+							<apex:pageBlockSection columns="1" id="FirstNameError">
+	                        	 <apex:pageBlockSectionItem id="pbsItemError">
+		                        	 <apex:outputLabel value=""/>
+		                        	 <apex:outputPanel >
+				                        <div class="errorMsg" style="{!if(bBlankFirstName, 'display:block;margin-left:0px;', 'display:none; margin-left:0px;')}">
+				                        	<div>
+					                    		<apex:image value="{!$Resource.ListBulletCross_Orange}"></apex:image>
+					                    		<strong>Error in First name:</strong> You must enter a value
+					                    	</div>
+				                    	</div> 
+		                        	</apex:outputPanel>
+	                        	</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection> 									                        
+-->	  
+	                        
+	<!--                         
+	                        <apex:pageBlockSection id="firstNameError" rendered="{!NOT(submitted)}">
+	                        	 <apex:pageBlockSectionItem >
+	 	                        	 <apex:outputLabel value=""/>
+		                        	 <apex:outputPanel styleClass="requiredInput" style="top:0px;">
+	   
+				                        <div class="errorMsg" style="{!if(bBlankFirstName, 'display:block;margin-left:14px; margin-top: -5px;', 'display:none; margin-left:14p; margin-top: -5px;')}">
+					                    	<div>
+						                    	<div style="margin-left: 20px; margin-top:-5px;"><strong>Error in First Name:</strong> You must enter a value</div>
+	                       					</div>
+										</div>
+		                        	</apex:outputPanel>
+								</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection>
+	-->						                        
+	
+							<!-- Last Name Field --> 		
+							<apex:pageBlockSection columns="1" id="lastNameSection" rendered="{!NOT(submitted)}">
+	                        	 <apex:pageBlockSectionItem id="pbsItem">
+	 	                        	 <apex:outputLabel value="Last name" for="lastnamefield"/>
+		                        	 <apex:outputPanel styleClass="requiredInput" style="top:0px;">
+										<apex:image style="position:ABSOLUTE; top:10px; left:-10px" url="{!$Resource.PortalRequiredFieldIcon}" />	
+		                                <apex:inputText value="{!sLastName}"
+		                                        id="lastnamefield" label="Last name" style="width:290px" styleClass="{!styleClassLastName}">
+		                                </apex:inputText>  
+		                        	</apex:outputPanel>
+	                        	</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection>
+	                        
+	                        <!-- Last Name Error -->
+							<apex:pageBlockSection columns="1" id="LastNameError">
+	                        	 <apex:pageBlockSectionItem id="pbsItemError">
+		                        	 <apex:outputLabel value=""/>
+		                        	 <apex:outputPanel >
+				                        <div style="{!if(bBlankLastName, 'display:block;margin-left:0px;', 'display:none; margin-left:0px;')}">
+				                    		<apex:image value="{!$Resource.ListBulletCross_Orange}"></apex:image>
+				                    		<strong>Error in Last name:</strong> You must enter a value
+				                    	</div> 
+		                        	</apex:outputPanel>
+	                        	</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection> 		                        
+
+	<!--                     	                        
+	                        <apex:pageBlockSection id="lastNameError" rendered="{!NOT(submitted)}">
+	                        	 <apex:pageBlockSectionItem >
+	 	                        	 <apex:outputLabel value=""/>
+		                        	 <apex:outputPanel styleClass="requiredInput" style="top:0px;">
+				                        <div class="errorMsg" style="{!if(bBlankSubject, 'display:block;margin-left:14px;', 'display:none; margin-left:14px;')}">
+					                    	<div><apex:image value="{!$Resource.ListBulletCross_Orange}"></apex:image></div>
+					                    	&nbsp;
+					                    	<div style="margin-left: 20px; margin-top: -40px;"><strong>Error in Last Name:</strong> You must enter a value</div>
+				                    	</div>
+		                        	</apex:outputPanel>
+								</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection>
+	-->						
+	
+							<!-- Preferred Contact Number Field --> 		
+							<apex:pageBlockSection columns="1" id="preferredContactNumberSection" rendered="{!NOT(submitted)}">
+	                        	 <apex:pageBlockSectionItem id="pbsItem">
+	 	                        	 <apex:outputLabel value="Preferred contact number" for="preferredcontactnumberfield"/>
+		                        	 <apex:outputPanel styleClass="requiredInput" style="top:0px;">
+										<apex:image style="position:ABSOLUTE; top:10px; left:-10px" url="{!$Resource.PortalRequiredFieldIcon}" />	
+		                                <apex:inputText value="{!sPreferredContactNumber}"
+		                                        id="preferredcontactnumberfield" label="Preferred contact number" style="width:290px" styleClass="{!styleClassPreferredContactNumber}">
+		                                </apex:inputText>  
+		                        	</apex:outputPanel>
+	                        	</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection>
+	                        
+	                        <!-- Preferred Contact Number Error -->
+							<apex:pageBlockSection columns="1" id="PreferredContactNumberError">
+	                        	 <apex:pageBlockSectionItem id="pbsItemError">
+		                        	 <apex:outputLabel value=""/>
+		                        	 <apex:outputPanel >
+				                        <div style="{!if(bBlankPreferredContactNumber, 'display:block;margin-left:0px;', 'display:none; margin-left:0px;')}">
+				                    		<apex:image value="{!$Resource.ListBulletCross_Orange}"></apex:image>
+				                    		<strong>Error in Preferred contact number:</strong> You must enter a value
+				                    	</div> 
+		                        	</apex:outputPanel>
+	                        	</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection> 	
+	<!--                          
+	                        <apex:pageBlockSection id="preferredContactNumberError" rendered="{!NOT(submitted)}">
+	                        	 <apex:pageBlockSectionItem >
+	 	                        	 <apex:outputLabel value=""/>
+		                        	 <apex:outputPanel styleClass="requiredInput" style="top:0px;">
+				                        <div class="errorMsg" style="{!if(bBlankPreferredContactNumber, 'display:block;margin-left:14px;', 'display:none; margin-left:14px;')}">
+					                    	<div><apex:image value="{!$Resource.ListBulletCross_Orange}"></apex:image></div>
+					                    	&nbsp;
+					                    	<div style="margin-left: 20px; margin-top: -40px;"><strong>Error in Preferred Contact Number:</strong> You must enter a value</div>
+				                    	</div>
+		                        	</apex:outputPanel>
+								</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection>
+	-->						
+							
+							<!-- Email Field --> 		
+							<apex:pageBlockSection columns="1" id="emailSection" rendered="{!NOT(submitted)}">
+	                        	 <apex:pageBlockSectionItem id="pbsItem">
+	 	                        	 <apex:outputLabel value="Email address" for="emailfield"/>
+		                        	 <apex:outputPanel styleClass="requiredInput" style="top:0px;">
+										<apex:image style="position:ABSOLUTE; top:10px; left:-10px" url="{!$Resource.PortalRequiredFieldIcon}" />	
+		                                <apex:inputText value="{!sEmail}"
+		                                        id="emailfield" label="Email address" style="width:290px" styleClass="{!styleClassEmail}">
+		                                </apex:inputText>  
+		                        	</apex:outputPanel>
+	                        	</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection>
+	                        
+	                        <!-- Email Error -->
+							<apex:pageBlockSection columns="1" id="EmailError">
+	                        	 <apex:pageBlockSectionItem id="pbsItemError">
+		                        	 <apex:outputLabel value=""/>
+		                        	 <apex:outputPanel >
+				                        <div style="{!if(bBlankEmail, 'display:block;margin-left:0px;', 'display:none; margin-left:0px;')}">
+				                    		<apex:image value="{!$Resource.ListBulletCross_Orange}"></apex:image>
+				                    		<strong>Error in Email address:</strong> You must enter a value with a proper format
+				                    	</div> 
+		                        	</apex:outputPanel>
+	                        	</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection> 	
+
+	<!--                          
+	                        <apex:pageBlockSection id="emailError" rendered="{!NOT(submitted)}">
+	                        	 <apex:pageBlockSectionItem >
+	 	                        	 <apex:outputLabel value=""/>
+		                        	 <apex:outputPanel styleClass="requiredInput" style="top:0px;">
+				                        <div class="errorMsg" style="{!if(bBlankEmail, 'display:block;margin-left:14px;', 'display:none; margin-left:14px;')}">
+					                    	<div><apex:image value="{!$Resource.ListBulletCross_Orange}"></apex:image></div>
+					                    	&nbsp;
+					                    	<div style="margin-left: 20px; margin-top: -40px;"><strong>Error in Email:</strong> You must enter a value</div>
+				                    	</div>
+		                        	</apex:outputPanel>
+								</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection>						
+	-->
+	
+							<!-- Customer Number Field --> 		
+							<apex:pageBlockSection columns="1" id="customerNumberSection" rendered="{!NOT(submitted)}">
+	                        	 <apex:pageBlockSectionItem id="pbsItem" helptext="hover">
+	                        	 	<apex:outputPanel >
+										<apex:outputLabel value="Customer number" for="customernumberfield"/>
+								        <a class="helpButtonOn" href="javascript:showBillCNumber()" id="showbill">
+								            <img title="" class="helpOrb" alt="" src="/s.gif"/>
+								        </a> 
+									</apex:outputPanel>
+									<apex:outputPanel styleClass="requiredInput" style="top:0px;">
+										<div>	
+			                                <apex:inputText value="{!sCustomerNumber}"
+			                                        id="customernumberfield" label="Customer number" style="width:290px" styleClass="">
+			                                </apex:inputText>&nbsp;
+										</div>
+		                        	</apex:outputPanel>
+	                        	</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection>
+	                        
+	                        <!-- Customer Number Error -->
+	<!--     
+	                        <apex:pageBlockSection id="customerNumberError" rendered="{!NOT(submitted)}">
+	                        	 <apex:pageBlockSectionItem >
+	 	                        	 <apex:outputLabel value=""/>
+		                        	 <apex:outputPanel styleClass="requiredInput" style="top:0px;">
+				                        <div class="errorMsg" style="{!if(bBlankSubject, 'display:block;margin-left:14px;', 'display:none; margin-left:14px;')}">
+					                    	<div><apex:image value="{!$Resource.ListBulletCross_Orange}"></apex:image></div>
+					                    	&nbsp;
+					                    	<div style="margin-left: 20px; margin-top: -40px;"><strong>Error in Customer Number:</strong> You must enter a value</div>
+				                    	</div>
+		                        	</apex:outputPanel>
+								</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection>	
+	-->						
+							<apex:pageBlockSection columns="1">
+	                        	 <apex:pageBlockSectionItem >
+		                        	 <apex:outputLabel value=""/>
+		                        	 <apex:outputPanel >
+				                     </apex:outputPanel>
+	                        	</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection>
+	
+							<!-- Property Field --> 		
+							<apex:pageBlockSection columns="1" id="propertySection" rendered="{!NOT(submitted)}">
+								<apex:pageBlockSectionItem id="pbsItem">
+									<apex:outputPanel >
+										<apex:outputLabel value="Property" for="propertyfield"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<apex:commandButton rendered="false" styleClass="btnPrimaryGreen" id="findMailingAddButton" value="Find address"  onclick="ShowQASDialog(1);return false;"/>
+									</apex:outputPanel>
+									<apex:outputPanel styleClass="requiredInput" style="top:0px;">
+										<div>
+			                                <apex:inputText disabled="false" value="{!sProperty}"
+			                                        id="propertyfield" label="Property" style="width:290px" styleClass="">
+			                                </apex:inputText>&nbsp;
+<!--  
+											<apex:commandButton id="findMailingAddButton" value="Find Address"  onclick="ShowQASDialog(1);return false;" styleClass="btnPrimaryGreen"/>&nbsp;
+-->		
+										</div>
+		                        	</apex:outputPanel>
+	                        	</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection>
+<!--  							
+							<apex:outputText label="Received Address" value="{!address + 'HELLO'}" id="addressVisible" />
+-->							
+							<apex:inputHidden id="hiddenDPID" value="{!sDPID}"/>  
+							<apex:inputHidden id="hiddenCompleteAddress" value="{!sCompleteAddress}"/>        						
+							<apex:inputHidden id="hiddenAddress" value="{!sAddress}"/>                        
+							<apex:inputHidden id="hiddenStreet" value="{!sStreet}"/>
+							<apex:inputHidden id="hiddenCity" value="{!sSuburb}"/>
+							<apex:inputHidden id="hiddenState" value="{!sState}"/>
+							<apex:inputHidden id="hiddenPostalCode" value="{!sPostcode}"/>
+							<apex:inputHidden id="hiddenCountry" value="{!sCountry}"/> 
+							<!-- apex:inputHidden id="hiddenProperty" value="{!sProperty}"/ -->
+							<apex:inputHidden value="{!address}" id="address" />  						
+							
+							
+							<apex:pageBlockSection columns="1">
+	                        	 <apex:pageBlockSectionItem >
+		                        	 <apex:outputLabel value=""/>
+		                        	 <apex:outputPanel >
+				                     </apex:outputPanel>
+	                        	</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection>
+	                        <!-- Property Error -->
+	<!--  
+	                        <apex:pageBlockSection id="propertyError" rendered="{!NOT(submitted)}">
+	                        	 <apex:pageBlockSectionItem >
+	 	                        	 <apex:outputLabel value=""/>
+		                        	 <apex:outputPanel styleClass="requiredInput" style="top:0px;">
+				                        <div class="errorMsg" style="{!if(bBlankSubject, 'display:block;margin-left:14px;', 'display:none; margin-left:14px;')}">
+					                    	<div><apex:image value="{!$Resource.ListBulletCross_Orange}"></apex:image></div>
+					                    	&nbsp;
+					                    	<div style="margin-left: 20px; margin-top: -40px;"><strong>Error in Property:</strong> You must enter a value</div>
+				                    	</div>
+		                        	</apex:outputPanel>
+								</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection>	
+	-->
+							
+							<!-- Subject Field --> 		
+							<apex:pageBlockSection columns="1" id="subjectSection" rendered="{!NOT(submitted)}">
+	                        	 <apex:pageBlockSectionItem id="pbsItem">
+		                        	 <apex:outputLabel value="Subject" for="subjectfield"/>
+		                        	 <apex:outputPanel styleClass="requiredInput" style="top:0px;" >
+										<apex:image style="position:ABSOLUTE; top:10px; left:-10px" url="{!$Resource.PortalRequiredFieldIcon}" />	
+		                                <apex:inputText value="{!caseRec.Subject}"
+		                                        id="subjectfield" label="Subject" style="width:290px" styleClass="{!styleClassSubject}">
+		                                		<script  type="text/javascript">
+								               		if ("{!searchText}" != null && document.getElementById('{!$Component.subjectfield}').value == ''){ 
+														document.getElementById('{!$Component.subjectfield}').value = "{!searchText}";
+													}
+								               	</script>
+		                                </apex:inputText> 
+		                        	</apex:outputPanel>
+	                        	</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection>
+	                        
+	<!--                         
+							<apex:pageBlockSection id="subjectinfoSection" rendered="{!NOT(submitted)}">
+	                        	 <apex:pageBlockSectionItem >
+	 	                        	 <apex:outputLabel value=""/>
+		                        	 <apex:outputPanel styleClass="requiredInput" style="top:0px;">
+										<apex:outputText rendered="{!enqType == 'enquiry'}" value="e.g. more time to pay, water charges, payment plan." style="font-size:85%;"/>
+		                        	</apex:outputPanel>
+	                        	</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection>
+	-->                	
+							<!-- Subject Error -->
+							<apex:pageBlockSection columns="1" id="SubjectError">
+	                        	 <apex:pageBlockSectionItem id="pbsItemError">
+		                        	 <apex:outputLabel value=""/>
+		                        	 <apex:outputPanel >
+				                        <div style="{!if(bBlankSubject, 'display:block;margin-left:0px;', 'display:none; margin-left:0px;')}">
+				                    		<apex:image value="{!$Resource.ListBulletCross_Orange}"></apex:image>
+				                    		<strong>Error in Subject:</strong> You must enter a value with more than two characters
+				                    	</div> 
+		                        	</apex:outputPanel>
+	                        	</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection> 	
+	<!--                     							
+	                        <apex:pageBlockSection id="subjectError" rendered="{!NOT(submitted)}">
+	                        	 <apex:pageBlockSectionItem >
+	 	                        	 <apex:outputLabel value=""/>
+		                        	 <apex:outputPanel styleClass="requiredInput" style="top:0px;">
+				                        <div class="errorMsg" style="{!if(bBlankSubject, 'display:block;margin-left:14px;', 'display:none; margin-left:14px;')}">
+					                    	<div><apex:image value="{!$Resource.ListBulletCross_Orange}"></apex:image></div>
+					                    	&nbsp;
+					                    	<div style="margin-left: 20px; margin-top: -40px;"><strong>Error in Subject:</strong> You must enter a value</div>
+				                    	</div>
+		                        	</apex:outputPanel>
+								</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection>	                    	
+	-->
+	 
+	 						<!-- Description Field -->
+							<apex:pageBlockSection columns="1" id="descriptionSection" rendered="{!NOT(submitted)}">
+	                        	 <apex:pageBlockSectionItem id="pbsItem">
+		                        	 <apex:outputLabel value="Description" for="descriptionfield"/>
+		                        	 <apex:outputPanel styleClass="requiredInput" style="top:0px;">
+										<apex:image style="position:ABSOLUTE; top:10px; left:-10px" url="{!$Resource.PortalRequiredFieldIcon}" />	
+										<apex:inputTextArea value="{!caseRec.Description}" 
+	                                        id="descriptionfield" label="Description" 
+	                                        cols="80" rows="2" styleClass="{!styleClassDescription}" style="width: 290px;">
+										</apex:inputTextArea>       
+									                                 
+		                        	</apex:outputPanel>
+	                        	</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection> 
+
+		                    <!-- Description Error -->
+							<apex:pageBlockSection columns="1" id="DescriptionError">
+	                        	 <apex:pageBlockSectionItem id="pbsItemError">
+		                        	 <apex:outputLabel value=""/>
+		                        	 <apex:outputPanel >
+				                        <div style="{!if(bBlankDescription, 'display:block;margin-left:0px;', 'display:none; margin-left:0px;')}">
+				                    		<apex:image value="{!$Resource.ListBulletCross_Orange}"></apex:image>
+				                    		<strong>Error in Description:</strong> You must enter a value
+				                    	</div> 
+		                        	</apex:outputPanel>
+	                        	</apex:pageBlockSectionItem>            
+							</apex:pageBlockSection> 	
+	                        <div style="clear:both"/>
+	    
+	                    </apex:outputPanel>
+	                    
+						<!-- Thank You -->
+	                    <apex:outputPanel id="responsePanel" rendered="{!(submitted)}">
+	                        <div class="caseField">
+	                            <p>
+	                                Thank you <b>{!sFirstName}</b>, your enquiry has been submitted successfully. 
+	                            </p>
+	                            <p>
+	                                Your case reference number is <b>{!casenumber}</b>, your request will be responded to within 2 business days.
+	                            </p>      
+	                        </div>
+	                    </apex:outputPanel> 
+	                        
+	                        
+	                    <apex:outputPanel id="attachPanel" rendered="{!enqType=='enquiry' && bAttaching && NOT(submitted)}">
+	                        <p/>
+	                        <h3>Upload supporting documentation</h3>
+	                        <p>You can also upload any supporting documentation to support your enquiry</p>
+	                        <div class="caseField">
+	                            <apex:inputFile id="caseAttachment" value="{!attachment.body}"
+	                                        filename="{!attachment.Name}"
+	                                        contentType="{!attachment.ContentType}"
+	                                        fileSize="{!attachment.BodyLength}"
+	                                        onchange=""/>
+	                            <apex:commandButton value="Upload"
+	                                        action="{!UploadAttachment}" styleClass="btn" style="margin-left: 10px"
+	                                        id="uploadattachment"/> 
+	                            <br/><br/>
+	                            <b>Note:</b> there is a 5MB limit for each attachment           
+	                        </div>
+							<br/><br/>	
+	                        <div class="caseField">                     
+	                            <apex:outputPanel rendered="{!(hasAttachments)}">
+	                                <b><u>Successfully Attached</u></b><br/><br/>
+	                                <apex:repeat value="{!existingattachments}" var="currentattachment" id="attachRepeat">
+	                                    <apex:outputLink value="/servlet/servlet.FileDownload?file={!currentattachment.Id}" target="_blank">
+	                                        {!currentattachment.name}
+	                                    </apex:outputLink>
+	                                    <apex:actionregion >
+	                                        <apex:commandLink action="{!DeleteAttachment}" title="Delete Attachment" style="margin-left:5px">
+	                                            <apex:param name="tobeDeleted" value="{!currentattachment.Id}" assignTo="{!tobeDeleted}"/>
+	                                            <apex:image value="{!URLFOR($Resource.Icons, 'Icons/Cross_Icon.png')}" style="vertical-align:middle;"/>
+	                                        </apex:commandLink>
+	                                    </apex:actionregion>
+	                                    <br/>
+	                                </apex:repeat>
+	                            </apex:outputPanel>
+	                        </div>
+
+	                    </apex:outputPanel> 
+	                    
+	                    
+						<!-- Case Deflection Section --> 
+<!-- 	                    <apex:outputPanel rendered="{!enqType = 'enquiry' && partial && bForAttach && NOT(submitted)}" id="results">
+	                    	<div class="cellText">
+	                    		<label style="margin-left: 5px;"><h3 style="border-bottom: 0px;">Related articles</h3></label>
+	                    	</div>
+	                    	
+	                    	
+	                    	<c:pkb_resultsEnquiries4 enqCon="{!enqCon}" enteredSearch="{!caseRec.Subject}" rowClass="borderDottedMedGreyBottom " id="searchComp"></c:pkb_resultsEnquiries4>
+	                    	<br/>
+	                    	<div class="cellText">
+	                    		<label style="margin-left: 5px;">If you wish to proceed with your enquiry, click next.</label>
+	                    	</div>
+	    				</apex:outputPanel>
+-->
+	                   
+						<!-- For Submission -->                   
+						<apex:pageBlockSection columns="1" id="Submit">
+                        	 <apex:pageBlockSectionItem id="pbsItemButtons">
+	                        	 <apex:outputLabel value=""/>
+	                        	 <apex:outputPanel >
+<!-- 
+			                    	<apex:outputPanel rendered="{!enqType!='enquiry' && NOT(submitted)}">
+				                        <apex:commandButton value="Submit" 
+				                            id="submitbtn"
+				                            styleClass="btnGreen" action="{!submit}" 
+				                            status="loading"/> 
+									</apex:outputPanel>
+-->				    				
+				    				<apex:outputPanel rendered="{!enqType=='enquiry' && partial && NOT(submitted) && NOT(bForAttach)}">
+				    					<apex:commandButton value="Submit" 
+				                            id="submitbtnEnq" 
+				                            styleClass="btnPrimaryGreen" action="{!submit}" 
+				                            status="loading"/> 
+									</apex:outputPanel>
+
+			    					<apex:outputPanel rendered="{!enqType=='enquiry' && NOT(partial) && NOT(submitted) && NOT(bForAttach)}">
+				                        <apex:commandButton value="Next" 
+				                            id="partialsubmitbtn"
+				                            styleClass="btnPrimaryGreen" action="{!SubmitWithArticle2}" 
+				                            status="loading"/> 
+			    					</apex:outputPanel>
+
+			    					
+			    					<apex:outputPanel rendered="{!enqType=='enquiry' && partial && NOT(submitted) && bForAttach && false}">
+				                        <apex:commandButton value="Next" 
+				                            id="attachsubmitbtn" immediate="true"
+				                            styleClass="btnPrimaryGreen" action="{!SubmitForAttachment}" 
+				                            status="loading"/> 
+				                            
+			    					</apex:outputPanel>					
+			    					
+			    					<apex:outputPanel rendered="{!enqType=='enquiry' && partial && NOT(submitted) && NOT(bForAttach)}">
+				                        <apex:commandButton styleClass="btnClearGreenText"
+				                            value="Cancel" 
+				                            action="{!cancel}" 
+				                            immediate="true" id="cancelEnquiry"
+				                            /> 
+			    					</apex:outputPanel>
+
+			    					
+			    					<apex:outputPanel rendered="{!NOT(partial) && NOT(submitted)}">
+										<!--  	    					
+				                        <apex:commandButton styleClass="btnClearGreenText"
+										-->		
+				                        <apex:commandButton styleClass="btnClearGreenText" value="Clear" 
+				                            onclick="javascript: clearFields();"
+				                            id="cancelHome"
+				                            rerender="null"
+				                            /> 
+			    					</apex:outputPanel>
+									
+									<apex:outputPanel rendered="{!(submitted)}">
+										<br/>		                       	
+		                       			<apex:commandButton value="Home" action="{!home}" immediate="true" />
+		                       		</apex:outputPanel>
+								                                 
+	                        	</apex:outputPanel>
+                        	</apex:pageBlockSectionItem>            
+						</apex:pageBlockSection> 						
+	    
+	                </div>
+	
+	                <div style="clear:both"/>
+	            </apex:pageBlock>
+	            <br/><br/>
+	        </div>
+	
+	        <!-- Action Status that are not position dependent -->
+	        <apex:actionStatus id="loading">
+	            <apex:facet name="start">
+	                <c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+	                    borderSize="1" height="50px" width="120px" margintop="-25px"
+	                    marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+	                    Message="Processing..." />
+	            </apex:facet>
+	        </apex:actionStatus>
+	
+	        <script type="text/javascript">
+	    
+	            var j$ = jQuery.noConflict();
+	    
+	            var previousOnload = window.onload;
+	            window.onload = function() {
+	                try {
+	                    j$(":input:enabled:visible:first").focus();
+	                } catch (e) {
+	                }
+	            }
+	            
+	            /*
+	        	function clearFields(enqType){
+	        		window.location = '{!$Page.PortalEnquiries}?type='+enqType;
+	        	}
+	        	*/
+	            
+	        </script>
+	    </apex:form>
+	    <apex:outputPanel rendered="{!enqType = 'enquiry' && partial && bForAttach && NOT(submitted)}" id="results">
+	    	<div style="padding: 14px; min-width:400px; width: 80%; position: relative; top: -40px;">
+				<div class="innerContentLHSDiv">
+			    
+					<div class="cellText">
+						<label style="margin-left: 5px;"><h3 style="border-bottom: 0px;">Related articles</h3></label>
+					</div>
+		             	
+					<c:pkb_results2 pkbCon="{!enqCon.pkbCon}" showHeaderInfo="false" columnSize="100"/>
+					
+					<br/>
+					<div class="cellText">
+						<label style="margin-left: 5px;">If you wish to proceed with your enquiry, click next.</label>
+					</div>
+				
+				</div>
+			</div>
+		</apex:outputPanel>
+		
+		
+		<apex:outputPanel rendered="{!enqType=='enquiry' && partial && NOT(submitted) && bForAttach}" style="position: relative; top: -80px;">
+		<apex:pageBlock id="pageblockBottomButtons">
+			<apex:pageBlockSection columns="1" id="SubmitStep2">
+				<apex:pageBlockSectionItem id="pbsItemButtonsStep2">
+	            	<apex:outputLabel value=""/>
+	                <apex:outputPanel >
+						<apex:form >
+				
+							<apex:outputPanel rendered="{!enqType=='enquiry' && partial && NOT(submitted) && bForAttach}">
+								<apex:commandButton value="Next" 
+						        	id="attachsubmitbtn" immediate="true"
+						            styleClass="btnPrimaryGreen" action="{!SubmitForAttachment}" 
+						            status="loading"/> 
+						                            
+							</apex:outputPanel>
+				    								    					
+				    					
+				    		<apex:outputPanel rendered="{!enqType=='enquiry' && partial && NOT(submitted)}">
+					        	<apex:commandButton styleClass="btnClearGreenText"
+					            	value="Cancel" 
+					                action="{!cancel}" 
+					                immediate="true" id="cancelEnquiry2"
+								/> 
+							</apex:outputPanel>
+						</apex:form>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	    </apex:outputPanel>
+	    
+	    <!-- NP TT10625 Don't want the system to call the QAS so commenting out the code
+	    <script language="javascript" type="text/javascript">
+			var timerVar;
+			
+			function ClearMsg (){
+			document.getElementById("Street1").style.display="none";
+			document.getElementById("Street2").style.display="none";
+			document.getElementById("suburbErr").style.display="none";
+			document.getElementById("postalCodeErr").style.display="none";
+			document.getElementById("stateErr").style.display="none";
+			document.getElementById("country").style.display="none";
+			}
+			
+			
+			function limitText(limitField, limitNum, errorfield) {
+				if (limitField.value.length > limitNum) {
+					limitField.value = limitField.value.substring(0, limitNum);
+					document.getElementById(errorfield).style.display="block";
+					//if (!timerVar) {
+					clearTimeout(timerVar);
+					//}
+					timerVar = setTimeout(function(){ClearMsg()},3000);
+				} else
+				{//document.getElementById(errorfield).style.display="none";
+				}
+			}
+			
+			function lengthText(errorfield, lengthfield){
+				var Suburb = document.getElementById("{!$Component.qasForm.testBlock.qaSearchSection.qaSuburbItem.suburb}").value.length;
+				var State = document.getElementById("{!$Component.qasForm.testBlock.qaSearchSection.qaStateItem.state}").value.length;
+				var Postal =document.getElementById("{!$Component.qasForm.testBlock.qaSearchSection.qaPostal.postalCode}").value.length;
+				var AddrLength = Suburb + State + Postal;
+				
+				if (AddrLength > 28){
+					var totalLength = 0; 
+					var updateField;
+					if (lengthfield == 'Suburb'){
+						totalLength  = 28 - (State + Postal);
+						updateField = document.getElementById("{!$Component.qasForm.testBlock.qaSearchSection.qaSuburbItem.suburb}");
+					}else if (lengthfield == 'State'){
+						totalLength  = 28 - (Suburb + Postal);
+						updateField = document.getElementById("{!$Component.qasForm.testBlock.qaSearchSection.qaStateItem.state}");
+					}else if (lengthfield == 'Postal'){
+						totalLength  = 28 - (Suburb + State);
+						updateField = document.getElementById("{!$Component.qasForm.testBlock.qaSearchSection.qaPostal.postalCode}");
+					}
+					updateField.value = updateField.value.substring(0, totalLength);	
+						
+					document.getElementById(errorfield).style.display="block";
+					//if (!timerVar) {
+					clearTimeout(timerVar);
+					//}
+					timerVar = setTimeout(function(){ClearMsg()},3000);
+					} else
+				{//document.getElementById(errorfield).style.display="none";
+				}
+				if (totalLength < 0){
+					totalLength.value = 0
+				}	
+				
+			}
+			
+		</script>
+	    -->
+	    <!-- QAS Popup -->
+	    
+	    <apex:form id="qasForm">
+	    	<!-- NP TT10625 - Don't want the system to call the QAS so commenting out the code    
+	        <div id="qas-popup" style="visibility: hidden;">
+	                <div id="qaSearch">
+	                        <c:QASPopupPulse2 />                    
+	                </div> 
+	                <div id="qaManual" class="pbTransparent requiredInput">
+	                          
+	                    <apex:pageBlock id="testBlock">                                                          
+	                        Please enter your address details below.<br/><br/>                                                   
+	                        <apex:pageBlockSection id="qaSearchSection" columns="1" >
+	                            <apex:pageBlockSectionItem id="qaStreetItem">                                                                               
+	                            <apex:outputLabel value="Street address 1"/> 
+	                            <apex:outputPanel styleClass="requiredInput">  
+	                            <apex:outputPanel styleClass="requiredBlock"/>	    
+								<apex:image style="position:ABSOLUTE; top:10px; left:-10px" url="{!$Resource.PortalRequiredFieldIcon}" />	
+	                            <apex:inputTextarea rows="2" id="street" required="true" styleClass="requiredInput" style="width:250px" onKeyDown="limitText(this,30,'Street1');" onKeyUp="limitText(this,30,'Street1');" />                    			    
+	                        	    	<div id="Street1" style="display:none; color: red; font-style: italic">The Street Address 1 field must not exceed 30 characters!
+	                            		</div>
+	                            </apex:outputPanel>                                   
+	                        </apex:pageBlockSectionItem>
+	                            
+	                        <apex:pageBlockSectionItem id="qaStreet2Item">
+	                            <apex:outputLabel value="Street address 2"/> 
+								<apex:outputPanel >
+	                       		<apex:inputTextArea rows="2" label="Street" id="street2" required="true" styleClass="requiredInput" style="width:250px" onKeyDown="limitText(this,30,'Street2');" onKeyUp="limitText(this,30,'Street2');" />                   
+	                              	<div id="Street2" style="display:none; color: red; font-style: italic">The Street Address 2 field must not exceed 30 characters!
+	                            	</div>
+	                       		</apex:outputPanel>         
+	                       	 </apex:pageBlockSectionItem>
+	                            
+	                         <apex:pageBlockSectionItem id="qaSuburbItem">
+	                            <apex:outputLabel value="Suburb"/>
+	                            <apex:outputPanel styleClass="requiredInput" id="requiredInputDiv">  
+	                            <apex:outputPanel styleClass="requiredBlock" id="requiredBlockDiv"/>   
+								<apex:image style="position:ABSOLUTE; top:10px; left:-10px" url="{!$Resource.PortalRequiredFieldIcon}" />	
+								<apex:inputText id="suburb" required="true" style="width:250px" onKeyDown="lengthText('suburbErr', 'Suburb');" onKeyUp="lengthText('suburbErr', 'Suburb');"/>
+	                      		     <div id="suburbErr" style="display:none; color: red; font-style: italic">The Postal code, State and Suburb must be less than 28 characters (combined)
+	                         		 </div>                       
+	                            </apex:outputPanel>
+	                       		</apex:pageBlockSectionItem>
+	                         
+	                      	  <apex:pageBlockSectionItem id="qaStateItem">
+	                            <apex:outputLabel value="State"/> 
+	                            <apex:outputPanel styleClass="requiredInput" id="requiredInputDivState">  
+	                            <apex:outputPanel styleClass="requiredBlock" id="requiredBlockDivState"/>
+								<apex:image style="position:ABSOLUTE; top:10px; left:-10px" url="{!$Resource.PortalRequiredFieldIcon}" />	                            
+	                            <apex:inputText id="state" required="true" style="width:250px" onKeyDown="lengthText('stateErr', 'State');" onKeyUp="lengthText('stateErr', 'State');"/>                   					     
+	                      			 <div id="stateErr" style="display:none; color: red; font-style: italic">The Postal code, State and Suburb must be less than 28 characters (combined)
+	                            	 </div>  
+	                            </apex:outputPanel> 
+	                      		</apex:pageBlockSectionItem>
+	                            
+	                        <apex:pageBlockSectionItem id="qaPostal">
+	                            <apex:outputLabel value="Postal code"/>
+	                            <apex:outputPanel styleClass="requiredInput" id="requiredInputDivPostal">  
+	                            <apex:outputPanel styleClass="requiredBlock" id="requiredBlockDivPostal"/>
+								<apex:image style="position:ABSOLUTE; top:10px; left:-10px" url="{!$Resource.PortalRequiredFieldIcon}" />	                            
+	                            <apex:inputText id="postalCode" required="true" style="width:250px" onKeyDown="lengthText('postalCodeErr', 'Postal');" onKeyUp="lengthText('postalCodeErr', 'Postal');"/>                      			       	
+	                      		    <div id="postalCodeErr" style="display:none; color: red; font-style: italic">The Postal code, State and Suburb must be less than 28 characters (combined)
+	                     	        </div>
+	                            </apex:outputPanel>  
+	                        </apex:pageBlockSectionItem>
+	                            
+	                        <apex:pageBlockSectionItem id="qaCountry">
+	                            <apex:outputLabel value="Country"/>
+	                            <apex:outputPanel styleClass="requiredInput">  
+	                            <apex:outputPanel styleClass="requiredBlock"/>
+								<apex:image style="position:ABSOLUTE; top:10px; left:-10px" url="{!$Resource.PortalRequiredFieldIcon}" />	                            
+	                            <apex:inputText id="country" required="true" style="width:250px" onKeyDown="limitText(this,30,'country');" onKeyUp="limitText(this,30,'country');" />                       				    
+	                         	   <div id="country" style="display:none; color: red; font-style: italic">The country field must not exceed 30 characters!
+	                      	       </div>
+	                            </apex:outputPanel> 
+	                        </apex:pageBlockSectionItem>
+	                            
+	                        <br/>
+	                        <apex:pageBlockSectionItem id="qaButtons">
+	                            <apex:outputLabel value=""/>
+	                            <apex:pageBlockSectionItem >
+	                                <apex:commandButton id="acceptSearchButton" onclick="ReceiveAddressManually();"  value="Accept" styleClass="btnPrimaryGreen" />
+	                                <apex:commandButton onclick="CloseQASDialog();" value="Cancel"  immediate="true" styleclass="btnBlueText" /> 
+	                            </apex:pageBlockSectionItem>                                        
+	                        </apex:pageBlockSectionItem>                                                                     
+	                    </apex:pageBlockSection>                              
+	                </apex:pageBlock>                                             
+	            </div>
+	        </div>    
+	     -->
+			<!-- <apex:actionFunction action="{!PopulateDPID}" name="jsPopulateDPID" oncomplete="GetValueDPID();"/> -->   
+	     
+	     
+	        <script type="text/javascript">
+				var dodgyIE = document.getElementById("{!$Component.thePage.theForm.pageBlock}");
+				dodgyIE.style.backgroundImage = "none";
+				
+	            var j$ = jQuery.noConflict();
+	
+	            var previousOnload = window.onload;
+	            window.onload = function() {
+	                window.scrollTo(0,0);
+	                try {
+	                    j$("input:text:visible:first").focus();
+	                    
+	                } catch (e) {
+	                }
+	    
+	            }
+	    
+	            j$(function() {
+	                j$( "#samplebill-popup" ).dialog({
+	                    dialogClass: 'ui-dropshadow',
+	                    autoOpen: false,
+	                    height: 700,
+	                    width: 700,
+	                    modal: true,
+	                    resizable: false
+	                });
+	                
+	                j$( "#samplebill-popupCNumber" ).dialog({
+	                    dialogClass: 'ui-dropshadow',
+	                    autoOpen: false,
+	                    height: 700,
+	                    width: 700,
+	                    modal: true,
+	                    resizable: false
+	                });
+	                
+	                j$( "#captcha-popup" ).dialog({ 
+	                    dialogClass: 'ui-dropshadow',
+	                    autoOpen: false,
+	                    width: 300,
+	                    modal: true,
+	                    resizable: false
+	                });
+	            });
+	
+	            function showBill() {
+	                j$("#samplebill-popup").dialog("open");
+	            }
+	            
+	            function showBillCNumber() {
+	                j$("#samplebill-popupCNumber").dialog("open");
+	            }
+	            
+	            function showCaptchaHelp() {
+	                j$("#captcha-popup").dialog("open");
+	            }
+	
+			</script>    
+			<!-- sample bill popup CNumber-->
+			<div id="samplebill-popupCNumber"
+			    title="Finding your customer number">
+			
+			    <p style="margin-top: 10px" />
+			    Your customer number is located on the top right corner of your bill.
+			    <p />
+			    <center>
+			        <apex:image value="{!$Resource.BillCustomerNbrLocation}"
+			            style="text-align:center;margin-bottom:25px" />
+			        <p />
+			        <apex:commandButton styleClass="btnGreen" value="Close"
+			            onclick="hideBillCNumber(); return false;" tabindex="1" id="closebillCNumberwindow"/>
+			        <script>
+			            function hideBillCNumber() {
+			                j$("#samplebill-popupCNumber").dialog("close");
+			            }
+			        </script>
+			    </center>
+			</div>
+	       
+	    </apex:form>      
+	</body>    
+                        
+</apex:page>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Customer Classification</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Customer Classifications</value>
+    </caseValues>
+    <fields>
+        <label><!-- Billing Account --></label>
+        <name>Billing_Account__c</name>
+        <relationshipLabel><!-- Customer Classifications --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Class Code --></label>
+        <name>Class_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Classification Description --></label>
+        <name>Classification_Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Classification Message --></label>
+        <name>Classification_Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- Classification Sort Order --></label>
+        <name>Classification_Sort_Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- Classification --></label>
+        <name>Classification__c</name>
+        <relationshipLabel><!-- Customer Classifications --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Comments --></label>
+        <name>Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer --></label>
+        <name>Customer__c</name>
+        <relationshipLabel><!-- Customer Classifications --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- zzzEnd Date --></label>
+        <name>End_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- External Id --></label>
+        <name>External_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- HiAF Account Number --></label>
+        <name>HiAF_Account_Number__c</name>
+    </fields>
+    <fields>
+        <help><!-- Identifies if the classification is still active against the Customer/Billing Account --></help>
+        <label><!-- Is Active --></label>
+        <name>Is_Active__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Modified By User Name --></label>
+        <name>Last_Modified_By_User_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Modified By User Type --></label>
+        <name>Last_Modified_By_User_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reference --></label>
+        <name>Reference__c</name>
+    </fields>
+    <fields>
+        <label><!-- zzzStart Date --></label>
+        <name>Start_Date__c</name>
+    </fields>
+    <layouts>
+        <layout>Customer Classification Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- You cannot create a new CC classification. --></errorMessage>
+        <name>Cannot_Create_CC</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Billing Account cannot be changed. If necessary, inactivate this classification and create a new one. --></errorMessage>
+        <name>Cannot_Edit_BA</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Inactive classifications cannot be reactivated. Please create a new one. --></errorMessage>
+        <name>Cannot_Reactivate</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Only SEW Credit Users can add a &quot;Credit Management&quot; classification to a Customer or Billing Account --></errorMessage>
+        <name>Credit_User_deals_with_Credit_Mgmt</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Billing Account cannot be changed for &quot;CC&quot; Classification --></errorMessage>
+        <name>If_CC_Class_cannot_edit_BA</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Comments cannot be changed for &quot;CC&quot; Classification --></errorMessage>
+        <name>If_CC_Class_cannot_edit_Comment</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The character &apos;~&apos; cannot be used in the Reference field. --></errorMessage>
+        <name>No_Tilde</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The reference cannot be changed. If necessary, inactivate and create a new classification. --></errorMessage>
+        <name>Reference_Not_Editable</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Classification_Codes --></label>
+        <name>Classification_Codes</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Mass_Update --></label>
+        <name>Mass_Update</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_Cust_Classif_BAcct_RList --></label>
+        <name>New_Cust_Classif_BAcct_RList</name>
+    </webLinks>
+</CustomObjectTranslation>

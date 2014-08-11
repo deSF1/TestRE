@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Reports</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Reports</value>
+    </caseValues>
+    <fields>
+        <label><!-- My Financial Hardships for Review Today --></label>
+        <name>My_Financial_Hardships_for_Review_Today__c</name>
+    </fields>
+    <fields>
+        <label><!-- NumberOfCallsReportID --></label>
+        <name>NumberOfCallsReportID__c</name>
+    </fields>
+    <fields>
+        <label><!-- PersonRoleID --></label>
+        <name>PersonRoleID__c</name>
+    </fields>
+    <fields>
+        <label><!-- PropertiesInSubdivisionReportId --></label>
+        <name>PropertiesInSubdivisionReportId__c</name>
+    </fields>
+    <fields>
+        <label><!-- SingleCustomerStoryBoardID --></label>
+        <name>SingleCustomerStoryBoardID__c</name>
+    </fields>
+    <fields>
+        <help><!-- YYYY/YY format e.g. 2008/09 --></help>
+        <label><!-- Year --></label>
+        <name>Year__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

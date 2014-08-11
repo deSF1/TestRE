@@ -1,0 +1,89 @@
+<!-- 
+* @author Original: Adrian Recio Cloud Sherpas
+* @date Original: 2/3/2014
+* @description Main page for digital meter trial profile setup
+	28-2-2014		ejandusay		made adjustments on alert style box
+-->
+<apex:page sidebar="false" controller="DMTrialMainCC">
+
+	<head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:stylesheet value="{!$Resource.PortalIcons_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalActionLinks_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalHomePage_Styles}"/> 
+    </head>
+    
+	<style>
+		.profileAlert{
+			border-radius:20px;
+			position:absolute;
+			width:360px;
+			height:150px;
+			background-color:#F0F0F0;
+			margin-left:280px;
+			margin-top:300px;
+		}
+		
+		.profileAletText{
+			font-size:15px;
+			text-align:center;		
+		}
+		
+		.profileWelcomeText{
+			font-size:20px;
+			color:#990066;
+			text-align:center;
+			margin-top:20px;		
+		}
+		
+		.profileAlertButton{
+			margin-left:150px;
+			margin-top:10px;		
+		}
+	</style>
+
+	<div Id="alertPanel">
+	<apex:stylesheet value="{!$Resource.SEWPortalStyles}"/>
+		<apex:outputPanel layout="block" rendered="{!pSetup}">
+			<apex:outputPanel layout="block">
+			    <apex:outputPanel layout="block" styleClass="profileAlert">
+			    		<apex:outputPanel layout="block" styleClass="profileWelcomeText">
+			    			<apex:outputText ><b>Welcome to the digital meter trial</b></apex:outputText>
+		 				</apex:outputPanel>
+		 				<br/>
+			    		<apex:outputPanel layout="block" styleClass="profileAletText">
+			    			<apex:outputText value="Please complete your profile setup."></apex:outputText>
+		 				</apex:outputPanel>
+		 				
+		 				<apex:outputPanel layout="block" styleClass="profileAlertButton">
+		 					<apex:form >
+		 						 <apex:commandButton style="margin-left:-23px;" action="{!pSetUpHide}" value="Set up profile" styleClass="btnPrimary"/>
+		 						 <!--  <input style="text-align:center;" type="button" onclick="$( '#alertPanel').hide();" value="Close"/>-->
+		 					</apex:form>
+		 				</apex:outputPanel>
+				</apex:outputPanel>  
+	        </apex:outputPanel>      
+	 	</apex:outputPanel>
+    </div>
+	    				
+	<apex:panelGrid columns="2">
+
+	<apex:panelGrid columns="1">
+		<c:DMTrialSubTab activeTab="Profile"></c:DMTrialSubTab>
+		<c:DMTrialMyProfile pageNameStr="My profile"></c:DMTrialMyProfile>
+	</apex:panelGrid>
+	<apex:outputPanel layout="block" style="margin-left:20px;margin-top:-124px !important;width:225px;">
+			<c:LiveChat />
+			<apex:form >
+			<c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+					divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+					divStyle="width: 205px"/>
+			</apex:form>
+			<c:PortalQuickLinks mode="DMT" />
+	</apex:outputPanel>
+</apex:panelGrid>
+
+	
+</apex:page>

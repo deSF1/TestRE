@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Product Owned</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Products Owned</value>
+    </caseValues>
+    <fields>
+        <label><!-- Billing Account --></label>
+        <name>Billing_Account__c</name>
+        <relationshipLabel><!-- Products Owned --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Cost --></label>
+        <name>Cost__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer --></label>
+        <name>Customer__c</name>
+        <relationshipLabel><!-- Products Owned --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Date of Purchase --></label>
+        <name>Date_of_Purchase__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Plan --></label>
+        <name>Payment_Plan__c</name>
+        <picklistValues>
+            <masterLabel>Instalment</masterLabel>
+            <translation><!-- Instalment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Upfront</masterLabel>
+            <translation><!-- Upfront --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Product --></label>
+        <name>Product__c</name>
+        <relationshipLabel><!-- Products Owned --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Property --></label>
+        <name>Property__c</name>
+        <relationshipLabel><!-- Products Owned --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Rebate Amount --></label>
+        <name>Rebate_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Rebate Date --></label>
+        <name>Rebate_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Rebate Flag --></label>
+        <name>Rebate_Flag__c</name>
+    </fields>
+    <fields>
+        <label><!-- Rebate cnt --></label>
+        <name>Rebate_cnt__c</name>
+    </fields>
+    <layouts>
+        <layout>Product Owned Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

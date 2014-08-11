@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>WSI</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>WSIs</value>
+    </caseValues>
+    <fields>
+        <label><!-- Actual Finish --></label>
+        <name>Actual_Finish__c</name>
+    </fields>
+    <fields>
+        <label><!-- Actual Start --></label>
+        <name>Actual_Start__c</name>
+    </fields>
+    <fields>
+        <label><!-- Expected Duration --></label>
+        <name>Expected_Duration__c</name>
+    </fields>
+    <fields>
+        <label><!-- External ID --></label>
+        <name>External_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden)WSI Planned Start Date counter --></label>
+        <name>Hidden_WSI_Planned_Start_Date_counter__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of Properties Affected --></label>
+        <name>Number_of_Properties_Affected__c</name>
+    </fields>
+    <fields>
+        <label><!-- Planned Finish --></label>
+        <name>Planned_Finish__c</name>
+    </fields>
+    <fields>
+        <label><!-- Planned Start --></label>
+        <name>Planned_Start__c</name>
+    </fields>
+    <fields>
+        <label><!-- SEW Event --></label>
+        <name>SEW_Event__c</name>
+        <relationshipLabel><!-- WSIs --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Tap on hydrant --></label>
+        <name>Tap_on_hydrant__c</name>
+    </fields>
+    <fields>
+        <label><!-- Time trigger field --></label>
+        <name>Time_trigger_field__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Planned</masterLabel>
+            <translation><!-- Planned --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unplanned</masterLabel>
+            <translation><!-- Unplanned --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- WSI Planned Start Date counter --></label>
+        <name>WSI_Planned_Start_Date_counter__c</name>
+    </fields>
+    <fields>
+        <label><!-- WSI Source Modified Date --></label>
+        <name>WSI_Source_Modified_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- WSI status --></label>
+        <name>WSI_status__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation><!-- Active --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Closed</masterLabel>
+            <translation><!-- Closed --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Water state --></label>
+        <name>Water_state__c</name>
+    </fields>
+    <layouts>
+        <layout>WSI Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

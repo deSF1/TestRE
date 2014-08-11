@@ -1,0 +1,490 @@
+<apex:page tabstyle="My_Accounts_Portal__tab" sidebar="false"
+    doctype="html-5.0"
+    action="{!CheckRedirectConfirmed}"
+    controller="PortalMyAccountHomePageController">
+
+    <!--
+        Description: Branded home page for My Accounts. Displays a list of accounts
+
+        History:
+            04-Nov-2011 D.Thong (Salesforce)    Created
+            03-Apr-2012 M.Erwin (Salesforce)    NEW: updated "moving or selling" link to point to PortalMyDetails page.
+                                                NEW: updated "setup payment plan" link to point to PortalPaymentOptions page.
+            17-Apr-2012 A.Vergara New hidden fields to get Segment_Review_Overdue__c and Disable Segmentation value.
+                                  Display a reminder message on the home page to indicate to the user that their details are out-of-date
+            18-Apr-2012 A.Vergara Included stylesheet for popup    
+            19-Apr-2012 A.Vergara   Modify onchange property of Page Number picklist to call Build Popup   
+            23-Apr-2012 D.Yu                    NEW: udpated Paperless billing links for Paperless Billing page  
+            14-May-2012 Ji Zhang  Update Set up payment plan link, only rendered when it is residential customer  
+            4-Jun-2012  D.Yu      Update: 5161 - Update header     
+            8-Jun-2012 I.Castillo Update: 5221 - Update quicklink labels    
+            01-Oct-2012 J.Jayoma Update: TP# 392- Hide Live Web Chat Portal     
+            16-Nov-2012 I.Castillo Update: TP # 523 - Restrict to WaterMAP tab in portal
+            29-Nov-2012 I.Castillo Update TP537 - Visibility of date suspended on Portal
+            04-Dec 2012 I.Castillo Update TP537 - Added Suspend to and Current bill due checks
+            19-Feb-2013	N.Patterson  TT10279 - Added the Marketing Page Popup
+            22-Nov-2013 B.Trinidad Added Link to ‘My Cases’ Page placed in summary section of billing account overview on home page.
+    -->
+
+    <head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalHomePage_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalIcons_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalActionLinks_Styles}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+        <!-- jquery -->
+          <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+          <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+          
+        <script>
+            var j$ = jQuery.noConflict();
+
+            j$(function() {
+                var sOverdue = document.getElementById('{!$Component.theForm.segmentationOverdue}').value;
+                var dSegmentation = document.getElementById('{!$Component.theForm.disableSegmentation}').value;
+            	BuildSegmentReviewDialog(); 
+            	if(sOverdue == 'Y' && dSegmentation == 'false'){
+               
+                	ShowSegmentReviewDialog();
+                }
+                // 19-Feb-2013	N.Patterson  TT10279 - Added the Marketing Page Popup
+                var showMarketingDialog = document.getElementById('{!$Component.theForm.showMarketingPopup}').value;
+                BuildMarketingPageDialog();
+                
+                if (showMarketingDialog == 'true'){
+                	ShowMarketingPageDialog();
+                	setAsDisplayed();
+                }
+            });
+            
+            function ShowSegmentReviewDialog() {
+	           	try {
+	               	j$("#segment-review-popup").dialog("open");
+	            } 
+	            catch (e) { 
+            		alert(e.toString()); 
+            	}
+         	}
+         
+         	function CloseSegmentReviewDialog() {
+            	try {
+                	j$("#segment-review-popup").dialog("close");
+
+            	} catch (e) { 
+            		alert(e.toString()); 
+            	}
+            	return false;
+        	}        
+ 
+	        j$("#segment-review-popup").parent().appendTo(j$("#{!SUBSTITUTE($Component.theForm,':','\\\\:')}")); 
+	
+	        function BuildSegmentReviewDialog() {
+	            j$( "#segment-review-popup" ).dialog({
+	                dialogClass: 'ui-dropshadow',
+	                autoOpen: false,
+	                width: 500,
+	                modal: true,
+	                resizable: false,
+	                title: 'Help us better understand your needs.'
+	            });
+	                            
+	        }
+	        // 19-Feb-2013	N.Patterson  TT10279 - Added the Marketing Page Popup
+	        function BuildMarketingPageDialog() {
+	            j$( "#marketingPagePopup" ).dialog({
+	                dialogClass: 'ui-dropshadow',
+	                autoOpen: false,
+	                width: {!MarketingPageWidth},
+	                height: {!MarketingPageHeight},
+	                modal: true,
+	                resizable: false,
+	                title: '{!MarketingPageTitle}',
+	                close: function(event, ui) {
+	                	if({!ShowOptOut}) {
+	                		setAsClosed(document.getElementById('{!$Component.theForm.optOutField}').checked);
+	                	}
+	                	else {
+	                		setAsClosed(false);
+	                	}
+	                }
+	            });             
+	        }
+	        
+	        function ShowMarketingPageDialog() {
+	           	try {
+	               	j$("#marketingPagePopup").dialog("open");
+	            } 
+	            catch (e) { 
+            		alert(e.toString()); 
+            	}
+         	}
+         	
+         	function HideMarketingPageDialog() {
+	           	try {
+	               	j$("#marketingPagePopup").dialog("close");
+	            } 
+	            catch (e) { 
+            		alert(e.toString()); 
+            	}
+         	}
+         	
+         	function LinkClicked(link, name) {
+         		optOutField = false;
+         		if({!ShowOptOut}){
+         			optOutField = document.getElementById('{!$Component.theForm.optOutField}').checked;
+         		}
+	           	setAsOpenedCustom(optOutField, name);
+	           	
+	           	window.location=link; 
+         	}
+         	
+         	function ShowLink(){
+         		window.location='{!MarketingPageButtonURL}'; 
+         		return false;
+         	}
+         	
+        </script>
+        <style type="text/css">
+            .bPageTitle .ptBody .pageType {
+                color: #575756 !important;
+            }
+            .bPageTitle .ptBody .content {
+                width: 100%;
+            }
+        </style>
+    
+    </head>
+    
+    <apex:form id="theForm">
+                 
+    	<apex:actionFunction name="setAsDisplayed" action="{!setDisplayedPageTracking}" rerender=""/>
+    	<apex:actionFunction name="setAsClosed" action="{!setClosedPageTracking}" rerender="">
+        	<apex:param name="paramOne" assignTo="{!optOut}" value=""/>
+       	</apex:actionFunction>
+       	<apex:actionFunction name="setAsOpenedCustom" action="{!setCustomOpenedPageTracking}" rerender="">
+        	<apex:param name="paramOne" assignTo="{!optOut}" value=""/>
+        	<apex:param name="paramTwo" assignTo="{!customLink}" value=""/>
+       	</apex:actionFunction>
+    	
+        <apex:inputHidden value="{!segmentationOverdue}" id="segmentationOverdue"/>      
+        <apex:inputHidden value="{!disableSegmentation}" id="disableSegmentation"/>
+        <apex:inputHidden value="{!displayMarketingPage}" id="showMarketingPopup"/>
+        <div class="contentCellDiv">
+     
+            <!-- Page Block Header -->
+            <apex:sectionheader subtitle="Welcome to mySouthEastWater, {!$User.FirstName}"/>
+                                <!-- Updated subtitle to user's first name -->
+                                <!--  subtitle="{!IF(nbrOfAccounts <= 1, 'Account', 'Accounts')}"/> -->
+            <div style="clear:both"/>
+    
+            <!--  My Accounts -->
+            <apex:pageBlock id="myAccountsPB">
+                <apex:pageMessages id="msgs"/>
+                 
+                <!--  ACCOUNTS TABLE -->
+                <apex:repeat value="{!accounts}"
+                                var="acct" 
+                                rendered="{!nbrOfAccounts>0}"
+                                id="acctTable">
+                    <!-- display the account # and site address -->
+                    <div class="accountListHeader">
+                        <div class="accountListCol">
+                            <a href="{!$Page.PortalAccountDetailPage}?id={!acct.id}">
+                                <apex:outputPanel rendered="{!acct.Property__c==null}">
+                                {!acct.HiAF_Account_Number_Check_Digit__c}
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!acct.Property__c!=null}">
+                                {!acct.Property__r.Street_Address_Proper__c}, 
+                                {!acct.Property__r.Suburb_Proper__c} {!acct.Property__r.Postal_Code__c}
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!acct.Status__c == 'Closed'}">
+                                    - (Closed)
+                                </apex:outputPanel>
+                            </a>
+                        </div>
+                        <div class="accountBalanceCol">
+                            <apex:outputLabel value="Balance" 
+                            		rendered="{!$Profile.Name != 'SEW WaterMAP Only Portal User'}" />
+                        </div> 
+                        <div style="clear: both"/>
+                    </div>
+                    <div class="accountListItem borderDottedMedGreyBottom">
+                        <!-- inner contents -->
+                        <div class="accountListCol">
+                            <apex:panelGrid columns="2" style="width:100%" 
+                                    cellspacing="0" cellpadding="0"
+                                    id="linkgrid" styleClass="linkGrid">
+                                <apex:outputPanel layout="block" 
+                                		rendered="{!acct.Role__c != 'Ad-Hoc' && acct.Role__c != 'Group' && $Profile.Name != 'SEW WaterMAP Only Portal User'}">
+                                    <apex:outputLink styleClass="bulletedLinkBlue" value="{!$Page.PortalWaterUsageList}?billacctid={!acct.id}">Water use</apex:outputLink>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="block"
+                                		rendered="{!$Profile.Name != 'SEW WaterMAP Only Portal User'}">
+                                    <apex:outputLink styleClass="bulletedLinkBlue" value="{!$Page.PortalPaymentOptions}">Payment options</apex:outputLink>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="block"
+                                        rendered="{!NOT(ISBLANK(acct.WaterMAP__c)) && ($Profile.Name == 'SEW WaterMAP Portal User' || $Profile.Name == 'SEW Administrator' || $Profile.Name == 'SEW WaterMAP Only Portal User')}">
+                                    <apex:outputLink value="{!$Page.WaterMAPHomePage}" styleClass="bulletedLinkBlue">waterMAP</apex:outputLink>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="block"
+                                		rendered="{!$Profile.Name != 'SEW WaterMAP Only Portal User'}">
+                                    <apex:outputLink value="{!$Page.PortalBillHistory}?billacctid={!acct.Id}" styleClass="bulletedLinkBlue">Bill &amp; payment history</apex:outputLink>
+                                </apex:outputPanel>                                             
+                                <apex:outputPanel layout="block" 
+                                		rendered="{!$Profile.Name != 'SEW WaterMAP Only Portal User'}">
+                                    <apex:outputLink value="{!$Page.PortalBillPreferences}" styleClass="bulletedLinkBlue">Paperless billing</apex:outputLink>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="block" 
+                                		rendered="{!$Profile.Name != 'SEW WaterMAP Only Portal User'}">
+                                    <apex:outputLink value="{!$Page.PortalEnquiriesMyCases}" styleClass="bulletedLinkBlue">My Cases</apex:outputLink>
+                                </apex:outputPanel>
+                            </apex:panelGrid>
+                        </div>
+                        <div class="accountBalanceCol">
+                            <span style="font-size: 24pt;"> 
+                                <apex:outputField value="{!acct.Balance__c}" rendered="{!NOT(ISBLANK(acct.Balance__c)) && $Profile.Name != 'SEW WaterMAP Only Portal User'}"/> 
+                                <apex:outputText value="$0.00" rendered="{!ISBLANK(acct.Balance__c) && $Profile.Name != 'SEW WaterMAP Only Portal User'}"/> 
+                            </span>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(acct.Balance__c)) && acct.Balance__c > 0 && $Profile.Name != 'SEW WaterMAP Only Portal User'}">
+                                <apex:outputPanel layout="block" style="font-size: 11.25pt; margin-bottom: 10px"  
+                                        rendered="{!NOT(ISBLANK(acct.Current_Bill_Due_Date__c) && $Profile.Name != 'SEW WaterMAP Only Portal User') 
+                                        && (ISBLANK(acct.Recovery_Suspended_Date__c) || acct.Current_Bill_Due_Date__c > acct.Recovery_Suspended_Date__c)}">
+                                    Due: &nbsp;<apex:outputText value="{0,date,d MMMM yyyy}"><!--  <apex:outputField value="{!acct.Current_Bill_Due_Date__c}"> -->
+                                         <apex:param value="{!acct.Current_Bill_Due_Date__c}" />
+                                    </apex:outputText>
+                                </apex:outputPanel>
+                                <!-- start Added Recovery Suspend rendering 29112012 IC -->
+                                <apex:outputPanel layout="block" style="font-size: 11.25pt; margin-bottom: 10px"  
+                                        rendered="{!NOT(ISBLANK(acct.Recovery_Suspended_Date__c) && $Profile.Name != 'SEW WaterMAP Only Portal User') 
+                                        && acct.Recovery_Suspended_Date__c > acct.Current_Bill_Due_Date__c }">
+                                     Payment extended to:<br/>&nbsp;<apex:outputText value="{0,date,d MMMM yyyy}"><!--  <apex:outputField value="{!acct.Recovery_Suspended_Date__c}"> -->
+                                         <apex:param value="{!acct.Recovery_Suspended_Date__c}" />
+                                    </apex:outputText>
+                                </apex:outputPanel>
+                                <!-- TT10808 If a payment plan was removed then the "due" date is the Payment_Plan_Removal_Due_Date__c-->
+                                <!-- apex:outputPanel layout="block" style="font-size: 11.25pt; margin-bottom: 10px"  
+                                        rendered="{!ISBLANK(acct.Recovery_Suspended_Date__c) && ISBLANK(acct.Current_Bill_Due_Date__c) && 
+                                        			$Profile.Name != 'SEW WaterMAP Only Portal User'}">
+                                     Due: &nbsp;<apex:outputText value="{0,date,d MMMM yyyy}"> 
+                                         <apex:param value="{!acct.Payment_Plan_Removal_Due_Date__c}" />
+                                    </apex:outputText>
+                                </apex:outputPanel-->
+                                
+                                <!-- end - Added Recovery Suspend rendering 29112012 IC -->
+                                <div style="vertical-align: middle; margin-top: 5px; width: 220px">
+                                    <apex:commandButton value="Pay now"
+                                            styleclass="btnGreen"
+                                            style="margin-left:0px; margin-right: 0px;"
+                                            onclick="window.location='{!$Page.PortalCCPayment}?id={!acct.id}'; return false;" />
+                                    <apex:commandButton value="Request more time" 
+                                            style="margin-left:0px; margin-right: 0px;"
+                                            styleclass="btnClearGreenText"
+                                            onclick="window.location='{!$Page.PortalMoreTimeToPay}?billAcctId={!acct.id}'; return false;" 
+                                            rendered="{!ISBLANK(acct.Recovery_Suspended_Date__c) || acct.Current_Bill_Due_Date__c > acct.Recovery_Suspended_Date__c}" />
+                                </div>
+                            </apex:outputPanel>
+                        </div>
+                        <div style="clear:both"/>
+                    </div>
+                </apex:repeat>
+                <apex:outputPanel style="padding: 8px;" layout="block"
+                    rendered="{!nbrOfAccounts=0}">
+                    <i>You have no accounts with us</i>
+                </apex:outputPanel>
+                <div style="margin-top:20px; padding: 3px 0px; width: 100%" id="navigationBox">
+                    <div class="accountListCol">
+                        <apex:outputPanel layout="block"
+                                styleclass="navigationBox"
+                                style="float: left;"
+                                rendered="{!nbrOfAccounts>0 && totalNoOfPages>1}">
+                            <apex:panelGrid columns="2">
+                                <apex:outputText value="Page"/>
+                                <apex:actionRegion >
+                                    <apex:selectList size="1" value="{!currentPageNumber}" style="vertical-align: middle">
+                                        <apex:selectOptions value="{!pageNbrOptions}" />
+                                           <apex:actionSupport event="onchange"
+                                                       oncomplete="document.body.style.cursor='default'; BuildSegmentReviewDialog();"
+                                                    onsubmit="document.body.style.cursor='wait'"/>                                          
+                                    </apex:selectList>
+                                </apex:actionRegion>
+                            </apex:panelGrid>
+                        </apex:outputPanel>
+                        &nbsp;
+                    </div>
+                    <div class="accountBalanceCol">
+                        <apex:commandButton style="margin: 4px 0px"
+                                    styleClass="btnLightGrey" 
+                                    value="+ Add another account"
+                                    onclick="window.location='{!$Page.PortalAddAnAccount}'; return false;"
+                                    		rendered="{!$Profile.Name != 'SEW WaterMAP Only Portal User'}"/>
+                    </div>
+                </div>
+                <div style="clear: both"/>
+ 
+            </apex:pageBlock>
+            <!--  NAVIGATION LINKS -->
+            <div class="pbTransparent">
+                 <apex:pageBlock title="Quick links"
+                 		rendered="{!$Profile.Name != 'SEW WaterMAP Only Portal User'}">
+                    <apex:panelGrid columns="3" style="width:100%" cellpadding="0" cellspacing="0">
+                        <apex:outputPanel layout="block"
+                                            styleClass="actionCell first borderDottedBlueBottom borderDottedBlueRight">
+                            <apex:outputLink title="Set up direct debit"
+                                        value="{!$Page.PortalDirectDebit_Select}">
+                                <div class="directDebitIcon"/>
+                            </apex:outputLink>
+                            <div class="actionText">Make payments simpler</div>
+                            <div class="actionLink">
+                                <apex:outputLink value="{!$Page.PortalDirectDebit_Select}">Manage direct debit</apex:outputLink>
+                            </div>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="block"
+                                            styleClass="actionCell borderDottedBlueBottom borderDottedBlueRight">
+                            <apex:outputLink title="Set up paperless billing" value="{!$Page.PortalBillPreferences}">
+                                <div class="paperlessBillingIcon"/>
+                            </apex:outputLink>
+                            <div class="actionText">Sick of paperwork?</div>
+                            <div class="actionLink">    
+                                <apex:outputLink value="{!$Page.PortalBillPreferences}">Set up paperless billing</apex:outputLink>
+                            </div>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="block"
+                                            styleClass="actionCell borderDottedBlueBottom">
+                            <apex:outputLink value="{!$Page.PortalMoreTimeToPay}" title="Request more time to pay">  
+                                <div class="moreTimeToPayIcon"/>
+                            </apex:outputLink>
+                            <div class="actionText">Need more time to pay?</div>
+                            <div class="actionLink">
+                                <apex:outputLink value="{!$Page.PortalMoreTimeToPay}">Request more time</apex:outputLink>
+                            </div>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="block"
+                                          styleClass="actionCell first borderDottedBlueRight">
+                            <apex:outputLink title="Moving or selling?" value="{!$Page.PortalMoveInOut}">
+                                <div class="movingSellingIcon"/>
+                            </apex:outputLink>
+                            <div class="actionText">Moving or selling?</div>
+                            <div class="actionLink">
+                                <apex:outputLink value="{!$Page.PortalMoveInOut}">Update your details</apex:outputLink>
+                            </div>
+                        </apex:outputPanel>
+                         <apex:outputPanel layout="block" 
+                                            styleClass="actionCell borderDottedBlueRight"
+                                            rendered="{!customerType == 'Business'}">
+                            <apex:outputLink value="{!$Page.PortalSubmitMeterRead}" title="Submit a meter reading">
+                                <div class="meterReadIcon"/>
+                            </apex:outputLink>
+                            <div class="actionText">Need to submit a meter read?</div>
+                            <div class="actionLink">    
+                                <apex:outputLink value="{!$Page.PortalSubmitMeterRead}">Submit a meter reading</apex:outputLink>
+                            </div>
+                        </apex:outputPanel>
+                         <apex:outputPanel layout="block" 
+                                            styleClass="actionCell borderDottedBlueRight"
+                                            rendered="{!customerType == 'Residential'}">
+                            <apex:outputLink value="{!$Page.PortalManageConcession}" title="Register a concession">
+                                <div class="concessionIcon"/>
+                            </apex:outputLink>
+                            <div class="actionText">Concession card holder?</div>
+                            <div class="actionLink">    
+                                <apex:outputLink value="{!$Page.PortalManageConcession}">Register now &amp; save</apex:outputLink>
+                            </div>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="block"
+                                            styleClass="actionCell" rendered="{!customerType=='Residential'}">
+                            <apex:outputLink title="Set up payment plan" value="{!$Page.PortalPaymentPlan_Select}">
+                                <div class="paymentPlanIcon"/>
+                            </apex:outputLink>
+                            <div class="actionText">Looking for more certainty?</div>
+                            <div class="actionLink">
+                                <apex:outputLink value="{!$Page.PortalPaymentPlan_Select}">Set up payment plan</apex:outputLink>
+                            </div>
+                        </apex:outputPanel>                         
+
+                        <apex:outputPanel layout="block" 
+                                          styleClass="actionCell" rendered="{!customerType!='Residential'}">
+                            <apex:outputLink value="{!$Page.PortalAddAnAccount}" title="Add an account">
+                                <div class="addAccountIcon"/>
+                            </apex:outputLink>
+                            <div class="actionText">Can't see your property?</div>
+                            <div class="actionLink">    
+                                <apex:outputLink value="{!$Page.PortalAddAnAccount}">Add an account</apex:outputLink>
+                            </div>
+                        </apex:outputPanel>   
+
+                    </apex:panelGrid>
+                </apex:pageBlock>
+            </div>
+        </div>
+        <div class="sideBarCellDiv" >
+
+            <div id="livechatdiv" style="margin: 20px 0;" >
+                <!-- TP#392 Added  LwcType attribute value for icon rendering-->
+                <c:LiveChat LwcType="faults" />
+            </div>
+
+            <c:PortalKnowledgeSidebar rowClass="borderDottedWhiteBottom"
+                    divClass="pbTransparent pbWhiteDottedHeader pbNoPad"
+                    divStyle="width: 205px"
+                    viewAll="false"
+                    rendered="{!$Profile.Name != 'SEW WaterMAP Only Portal User'}" />
+        </div>
+        
+        <!-- SEGMENT REVIEW OVERDUE POPUP -->
+         <div id="segment-review-popup">
+                <div style="height: 150px; text-align: justify; overflow: auto; padding: 0px 10px; border: solid 1px #E4E2DD" class="radiusAll">
+                    <p style="text-align: justify;">
+                        <apex:outputText rendered="{!customerType=='Residential'}" value="We’d love to learn a little more about you and your household.
+                                        Can you help us by answering a few questions? We promise it’ll only take a minute or two."/>
+                               <apex:outputText rendered="{! customerType=='Business'}" value="We’d love to learn a little more about you and your business.
+                                    Can you help us by answering a few questions? We promise it’ll only take a minute or two."/>
+                        
+                 </p>
+                 <center>
+                      
+                        <br />
+                        <apex:commandButton styleClass="btnPrimary" value="Yes, I'll help"
+                        onclick="window.location='{!$Page.PortalSegmentation}?id={!customer.id}'; return false;"
+                             tabindex="1" id="updateButton"/>
+                        <apex:commandButton value="No, thanks" styleClass="btnClearGreenText" action="{!cancelSegmentationReview}"
+                        oncomplete="return CloseSegmentReviewDialog(); return false;"
+                         tabindex="2" id="cancelButton"/>
+                    
+                 </center>
+                </div>
+             
+            
+        </div>
+
+        <!-- MARKETING PAGE POPUP  19-Feb-2013	N.Patterson  TT10279 -->
+        <div id="marketingPagePopup">
+            <div style="text-align: justify; overflow: auto; padding: 0px 10px; border: solid 0px #E4E2DD"  id="theBorder">
+                <div style="text-align: justify;">
+                   <apex:outputText escape="false" value="{!MarketingPageHTML}" />
+                   
+              	</div>
+                <br />
+                <div id="bottomSection">
+                	
+                	<apex:actionFunction name="setAsOpened" action="{!setOpenedPageTracking}" rerender="" onComplete="ShowLink();">
+                		<apex:param name="paramOne" assignTo="{!optOut}" value=""/>
+                	</apex:actionFunction>
+	                <div style="text-align: right;" id="buttons">
+	                	<apex:commandButton rendered="{!ShowCloseButtonText}" styleClass="btnLightGrey" value="{!CloseButtonText}"
+		                	onclick="HideMarketingPageDialog();" style="padding: 1px 12px; font-size: 10.25pt;"
+		                	tabindex="1" id="closeButton"/> 
+		                &nbsp;&nbsp;
+	                	<apex:commandButton rendered="{!ShowMarketingPageButtonText}" styleClass="btnPrimary" value="{!MarketingPageButtonText}"
+		                	onclick="if({!ShowOptOut}){ setAsOpened(document.getElementById('{!$Component.theForm.optOutField}').checked);} else {setAsOpened(false);}" 
+		                	tabindex="1" id="goButton"/>
+	                </div>
+	                <apex:outputPanel rendered="{!ShowOptOut}">
+               			<apex:inputCheckbox style="font-size:0.75em" id="optOutField" value="{!optOut}" />&nbsp;Don't show this message again
+               		</apex:outputPanel>
+	            </div>
+            </div>
+        </div>
+    </apex:form>
+
+</apex:page>

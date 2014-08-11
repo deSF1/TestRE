@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Survey Feedback</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Surveys Feedback</value>
+    </caseValues>
+    <fields>
+        <label><!-- Apply for a concession --></label>
+        <name>Apply_for_a_concession__c</name>
+        <picklistValues>
+            <masterLabel>Didn&apos;t know it existed</masterLabel>
+            <translation><!-- Didn&apos;t know it existed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Difficult to use</masterLabel>
+            <translation><!-- Difficult to use --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Easy to use</masterLabel>
+            <translation><!-- Easy to use --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Arrange direct debit --></label>
+        <name>Arrange_direct_debit__c</name>
+        <picklistValues>
+            <masterLabel>Didn&apos;t know it existed</masterLabel>
+            <translation><!-- Didn&apos;t know it existed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Difficult to use</masterLabel>
+            <translation><!-- Difficult to use --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Easy to use</masterLabel>
+            <translation><!-- Easy to use --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- CX mySouthEastWater Q14 --></label>
+        <name>CX_mySouthEastWater_Q14__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case --></label>
+        <name>Case__c</name>
+        <relationshipLabel><!-- Surveys Feedback --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Comment for Recommend_mysoutheastwater --></label>
+        <name>Comment_for_Recommend_mysoutheastwater__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comment for Satisfied_mysoutheastwater --></label>
+        <name>Comment_for_Satisfied_mysoutheastwater__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>Contact__c</name>
+        <relationshipLabel><!-- Surveys Feedback --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Interested to more research --></label>
+        <name>Interested_to_more_research__c</name>
+        <picklistValues>
+            <masterLabel>No thanks</masterLabel>
+            <translation><!-- No thanks --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes - I&apos;m interested</masterLabel>
+            <translation><!-- Yes - I&apos;m interested --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes - but only online surveys</masterLabel>
+            <translation><!-- Yes - but only online surveys --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Move in/out of a property --></label>
+        <name>Move_in_out_of_a_property__c</name>
+        <picklistValues>
+            <masterLabel>Didn&apos;t know it existed</masterLabel>
+            <translation><!-- Didn&apos;t know it existed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Difficult to use</masterLabel>
+            <translation><!-- Difficult to use --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Easy to use</masterLabel>
+            <translation><!-- Easy to use --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Other features for mysoutheastwater --></label>
+        <name>Other_features_for_mysoutheastwater__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other option --></label>
+        <name>Other_option__c</name>
+    </fields>
+    <fields>
+        <label><!-- Provide feedback for improvement --></label>
+        <name>Provide_feedback_for_improvement__c</name>
+    </fields>
+    <fields>
+        <label><!-- Rate_Available_Functions --></label>
+        <name>Rate_Available_Functions__c</name>
+        <picklistValues>
+            <masterLabel>0</masterLabel>
+            <translation><!-- 0 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5</masterLabel>
+            <translation><!-- 5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>6</masterLabel>
+            <translation><!-- 6 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>7</masterLabel>
+            <translation><!-- 7 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>8</masterLabel>
+            <translation><!-- 8 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>9</masterLabel>
+            <translation><!-- 9 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N/A</masterLabel>
+            <translation><!-- N/A --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Rate_Ease of navigation --></label>
+        <name>Rate_Ease_of_navigation__c</name>
+        <picklistValues>
+            <masterLabel>0</masterLabel>
+            <translation><!-- 0 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5</masterLabel>
+            <translation><!-- 5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>6</masterLabel>
+            <translation><!-- 6 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>7</masterLabel>
+            <translation><!-- 7 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>8</masterLabel>
+            <translation><!-- 8 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>9</masterLabel>
+            <translation><!-- 9 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N/A</masterLabel>
+            <translation><!-- N/A --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Rate_Look and feel of the site --></label>
+        <name>Rate_Look_and_feel_of_the_site__c</name>
+        <picklistValues>
+            <masterLabel>0</masterLabel>
+            <translation><!-- 0 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5</masterLabel>
+            <translation><!-- 5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>6</masterLabel>
+            <translation><!-- 6 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>7</masterLabel>
+            <translation><!-- 7 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>8</masterLabel>
+            <translation><!-- 8 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>9</masterLabel>
+            <translation><!-- 9 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N/A</masterLabel>
+            <translation><!-- N/A --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Rate_Registration_Process --></label>
+        <name>Rate_Registration_Process__c</name>
+        <picklistValues>
+            <masterLabel>0</masterLabel>
+            <translation><!-- 0 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5</masterLabel>
+            <translation><!-- 5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>6</masterLabel>
+            <translation><!-- 6 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>7</masterLabel>
+            <translation><!-- 7 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>8</masterLabel>
+            <translation><!-- 8 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>9</masterLabel>
+            <translation><!-- 9 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N/A</masterLabel>
+            <translation><!-- N/A --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Rate_Useful_Information --></label>
+        <name>Rate_Useful_Information__c</name>
+        <picklistValues>
+            <masterLabel>0</masterLabel>
+            <translation><!-- 0 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5</masterLabel>
+            <translation><!-- 5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>6</masterLabel>
+            <translation><!-- 6 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>7</masterLabel>
+            <translation><!-- 7 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>8</masterLabel>
+            <translation><!-- 8 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>9</masterLabel>
+            <translation><!-- 9 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N/A</masterLabel>
+            <translation><!-- N/A --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Rate value of water/sewer services --></label>
+        <name>Rate_value_of_water_sewer_services__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recommend_mysoutheastwater --></label>
+        <name>Recommend_mysoutheastwater__c</name>
+    </fields>
+    <fields>
+        <label><!-- Register for paperless billing --></label>
+        <name>Register_for_paperless_billing__c</name>
+        <picklistValues>
+            <masterLabel>Didn&apos;t know it existed</masterLabel>
+            <translation><!-- Didn&apos;t know it existed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Difficult to use</masterLabel>
+            <translation><!-- Difficult to use --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Easy to use</masterLabel>
+            <translation><!-- Easy to use --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Request more time to pay --></label>
+        <name>Request_more_time_to_pay__c</name>
+        <picklistValues>
+            <masterLabel>Didn&apos;t know it existed</masterLabel>
+            <translation><!-- Didn&apos;t know it existed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Difficult to use</masterLabel>
+            <translation><!-- Difficult to use --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Easy to use</masterLabel>
+            <translation><!-- Easy to use --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- SEW contact customer --></label>
+        <name>SEW_contact_customer__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Satisfied_mysoutheastwater --></label>
+        <name>Satisfied_mysoutheastwater__c</name>
+    </fields>
+    <fields>
+        <label><!-- Set up a payment plan --></label>
+        <name>Set_up_a_payment_plan__c</name>
+        <picklistValues>
+            <masterLabel>Didn&apos;t know it existed</masterLabel>
+            <translation><!-- Didn&apos;t know it existed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Difficult to use</masterLabel>
+            <translation><!-- Difficult to use --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Easy to use</masterLabel>
+            <translation><!-- Easy to use --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Submit an enquiry --></label>
+        <name>Submit_an_enquiry__c</name>
+        <picklistValues>
+            <masterLabel>Didn&apos;t know it existed</masterLabel>
+            <translation><!-- Didn&apos;t know it existed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Difficult to use</masterLabel>
+            <translation><!-- Difficult to use --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Easy to use</masterLabel>
+            <translation><!-- Easy to use --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Support articles/FAQs --></label>
+        <name>Support_articles_FAQs__c</name>
+        <picklistValues>
+            <masterLabel>Didn&apos;t know it existed</masterLabel>
+            <translation><!-- Didn&apos;t know it existed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Difficult to use</masterLabel>
+            <translation><!-- Difficult to use --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Easy to use</masterLabel>
+            <translation><!-- Easy to use --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- View bill and payment history --></label>
+        <name>View_bill_and_payment_history__c</name>
+        <picklistValues>
+            <masterLabel>Didn&apos;t know it existed</masterLabel>
+            <translation><!-- Didn&apos;t know it existed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Difficult to use</masterLabel>
+            <translation><!-- Difficult to use --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Easy to use</masterLabel>
+            <translation><!-- Easy to use --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- View/manage your account information --></label>
+        <name>View_manage_your_account_information__c</name>
+        <picklistValues>
+            <masterLabel>Didn&apos;t know it existed</masterLabel>
+            <translation><!-- Didn&apos;t know it existed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Difficult to use</masterLabel>
+            <translation><!-- Difficult to use --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Easy to use</masterLabel>
+            <translation><!-- Easy to use --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- View/manage your personal details --></label>
+        <name>View_manage_your_personal_details__c</name>
+        <picklistValues>
+            <masterLabel>Didn&apos;t know it existed</masterLabel>
+            <translation><!-- Didn&apos;t know it existed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Difficult to use</masterLabel>
+            <translation><!-- Difficult to use --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Easy to use</masterLabel>
+            <translation><!-- Easy to use --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- View water use --></label>
+        <name>View_water_use__c</name>
+        <picklistValues>
+            <masterLabel>Didn&apos;t know it existed</masterLabel>
+            <translation><!-- Didn&apos;t know it existed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Difficult to use</masterLabel>
+            <translation><!-- Difficult to use --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Easy to use</masterLabel>
+            <translation><!-- Easy to use --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- find out about mySouthEastWater --></label>
+        <name>find_out_about_mySouthEastWater__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

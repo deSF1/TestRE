@@ -1,0 +1,28 @@
+<!--  
+    Type:       Visualforce Page
+    Purpose:    Public Knowledge Base Articles Search            
+
+    Used By:    PublicSupportPage
+    ---------------------------------------------------------------
+    History:
+
+    17-May-2013 Mat Isidro (Cloud Sherpas)    Created (TT10625 - Public General Enquiry Form and Knowledge Base Articles)
+-->
+<apex:component >
+    <apex:attribute name="pkbCon" type="pkb_Controller2" description="handle to the pkb controller" />
+    <apex:attribute name="catname" type="String" description="ID of the article" assignTo="{!pkbCon.categoryName}"/>
+    <apex:attribute name="params" type="String" description="URL parameters"/>
+    
+    <apex:repeat var="a" value="{!pkbCon.articleKnowledgeList}">
+        <apex:variable var="typeName" value="{!SUBSTITUTE(a.articleTypeName, pkbCon.kavExtension, '')}" />
+        <apex:variable var="siteArticleURL" value="{!pkbCon.currentSiteUrl}articles{!pkbCon.selectedLanguageURL}{!typeName}/{!a.urlName}/?" />
+        <apex:variable var="nonSiteArticleURL" value="{!$Page.pkb_Home}?id={!a.knowledgeArticleId}&" />
+        <apex:variable var="articleURL" value="{!IF( pkbCon.isSite, siteArticleURL, nonSiteArticleURL )}" />
+        <apex:outputText escape="false">  
+            <a href="{!articleURL}{!params}">{!a.title}</a>
+        </apex:outputText>
+        <br/>
+    </apex:repeat>
+    <apex:outputText value="No published articles..." rendered="{!pkbCon.articleSize = 0}"></apex:outputText>
+    <br/>
+</apex:component>

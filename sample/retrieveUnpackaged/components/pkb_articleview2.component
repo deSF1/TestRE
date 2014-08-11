@@ -1,0 +1,43 @@
+<!--  
+    Type:       Visualforce Page
+    Purpose:    Public Knowledge Base Articles Search            
+
+    Used By:    PublicSupportPage
+    ---------------------------------------------------------------
+    History:
+
+    17-May-2013 Mat Isidro (Cloud Sherpas)    Created (TT10625 - Public General Enquiry Form and Knowledge Base Articles)
+    12-Aug-2013 Nathan Patterson              Cleaned up the commented out code and rebranded the page
+-->
+<apex:component allowDML="true">
+<apex:attribute name="pkbCon" type="pkb_Controller2" required="true" description="handle to the pkb controller" />
+<apex:attribute name="showFeedbackYesNo" type="Boolean" required="true" description="flag to indicate if Yes/No buttons should be shown" />
+<apex:attribute name="showBackLinks" type="Boolean" required="true" description="flag to indicate if 'back to...' buttons should be shown" />
+
+
+<apex:variable var="pageNum" value="{!pkbCon.pageNumParam}={!pkbCon.currPage}" />
+    <div style="margin-bottom: 5px; color: #575756; font-family: Calibri,'Trebuchet MS',sans-serif; font-size: 14pt; font-weight: bold;">
+        <img src="{!$Resource.SEW_Logo_Blue}" height="71px"/>
+    </div>
+    <br/>
+    
+    <div style="margin-bottom: 5px;color: #575756; font-family: Calibri,Trebuchet MS,sans-serif; font-size: 12pt; font-weight: bold;">
+        <h3 class="section">{!pkbCon.theAV.title}</h3>
+    </div>
+    <br/>
+    <apex:outputField value="{!pkbCon.theFAQArticle.Article_Content__c}" style="font-family: Calibri,Trebuchet MS,sans-serif;font-size: 11.25pt;" rendered="{!pkbCon.articleText = 'FAQ'}"/>
+    <apex:outputField value="{!pkbCon.theHowToArticle.Article_Content__c}" style="font-family: Calibri,Trebuchet MS,sans-serif;font-size: 11.25pt;" rendered="{!pkbCon.articleText = 'HOWTO'}"/>
+    <br/><br/>
+
+    <c:pkb_related2 pkbCon="{!pkbCon}" rendered="{!pkbCon.relatedArticleText <> ''}"/>
+    <br/>
+    <br/>
+    <br/>
+    <table width="100%" border="" cellpadding="0px" cellspacing="0px">
+        <tr>
+            <td width="1px"><img src="{!$Resource.pkb_article_footer_left}" height="45px"/></td>
+            <td><img src="{!$Resource.pkb_article_footer_fill}" style="height:45px; width:100%"/></td>
+            <td width="1px"><img src="{!$Resource.pkb_article_footer_right}" height="45px"/></td>
+        </tr>
+    </table>
+</apex:component>

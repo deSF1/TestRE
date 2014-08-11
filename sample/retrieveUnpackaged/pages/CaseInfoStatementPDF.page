@@ -1,0 +1,194 @@
+<apex:page standardController="Case" sidebar="false" doctype="html-5.0" extensions="CaseInfoStatementFields_Ext"  renderAs="pdf">
+	<apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+	<apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+	<apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+
+	<div style="text-align:center; padding:100px 0px 0px 150px; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; font-size:500%; color:#dddddd; position:absolute; 
+			left:0px; top:0px; z-index:-1; -webkit-transform: rotate(309deg);-moz-transform: rotate(309deg);-o-transform: rotate(309deg);writing-mode: lr-tb;">
+		INTERNAL<br/>USE<br/>ONLY
+	</div>
+	<apex:form id="form">
+		
+		<apex:inputHidden value="{!Case.IS_Legal_Costs__c}" id="hiddenLegalCosts"/>	
+		<br/>
+		<div style="font-size:200%; color:#000000; font-weight: bold">	
+			Trade Waste Information Statement Update
+		</div>
+		<div style="position:absolute; left:500px; top:0px;font-size:80%;">
+			Retrieve date/time:&nbsp;<apex:outputField value="{!Case.IS_Retrieve_Date__c}"/>
+		</div>
+		<br/>
+		<div style="padding-left: 15%;">
+			<table style="width: 50%;" cellspacing="0" cellpadding="0" border="0">
+				<apex:outputPanel rendered="{!Case.IS_Parks_Charge__c != null}">
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;">Parks</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;"><apex:outputText value="{!if(Case.IS_Parks_Charge__c < 0, '-$', '$')}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Parks_Charge__c < 0, -1 * Case.IS_Parks_Charge__c, Case.IS_Parks_Charge__c)}"/></apex:outputText></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 30%; min-width: 190px; text-align: right; padding-right: 5%;"><apex:outputText value="{!Case.IS_Parks_Bill_From__c} "/>To<apex:outputText value=" {!Case.IS_Parks_Bill_To__c}"/></td>
+					</tr>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!Case.IS_Drain_Charge__c != null}">
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;">Drainage</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;"><apex:outputText value="{!if(Case.IS_Drain_Charge__c < 0, '-$', '$')}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Drain_Charge__c < 0, -1 * Case.IS_Drain_Charge__c, Case.IS_Drain_Charge__c)}"/></apex:outputText></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 30%; min-width: 190px; text-align: right; padding-right: 5%;"><apex:outputText value="{!Case.IS_Drain_Bill_From__c} "/>To<apex:outputText value=" {!Case.IS_Drain_Bill_To__c}"/></td>
+					</tr>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!Case.IS_Water_Service_Charge__c != null}">
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;">Water Service</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;"><apex:outputText value="{!if(Case.IS_Water_Service_Charge__c < 0, '-$', '$')}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Water_Service_Charge__c < 0, -1 * Case.IS_Water_Service_Charge__c, Case.IS_Water_Service_Charge__c)}"/></apex:outputText></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 30%; min-width: 190px; text-align: right; padding-right: 5%;"><apex:outputText value="{!Case.IS_Water_Service_Bill_From__c} "/>To<apex:outputText value=" {!Case.IS_Water_Service_Bill_To__c}"/></td>
+					</tr>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!Case.IS_Sewerage_Service_Charge__c != null}">
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;">Sewerage Service</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;"><apex:outputText value="{!if(Case.IS_Sewerage_Service_Charge__c < 0, '-$', '$')}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Sewerage_Service_Charge__c < 0, -1 * Case.IS_Sewerage_Service_Charge__c, Case.IS_Sewerage_Service_Charge__c)}"/></apex:outputText></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 30%; min-width: 190px; text-align: right; padding-right: 5%;"><apex:outputText value="{!Case.IS_Sewerage_Service_Bill_From__c} "/>To<apex:outputText value=" {!Case.IS_Sewerage_Service_Bill_To__c}"/></td>
+					</tr>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!Case.IS_Recycle_Service_Charge__c != null}">
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;">Recycled Water Service</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;"><apex:outputText value="{!if(Case.IS_Recycle_Service_Charge__c < 0, '-$', '$')}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Recycle_Service_Charge__c < 0, -1 * Case.IS_Recycle_Service_Charge__c, Case.IS_Recycle_Service_Charge__c)}"/></apex:outputText></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 30%; min-width: 190px; text-align: right; padding-right: 5%;"><apex:outputText value="{!Case.IS_Recycle_Service_Bill_From__c} "/>To<apex:outputText value=" {!Case.IS_Recycle_Service_Bill_To__c}"/></td>
+					</tr>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!Case.IS_Trade_Waste_Fee_Charge__c != null}">
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;">Trade Waste Agreement Fee</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;"><apex:outputText value="{!if(Case.IS_Trade_Waste_Fee_Charge__c < 0, '-$', '$')}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Trade_Waste_Fee_Charge__c < 0, -1 * Case.IS_Trade_Waste_Fee_Charge__c, Case.IS_Trade_Waste_Fee_Charge__c)}"/></apex:outputText></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 30%; min-width: 190px; text-align: right; padding-right: 5%;"><apex:outputText value="{!Case.IS_Trade_Waste_Fee_Bill_From__c} "/>To<apex:outputText value=" {!Case.IS_Trade_Waste_Fee_Bill_To__c}"/></td>
+					</tr>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!Case.IS_Fire_Service_Fee_Charge__c != null}">
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;">Fire Service Charge</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;"><apex:outputText value="{!if(Case.IS_Fire_Service_Fee_Charge__c < 0, '-$', '$')}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Fire_Service_Fee_Charge__c < 0, -1 * Case.IS_Fire_Service_Fee_Charge__c, Case.IS_Fire_Service_Fee_Charge__c)}"/></apex:outputText></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 30%; min-width: 190px; text-align: right; padding-right: 5%;"><apex:outputText value="{!Case.IS_Fire_Service_Fee_Bill_From__c} "/>To<apex:outputText value=" {!Case.IS_Fire_Service_Fee_Bill_To__c}"/></td>
+					</tr>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!Case.IS_Food_Waste_Fee_Charge__c != null}">
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;">Food Waste Service</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;"><apex:outputText value="{!if(Case.IS_Food_Waste_Fee_Charge__c < 0, '-$', '$')}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Food_Waste_Fee_Charge__c < 0, -1 * Case.IS_Food_Waste_Fee_Charge__c, Case.IS_Food_Waste_Fee_Charge__c)}"/></apex:outputText></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 30%; min-width: 190px; text-align: right; padding-right: 5%;"><apex:outputText value="{!Case.IS_Food_Waste_Fee_Bill_From__c} "/>To<apex:outputText value=" {!Case.IS_Food_Waste_Fee_Bill_To__c}"/></td>
+					</tr>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!Case.IS_Usage_Owing__c != null}">
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;">Usage Charges</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;"><apex:outputText value="{!if(Case.IS_Usage_Owing__c < 0, '-$', '$')}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;"><apex:outputText value="{0,number,#,###,##0.00}"><apex:param value="{!if(Case.IS_Usage_Owing__c < 0, -1 * Case.IS_Usage_Owing__c, Case.IS_Usage_Owing__c)}"/></apex:outputText></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 30%; min-width: 190px; text-align: right; padding-right: 5%;"><apex:outputPanel rendered="{!Case.IS_Last_Read_Date__c != null}">To<apex:outputText value=" {!Case.IS_Last_Read_Date__c}"/></apex:outputPanel></td>
+					</tr>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!Case.IS_Usage_Owing__c != null || Case.IS_Food_Waste_Fee_Charge__c != null || Case.IS_Fire_Service_Fee_Charge__c != null || Case.IS_Trade_Waste_Fee_Charge__c != null || Case.IS_Recycle_Service_Charge__c != null || Case.IS_Sewerage_Service_Charge__c != null || Case.IS_Water_Service_Charge__c != null || Case.IS_Drain_Charge__c != null || Case.IS_Parks_Charge__c != null}">
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;">&nbsp;</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;">&nbsp;</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;">&nbsp;</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 30%; min-width: 190px; text-align: right; padding-right: 5%;">&nbsp;</td>
+					</tr>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!Case.IS_Other_Arrears__c != null}">
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;"><apex:outputText value="{!if(Case.IS_Other_Arrears__c < 0, 'Payment', 'Arrears')}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;"><apex:outputText value="{!if(Case.IS_Other_Arrears__c < 0, '-$', '$')}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;"><apex:outputText value="{!if(Case.IS_Other_Arrears__c < 0, -1 * Case.IS_Other_Arrears__c, Case.IS_Other_Arrears__c)}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 30%; min-width: 190px; text-align: right; padding-right: 5%;">&nbsp;</td>
+					</tr>
+				</apex:outputPanel>
+				<apex:outputPanel >
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;">Total Owing</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;"><apex:outputText value="{!if(Case.IS_Lien_Current_Balance__c != null && Case.IS_Lien_Current_Balance__c < 0, '-$', '$')}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;"><apex:outputText value="{!if(Case.IS_Lien_Current_Balance__c = null, '0', if (Case.IS_Lien_Current_Balance__c >= 0, Case.IS_Lien_Current_Balance__c, -1 * Case.IS_Lien_Current_Balance__c))}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 30%; min-width: 190px; text-align: right; padding-right: 5%;">&nbsp;</td>
+					</tr>
+				</apex:outputPanel>
+				<apex:outputPanel >
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;">&nbsp;</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;">&nbsp;</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;">&nbsp;</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 30%; min-width: 190px; text-align: right; padding-right: 5%;">&nbsp;</td>
+					</tr>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!Case.IS_Water_Usage_Daily_Charge__c != null}">
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;">Water Use Average Daily Usage</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;"><apex:outputText value="{!if(Case.IS_Water_Usage_Daily_Charge__c < 0, '-$', '$')}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;"><apex:outputText value="{!if(Case.IS_Water_Usage_Daily_Charge__c < 0, -1 * Case.IS_Water_Usage_Daily_Charge__c, Case.IS_Water_Usage_Daily_Charge__c)}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 30%; min-width: 190px; text-align: right; padding-right: 5%;">&nbsp;</td>
+					</tr>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!Case.IS_Sewerage_Disposal_Daily_Charge__c != null}">
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;">Sewage Disposal Charge Average Daily Usage</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;"><apex:outputText value="{!if(Case.IS_Sewerage_Disposal_Daily_Charge__c < 0, '-$', '$')}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;"><apex:outputText value="{!if(Case.IS_Sewerage_Disposal_Daily_Charge__c < 0, -1 * Case.IS_Sewerage_Disposal_Daily_Charge__c, Case.IS_Sewerage_Disposal_Daily_Charge__c)}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 30%; min-width: 190px; text-align: right; padding-right: 5%;">&nbsp;</td>
+					</tr>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!Case.IS_Recycle_Usage_Daily_Charge__c != null}">
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;">Recycled Water Average Daily Usage</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;"><apex:outputText value="{!if(Case.IS_Recycle_Usage_Daily_Charge__c < 0, '-$', '$')}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;"><apex:outputText value="{!if(Case.IS_Recycle_Usage_Daily_Charge__c < 0, -1 * Case.IS_Recycle_Usage_Daily_Charge__c, Case.IS_Recycle_Usage_Daily_Charge__c)}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 30%; min-width: 190px; text-align: right; padding-right: 5%;">&nbsp;</td>
+					</tr>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!Case.IS_Fire_Usage_Daily_Charge__c != null}">
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;">Fire Service Usage Average Daily Usage</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;"><apex:outputText value="{!if(Case.IS_Fire_Usage_Daily_Charge__c < 0, '-$', '$')}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;"><apex:outputText value="{!if(Case.IS_Fire_Usage_Daily_Charge__c < 0, -1 * Case.IS_Fire_Usage_Daily_Charge__c, Case.IS_Fire_Usage_Daily_Charge__c)}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 30%; min-width: 190px; text-align: right; padding-right: 5%;">&nbsp;</td>
+					</tr>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!Case.IS_Water_Usage_Daily_Charge__c != null || Case.IS_Sewerage_Disposal_Daily_Charge__c != null || Case.IS_Recycle_Usage_Daily_Charge__c != null || Case.IS_Fire_Usage_Daily_Charge__c != null}">
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;">&nbsp;</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;">&nbsp;</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;">&nbsp;</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 30%; min-width: 190px; text-align: right; padding-right: 5%;">&nbsp;</td>
+					</tr>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!Case.IS_Last_Read_Date__c != null}">
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;">Last Read Date</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;">&nbsp;</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;"><apex:outputField value="{!Case.IS_Last_Read_Date__c}"/></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 30%; min-width: 190px; text-align: right; padding-right: 5%;">&nbsp;</td>
+					</tr>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!Case.IS_Last_Read_Date__c != null}">
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;">&nbsp;</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;">&nbsp;</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;">&nbsp;</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 30%; min-width: 190px; text-align: right; padding-right: 5%;">&nbsp;</td>
+					</tr>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!Case.IS_Legal_Costs__c != null}" id="legalCostsPanel">
+					<tr>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; width: 50%; vertical-align: top; font-size: 95%; font-weight: bold; text-align: right; margin: 0; color: #4A4A56; min-width: 100px;">Legal Costs</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 5%; text-align: right; min-width: 10px;">$</td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px; width: 15%; text-align: right; min-width: 75px;"><apex:outputText value="{0,number,#,###,##0.00}" id="legalCostsValue"><apex:param value="{!Case.IS_Legal_Costs__c}" /></apex:outputText></td>
+						<td style="border-bottom: 1px solid #ECECEC; position: relative; text-overflow: ellipsis; padding-bottom: 3px; padding-top: 3px; padding-left: 10px; vertical-align: top; font-size: 96%; text-align: right; margin: 0; color: #000000; min-width: 30px;">&nbsp;</td>
+					</tr>
+				</apex:outputPanel>
+			</table>
+		</div>
+	</apex:form>
+</apex:page>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Event Action</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Event Actions</value>
+    </caseValues>
+    <fields>
+        <label><!-- Alternative Water Supply --></label>
+        <name>Alternative_Water_Supply__c</name>
+    </fields>
+    <fields>
+        <label><!-- Chatter Post Id --></label>
+        <name>Chatter_Post_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden)Action unpublished --></label>
+        <name>Hidden_Action_unpublished__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden)Published to Facebook Flag --></label>
+        <name>Hidden_Published_to_Facebook_Flag__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden)Published to IVR Flag --></label>
+        <name>Hidden_Published_to_IVR_Flag__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden)Published to Internet Flag --></label>
+        <name>Hidden_Published_to_Internet_Flag__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden)Published to Twitter Flag --></label>
+        <name>Hidden_Published_to_Twitter_Flag__c</name>
+    </fields>
+    <fields>
+        <label><!-- Image --></label>
+        <name>Image__c</name>
+    </fields>
+    <fields>
+        <label><!-- Message --></label>
+        <name>Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- Public Type --></label>
+        <name>Public_Type__c</name>
+        <picklistValues>
+            <masterLabel>Emergency works</masterLabel>
+            <translation><!-- Emergency works --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Scheduled works</masterLabel>
+            <translation><!-- Scheduled works --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Publish status --></label>
+        <name>Publish_status__c</name>
+        <picklistValues>
+            <masterLabel>Closed</masterLabel>
+            <translation><!-- Closed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending Approval</masterLabel>
+            <translation><!-- Pending Approval --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Published</masterLabel>
+            <translation><!-- Published --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Published to Facebook Flag --></label>
+        <name>Published_to_Facebook_Flag__c</name>
+    </fields>
+    <fields>
+        <label><!-- Published to IVR Flag --></label>
+        <name>Published_to_IVR_Flag__c</name>
+    </fields>
+    <fields>
+        <label><!-- Published to Internet Flag --></label>
+        <name>Published_to_Internet_Flag__c</name>
+    </fields>
+    <fields>
+        <label><!-- Published to Twitter Flag --></label>
+        <name>Published_to_Twitter_Flag__c</name>
+    </fields>
+    <fields>
+        <label><!-- Record Type Name --></label>
+        <name>Record_Type_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Resolution --></label>
+        <name>Resolution__c</name>
+    </fields>
+    <fields>
+        <label><!-- Message --></label>
+        <name>Rich_Text_Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- SEW Event --></label>
+        <name>SEW_Event__c</name>
+        <relationshipLabel><!-- Event Actions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Source System Stat --></label>
+        <name>Source_System_Stat__c</name>
+    </fields>
+    <layouts>
+        <layout>Event Action IVR Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Event Action Internet Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Event Action Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Facebook --></label>
+        <name>Facebook</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- IVR --></label>
+        <name>IVR</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Internet --></label>
+        <name>Internet</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Twitter --></label>
+        <name>Twitter</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Message cannot be blank --></errorMessage>
+        <name>Message_cannot_be_blank</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Cannot create/edit action because Event is already completed --></errorMessage>
+        <name>Parent_event_is_completed</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- New_Event_Action --></label>
+        <name>New_Event_Action</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Publish --></label>
+        <name>Publish</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Resolve --></label>
+        <name>Resolve</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Unpublish --></label>
+        <name>Unpublish</name>
+    </webLinks>
+</CustomObjectTranslation>

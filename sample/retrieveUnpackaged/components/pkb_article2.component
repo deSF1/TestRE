@@ -1,0 +1,105 @@
+<!--  
+    Type:       Visualforce Page
+    Purpose:    Public Knowledge Base Articles Search            
+
+    Used By:    PublicSupportPage
+    ---------------------------------------------------------------
+    History:
+
+    15-May-2013 Mat Isidro (Cloud Sherpas)	Created (TT10625 - Public General Enquiry Form and Knowledge Base Articles)
+    07-Jun-2013 Mat Isidro (Cloud Sherpas)	Commented out codes that are not necessary for this component	 
+    12-Aug-2013 Nathan Patterson			Modified the popup link   
+-->
+<apex:component allowDML="true">
+
+<apex:attribute name="pkbCon" type="pkb_Controller2" required="true" description="handle to the pkb controller" />
+
+<apex:attribute name="aid" type="String" required="true" description="ID of the article" />
+<apex:attribute name="title" type="String" required="true" description="Title of the article" />
+<apex:attribute name="summary" type="String" required="true" description="Summary of the article" />
+<apex:attribute name="urlName" type="String" required="true" description="URL name of the article" />
+<apex:attribute name="articleTypeName" type="String" required="true" description="Type Name (developer) of the article" />
+<apex:attribute name="articleTypeLabel" type="String" required="true" description="Type Name label of the article" />
+<apex:attribute name="lastModifiedDate" type="Date" required="true" description="Last Modified Date of the article" />
+<apex:attribute name="firstPublishedDate" type="Date" required="true" description="First Published Date of the article" />
+<apex:attribute name="lastPublishedDate" type="Date" required="true" description="Last Published Date of the article" />
+<apex:attribute name="articleNumber" type="String" required="false" description="for articles retrieved via soql or sosl, this might be passed" />
+
+<apex:variable var="typeName" value="{!SUBSTITUTE(articleTypeName, pkbCon.kavExtension, '')}" />
+<apex:variable var="feedback" value="{!pkbCon.feedbackSourceParam}={!IF(pkbCon.displayContactUs, pkbCon.feedbackContactUs, pkbCon.feedbackSearch)}" />
+<apex:variable var="pageNum" value="{!pkbCon.pageNumParam}={!pkbCon.currPage}" />
+<apex:variable var="params" value="{!IF(ISBLANK(pkbCon.allSearchParams), feedback, pkbCon.allSearchParams+ '&' +feedback+ '&' +pageNum)}" />
+<apex:variable var="siteArticleURL" value="{!pkbCon.currentSiteUrl}articles{!pkbCon.selectedLanguageURL}{!typeName}/{!urlName}/?" />
+<apex:variable var="nonSiteArticleURL" value="{!$Page.pkb_Home}?id={!aid}&" />
+<apex:variable var="articleURL" value="{!IF( pkbCon.isSite, siteArticleURL, nonSiteArticleURL )}" />
+
+<style>
+	.articleView a {
+	    color: #0097D2;
+	    text-decoration: none;
+	}
+	
+	.articleView a:hover {
+	    color: #0072BC;
+	    text-decoration: none;
+	}
+</style>
+
+<script>
+	function getDateString(){
+		var today = new Date(); 
+		var dd = today.getDate(); 
+		var mm = today.getMonth()+1; 
+		var yyyy = today.getFullYear(); 
+		if(dd<10){
+			dd = '0' + dd;
+		} 
+		
+		if(mm<10){
+			mm = '0' + mm;
+		} 
+		return dd+''+mm+''+yyyy;
+	}
+	
+	function getLeft() {
+    	return screen.width/2 - 975/2;
+	}
+	
+	function getTop() {
+    	return screen.height/2 - 660/2;
+	}
+</script>
+<!-- 
+  IS SITE: {!pkbCon.isSite}<br/>
+  SITE NAME: {!pkbCon.siteName}<Br/>
+  SITE URL: {!pkbCon.currentSiteUrl}<br/>
+-->
+	<div class="article {!IF(pkbCon.displayContactUs && LEFT(aid,15) == LEFT(pkbCon.theKad.id,15), 'selectedArticle', '')}">
+<!--     
+    <apex:outputText escape="false"> 
+-->
+
+		<apex:outputText >     
+			<div class="articleView" style="font-family: Tahoma; font-size: 10pt;">
+				<a class="rowClass" href="#" onclick="window.open('{!articleURL}{!params}', 'targetWindow' + getDateString(),'toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=no, width=975px, height=660px, left=' + getLeft() + ', top=' + getTop())">
+					{!title}
+				</a>
+			</div>			
+		</apex:outputText>
+<!--  
+		<div class="data">
+		  <apex:outputText value="{!articleTypeLabel}" />
+		  -&nbsp;
+		   <apex:outputText value="{0,date,MMMMM' 'd', 'yyyy}">
+		     <apex:param value="{!firstPublishedDate}" />
+		   </apex:outputText>
+		</div> 
+-->
+
+		<div class="content">
+		  <apex:outputText rendered="{!pkbCon.showArticleSummary}" value="{!LEFT(summary, 255)}" />
+		  <apex:outputText rendered="{!LEN(summary) > 255 && pkbCon.showArticleSummary}" value="..." />
+		</div>
+	</div>      
+
+</apex:component>

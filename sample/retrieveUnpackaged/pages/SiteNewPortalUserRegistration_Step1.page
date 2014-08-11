@@ -1,0 +1,366 @@
+<apex:page controller="SiteNewPortalUserRegWizard_Controller" 
+            doctype="html-5.0"
+            showHeader="false"
+            title="New User Registration"
+            cache="true">
+    <!--
+        Description: Site login paged rebranded for SEW
+                     This is step 1 - customer number and name
+
+        History:
+            15-Feb-2011 D.Thong (Salesforce)    Created
+            25-Apr-2012 A.Vergara - Sentence case for Labels : Customer Number and Customer Name
+                                             -  Remove arrows for: Next and buttons at RHS
+                                             - different popup for help link customer name and number
+                                             - customised error message for customer name
+               26-Apr-2012 A.Vergara - customised error message for customer number, 
+                                            display required symbol
+                                            
+               10-May-2012 - resize popup
+               12-Jun-2012   D.Yu   -   Update: 218 - add attribute escape false to apex pageMessages
+               17-Oct-2012 J. Barrameda - Update: 5425 - Edited error messages
+               16-Apr-2013 N. Patterson - TT10610: Added Floodlight scripts into the page
+               05-Sep-2013 N.Patterson    TT11538: Removed Floodlight scripts from the page
+               31-Oct-2013 N.Patterson    Update: US-154 - Improve the validation rules
+               05-Mar-2014 R. Cook		  TT11005: fixed incorrect error message for customerNameValid==false
+    -->
+
+    <head>
+        <title>mySouthEastWater - New User Registration</title>
+        <link rel="shortcut icon"
+            href="https://southeastwater.secure.force.com/portal/favicon.ico" />
+
+        <!-- jquery -->
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}" />
+        <apex:stylesheet value="{!$Resource.PortalHomePage_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalIcons_Styles}"/>
+        <apex:stylesheet value="{!$Resource.SitePortalRegistration_Styles}" />
+
+        <style>
+            .captcha {
+                margin: 20px 20px 5px 175px;
+            }
+
+           
+        </style>
+
+        <script type="text/javascript">
+
+            var j$ = jQuery.noConflict();
+
+            var previousOnload = window.onload;
+            window.onload = function() {
+                window.scrollTo(0,0);
+                try {
+                    j$("input:text:visible:first").focus();
+                    
+                } catch (e) {
+                }
+    
+            }
+    
+            j$(function() {
+                j$( "#samplebill-popup" ).dialog({
+                    dialogClass: 'ui-dropshadow',
+                    autoOpen: false,
+                    height: 700,
+                    width: 700,
+                    modal: true,
+                    resizable: false
+                });
+                
+                j$( "#samplebill-popupCNumber" ).dialog({
+                    dialogClass: 'ui-dropshadow',
+                    autoOpen: false,
+                    height: 700,
+                    width: 700,
+                    modal: true,
+                    resizable: false
+                });
+                
+                j$( "#captcha-popup" ).dialog({ 
+                    dialogClass: 'ui-dropshadow',
+                    autoOpen: false,
+                    width: 300,
+                    modal: true,
+                    resizable: false
+                });
+            });
+
+            function showBill() {
+                j$("#samplebill-popup").dialog("open");
+            }
+            
+            function showBillCNumber() {
+                j$("#samplebill-popupCNumber").dialog("open");
+            }
+            
+            function showCaptchaHelp() {
+                j$("#captcha-popup").dialog("open");
+            }
+
+       </script>
+
+    </head>
+
+    <apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+        	
+            <apex:outputPanel id="wholePage" layout="block" styleclass="bodyDiv brdPalette">
+                <apex:form forceSSL="true" id="theForm">
+                    <div class="contentCellDiv">
+
+                        <!--  TITLE -->
+                        <div style="margin-bottom: 10px"/>
+                        <apex:sectionheader title="mySouthEastWater"
+                                            subtitle="Registration"/>
+                        <div style="clear:both"/>
+
+                        <!--  MAIN PAGE CONTENT -->
+
+                        <apex:pageBlock id="pbcontent">
+                            <!-- Steps -->
+                            <div class="step1Image">
+                                <apex:panelGrid cellspacing="0" cellpadding="0" styleClass="stepInnerGrid">
+                                    <span class="activeStep stepFirst">Step 1</span>
+                                    <span class="step">Step 2</span>
+                                    <span class="step">Step 3</span>
+                                    <span class="stepIncomplete">Complete</span>
+                                </apex:panelGrid>
+                            </div>
+                            <c:PortalRequiredField />
+                            <!-- page messages -->
+                            <div style="margin: 15px 0px">
+                                <apex:pageMessages escape="false"/>
+                            </div>
+
+                            <!-- Instructions -->
+                            
+                            <div style="margin: 15px 0px; font-size: 14pt">
+                                Registration is quick. Simply grab a copy of your recent bill and you're ready to get started.
+                            </div>
+
+                            <div style="margin-top: 30px; margin-bottom: 15px; font-weight: bold">
+                                Enter your details as they appear on your bill:
+                            </div>
+
+                            
+                            <!--  Content -->
+
+                            <apex:pageBlockSection columns="1" >
+
+                                <apex:pageBlockSectionItem >
+                                    <apex:outputLabel value="Customer number" for="custnbrfield" />
+                                    <apex:outputPanel >
+                                        <div style="width: 180px">
+                                        <apex:inputField value="{!newUserToRegister.PortalReg_Customer_Number__c}" id="custnbrfield" required="true" styleClass="{!IF(customerNumberValid==false,'test','')}" label="Customer number" />
+                                        </div>
+                                        <div>
+                                            <span class="fieldHelpLink">
+                                                <a href="javascript:showBillCNumber()" id="showbill">
+                                                    What does this look like?
+                                                </a>    
+                                            </span>
+                                        </div>                                      
+                                    <!-- 
+                                        <span class="fieldHelp">
+                                            <span class="fieldHelpPopupHandle"/>
+                                            <span class="fieldHelpPopup">
+                                                This can be found in the top right corner of your bill.&nbsp;
+                                                <a href="javascript:showBill()" id="showbill">Show me where</a>                                         
+                                            </span>
+                                        </span>
+                                     -->
+                                    </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                               
+                               <apex:pageBlockSectionItem >
+                                    <apex:outputLabel />
+                                    <apex:outputPanel rendered="{!customerNumberValid==false}">
+                                                <div class="errorMsg" style="width:180px;">   
+                                                	<!-- US-154 Changed the error message from "Customer number: Enter your customer number as it appears on your bill" -->                                              
+                                                    Please enter your customer number as it appears on your bill without spaces, letters or special characters.
+                                                </div>
+                                                
+                                    </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                
+                                <apex:pageBlockSectionItem id="sectionCustomerName" >
+                                    <apex:outputLabel value="Customer name" for="custnamefield" />
+                                    <apex:outputPanel >
+                                        <div style="width: 180px">
+                                                <apex:inputField required="true" styleClass="{!IF(customerNameValid==false,'error','')}" value="{!newUserToRegister.PortalReg_Customer_Name__c}" id="custnamefield" label="Customer name"/>
+                                            
+                                        </div>
+                                        
+                                            <span class="fieldHelpLink">
+                                                <a href="javascript:showBill()" id="showbill">
+                                                    What does this look like?
+                                                </a>    
+                                            </span> 
+                                        
+                                        
+                                                                            
+
+<!--                                        <span class="fieldHelp">
+                                            <span class="fieldHelpPopupHandle"/>
+                                            <span class="fieldHelpPopup">
+                                                This can be found in the top right corner of your bill.&nbsp;
+                                                <a href="javascript:showBill()" id="showbill2">Show me where</a>                                            
+                                            </span>
+                                        </span>
+ -->
+                                    </apex:outputPanel>
+                                    
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem >
+                                    <apex:outputLabel />
+                                    <apex:outputPanel rendered="{!customerNameValid==false}">
+                                                <div class="errorMsg" style="width:180px;">                                                 
+                                                    Please enter your customer name exactly as it appears on your bill.
+                                                </div>
+                                                
+                                    </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                            </apex:pageBlockSection>
+
+                            <!--  reCaptcha -->
+
+                            <apex:outputPanel layout="block" style="padding-top:3px">
+                                <script type="text/javascript" 
+                                    src="https://www.google.com/recaptcha/api/js/recaptcha_ajax.js"/>
+                                <script type="text/javascript">
+                                       function showRecaptcha(element) {
+                                        Recaptcha.create("{!reCAPTCHA.publicKey}", element, {
+                                               theme: 'clean',
+                                               tabindex: 0,
+                                               callback: Recaptcha.focus_response_field
+                                            });
+                                       }
+                                   </script>
+                               </apex:outputPanel>
+
+                            <apex:outputPanel id="captcha">
+                                <apex:inputhidden value="{!reCAPTCHA.challenge}" id="challenge" />
+                                <apex:inputhidden value="{!reCAPTCHA.response}" id="response" />
+                                <script type="text/javascript">
+                                       function captureResponse(ele) {
+                                           document.getElementById('{!$Component.challenge}').value =
+                                                    document.getElementById('recaptcha_challenge_field').value;
+
+                                           document.getElementById('{!$Component.response}').value =
+                                                    document.getElementById('recaptcha_response_field').value;
+                                       }
+                                </script>
+                                <!-- Remove Captcha Test Track #5427  -->
+                                <!-- <div style="margin-top: 30px; margin-bottom: 15px; font-weight: bold">
+                                    Type the words below, separated by a space:
+                                </div>
+
+                                
+                                <div class="captcha">
+                                    <div id="dynamic_recaptcha_1" >
+                                    </div>
+                                    <script type="text/javascript">showRecaptcha('dynamic_recaptcha_1');</script>
+                                </div>
+
+                                <div style="margin-left: 175px; margin-top: 5px; font-weight: bold; cursor: pointer;">
+                                    <a href="javascript:showCaptchaHelp();">Why do I need to do this?</a>
+                                    <p/> -->
+                                    <!-- <apex:commandButton value="Next"
+                                        onclick="javascript:captureResponse(this);"
+                                        action="{!checkBillingAccountDetails}"
+                                        styleClass="btnGreen" 
+                                        style="width: 80px"
+                                        id="nextbtn" /> -->
+                                     <!-- Remove Captcha Test Track #5427  -->
+                                <div style="margin-left: 175px; margin-top: 5px; font-weight: bold; cursor: pointer;">
+                                    <apex:commandButton value="Next"
+                                        action="{!checkBillingAccountDetails}"
+                                        styleClass="btnGreen" 
+                                        style="width: 80px"
+                                        id="nextbtn" />
+                                </div>
+                                
+                            </apex:outputPanel>
+                            
+                        </apex:pageBlock>
+                    </div>
+                    <div class="sideBarCellDiv pbTransparent pbNoLeftPad">
+                        <c:SiteNewPortalUserRegistrationSideBar />
+                    </div>
+                    
+                    <div class="clear"/>
+
+                    <!-- sample bill popup -->
+                    <div id="samplebill-popup"
+                        title="Finding your customer name">
+                
+                        <p style="margin-top: 10px" />
+                        Your customer name is located on the top left hand corner of your bill.
+                        <p />
+                        <center>
+                            <apex:image value="{!$Resource.BillCustomerNameLocation}"
+                                style="text-align:center;margin-bottom:25px" />
+                            <p />
+                            <apex:commandButton styleClass="btnGreen" value="Close"
+                                onclick="hideBill(); return false;" tabindex="1" id="closebillwindow"/>
+                            <script>
+                                function hideBill() {
+                                    j$("#samplebill-popup").dialog("close");
+                                }
+                            </script>
+                        </center>
+                    </div>
+                    
+                    <!-- sample bill popup CNumber-->
+                    <div id="samplebill-popupCNumber"
+                        title="Finding your customer number">
+                
+                        <p style="margin-top: 10px" />
+                        Your customer number is located on the top right corner of your bill.
+                        <p />
+                        <center>
+                            <apex:image value="{!$Resource.BillCustomerNbrLocation}"
+                                style="text-align:center;margin-bottom:25px" />
+                            <p />
+                            <apex:commandButton styleClass="btnGreen" value="Close"
+                                onclick="hideBillCNumber(); return false;" tabindex="1" id="closebillCNumberwindow"/>
+                            <script>
+                                function hideBillCNumber() {
+                                    j$("#samplebill-popupCNumber").dialog("close");
+                                }
+                            </script>
+                        </center>
+                    </div>
+                    
+                    
+                    <!-- sample bill popup -->
+                    <div id="captcha-popup" title="Verification">
+                        Sometimes automated programs are used to automatically register accounts.
+                        We require you to type in these two words to verify that you are a real person.
+                        <center>
+                            <br />
+                            <apex:commandButton styleClass="btnGreen" value="Close"
+                                onclick="hideCaptchaHelp(); return false;" tabindex="1" id="closecaptchawindow"/>
+                            <script>
+                                function hideCaptchaHelp() {
+                                    j$("#captcha-popup").dialog("close");
+                                }
+                            </script>
+                        </center>
+                    </div>
+                    
+                    <!--  called from c:SiteNewPortalUserRegistrationSideBar  -->
+                    <apex:actionFunction action="{!GotoRequestAssist}" name="RequestAssist" immediate="true"/>
+
+                </apex:form>
+            </apex:outputPanel>
+        </apex:define>
+    </apex:composition>
+
+
+</apex:page>

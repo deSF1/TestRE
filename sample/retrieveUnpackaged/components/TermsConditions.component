@@ -1,0 +1,102 @@
+<apex:component >
+<!-- jquery -->
+	<apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+	<apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+	<apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+	<apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+	
+	<apex:stylesheet value="{!$Resource.MoveInOut_Styles}" />
+	<script>
+	    var j$ = jQuery.noConflict();
+	   
+	    j$(function() {
+	        BuildTermsDialog();
+	    });
+	
+	    function BuildTermsDialog() {
+	       
+	        j$( "#terms-popup" ).dialog({
+	            dialogClass: 'ui-dropshadow',
+	            autoOpen: false,
+	            width: 500,
+	            modal: true,
+	            resizable: false,
+	            title: 'Terms & conditions'
+	        });         
+	    }
+	
+	    function hideTerms() {
+	        j$("#terms-popup").dialog("close");
+	    }
+	
+	    var isAcceptTAndCCheckbox;
+	    var isConcession;
+	    var submitBtn;
+	    var cardType;
+	    var readingdate;
+	    var settlementdate;
+	
+	    function checkAcceptTandC(){
+	        /* Enable/disable Submit button */
+	        submitBtn.disabled = false;
+	        if(isConcession.value=="True"&&!isAcceptTAndCCheckbox.checked)submitBtn.disabled = true;
+	          
+	        if(submitBtn.disabled){
+	            submitBtn.setAttribute("class", "btnDarkGray");
+	            submitBtn.setAttribute("className", "btnDarkGray");
+	        }else{
+	            submitBtn.setAttribute("class", "btnGreen");
+	            submitBtn.setAttribute("className", "btnGreen");
+	        }
+	    }
+	    
+	    function setSettlementDate(){
+	        settlementdate.value = readingdate.value;
+	    }
+	</script>
+	
+
+    <apex:outputLink onclick="j$('#terms-popup').dialog('open'); return false;" >
+        Terms and Conditions
+    </apex:outputLink>
+
+	
+	<!-- TERMS AND CONDITIONS POPUP -->
+        <div id="terms-popup">
+            <div style="height: 400px; text-align: justify; overflow: auto; padding: 0px 10px; border: solid 1px #E4E2DD" class="radiusAll">
+                
+                <p style="text-align: justify;">
+                    The information on this form is required to assess your eligibility for a concession. 
+                    The information will not be used for any other purpose without your consent. The 
+                    information will only be retained for the period required by the Public Records Act 
+                    1973. You are entitled to access your personal information held by South East Water 
+                    and seek to correct this information.
+                </p>
+                <p style="text-align: justify;">
+                    I declare that the entered information is correct to the best of my knowledge. I further 
+                    declare that this is the principal place of residence and is used for residential 
+                    purposes.
+                </p>         
+                <p style="text-align: justify;">
+                    I authorise Centrelink to confirm with South East Water the current status of my 
+                    Commonwealth Benefit and other details as they pertain to my concessional entitlement. 
+                    This involves electronically matching details I have provided to South East Water with 
+                    Centrelink or Department of Veterans’ Affairs (DVA) records to confirm whether or not 
+                    I am currently receiving a Centrelink or DVA benefit.
+                </p>
+                <p style="text-align: justify;">
+                    I understand that this consent, once signed, is effective only for the period I am a 
+                    customer of South East Water. I also understand that this consent, which is ongoing, 
+                    can be revoked any time by giving written notice to South East Water. I understand that 
+                    if I withdraw my consent I may not be eligible for the concession provided by South 
+                    East Water.
+                </p>    
+            </div>
+
+            <center>
+                <br />
+                <apex:commandButton styleClass="btnPrimary" value="Close"
+                    onclick="hideTerms(); return false;" tabindex="1" id="closetermswindow"/>
+            </center>
+        </div>
+</apex:component>

@@ -1,0 +1,62 @@
+<apex:component allowDML="true" controller="pkb_Controller" access="global">
+	<!--
+    Type:      Component
+    Purpose:   Get the articles view stat
+    
+    Used By:    pkb_results Component
+    ---------------------------------------------------------------
+    History:
+
+    19-May-2012 DYu         Created
+    -->
+	<apex:attribute name="aid" type="String" description="ID of the article" assignTo="{!articleId}"/>
+    <!-- zero ratings -->
+    <apex:outputPanel rendered="{!ROUND(articleStat.NormalizedScore, 0)=0}">
+    	<apex:image value="/img/vote/rating_star_grey_outline.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_grey_outline.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_grey_outline.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_grey_outline.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_grey_outline.png" width="10" height="10"/>
+    </apex:outputPanel>
+    <!-- Rating = 1 -->
+    <apex:outputPanel rendered="{!ROUND(articleStat.NormalizedScore, 0)=1}">
+    	<apex:image value="/img/vote/rating_star_blue.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_grey_outline.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_grey_outline.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_grey_outline.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_grey_outline.png" width="10" height="10"/>
+    </apex:outputPanel>
+    <!-- Ratings = 2 -->
+    <apex:outputPanel rendered="{!ROUND(articleStat.NormalizedScore, 0)=2}">
+    	<apex:image value="/img/vote/rating_star_blue.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_blue.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_grey_outline.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_grey_outline.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_grey_outline.png" width="10" height="10"/>
+    </apex:outputPanel>
+    <!-- Ratings = 3 -->
+    <apex:outputPanel rendered="{!ROUND(articleStat.NormalizedScore, 0)=3}">
+    	<apex:image value="/img/vote/rating_star_blue.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_blue.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_blue.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_grey_outline.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_grey_outline.png" width="10" height="10"/>
+    </apex:outputPanel>
+    <!-- Ratings = 4 -->
+    <apex:outputPanel rendered="{!ROUND(articleStat.NormalizedScore, 0)=4}">
+    	<apex:image value="/img/vote/rating_star_blue.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_blue.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_blue.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_blue.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_grey_outline.png" width="10" height="10"/>
+    </apex:outputPanel>
+    <!-- Ratings = 5 -->
+   	<apex:outputPanel rendered="{!ROUND(articleStat.NormalizedScore, 0)=5}">
+    	<apex:image value="/img/vote/rating_star_blue.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_blue.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_blue.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_blue.png" width="10" height="10"/>
+    	<apex:image value="/img/vote/rating_star_blue.png" width="10" height="10"/>
+    </apex:outputPanel>
+
+</apex:component>

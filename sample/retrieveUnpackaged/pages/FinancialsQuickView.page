@@ -1,0 +1,61 @@
+<apex:page standardController="Billing_Account__c" extensions="RecoveryHistoryExCon" action="{!getFinancialScroll}">
+
+<!-- 
+    Type:       VF page
+    Purpose:    Display Financials in Quick View Page
+    
+    Used By:	QuickView.page
+    ---------------------------------------------------------------
+    History:
+    
+    06-Dec-2012 DYU TP417 - Created
+    
+ -->
+ 	<apex:includeScript value="/support/console/22.0/integration.js" />
+ 	<apex:includeScript value="{!URLFOR($Resource.jqueryui1816, '/js/jquery-1.6.2.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.jqueryui1816, '/js/jquery-ui-1.8.16.custom.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.jqueryui1816, '/css/custom-theme/jquery-ui-1.8.16.custom.css')}"/>
+ 	
+	<script type="text/javascript">
+ 		function setTabTitle() {
+        	if (sforce.console.isInConsole())
+           		sforce.console.setTabTitle('{!JSINHTMLENCODE(Billing_Account__c.HiAF_Account_Number__c)} - Financials');
+       	}       
+      
+       	var previousOnload = window.onload;        
+       	window.onload = function() { 
+            if (previousOnload) { 
+                previousOnload();
+            }
+            setTabTitle();                
+       	}
+       
+    </script>
+	<!-- PAGE MESSAGES -->
+	<apex:pagemessages id="messages" />
+    
+    <apex:form >
+        <!-- START OF Financials Page Block -->
+    	<apex:pageblock id="financialBlock">
+            <apex:pageBlockSection id="financialSection" columns="1">
+                <apex:pageblockTable id="financialTable" value="{!financialDetailsList}"
+                    var="f">
+                    	<apex:column headerValue="Type">
+                           <apex:outputText value="{!f.transDesc}" />
+                        </apex:column>
+                      	<apex:column headerValue="Date Posted">
+                           <apex:outputText value="{!f.datePosted}" />
+                        </apex:column>
+                        <apex:column headerValue="Amount">
+                           <apex:outputText value="${!f.transTot}" />
+                        </apex:column>
+                        <apex:column headerValue="C/Fwd">
+                           <apex:outputText value="${!f.cryFwd}" />
+                        </apex:column>
+                </apex:pageblockTable>
+           </apex:pageBlockSection>
+    	</apex:pageblock>
+    	<!-- END OF Financials Page Block -->
+    
+    </apex:form>
+</apex:page>

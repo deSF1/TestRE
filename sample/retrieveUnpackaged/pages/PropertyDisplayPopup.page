@@ -1,0 +1,23 @@
+<!--
+        Author:        ICastillo
+        Company:       Cloud Sherpas
+        Description:   Page that displays the non residential inline page
+    
+        History
+        30/08/2012      ICastillo     Created 
+-->
+
+<apex:page standardController="Property__c" extensions="PropertyDisplayPopupController"> 
+     <style type="text/css">        
+        h2 {font-size:100%;margin-left:35%}   
+        div {font-size:100%;margin-left:25%}  
+    </style>
+    
+    <apex:form >    
+        <apex:outputpanel rendered="{!checkTariff}">
+            <h2><apex:image id="factoryImage" value="{!$Resource.Factory_Icon}" width="40" height="30"/>&nbsp;&nbsp;
+            Property has non residential tariffs.</h2>
+        
+        </apex:outputpanel>     
+    </apex:form>
+</apex:page>

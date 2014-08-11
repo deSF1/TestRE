@@ -1,0 +1,50 @@
+<!--  
+    Type:       Visualforce Page
+    Purpose:    Public Knowledge Base Articles Search            
+
+    Used By:    PublicSupportPage
+    ---------------------------------------------------------------
+    History:
+
+    23-May-2013 Mat Isidro (Cloud Sherpas)    Created (TT10625 - Public General Enquiry Form and Knowledge Base Articles)
+-->
+<apex:component allowDML="true" id="pkbCategory">
+<apex:attribute name="catNum" type="Integer" required="true" description="value that corresponds to the custom settings category group being displayed" />
+<apex:attribute name="catGroup" type="String" required="true" description="category group name" />
+<apex:attribute name="catGroupLabel" type="String" required="true" description="category group label" />
+<apex:attribute name="rootCat" type="String" required="true" description="root category name" />
+<apex:attribute name="customerType" type="String" required="true" description="user contact customer type" />
+
+  <apex:variable var="one" value="&nbsp;&nbsp;" />
+  <apex:variable var="two" value="&nbsp;&nbsp;&nbsp;&nbsp;" />
+  <apex:variable var="three" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" />
+  <apex:variable var="four" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" />
+
+<!--  
+	<span><apex:outputLabel value="{!catGroupLabel}" for="categorySelect{!catNum}" style="margin-left: -140px;"/></span>
+-->	
+	<select name="categorySelect{!catNum}" id="categorySelect{!catNum}" onchange="setCategory(this);" style="width:272px;"> 
+    <option value="">--{!$Label.PKB2_No_Filter}--</option>	   
+	  <knowledge:categoryList categoryVar="c" categoryGroup="{!catGroup}" rootCategory="{!rootCat}" level="-1">
+
+<!--  
+      <option value="{!catGroup}:{!c.Name}" style="{!IF(customerType=='Residential' && c.Name=='Trade_waste','display:none;', IF(customerType=='Business' && c.Name=='Concessions', 'display:none;', 'display:visible;'))}">
+-->
+
+	<apex:outputPanel rendered="{!NOT(c.Name == ('Trade_waste') || c.Name == 'mysoutheastwater')}">			
+		<option value="{!catGroup}:{!c.Name}">
+	      <apex:outputText escape="false" value="{!
+	        IF (c.depth == 1, one,
+	          IF (c.depth == 2, two,
+	            IF (c.depth == 3, three,
+	              IF (c.depth == 4, four, ''
+	              )
+	            )
+	          )
+	        ) + c.Label}" />
+      	</option>
+	</apex:outputPanel>      
+    </knowledge:categoryList>
+	</select>
+
+</apex:component>

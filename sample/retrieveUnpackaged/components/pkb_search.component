@@ -1,0 +1,97 @@
+<apex:component allowDML="true">
+ 	<!--
+    Type:      Component
+    Purpose:   Search input component in PKB_Template
+    
+    Used By:    pkb_Template VF Page
+    ---------------------------------------------------------------
+    History:
+
+    19-May-2012 DYu         Updated: standardize layout. Change default value of search text
+    -->
+	<apex:attribute name="pkbCon" type="pkb_Controller" required="true" description="handle to the pkb controller" />
+	<apex:attribute name="showBackLinks" type="Boolean" required="false" description="flag to indicate if 'back to...' buttons should be shown" />
+	
+	<apex:variable var="pageNum" value="{!pkbCon.pageNumParam}={!pkbCon.currPage}" />
+  	<script>
+		//refresh support page
+		function clearResults(){
+	  		window.location = '{!$Page.PKB_Home}';
+	  	}	
+	  	// hide/show reset icon and default search text when not focus on search text
+	  	function hideDiv(val) { 
+			if(val=='true'){
+				document.getElementById('hidReset').style.display = "inline"; 
+			}
+			else{
+				document.getElementById('hidReset').style.display = "none";
+				document.getElementById('searchAskInput').value = 'Search...';
+			}
+		}
+		// hide/show reset icon and default search text when not focus on search text
+		function checkSearch(){
+			if(document.getElementById('searchAskInput').value!='' && document.getElementById('searchAskInput').value!='Search...' && document.getElementById('searchAskInput').value!=null){
+				hideDiv('true');
+			}
+			else{
+				hideDiv('false');
+			}
+	  	}
+  	</script>
+  	
+  	<apex:form >
+		<apex:outputPanel layout="block" style="width: 100%; margin-top: 5px;">
+		    <div style="font-weight: bold; font-size: 125%; float: left;">
+		    	<apex:outputText rendered="{!pkbCon.displayContactUs}">
+	          	<apex:outputLink value="{!pkbCon.currentSiteUrl}" rendered="{!NOT(pkbCon.facebook)}">Home</apex:outputLink>
+	          	<apex:outputLink value="{!pkbCon.currentSiteUrl}" rendered="{!pkbCon.facebook}">Knowledge Base</apex:outputLink>
+	          	<apex:outputText rendered="{!NOT(pkbCon.facebook)}">&nbsp;&gt;&nbsp;</apex:outputText>
+	          	<apex:outputText rendered="{!pkbCon.facebook}">&nbsp;&#124;&nbsp;</apex:outputText>
+		       		{!$Label.PKB2_Contact_Us}
+		     	</apex:outputText>
+		    </div>
+	    	<apex:outputPanel layout="block" style="float: right;" rendered="{!pkbCon.multiLanguage}">
+		    	<apex:selectList styleClass="languages" value="{!pkbCon.selectedLanguage}" multiSelect="false" size="1" onchange="setLanguage(this);">
+		        	<apex:selectOptions value="{!pkbCon.languageOptions}" />
+		      	</apex:selectList>
+      		</apex:outputPanel>
+	  	</apex:outputPanel>
+  	</apex:form>
+
+  	<div style="clear: both;"></div>
+  
+  	<form class="form" id="searchAskForm">
+  		<div>
+			<div id="searchAskInputContainer">
+				<input onfocus="clearPrompt(this); hideDiv('true');" 
+				  onblur="restorePrompt(this); buildSearchHref();checkSearch(); "
+				  onkeypress="checkForEnter(event, this);"
+				  title="{!pkbCon.searchPrompt}" 
+				  value="{!$CurrentPage.parameters.q}"
+				  type="text" 
+				  name="inputboxform"
+				  class="{!IF(pkbCon.enteredSearchQuery == pkbCon.searchPrompt, 'default', '')}" 
+				  id="searchAskInput" 
+				  style="width:400px;-moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none;">
+				</input>
+				<div id="hidReset" style="display: none; margin-left: -20px; margin-right: 5px;" >
+					<a href="#" id="resetButton"  class="reset" onclick="resetPrompt($$('#' +SEARCH_TEXT_ID)[0]); hideDiv('false'); "><apex:image id="myLink" value="{!$Resource.jqueryResetIcon}" /></a>
+				</div>
+				<input type="button" id="searchAskButton" class="btnPrimary" onclick="searchButtonClicked(); return false;" value="{!pkbCon.buttonPrompt}" style="cursor:pointer; margin-left:5px;"></input>
+				<input type="button" id="resetButton" class="btnClearGreenText" onclick="clearResults();" value="{!$Label.PKB2_Reset_Search}" style="cursor:pointer;"></input>
+		    </div>
+    	</div>
+  	</form>
+  
+  	<div id="backbuttoncontainer">
+	  	<apex:outputPanel layout="block" rendered="{!showBackLinks}" id="backbutton" style="margin-bottom: 5px;">
+	    	<apex:outputText rendered="{!pkbCon.displaySearchResultsLink}">
+	        	<a class="relatedLink" href="{!$Site.CurrentSiteUrl}?{!pkbCon.allSearchParams}&{!pageNum}">&lt; {!$Label.PKB2_Back_To_Results}</a>
+	      	</apex:outputText>
+	      	<apex:outputText rendered="{!NOT(pkbCon.displaySearchResultsLink)}">
+	        	<a class="relatedLink" href="{!$Site.CurrentSiteUrl}">&lt; {!$Label.PKB2_Back_To_Search_Page}</a>
+	      	</apex:outputText>
+	   </apex:outputPanel>
+	</div>
+	<script type="text/javascript">buildSearchHref();</script>
+</apex:component>

@@ -1,0 +1,477 @@
+<apex:page controller="SiteNewPortalUserRegWizard_Controller" 
+            showHeader="false"
+            doctype="html-5.0"
+            action="{!CheckRedirectStep3}"
+            title="New User Registration">
+    <!--
+
+
+        Description: Site login paged rebranded for SEW
+                     This is step 3 - user details
+
+        History:
+            15-Feb-2012 D.Thong (Salesforce)    Created
+            26-Apr-2012 A.Vergara - display required symbol, all fields are mandatory, fix alignment and label 
+            28-Jun-2012 D.Yu      - Update 5285 remove limited on South East Water Limited in terms and conditions
+            16-Jul-2012 K.Noceda  - Update: ChangeRequest - Removed the password, email fields. 
+            17-Oct-2012 J.Barrameda - Update: #5430 Replaced text "Yes, I have read and I ACCEPT" 
+            16-Apr-2013 N. Patterson - TT10610: Added Floodlight scripts into the page
+            05-Sep-2013 N.Patterson    TT11538: Removed Floodlight scripts from the page
+            08-Nov-2013 B.Trinidad - US169:Commented out span tags and message "Username must be 6 characters or more"
+            
+    -->
+
+    <head>
+        <title>mySouthEastWater - New User Registration</title>
+        <link rel="shortcut icon"
+            href="https://southeastwater.secure.force.com/portal/favicon.ico" />
+
+        <!-- jquery -->
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}" />
+        <apex:stylesheet value="{!$Resource.PortalHomePage_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalIcons_Styles}"/>
+        <apex:stylesheet value="{!$Resource.SitePortalRegistration_Styles}" />
+
+        <style>
+            .bPageBlock .detailList .labelCol {
+                width: 25%;
+            }
+
+           td.data2Col.first.last {padding-top: 6px;}
+
+            
+        </style>
+
+        <script type="text/javascript">
+
+            var j$ = jQuery.noConflict();
+
+            var previousOnload = window.onload;
+            window.onload = function() {
+                window.scrollTo(0,0);
+                try {
+                    j$("input:text:visible:first").focus();
+
+                } catch (e) {
+                }
+                checkAcceptTandC();
+            }
+
+            j$(function() {
+                j$( "#terms-popup" ).dialog({
+                    dialogClass: 'ui-dropshadow',
+                    autoOpen: false,
+                    width: 500,
+                    modal: true,
+                    resizable: false,
+                    title: 'Terms & conditions for online access'
+                });
+            });
+            
+       </script>
+
+    </head>
+
+    <apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+        	        	
+            <apex:outputPanel id="wholePage" layout="block" styleclass="bodyDiv brdPalette">
+                <apex:form forceSSL="true" id="theForm">
+                	<apex:actionFunction name="CreatePortaluser" action="{!CreateUser}" status="loading"/>   
+                    <div class="contentCellDiv">
+
+                        <!--  TITLE -->
+                        <div style="margin-bottom: 10px"/>
+                        <apex:sectionheader title="mySouthEastWater"
+                                            subtitle="Registration"/>
+                        <div style="clear:both"/>
+
+                        <!--  MAIN PAGE CONTENT -->
+                        <apex:pageBlock id="pbcontent">
+                        
+                            <!-- Steps -->
+                            <div class="step3Image">
+                                <apex:panelGrid cellspacing="0" cellpadding="0" styleClass="stepInnerGrid">
+                                    <span class="step stepFirst">Step 1</span>
+                                    <span class="step">Step 2</span>
+                                    <span class="activeStep">Step 3</span>
+                                    <span class="stepIncomplete">Complete</span>
+                                </apex:panelGrid>
+                            </div>
+                             <c:PortalRequiredField />
+                                 <!-- page messages -->
+                            <div style="margin: 15px 0px">
+                                <apex:pageMessages />
+                            </div>
+
+                            <!-- Instructions -->
+                            
+                            <div style="margin: 30px 0px 15px; font-weight: bold">
+                                Enter a username:
+                            </div>
+                            
+                            <!--  Content -->
+
+                            <apex:pageBlockSection columns="1" id="pbs" >
+
+                                <!--  username and pwd -->
+                                <apex:pageBlockSectionItem id="userpbsi" >
+                                    <apex:outputPanel id="username">
+                                        <apex:outputLabel value="Username" for="usernamefield"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel >
+                                        <apex:actionRegion >
+                                            <apex:inputField value="{!newUserToRegister.username}" id="usernamefield" required="true" label="Username" 
+                                                    onfocus="j$('#usernamehelp span').show();"
+                                                    onblur="j$('#usernamehelp span').hide();">
+                                                <apex:actionSupport event="onchange" rerender="pbcontent" action="{!CheckUserExists}"
+                                                                oncomplete="document.body.style.cursor='default';"
+                                                                onsubmit="document.body.style.cursor='wait'"
+                                                                focus="pwdfield"/>
+                                            </apex:inputField>
+
+                                            <span class="fieldHelpNoBG" id="usernamehelp">
+                                                <span class="fieldHelpPopupHandle"/>
+                                                <span class="fieldHelpPopup">
+                                                    Your username must be an email address.                                        
+                                                </span>
+                                            </span>
+                                        </apex:actionRegion>
+                                        <script>
+                                            document.getElementById('{!$Component.usernamefield}').autocomplete = "off";
+                                        </script>
+                                    </apex:outputPanel>
+                                </apex:pageBlockSectionItem>                                    
+
+                               <!--  <apex:pageBlockSectionItem id="passwordpbsi" >
+                                    <apex:outputPanel >
+                                        <apex:outputLabel value="Password" for="pwdfield"/>
+                                       <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}" title="required" styleclass="required" />
+                                                        <span class="fieldHelp" style="width:220px">
+                                                            Password must satisfy the following requirements:
+                                                            <ul style="padding-left: 0">
+                                                                <li>Must be a minimum of 8 characters</li>
+                                                                <li>Contain at least one alphabetic character</li>
+                                                                <li>Contain at least one numeric character</li>
+                                                                <li>Cannot contain the word "password"</li>
+                                                            </ul>
+                                                        </span> 
+                                    </apex:outputPanel>
+                                    <apex:outputPanel >
+                                        <apex:outputPanel styleClass="requiredInput" layout="block" id="pwPanel" >
+                                    <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                                        <apex:inputSecret value="{!newUserToRegister.PortalReg_Password__c}" id="pwdfield" required="true" label="Password"
+                                                            onfocus="j$('#pwdhelp span').show();"
+                                                            onblur="j$('#pwdhelp span').hide();"/>
+                                </apex:outputPanel>                         
+                                        <span class="fieldHelpNoBG" id="pwdhelp">
+                                            <span class="fieldHelpPopupHandle"/>
+                                            <span class="fieldHelpPopup">
+                                                Password must satisfy the following requirements:
+                                                <ul style="padding-left: 0; margin-bottom: 5px">
+                                                    <li>Must be a minimum of 8 characters</li>
+                                                    <li>Contain at least one alphabetic character</li>
+                                                    <li>Contain at least one numeric character</li>
+                                                    <li>Cannot contain the word "password"</li>
+                                                </ul>                                               
+                                            </span>
+                                        </span>
+                                        <script>
+                                            document.getElementById('{!$Component.pwdfield}').autocomplete = "off";
+                                        </script>                                   
+                                    </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                            
+                                <apex:pageBlockSectionItem id="confirmpwdpbsi" >
+                                    <apex:outputPanel >
+                                        <apex:outputLabel value="Confirm password" for="confirmpwdfield"/>
+                                        <!-- <apex:image url="{!URLFOR($Resource.Icons, 'Icons/RequiredField.png')}" title="required" styleclass="required" />  -->
+                                   <!-- </apex:outputPanel> 
+                                    <apex:outputPanel >
+                                        <apex:outputPanel styleClass="requiredInput" layout="block" id="pwPanel" >
+                                    <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                                        <apex:inputSecret value="{!newUserToRegister.PortalReg_Confirm_Password__c}" id="confirmpwdfield" required="true" label="Confirm Password"/>
+                                        <script>
+                                            document.getElementById('{!$Component.confirmpwdfield}').autocomplete = "off";
+                                        </script>
+                                </apex:outputPanel>
+                                    </apex:outputPanel>
+                                </apex:pageBlockSectionItem> -->
+                            </apex:pageBlockSection>
+                            
+                            <!--<div style="margin: 30px 0px 15px; font-weight: bold">
+                                Please supply an email address:
+                            </div>
+
+                            <apex:pageBlockSection >
+
+                                <!--  email and secret credentials 
+                                <apex:pageBlockSectionItem id="emailpbsi" >
+                                    <apex:outputLabel value="Email" for="emailfield"/>
+                                     <apex:inputField value="{!newUserToRegister.Email}" id="emailfield" required="true" label="Email Address" />
+                                </apex:pageBlockSectionItem>
+
+                            </apex:pageBlockSection>-->
+
+                            <div style="margin: 30px 0px 15px; font-weight: bold">
+                                Share a secret so we can help you if you forget your password or username:
+                            </div>
+                    
+
+                            <apex:pageBlockSection columns="1">
+
+                                <apex:inputField value="{!newUserToRegister.Secret_Question__c}" id="secretquestionfield" required="true" label="Secret question" />
+                                <apex:inputField value="{!newUserToRegister.Secret_Answer__c}" id="secretanswerfield" required="true" label="Secret answer" />
+                            </apex:pageBlockSection>  
+                                <!--  T&C -->
+                                    
+                                <div style="margin-top: 10px"/>
+                                    <div style=" left: -5px;position: relative;width: 100%;">
+                                <apex:inputCheckBox value="{!isMarketingOptIn}"/>
+                            </div>
+                                <div style=" left: 25px;position: relative;top: -20px;width: 100%;">
+                                    Yes, I am happy to receive information on South East Water’s products and services by email.
+                                </div>
+                            
+                                    
+
+                                
+                          
+                               
+                               
+                                    <apex:outputPanel layout="block" style="position: relative; top: -18px" id="tcpanel" >
+                                        <div style=" left: -5px;position: relative;width: 100%;">
+                                        <apex:inputCheckbox id="isAcceptTAndCCheckbox"
+                                                            onclick="checkAcceptTandC();" />
+                                                            </div>
+                                        <div style=" left: 25px;position: relative;top: -20px;width: 100%;">
+                                            Yes, I have read and <b>"I ACCEPT"</b> South East Water's
+                                            <apex:outputLink onclick="j$('#terms-popup').dialog('open'); return false;" >
+                                                terms and conditions
+                                            </apex:outputLink>.
+                                        </div>
+                                    </apex:outputPanel>            
+                            
+                                
+                                <apex:pageBlockSection columns="1" id="sectiodID">
+                                <apex:pageBlockSectionItem id="submit" >
+                                    <apex:outputPanel >
+                                        <span style="padding-left: 0px">
+                                        <apex:commandButton value="Submit"
+                                            action="{!SubmitRegistration}"
+                                            styleClass="btnGreen" 
+                                            style="width: 80px"
+                                            id="submitNewUserRegBtn" 
+                                            oncomplete="Javascript:callCreate();">
+                                            
+                                           <script type="text/javascript">
+                                				function callCreate(){
+                                					CreatePortaluser();
+                                				}
+                            			   </script>
+                             
+                                         </apex:commandButton>
+                                         </span>
+                                         <apex:outputLink value="/portal/SiteNewPortalUserRegisTration_Step2" target="_parent">Cancel</apex:outputLink>
+                                    </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                             </apex:pageBlockSection>
+
+                            <script>
+                                function checkAcceptTandC(){
+                                    /* Enable/disable Submit button */
+
+                                    
+	                                    var submitNewUserRegBtn = document.getElementById('{!$Component.pbcontent.sectiodID.submit.submitNewUserRegBtn}');
+	                                    
+	                                    var isAcceptTAndCCheckbox = document.getElementById('{!$Component.isAcceptTAndCCheckbox}');     
+	    
+	                                    submitNewUserRegBtn.disabled=!isAcceptTAndCCheckbox.checked;
+	                                            
+	                                    if(submitNewUserRegBtn.disabled){
+	                                        submitNewUserRegBtn.setAttribute("class", "btnDarkGray");
+	                                        submitNewUserRegBtn.setAttribute("className", "btnDarkGray");
+	                                    }else{
+	                                        submitNewUserRegBtn.setAttribute("class", "btnGreen");
+	                                        submitNewUserRegBtn.setAttribute("className", "btnGreen");
+	                                    }
+                                    
+                                }
+                            </script>
+                            
+                        </apex:pageBlock>
+                    </div>
+                    <div class="sideBarCellDiv pbTransparent pbNoLeftPad">
+                        <c:SiteNewPortalUserRegistrationSideBar />
+                    </div>
+
+                    <div class="clear"/>
+
+                    <!--  called from c:SiteNewPortalUserRegistrationSideBar  -->
+                    <apex:actionFunction action="{!GotoRequestAssist}" name="RequestAssist" immediate="true"/>
+
+
+                    <!-- sample bill popup -->
+                    <div id="terms-popup">
+
+                        <div style="height: 400px; text-align: justify; overflow: auto; padding: 0px 10px; border: solid 1px #E4E2DD" class="radiusAll">
+                           <p><b> WARNING: PERMISSION TO USE THE MYSOUTHEASTWATER PORTAL IS CONDITIONAL ON YOU, THE CUSTOMER, AGREEING TO THE TERMS AND CONDITIONS SET OUT BELOW.</b></p>   
+                           <p><b> BY CLICKING "I ACCEPT", YOU WILL BE DEEMED TO BE LEGALLY BOUND BY THESE TERMS. IF YOU DO NOT ACCEPT THE TERMS AND CONDITIONS, DO NOT CLICK "I ACCEPT".</b></p> 
+                            <p><b>WE RESERVE THE RIGHT TO CANCEL YOUR ACCOUNT IF YOU BREACH THESE TERMS AND CONDITIONS.</b></p>     
+                            <br/>
+                            <h3>Introduction</h3>
+                            <p>The mySouthEastWater portal is operated South East Water Corporation ABN 89 066 902 547 and its associated companies. Your access and use of mySouthEastWater is subject these terms and conditions. Your use of, and/or access to mySouthEastWater constitutes your agreement to these terms.</p>
+                            <h3>Your Identity</h3>
+                            <p>
+                            In order to use the mySouthEastWater portal, you must apply to register an account and agree to these terms. Registration is free but non-transferable. In return for free registration, you agree to allow us to collect and use certain personal information about you (such as your name, date of birth, drivers licence number).
+                            <br/>
+                            Before you register, please be aware that:
+                                <ul>
+                                    <li>the personal details we collect from you contain unique identifiers that can be used to ascertain your identity;</li>
+                                    <li>we will collect, use, handle and store your personal information in accordance with our privacy policy;</li>
+                                    <li>we may not be able to provide the services, and may cancel your account, if you withdraw your consent in relation to our collection and use of your personal information.</li>
+                                </ul>
+                            By clicking on "I Accept":
+                                <ul>
+                                    <li>you consent to us using your personal information to verify your identity for lawful purposes;</li>
+                                    <li>you consent to us providing your personal information to a third party for lawful purposes;</li>
+                                    <li>you represent and warrant to us that the personal information you provide to us is true and correct, and pertains to you personally;</li>
+                                    <li>you consent to us using your personal information in an aggregated and de-identified form for research and analysis purposes (in all such circumstances, we will ensure that individuals remain anonymous);</li>
+                                    <li>you consent to us sending you emails from time to time for administrative purposes and other purposes set out in our privacy policy; and</li>
+                                    <li>you represent to us that your consent is freely given by you.</li>                  
+                                </ul>
+                            </p>
+                            <h3>General disclaimer</h3>
+                            <p>
+                            We are not liable to you or anyone else for any loss in connection with use of this portal or a linked website.
+                            </p>
+                            <p>This general disclaimer is not restricted or modified by any of the following specific warnings and disclaimers but does not attempt to exclude liability in relation to those warranties implied by law which cannot be excluded.</p>
+                            <h3>Content disclaimer</h3>
+                            <p>Special statutory requirements apply in circumstances where you are a 'consumer' as defined in the Australian Consumer Law, meaning that you are acquiring goods or services priced at less than $40,000 or, alternatively, you are requiring goods or services priced at more than $40,000 but which are of a kind ordinarily acquired for personal, domestic or household use or consumption. These transactions are referred to as "consumer sales".</p>
+                            <p>Goods and services which are the subject of consumer sales come with guarantees that cannot be excluded under the Australian Consumer Law.</p>
+                            <p>
+                            The following guarantees (consumer guarantees) apply to the supply of goods under a consumer sale:
+                                <ol type="a">
+                                    <li>the services will be provided with due care and skill;</li>
+                                    <li>the services will be fit for any specified purpose;</li>
+                                    <li>the services will be provided within a reasonable time (when no time is set);</li>
+                                    <li>we will use an acceptable level of skill or technical knowledge when providing the services; or</li>
+                                    <li>we will take all necessary care to avoid loss or damage when providing the services.</li>
+                                </ol>                       
+                            </p>
+                            <p>In the case of a consumer contract for services, your remedies for a breach of a consumer guarantee are as follows:
+                                <ol type="a">
+                                    <li>in the case of a major failure, you can cancel the services and obtain a refund, or alternatively keep the contract and claim compensation for loss of value; and</li>
+                                    <li>in the case of a minor problem which can be fixed, we will (if you provide us with the opportunity) fix the problem within a reasonable time free of charge."</li>
+                                </ol>
+                            </p>
+                            <p>You agree that in relation to the content displayed on this site (content), South East Water does not, nor does any other party who provides content to this site, make any warranty as to the accuracy, completeness or currency of the content. As a user of this site, you should make your own enquiries before entering into any transaction on the basis of or in reliance upon the content.</p>
+                            <p>To the extent permitted by law (including the Australian Consumer Law), South East Water and its employees, officers, agents and contractors exclude all liability for any loss or damage (including without limitation, indirect, special or consequential loss or damage) arising from the use of, or reliance upon the content whether or not this is caused by a negligent act or omission.</p>
+                            <p>To the extent that South East Water is prohibited at law from excluding its liability, South East Water and each party providing content limits its liability to the extent permitted by law, to the resupply of the content. South East Water does not accept responsibility for any liability in respect of access to other content through the use of this site.</p>
+                            <h3>Browser version disclaimer</h3>
+                            <p>
+                            The minimum browser requirements for the mySouthEastWater portal are:
+                                <ul>
+                                    <li>Internet Explorer 7</li>
+                                    <li>Firefox 3.6</li>
+                                    <li>Chrome 5.0</li>
+                                    <li>Safari 4.0</li>
+                                    <li>Opera 10.5</li>
+                                </ul>
+                            If you are running any other browser or browser versions, you may encounter problems with certain sections of the portal. You should use the most recent version of your browser for maximum compatibility.
+                            <br/><br/>
+                            The mySouthEastWater portal is not supported on any mobile devices at present. Trying to access the portal this way you may encounter problems with certain sections of the portal.
+                            </p>
+                            <h3>Copyright</h3>
+                            <p>
+                            The mySouthEastWater portal is South East Water’s property and copyright in the material on the mySouthEastWater portal is owned or licensed by us. You are provided with access to it only for your personal and non-commercial use, unless otherwise agreed with us.
+                            </p>
+                            <p>
+                            Other than for the purposes of and subject to the conditions prescribed under the Copyright Act 1968 (Commonwealth of Australia) and similar statutes that apply in your location, you may not, in any form or by any means:
+                                <ul>
+                                    <li>adapt, reproduce, store, distribute, transmit, print, display, perform, publish or create derivative works from any part of this portal; or</li>
+                                    <li>commercialise any information, products or services obtained from any part of this portal, without our prior written permission.</li>
+                                </ul>
+                            </p>
+                            <h3>Trade Marks</h3>
+                            <p>
+                            Except where otherwise specified, any word or device to which is attached the TM or &reg; symbol is a trade mark of South East Water.
+                            </p>
+                            <p>You may only use our trade marks with our prior written consent and in addition to any other conditions we may impose. If you use any of our trade marks with our consent to refer to our activities, products or services, you must include a statement attributing that trade mark to us. You must not use any of our trademarks:
+                                <ul>
+                                    <li>in or as the whole or part of your own trade marks;</li>
+                                    <li>in connection with activities, products or services which are not ours;</li>
+                                    <li>in a manner which may be confusing, misleading or deceptive;</li>
+                                    <li>in a manner that disparages us or our information, products or services (including this Web Site).</li>
+                                </ul>
+                                
+                            </p>
+                            <h3>Third party sites</h3>
+                            <p>
+                            This site contains links to third party sites. South East Water is not responsible for the condition or the content of those sites. The link (s) are provided solely for your convenience and do not indicate, expressly or impliedly, any endorsement of the site (s) or the products or services provided there. You access those sites and use their products and services solely at your own risk. South East Water does not represent that the content or services available from third party sites are appropriate or available for use in all parts of Australia. If you access other content or services from third party sites, South East Water is not responsible for your compliance with local laws or other applicable laws.
+                            </p>
+                            <h3>Indemnity</h3>
+                            <p>
+                                You must indemnify and hold harmless South East Water or its employees, contractors and agents and keep them indemnified, against all loss, actions, proceedings, costs, expenses (including legal fees), claims and damages arising from or in connection with:
+                                <ol type="a">
+                                    <li>any breach by you of these terms (including a breach by you of a representation or warranty); or</li>
+                                    <li>reliance by you on any information obtained through mySouthEastWater, your access and/or use of mySouthEastWater.</li>
+                                </ol>
+                            </p>
+                            
+                            <h3>Security</h3>
+                            <p>You are responsible for maintaining the confidentiality of your password and account information and are fully responsible for all conduct carried out under this password and account. South East Water is not liable for any loss of confidentiality or for any damages arising from your failure to comply with these security measures. South East Water requests that you promptly report to it any unauthorised use of your password. It is your responsibility to ensure that your email is valid and that South East</p>
+                            <p>Water is added to your safe senders or contacts list.</p>
+                            <p>You will not share your password or secret answer, let anyone else access your account, or do anything else that might jeopardize the security of your account.</p>
+                            
+                            <h3>Privacy</h3>
+                            <p>South East Water is committed to adopting the highest standards to safeguard our customers' personal information. Refer to our <a href="http://www.southeastwater.com.au/Footer/Pages/Privacy.aspx" tabindex="-1" target="_blank">privacy policy</a> which sets out how and why we collect, use and disclose your personal information.</p>
+                            <p>This site uses Google Analytics web analytics service. Google Analytics may record mouse clicks, mouse movements, scrolling activity as well as any text you type in this portal. Google Analytics does not collect personally identifiable information that you do not voluntarily enter in this portal. Google Analytics does not track your browsing habits across web sites which do not use Google Analytics services. For more information see Privacy Policy for Information Collected by the Google Analytics Web Analytics Service. We are using the information collected by Google Analytics service to enhance your user experience. You can choose to disable the service at http://www.google.com.au/analytics.</p>
+                            <h3>Access</h3>
+                            <p>You acknowledge that the internet is an unreliable medium. We do not guarantee that mySouthEastWater will be accessible at all times and fault-free.</p>
+                            <h3>Applicable law</h3>
+                            <p>The site (excluding any linked third party sites) is controlled by South East Water. By accessing this site, you accept that any disputes about this site or the content are to be determined by the courts having jurisdiction in Victoria in accordance with the laws in force in Victoria (subject to the application of any principle of conflict of laws inconsistent with this requirement). This site may be accessed throughout Australia and overseas. South East Water makes no representation that the content of this site complies with the laws (including intellectual property laws) of any country outside Australia. If you access this site from outside Australia, you do so on your own responsibility and are responsible for ensuring compliance with all laws in the place where you are located.</p>
+                            <h3>Confidentiality</h3>
+                            <p>
+                                South East Water does not guarantee that your use of this site will be confidential. South East Water is not responsible for any harm that you or any person may suffer as a result of a breach of confidentiality in respect of your use of this site. Any information that you disclose on this site:
+                                <ul>
+                                <li>may be used by South East Water, its agents and contractors in relation to the provision of services accessible on this site, including the marketing of those services.</li>
+                                <li>may not be secure during its transmission over the internet. Third parties may be able to intercept transmissions which make when using this site.</li>
+                                </ul>
+                            </p>
+                            <h3>Updates to the terms and conditions</h3>
+                            <p>South East Water may amend or update these terms from time to time without notice to you. Such additional terms and conditions are incorporated by reference into these terms and conditions and you agree that you will comply with any additional terms and conditions that will be made available to you. You may deregister your account at any time if you do not agree to these terms and conditions or any amendments or updates we may make from time to time.</p>
+
+
+                        </div>
+
+                        <center>
+                            <br />
+                            <apex:commandButton styleClass="btnGreen" value="Close"
+                                onclick="hideTerms(); return false;" tabindex="1" id="closetermswindow"/>
+                            <script>
+                                function hideTerms() {
+                                    j$("#terms-popup").dialog("close");
+                                }
+                            </script>
+                        </center>
+                    </div>
+
+                    <apex:actionStatus id="loading">
+                        <apex:facet name="start">
+                            <c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+                                borderSize="1" height="50px" width="120px" margintop="-25px"
+                                marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+                                Message="Processing..." />
+                        </apex:facet>
+                    </apex:actionStatus>
+                </apex:form>
+            </apex:outputPanel>
+        </apex:define>
+    </apex:composition>
+
+</apex:page>

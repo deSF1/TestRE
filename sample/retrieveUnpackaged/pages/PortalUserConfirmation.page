@@ -1,0 +1,303 @@
+<apex:page controller="PortalUserConfirmationController" 
+            doctype="html-5.0"
+            
+            showHeader="false"
+            title="Portal User Confirmation">
+    <!--
+
+
+        Description: Portal User confirmation page
+
+        History:
+            13-Jul-2012 K.Noceda    Created          
+    -->
+
+    <head>
+        <title>mySouthEastWater - New User Registration</title>
+        <link rel="shortcut icon" 
+            href="https://southeastwater.secure.force.com/portal/favicon.ico" />
+
+        <!-- jquery -->
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}" /> 
+        <apex:stylesheet value="{!$Resource.PortalHomePage_Styles}"/>
+        <apex:stylesheet value="{!$Resource.PortalIcons_Styles}"/>
+        <apex:stylesheet value="{!$Resource.SitePortalRegistration_Styles}" />
+
+        <style>
+            .bPageBlock .detailList .labelCol {
+                width: 30%;
+            }
+            
+            
+        </style>
+
+        <script type="text/javascript">
+
+            function selPhone(){
+                if(document.getElementById('Home').checked == true){
+                    //alert('Home');
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidPrimaryId').value = 'Home';
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidhomePhoneId').value = true;
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidworkPhoneId').value = false;
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidmobilePhoneId').value = false;
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidotherPhoneId').value = false;
+                    document.getElementById('Home2').disabled = true;
+                    document.getElementById('Work2').disabled = false;
+                    document.getElementById('Mobile2').disabled = false;
+                    document.getElementById('Other2').disabled = false;
+                }
+                if(document.getElementById('Work').checked == true){
+                    //alert('Work');
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidPrimaryId').value = 'Work';
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidworkPhoneId').value = true;
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidhomePhoneId').value = false;
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidmobilePhoneId').value = false;
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidotherPhoneId').value = false;
+                    document.getElementById('Work2').disabled = true;
+                    document.getElementById('Home2').disabled = false;
+                    document.getElementById('Mobile2').disabled = false;
+                    document.getElementById('Other2').disabled = false;
+                }
+                if(document.getElementById('Mobile').checked == true){
+                    //alert('Mobile');
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidPrimaryId').value = 'Mobile';
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidmobilePhoneId').value = true;
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidhomePhoneId').value = false;
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidworkPhoneId').value = false;
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidotherPhoneId').value = false;
+                    document.getElementById('Mobile2').disabled = true;
+                    document.getElementById('Work2').disabled = false;
+                    document.getElementById('Other2').disabled = false;
+                    document.getElementById('Home2').disabled = false;
+                }
+                if(document.getElementById('Other').checked == true){
+                    //alert('Other');
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidPrimaryId').value = 'Other';
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidotherPhoneId').value = true;
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidhomePhoneId').value = false;
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidworkPhoneId').value = false;
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidmobilePhoneId').value = false;
+                    document.getElementById('Other2').disabled = true;
+                    document.getElementById('Mobile2').disabled = false;
+                    document.getElementById('Work2').disabled = false;
+                    document.getElementById('Home2').disabled = false;
+                }
+            }
+            
+            function selPhone2(){
+                if(document.getElementById('Home2').checked == true){
+                    //alert('Home');
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidSecId').value = 'Home';
+                }
+                if(document.getElementById('Work2').checked == true){
+                    //alert('Work');
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidSecId').value = 'Work';
+                }
+                if(document.getElementById('Mobile2').checked == true){
+                    //alert('Mobile');
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidSecId').value = 'Mobile';
+                }
+                if(document.getElementById('Other2').checked == true){
+                    //alert('Other');
+                    document.getElementById('j_id0:SiteTemplate:theForm:hidSecId').value = 'Other';
+                }
+                //alert(document.getElementById('j_id0:SiteTemplate:theForm:hidSecId').value);
+            }
+            
+            var j$ = jQuery.noConflict();
+
+            var previousOnload = window.onload;
+            window.onload = function() {
+                window.scrollTo(0,0);
+                try {
+                    j$("input:text:visible:first").focus();
+                    //custnbrfield.focus();
+                } catch (e) {
+                }
+    
+            }
+
+            j$(document).ready(
+                function() { 
+                    var startYear=1900; 
+                    var endYear=2030; 
+                    var optionsString=''; 
+                    if(startYear<endYear){ 
+                        for(i=startYear;i<endYear+1;i++){ 
+                            optionsString += "<option value=\""+i+"\">"+i+"</option>"; 
+                        } 
+                        j$('#calYearPicker').html(optionsString); 
+                    }  
+                    j$('#sidebarDiv #hideMyParent').parent().parent().hide(); 
+                }
+            );
+            
+       </script>
+
+    </head>
+
+    <!-- Hidden fields -->
+
+    <apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+            <div style="margin: auto; width: 600px; display: block" >
+
+                <!--  TITLE -->
+                <div style="margin-top: 12%"/>
+                <apex:sectionheader title="mySouthEastWater"
+                                    subtitle="Confirmation"/>
+                <div style="clear:both"/>
+
+                    <div style="margin: auto; width: 600px; padding: 20px;">
+                        <apex:form id="theForm">
+                            <apex:inputHidden id="hidhomePhoneId" value="{!homePhone}"></apex:inputHidden>
+                            <apex:inputHidden id="hidworkPhoneId" value="{!workPhone}"></apex:inputHidden>
+                            <apex:inputHidden id="hidmobilePhoneId" value="{!mobilePhone}"></apex:inputHidden> 
+                            <apex:inputHidden id="hidotherPhoneId" value="{!otherPhone}"></apex:inputHidden>
+                            <apex:inputHidden id="hidPrimaryId" value="{!tempPrimary}"></apex:inputHidden>
+                            <apex:inputHidden id="hidSecId" value="{!selSec}"></apex:inputHidden>
+                                        <!--  MAIN PAGE CONTENT -->
+                                <apex:pageBlock id="pbcontent">
+                                
+                                    <!-- Steps -->
+                                   <c:PortalRequiredField />
+                                   <!-- page messages -->
+                                    <div style="margin: 15px 0px">
+                                        <apex:pageMessages />
+                                    </div>
+        
+                                    <!-- Instructions -->
+                                    
+                                    <div style="margin: 30px 0px 15px; font-weight: bold">
+                                        Please confirm your details:                    
+                                    </div>
+                                    
+                                    <!--  Content -->
+        
+                                    <apex:pageBlockSection columns="1" id="pbsection">
+        
+                                        <apex:pageBlockSectionItem >
+                                            <apex:outputLabel value="First name" for="firstnamefield" />
+                                            <apex:inputField value="{!conUser.FirstName}" id="firstnamefield" required="true" label="Given Name" />
+                                        </apex:pageBlockSectionItem>
+        
+                                        <apex:pageBlockSectionItem >
+                                            <apex:outputLabel value="Last name" for="lastnamefield" />
+                                            <apex:inputField value="{!conUser.LastName}" id="lastnamefield" required="true" label="Last Name"/>
+                                        </apex:pageBlockSectionItem>
+                                            
+                                        <apex:pageBlockSectionItem >
+                                            <apex:outputLabel value="Preferred phone" for="Phonetypefield" />
+                                            <apex:outputPanel id="Opanel1">
+                                                <input type="radio" name="phoneType" id="Home" onclick="selPhone();"/><apex:outputLabel value="Home"/>
+                                                <input type="radio" name="phoneType" id="Work" onclick="selPhone();"/><apex:outputLabel value="Work" />
+                                                <input type="radio" name="phoneType" id="Mobile" onclick="selPhone();"/><apex:outputLabel value="Mobile" />
+                                                <input type="radio" name="phoneType" id="Other" onclick="selPhone();"/><apex:outputLabel value="Other" />
+                                            </apex:outputPanel>
+                                        </apex:pageBlockSectionItem>
+                                        
+                                        <apex:pageBlockSectionItem >
+                                            &nbsp;
+                                            <apex:inputField value="{!conUser.HomePhone}" id="phonefield" required="true"/>
+                                        </apex:pageBlockSectionItem>
+                                        
+                                        <apex:pageBlockSectionItem >
+                                            <apex:outputLabel value="Secondary phone" for="Phonetypefield2" /> 
+                                            <apex:outputPanel id="Opanel2">
+                                                <input type="radio" name="phoneType2" id="Home2" onclick="selPhone2();"/><apex:outputLabel value="Home"/>
+                                                <input type="radio" name="phoneType2" id="Work2" onclick="selPhone2();"/><apex:outputLabel value="Work" />
+                                                <input type="radio" name="phoneType2" id="Mobile2" onclick="selPhone2();"/><apex:outputLabel value="Mobile" />
+                                                <input type="radio" name="phoneType2" id="Other2" onclick="selPhone2();"/><apex:outputLabel value="Other" />
+                                            </apex:outputPanel>
+                                        </apex:pageBlockSectionItem>
+                                        
+                                        <apex:pageBlockSectionItem >
+                                            &nbsp;
+                                            <apex:inputText value="{!secPhone}" id="sphonefield"/>
+                                        </apex:pageBlockSectionItem>
+                                        
+                                        <script type="text/javascript">
+                                            window.onload = new function() { checkPhone('{!tempPreferred}','{!tempWP}'); };
+                                            function checkPhone(r,p){
+                                                //alert(r); 
+                                                //alert(p);
+                                                if(r == 'Home'){
+                                                    //alert('Home');
+                                                    document.getElementById('Home').checked = true;
+                                                    document.getElementById('Home2').disabled = true;
+                                                    document.getElementById('j_id0:SiteTemplate:theForm:hidPrimaryId').value = 'Home';
+                                                    document.getElementById('j_id0:SiteTemplate:theForm:hidhomePhoneId').value = true;
+                                                }
+                                                if(r == 'Work'){
+                                                    //alert('Work');
+                                                    document.getElementById('Work').checked = true;
+                                                    document.getElementById('Work2').disabled = true;
+                                                    document.getElementById('j_id0:SiteTemplate:theForm:hidPrimaryId').value = 'Work';
+                                                    document.getElementById('j_id0:SiteTemplate:theForm:hidworkPhoneId').value = true;
+                                                }
+                                                if(r == 'Mobile'){
+                                                    //alert('Mobile');
+                                                    document.getElementById('Mobile').checked = true;
+                                                    document.getElementById('Mobile2').disabled = true;
+                                                    document.getElementById('j_id0:SiteTemplate:theForm:hidPrimaryId').value = 'Mobile';
+                                                    document.getElementById('j_id0:SiteTemplate:theForm:hidmobilePhoneId').value = true;
+                                                }
+                                                if(r == 'Other'){
+                                                    //alert('Other');
+                                                    document.getElementById('Other').checked = true;
+                                                    document.getElementById('Other2').disabled = true;
+                                                    document.getElementById('j_id0:SiteTemplate:theForm:hidPrimaryId').value = 'Other';
+                                                    document.getElementById('j_id0:SiteTemplate:theForm:hidotherPhoneId').value = true;
+                                                }
+                                                document.getElementById('j_id0:SiteTemplate:theForm:pbcontent:pbsection:j_id101:phonefield').value = p;
+                                                document.getElementById('j_id0:SiteTemplate:theForm:pbcontent:pbsection:j_id113:sphonefield').value = '';
+                                            } 
+                                        </script>
+                                        
+                                        <apex:pageBlockSectionItem >
+                                            <apex:outputLabel value="Date of birth" for="bdatefield" />
+                                            <apex:inputField value="{!conUser.Birthdate}" id="bdatefield" required="true" label="Date of birth">
+                                                <script type="text/javascript">
+                                                    // hide the date defaulter
+                                                    var datefield = document.getElementById("{!$Component.bdatefield}");
+                                                    datefield.nextSibling.style.display="none";
+                                                </script>
+                                            </apex:inputField>
+                                        </apex:pageBlockSectionItem>
+                                        
+                                        <apex:pageBlockSectionItem >
+                                            <apex:outputLabel value="Driver licence" for="dlicensefield" />
+                                            <apex:inputField value="{!conUser.Drivers_License_Number__c}" id="dlicensefield" label="Drivers License"/>
+                                        </apex:pageBlockSectionItem>
+                                        
+                                        <apex:pageBlockSectionItem >
+                                        <apex:outputPanel ></apex:outputPanel>
+                                        
+                                        <apex:outputPanel >
+                                        <br></br>
+                                        <div style="margin-left:0px;">
+                                            <apex:commandButton value="Confirm"
+                                            action="{!save}"
+                                            styleClass="btnGreen" 
+                                            style="width: 80px"
+                                            id="nextbtn"/>
+                                        </div>
+                                        </apex:outputPanel>
+                                        </apex:pageBlockSectionItem>
+                                        
+                                    </apex:pageBlockSection>    
+                                    
+                                    
+                                </apex:pageBlock>
+                                
+                                
+                                
+                        </apex:form>
+                        <br/>
+                    </div>
+                </div>
+        </apex:define>
+    </apex:composition>
+
+</apex:page>

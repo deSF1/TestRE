@@ -1,0 +1,229 @@
+<!-- 
+    Type:       Component
+    Purpose:    Allow user to edit credit card details
+                
+    Used By:    PortalPaymentPlan_PaymentMethod and PortalDirectDebit_Details VF pages
+    -----------------------------------------------------------------------------------
+    History:
+    
+    19-Jul-2013 N.Patterson   Created
+    
+ -->
+
+<apex:component >
+	<apex:attribute name="ddc" description="the component" type="PortalDirectDebitController"/>
+	<script type="text/javascript">
+		var j$ = jQuery.noConflict();
+		j$( "#cvn-popup" ).dialog({
+            dialogClass: 'ui-dropshadow',
+            autoOpen: false,
+            width: 400,
+            modal: true,
+            resizable: false,
+            title: 'Credit Card CVN'
+        }); 
+        
+        
+        
+        /* This method needs to have a corresponding method in the page that contains this component.
+         * The correpsonding method needs the be the following:
+         *    function name: nextCCField
+         *    input variable: number of the next field
+         */
+         function gotoNextCCField(currentField, nextFieldNumber){
+         	
+         	if (currentField.length == 4 && previousFieldValue.length == 3){
+	         	var field = null;
+	         	if(nextFieldNumber == 2){
+	         		field = document.getElementById("{!$Component.creditcardpbs.ccnumberpbs.creditCardNumber2}");
+	         	}
+	         	else if(nextFieldNumber == 3){
+	         		field = document.getElementById("{!$Component.creditcardpbs.ccnumberpbs.creditCardNumber3}");
+	         	}
+	         	else if(nextFieldNumber == 4){
+	         		field = document.getElementById("{!$Component.creditcardpbs.ccnumberpbs.creditCardNumber4}");
+	         	}
+         		if (field != null){
+         			field.focus();
+         			field.select();
+         			previousFieldValue = field.value;
+         		}
+         	}
+         	else {
+         		previousFieldValue = currentField;
+         	}
+         }
+         var previousFieldValue = "";
+	</script>
+	<style>
+		div .errorMsg {
+			white-space: normal;
+			width: auto;
+    		min-width: 0;
+		}
+	</style>
+	<apex:outputPanel rendered="{!ddc.cvnErrorMessage != ''}">
+		<style>
+			.cvnCCInput {
+				border: 2px solid #EF7C00;
+			}
+		</style>
+	</apex:outputPanel>
+	<apex:outputPanel rendered="{!ddc.expiryDateErrorMessage != ''}">
+		<style>
+			.inputCCMonth, .inputCCYear {
+				border: 2px solid #EF7C00;
+			}
+		</style>
+	</apex:outputPanel>
+	<apex:outputPanel rendered="{!ddc.ccNumberErrorMessage != ''}">
+		<style>
+			.ccNumber {
+				border: 2px solid #EF7C00;
+			}
+		</style>
+	</apex:outputPanel>
+	
+	<apex:pageBlockSection columns="1" rendered="{!ddc.userInputFields.DD_Account_Type__c == 'Credit Card'}" id="creditcardpbs">
+	    <apex:pageBlockSectionItem id="cctypepbs">
+	        <apex:outputLabel value="Credit Card Type"/>
+	        <apex:outputPanel >
+	            <apex:inputField id="cctype" 
+	                        required="true"
+	                        value="{!ddc.userInputFields.Credit_Card_Type__c}" />
+	            <apex:image url="{!URLFOR($Resource.Icons, 'Icons/mastercardvisalogo.gif')}" />
+	        </apex:outputPanel>
+	    </apex:pageBlockSectionItem>
+	
+	    <apex:pageBlockSectionItem id="ccnumberpbs">
+	        <apex:outputLabel value="Credit Card Number" />
+	        <apex:outputPanel >
+	            <table cellpadding="0" cellspacing="0" style="border-spacing: 0; ">
+	                <tr>
+	                    <td style="width: 40px">
+	                        <apex:inputField value="{!ddc.userInputFields.Credit_Card_Number_1__c}"
+	                            label="Credit Card Number"
+	                            id="creditCardNumber1" 
+	                            style="width: 40px" styleClass="ccNumber"
+	                            onkeyup="gotoNextCCField(this.value, 2);"/>
+	                        <apex:message for="creditCardNumber1"/>
+	                    </td>
+	                    <td style="width: 40px" class="hideReqField">
+	                        <apex:inputField value="{!ddc.userInputFields.Credit_Card_Number_2__c}"
+	                            id="creditCardNumber2" 
+	                            style="margin-left:2px; width: 40px" styleClass="ccNumber"
+	                            onkeyup="gotoNextCCField(this.value, 3);"/>
+	                    </td>
+	                    <td style="width: 40px"><apex:inputField value="{!ddc.userInputFields.Credit_Card_Number_3__c}"
+	                            id="creditCardNumber3" style="margin-left:2px; width: 40px" styleClass="ccNumber"
+	                            onkeyup="gotoNextCCField( this.value, 4);">
+	                        </apex:inputField>
+	                    </td>
+	                    <td style="width: 40px"><apex:inputField value="{!ddc.userInputFields.Credit_Card_Number_4__c}"
+	                            id="creditCardNumber4" style="margin-left:2px; width: 40px" styleClass="ccNumber">
+	                        </apex:inputField>
+	                    </td>
+	                </tr>
+	            </table>
+	            <script>
+	                document.getElementById('{!$Component.creditCardNumber1}').autocomplete = "off";
+	                document.getElementById('{!$Component.creditCardNumber2}').autocomplete = "off";
+	                document.getElementById('{!$Component.creditCardNumber3}').autocomplete = "off";
+	                document.getElementById('{!$Component.creditCardNumber4}').autocomplete = "off";
+	                document.getElementById('{!$Component.creditCardNumber1}').size = "3";
+	                document.getElementById('{!$Component.creditCardNumber2}').size = "3";
+	                document.getElementById('{!$Component.creditCardNumber3}').size = "3";
+	                document.getElementById('{!$Component.creditCardNumber4}').size = "3";
+	
+	            </script>
+	        </apex:outputPanel>
+	    </apex:pageBlockSectionItem>
+	    
+	    <!-- CC Number error message -->  
+	    <apex:pageBlockSectionItem rendered="{!ddc.ccNumberErrorMessage != ''}">
+	    	<apex:outputLabel value="" />
+	        <apex:outputPanel >
+	   			<div class="errorMsg"><apex:outputText value="{!ddc.ccNumberErrorMessage}" escape="false"></apex:outputText> </div>
+			</apex:outputPanel>
+		</apex:pageBlockSectionItem>
+	
+	    <apex:pageBlockSectionItem id="expirydatepbs">
+	        <apex:outputLabel value="Expiry Date" />
+	        <apex:outputPanel >
+	            <table cellpadding="0" cellspacing="0" style="border-spacing: 0">
+	                <tr>
+	                    <td style="width: 80px">
+	                        <apex:inputField styleClass="inputCCMonth" value="{!ddc.userInputFields.Expiration_Date_Month__c}"
+	                                        required="true" />
+	                    </td>
+	                    <td style="width: 80px">
+	                        <apex:selectList styleClass="inputCCYear" value="{!ddc.userInputFields.Expiration_Date_Year__c}"
+	                            multiselect="false" size="1">
+	                            <apex:selectOptions value="{!ddc.items}" />
+	                        </apex:selectList>
+	                    </td>
+	                </tr>
+	            </table>
+	        </apex:outputPanel>
+	    </apex:pageBlockSectionItem>
+	    
+	    <!-- Expiry date error message -->  
+	    <apex:pageBlockSectionItem rendered="{!ddc.expiryDateErrorMessage != ''}">
+	    	<apex:outputLabel value="" />
+	        <apex:outputPanel >
+	   			<div class="errorMsg"><apex:outputText value="{!ddc.expiryDateErrorMessage}" escape="false"></apex:outputText> </div>
+			</apex:outputPanel>
+		</apex:pageBlockSectionItem>
+		
+	    <apex:inputField value="{!ddc.userInputFields.Name_on_Card__c}" id="nameoncard" required="true" >
+	        <script>
+	            document.getElementById('{!$Component.nameoncard}').autocomplete = "off";
+	        </script>
+	    </apex:inputField>
+	    
+	    <apex:pageBlockSectionItem id="cvnpbs">
+	        <apex:outputLabel value="CVN"/>
+	        <apex:outputPanel >
+	            <apex:inputField value="{!ddc.userInputFields.CVN__c}" id="cvn" styleClass="cvnCCInput" required="true" style="width: 40px;">
+	                <script>
+	                    document.getElementById('{!$Component.cvn}').autocomplete = "off";
+	                    document.getElementById('{!$Component.cvn}').size="3";
+	                </script>
+	            </apex:inputField>
+	            <span style="font-weight: bold; position: relative; top: 3px;">
+	                <apex:outputLink onclick="j$('#cvn-popup').dialog('open');  return false;">Show me where to find this</apex:outputLink>
+	            </span>
+	        </apex:outputPanel>
+	    </apex:pageBlockSectionItem>
+	    <!-- CVN Error Message -->
+	    <apex:pageBlockSectionItem rendered="{!ddc.cvnErrorMessage != ''}">
+	    	<apex:outputLabel value="" />
+	        <apex:outputPanel >
+	   			<div class="errorMsg"><apex:outputText value="{!ddc.cvnErrorMessage}" escape="false"></apex:outputText> </div>
+			</apex:outputPanel>
+		</apex:pageBlockSectionItem>
+	</apex:pageBlockSection>
+	
+	<!-- sample bill popup -->
+            <div id="cvn-popup" class="clear" style="display: none;">
+
+                <div style="text-align: justify; overflow: auto; padding: 0px 10px; border: solid 1px #E4E2DD; " class="radiusAll" id="cvn-body" >
+                    <p>                     
+                        The CVN is the last 3 digits of the number on the signature panel found on the back of your credit card. 
+                    </p>    
+                       <apex:image url="{!URLFOR($Resource.Icons, 'Icons/creditcardcvn.png')}"
+                               title="CVN Back Panel" />
+                </div>
+
+                <center>
+                    <br/>
+                    <apex:outputLink styleClass="btnGreen"  style="color: #ffffff !important" 
+                        onclick="hideCVN(); return false;" tabindex="1" id="closecvnwindow">Close</apex:outputLink>
+                    <script>
+                        function hideCVN() {
+                            j$("#cvn-popup").dialog("close");
+                        }
+                    </script>
+                </center>
+            </div>
+</apex:component>

@@ -1,0 +1,554 @@
+<apex:page sidebar="false" showHeader="true"
+    tabstyle="PortalAccounts__tab" action="{!CheckRedirectConfirmed}"
+    controller="PortalMoveInOut_Controller" Id="thePage">
+    
+    <!-- 
+    Type:       VF page
+    Purpose:    Move Out Step 2
+    ---------------------------------------------------------------
+    History:
+        02-Apr-2012 - Richard Enojas (Salesforce) - Created
+        16-May-2012 - Avergara - Update Label
+        17-Sept-2012 - Joel Jayoma (Cloud Sherpas)- added TP#234
+        26-Sep-2013  - N.Patterson  - TT11595 - Fixed the step 1 / step 2 / Step 3 / Complete banner below the Moving or Selling heading
+    -->
+   
+    <head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        <!-- jquery -->
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>
+        <apex:stylesheet value="{!$Resource.MoveInOut_Styles}" />
+        <style>
+        .contactMethod {
+            padding-left: 140px;   
+        }
+        .contactMethod label {
+            display:block;
+            padding-left: 30px;
+            padding-top: -20px;
+            position:relative;
+            top:-15px;
+        }
+        
+        .radioTitle{
+            color:#575756;!important;position:relative;left:-10px;
+        }
+        
+        .longInput{
+            width: 300px!important;
+        }
+        
+        .btnGreen {
+		background-color: #5DA22A;
+		}
+        </style>
+    </head>
+     
+    <apex:form id="theForm">
+    	
+    	<apex:actionFunction name="Address" action="{!forwardingAdd}" status="QASloading" oncomplete="CloseQASDialog();" rerender="btns,moreOptions">  
+        	<apex:param name="firstParam" assignTo="{!forwardingStreet}" value="" />  
+        	<apex:param name="secondParam" assignTo="{!forwardingCity}" value="" />  
+        	<apex:param name="thirdParam" assignTo="{!forwardingState}" value="" />  
+        	<apex:param name="fourthParam" assignTo="{!forwardingPostalCode}" value="" />  
+        	<apex:param name="fifthParam" assignTo="{!forwardingCountry}" value="" />  
+        	
+        </apex:actionFunction> 
+    
+	    <script type="text/javascript">
+	    	      // <!--TP311 Start -->  
+	              var conMethod='';                           
+	              $(document).ready(function(){ 
+				  
+					  hideManual();		 
+					  hideSearch();
+		
+	 			 }); 
+					 								
+				 		      
+			      //Show the QaS dialog         
+			      function ShowQASDialog() {
+			      
+			      	
+				         try {
+				         	 $(function () {
+								  $('#qas-popup').dialog({
+									   dialogClass: 'ui-dropshadow',                    
+						                    height: 500,
+						                    width: 450,
+						                    modal: true,
+						                    resizable: false,
+						                    zIndex: 60,
+						                    title: 'Address Entry'
+									  });
+									  
+								  });	
+					  	  
+				             $("#qas-popup").dialog("open");				            
+				             showSearch();
+				             hideManual();				             
+				         }
+				         
+			             catch (e) { alert(e.toString()); }			        
+			       
+			      }                
+			   
+			      //Close the QaS dialog
+	           	 function CloseQASDialog() {
+	                try {                	
+	                	
+	                    $("#qas-popup").dialog("close");            
+	                } catch (e) { alert(e.toString()); }
+	                return false;
+	             }   
+			      
+			      //Show the QaS search component            
+			      function showSearch() {
+			         try {
+			             $("#qaSearch").show();
+			         } catch (e) { alert(e.toString()); }
+			      }
+			      
+			      //Hide the QaS search component
+			      function hideSearch() {
+			         try {
+			             $("#qaSearch").hide();
+			         } catch (e) { alert(e.toString()); }
+			      }
+			      
+			      //Hide the manual QaS search div
+			      function hideManual() {
+			         try {
+			             $("#qaManual").hide();
+			         } catch (e) { alert(e.toString()); }
+			      }
+			      
+			      //Show the manula QaS search div
+			      function showManual(x) {
+			         try {
+			         	   mode = x;
+			             $("#qaManual").show(); 
+			             clearEntries(x);
+			             hideSearch();
+			         } catch (e) { alert(e.toString()); }
+			      }  
+			      
+			   
+			      function clearEntries(x){
+			        document.getElementById('thePage:theForm:testBlock:qaSearchSection:qaStreetItem:street').focus(); 
+	                document.getElementById('thePage:theForm:testBlock:qaSearchSection:qaStreetItem:street').value='';
+	                document.getElementById('thePage:theForm:testBlock:qaSearchSection:qaStreet2Item:street2').value='';    
+	                document.getElementById('thePage:theForm:testBlock:qaSearchSection:qaSuburbItem:suburb').value='';               
+	                document.getElementById('thePage:theForm:testBlock:qaSearchSection:qaStateItem:state').value='';
+	                document.getElementById('thePage:theForm:testBlock:qaSearchSection:qaPostal:postalCode').value='';
+	               
+	                 
+	                if(x == 'manual'){                	
+	                    document.getElementById('thePage:theForm:testBlock:qaSearchSection:qaCountry:country').value='AUSTRALIA';
+	                    document.getElementById('thePage:theForm:testBlock:qaSearchSection:qaCountry:country').readOnly=true; 
+	                    document.getElementById('requiredInputDiv').className="requiredInput";
+	                    document.getElementById('requiredBlockDiv').className="requiredBlock"; 
+	                    document.getElementById('requiredInputDivState').className="requiredInput";
+	                    document.getElementById('requiredBlockDivState').className="requiredBlock"; 
+	                    document.getElementById('requiredInputDivPostal').className="requiredInput";
+	                    document.getElementById('requiredBlockDivPostal').className="requiredBlock"; 
+	                }else{
+	                
+	                    document.getElementById('requiredInputDiv').className="";
+	                    document.getElementById('requiredBlockDiv').className=""; 
+	                    document.getElementById('requiredInputDivState').className="";
+	                    document.getElementById('requiredBlockDivState').className=""; 
+	                    document.getElementById('requiredInputDivPostal').className="";
+	                    document.getElementById('requiredBlockDivPostal').className=""; 
+	                    document.getElementById('thePage:theForm:testBlock:qaSearchSection:qaCountry:country').value='';
+	                    document.getElementById('thePage:theForm:testBlock:qaSearchSection:qaCountry:country').readOnly=false; 
+	                }        		
+	            }
+	            
+	            //Function that parses the address from QAS then display it on their respective component for local and overseas
+	            function ReceiveAddressManually(){    
+	            	
+	            	var fStreet =  $('[id="thePage:theForm:testBlock:qaSearchSection:qaStreetItem:street"]').val();                          
+	                var fStreet2 =  $('[id="thePage:theForm:testBlock:qaSearchSection:qaStreet2Item:street2"]').val();   
+	                var fSuburb =  $('[id="thePage:theForm:testBlock:qaSearchSection:qaSuburbItem:suburb"]').val();               
+	                var fState =  $('[id="thePage:theForm:testBlock:qaSearchSection:qaStateItem:state"]').val();
+	                var fPostal = $('[id="thePage:theForm:testBlock:qaSearchSection:qaPostal:postalCode"]').val();
+	                var fCountry =  $('[id="thePage:theForm:testBlock:qaSearchSection:qaCountry:country"]').val();
+	               
+	                var fFullStreet, fStatePostal;       
+	            	
+	            	if(mode == 'manual'){
+		                if ((trim(fStreet) == '') || (trim(fSuburb) == '') || (trim(fPostal) == '') || (trim(fCountry) == '') || (trim(fState) == '')) {
+		                    alert('You must enter a value on all the required fields.');
+		                    return false;               
+		                } 
+			         alert('conMethod:'+conMethod);      
+	                }else{
+	                	if ((trim(fStreet) == '') || (trim(fCountry) == '')) {
+		                    alert('You must enter a value on all the required fields.');
+		                    return false;               
+		                } 
+	                }
+	                
+	                if (trim(fStreet2) != ''){
+	                   	fFullStreet = fStreet + ', ' + fStreet2 ;                     
+		            } 
+		            else{
+		            	fFullStreet = fStreet;                           
+		            }
+		            if (trim(fState) == ''){
+		            	fStatePostal = fPostal ; 
+		            }    
+		            else{    
+		                fStatePostal = fState + ', ' + fPostal;          
+		            }
+		            
+		            var fFullStreet, fStatePostal; 
+	               
+	                if(mode == 'manual'){
+		                if(fFullStreet.length < 4 || fFullStreet.length > 60){
+		                	alert('Street address cannot be less than 4 or greater than 60 characters.');
+		                	return false;
+		                }else if(fState.length < 2){
+		                	alert('State should be 2 or more characters.');
+		                	return false;
+		                }else if(fSuburb.length < 2){
+		                	alert('Suburb should be 2 or more characters.');
+		                	return false;
+		                }     
+	                }       
+	                 
+	                // Get The Full Address                  
+	                    
+	               	Address(fFullStreet,fSuburb,fState,fPostal,fCountry); 	                 
+	            	
+	                
+	            }              
+	          	           
+	            
+	            //Function that parses the address from QAS then display it on their respective component.
+	            function ReceiveAddress(address) {     
+	                var Street = address.AddressLines[0].Line;
+	                var Street2 = address.AddressLines[1].Line;            
+	                var Suburb = address.AddressLines[2].Line;
+	                var State = address.AddressLines[3].Line;
+	                var Postal = address.AddressLines[4].Line;
+	                var Country = address.AddressLines[5].Line;
+	                var completeAddress, fullStreet,StatePostal;                                    
+	                
+	                for (var i=0; i < address.Length; i++) {
+	                    var line = address.AddressLines[i].Line;
+	                    
+	                    if (line != null & line != "") {
+	                        if (completeAddress == null)
+	                            completeAddress = line;
+	                        else                    
+	                            completeAddress = completeAddress + ', ' + line;
+	                    }
+	                }
+	
+	                if(Street2 != ''){
+	                    fullStreet = Street +', '+Street2;
+	                } 
+	                else{
+	                    fullStreet = Street;                           
+	                }
+	                
+	                if (trim(State) == ''){
+	                    StatePostal = Postal ; 
+	                }    
+	                else{    
+	                    StatePostal = State + ', ' + Postal;          
+	                }	                
+	              
+	                
+	                // Get The Full Address                           
+	                                     
+	                Address(fullStreet,Suburb,State,Postal,Country); 
+	                                                
+	              
+	              // <!--TP311 End -->   
+	                                       
+	            }            
+	            
+	                        		  
+	        </script>
+	        
+	          <!--TP311 Start -->
+	                    <div id="qas-popup" style="display:none;">
+	            
+				            
+				            <div id="qaSearch">
+				                    <c:QaSPopupPulse />                    
+				            </div> 
+				            
+				            <!--QAS Manual Entry -->
+				            <div id="qaManual" class="pbTransparent requiredInput">   
+				                <apex:pageBlock id="testBlock">                                                          
+				                    Please enter your address details below.<br/><br/>                                                   
+				                    <apex:pageBlockSection id="qaSearchSection" columns="1" >
+				                        <apex:pageBlockSectionItem id="qaStreetItem">                                                                               
+				                        <apex:outputLabel value="Street address 1"/> 
+				                         <apex:outputPanel >
+				                         <div class="requiredInput">
+				                            <div class="requiredBlock"></div>
+				                                <apex:inputTextarea rows="2" id="street" required="true" styleClass="requiredInput" style="width:250px" />
+				                            </div>
+				                        </apex:outputPanel>                                   
+				                    </apex:pageBlockSectionItem>
+				                                    
+				                    <apex:pageBlockSectionItem id="qaStreet2Item">
+				                        <apex:outputLabel value="Street address 2"/> 
+				                        <apex:inputTextArea rows="2" label="Street" id="street2" required="true" styleClass="requiredInput" style="width:250px"  /> 
+				                    </apex:pageBlockSectionItem>
+				                        
+				                    <apex:pageBlockSectionItem id="qaSuburbItem">
+				                        <apex:outputLabel value="Suburb"/>
+				                        <apex:outputPanel id="suburbPanel">
+				                         <div class="requiredInput" id="requiredInputDiv">
+				                            <div class="requiredBlock" id="requiredBlockDiv"></div>                               
+				                                    <apex:inputText id="suburb" required="true" style="width:250px" />
+				                                </div>
+				                        </apex:outputPanel>
+				                    </apex:pageBlockSectionItem>
+				                                 
+				                    <apex:pageBlockSectionItem id="qaStateItem">
+				                        <apex:outputLabel value="State"/> 
+				                        <apex:outputPanel >
+				                         <div class="requiredInput" id="requiredInputDivState">
+				                            <div class="requiredBlock" id="requiredBlockDivState"></div>                                     
+				                          <apex:inputText id="state" required="true" style="width:250px" /> 
+				                      </div>
+				                        </apex:outputPanel>                                  
+				                    </apex:pageBlockSectionItem>
+				                                    
+				                    <apex:pageBlockSectionItem id="qaPostal">
+				                       <apex:outputLabel value="Postal code"/>
+				                         <apex:outputPanel >
+				                         <div class="requiredInput" id="requiredInputDivPostal">
+				                            <div class="requiredBlock" id="requiredBlockDivPostal"></div>
+				                                    <apex:inputText id="postalCode" required="true" style="width:250px"/>
+				                                </div>
+				                        </apex:outputPanel>  
+				                    </apex:pageBlockSectionItem>
+				                                    
+				                    <apex:pageBlockSectionItem id="qaCountry">
+				                        <apex:outputLabel value="Country"/>
+				                        <apex:outputPanel >
+				                            <div class="requiredInput">
+				                                <div class="requiredBlock"></div>
+				                                <apex:inputText id="country" required="true" style="width:250px" />
+				                            </div>
+				                        </apex:outputPanel>
+				                    </apex:pageBlockSectionItem>
+				                    <br/>
+				                    
+				                    <apex:pageBlockSectionItem id="qaButtons">
+				                        <apex:outputLabel value=""/>
+				                        <apex:pageBlockSectionItem dataStyle="horizontal-align: middle">                      
+				                            <apex:commandButton id="acceptSearchButton" onclick="ReceiveAddressManually();"  value="Accept" styleClass="btnPrimary" />
+				                            <apex:commandButton onclick="CloseQASDialog();" value="Cancel"  immediate="true" styleclass="btnBlueText" /> 
+				                        </apex:pageBlockSectionItem>                                        
+				                    </apex:pageBlockSectionItem>                                                                     
+				                </apex:pageBlockSection>                              
+				            </apex:pageBlock>                                             
+				        </div>
+				    </div>    
+				   
+				    <apex:actionStatus id="QASloading">
+				            <apex:facet name="start">
+				                <c:EnhancedActionStatus BackColor="#ffffff"
+				                                       borderColor="#6B6B6B"
+				                                       borderSize="1"
+				                                       height="50px"
+				                                       width="120px"
+				                                       margintop="-25px"
+				                                       marginleft="-60px"
+				                                       ImageUrl="{!$Resource.AjaxAnimation}"
+				                                       Message="Loading..."/>
+				            </apex:facet>
+				        </apex:actionStatus>
+				        
+				        
+			         <!--TP311 END -->
+		 <apex:outputPanel id="sidebarContainer" layout="block" styleClass="sideBarCellDiv" >
+        	<apex:outputPanel id="accountsListAndSidebar" layout="block" styleClass="pbTransparent" >
+            	<c:PortalAccountsList displayAccountList="false"/> <!-- TT10401-show the accountlist section -->
+                <!--  sidebar -->                           
+                <div style="margin-top:-65px;"><!-- TT10401-shift up 65 px to remove gap -->
+	            	<c:PortalSidebar id="sidebar" groupName="Accounts" currentAccRecordType="{!customer.RecordType.DeveloperName}" 
+	                            currentDevName="Accounts_MovingSelling" />
+				</div>
+			</apex:outputPanel>
+		</apex:outputPanel>
+		         
+        <!-- div class="sideBarCellDiv">
+                               
+	            <c:PortalSidebar id="sidebar" groupName="Accounts" currentAccRecordType="{!customer.RecordType.DeveloperName}" 
+	                            currentDevName="Accounts_MovingSelling" title="Accounts"/>
+			
+        </div -->
+        
+        <div class="contentCellDiv">
+            
+            <!-- Page Block Header -->
+            <div class="pageBlockHeader">
+                <apex:outputPanel layout="block" styleclass="pageBlockTitle">
+                    Moving or Selling
+                </apex:outputPanel>
+            </div>
+            
+            <apex:pageBlock id="pageblock">
+                
+                <!-- Steps -->
+                <apex:outputpanel rendered="{!NOT(tenantOrOwner == 'Owner')}">
+                <div class="moveinoutstep2of3Image">
+                    <apex:panelGrid cellspacing="0" cellpadding="0" styleClass="stepInnerGrid">
+                        <span class="step stepFirst">Step 1</span>
+                        <span class="activeStep">Step 2</span>
+                        <span class="stepIncomplete2">Step 3</span>
+                        <span class="stepIncomplete">Complete</span>   
+                    </apex:panelGrid>
+                </div>
+                </apex:outputpanel>
+                
+                <apex:outputpanel rendered="{!tenantOrOwner == 'Owner'}">
+                <div class="moveinoutstep2Image">
+                    <apex:panelGrid cellspacing="0" cellpadding="0" styleClass="stepInnerGrid">
+                        <span class="step stepFirst">Step 1</span>
+                        <span class="activeStep">Step 2</span>
+                        <span class="stepIncomplete">Complete</span>
+                    </apex:panelGrid>
+                </div>
+                </apex:outputpanel>
+                
+                <!--  PAGE MESSAGES -->
+                <div style="margin-top: 5px">
+                    <apex:pageMessages id="msg" />
+                </div>
+                
+                <div class="innerContentLHSDiv">
+                    <apex:outputPanel id="moreOptions">
+                    <apex:actionRegion >
+                        <apex:pageBlockSection title="Forwarding Address Details" collapsible="false" columns="1" id="info1">                            
+                  		    <div style="margin-top:50px; margin-bottom:10px; text:-align:center;font-weight:bold;"><apex:outputText rendered="{!!showNextBtn}"> Please click on the Forwarding adresses button below to provide your details to South East Water: </apex:outputText></div>
+                            <div class="radioTitle"></div>
+                            
+                            
+                            <!-- 
+                            <apex:selectRadio value="{!contactMethod}"    
+                                              required="false" layout="pageDirection" styleClass="contactMethod"
+                                              id="contactMethod">             
+                                <apex:selectOption itemValue="email" itemLabel="Email: {!userContact.Email}" />
+                                <apex:selectOption itemValue="propertyAddress" itemLabel="Property address: {!contactPropertyAddress}"/> 
+                                <apex:selectOption itemValue="alternativeAddress" itemLabel="Alternative address"/>
+                                <apex:actionSupport event="onclick" 
+                                                    rerender="moreOptions"
+                                                    status="loading"/>
+                            </apex:selectRadio> 
+                              -->
+                        </apex:pageBlockSection>
+                    </apex:actionRegion>
+                    
+                        <!-- <apex:pageBlockSection collapsible="false" title="Enter this address:" columns="1" 
+                                               rendered="{!contactMethod == 'alternativeAddress'}">
+                                <apex:inputField value="{!caserec.FutureStreetAddress__c}" label="Street address" id="streetaddress" required="true" styleClass="longInput"/>     
+                                <apex:inputField value="{!caserec.FutureCity__c}" label="Suburb" id="city" required="true" styleClass="longInput"/> 
+                                <apex:inputField value="{!caserec.FutureState__c}" label="State" id="state" required="true" styleClass="longInput"/>   
+                                <apex:inputField value="{!caserec.FuturePostCode__c}" label="Postcode" id="postcode" required="true" styleClass="longInput"/>
+                                <apex:inputField value="{!caserec.Future_Country__c}" label="Country" id="country" required="true" styleClass="longInput"/>
+                         </apex:pageBlockSection>
+                        -->   
+                    </apex:outputPanel>
+                    
+                    <div style="clear:both"/><br/>
+                    <p/>                  
+                    
+                    
+                    <div style="margin:0 auto;text-align:center!important;">
+                           <input type="button" value="Forwarding Address" 
+                            id="forwardbtn"
+                            class="btnGreen"
+                            onclick="ShowQASDialog();" />                                                  
+                                               
+                                                      
+                    </div>                     
+                    	              	             
+                  	<apex:outputpanel id="btns">                  		
+                  		<div style="margin-top:50px; margin-bottom:10px; text:-align:center;font-weight:bold;"><apex:outputText value="Forwarding Address: {!forwardingpAddress}" rendered="{!showNextBtn}" /></div> 
+                  		<div style="margin-top:10px; margin-bottom:10px; text:-align:center;font-weight:normal;"><apex:outputText value="If you wish to amend your address details, please click Forwarding address again" rendered="{!showNextBtn}" /></div>
+                  		<apex:actionRegion >
+	       					<apex:pageBlockSection title="" collapsible="false" columns="1" rendered="{!(caserec.Type_of_Read__c == 'Move Out' && tenantOrOwner == 'Owner')}">
+		                   		<apex:selectRadio value="{!numberOption}" label="Contact Number:">
+		               				<apex:selectOption itemValue="mobile" itemLabel="Mobile" />
+		               				<apex:selectOption itemValue="work" itemLabel="Work" />
+		               				<apex:selectOption itemValue="other" itemLabel="Other" />
+		           				</apex:selectRadio>
+	            				<apex:pageBlockSectionItem > 
+	             					<apex:outputLabel value=""/>
+	            					<apex:outputPanel >
+	           						<div class="requiredInput">
+	           							<div class="requiredBlock"></div>
+	              							<apex:inputText style="position:relative;width:200px;" title="Mandatory Field" alt="Mandatory Field" id="contactNumber" value="{!contactNumber}" />
+	          							</div>
+	          						</apex:outputPanel>
+	          					</apex:pageBlockSectionItem>
+	          				</apex:pageBlockSection>
+	          			</apex:actionRegion>  
+	                  	 <div style="clear:both;margin-top:50px;"><br/>						
+		                     <div style="margin:0 auto;text-align:center!important;">
+		                        <apex:commandButton value="{!if(caserec.Type_of_Read__c == 'Move Out' && tenantOrOwner == 'Owner', 'Submit', 'Next')}"
+		                        	rendered="{!showNextBtn}" 
+		                            id="nextbtn"
+		                            styleClass="btnPrimary" 
+		                            action="{!Step3}"  
+		                            status="loading"/>
+		                        <apex:commandButton value="Cancel" 
+		                            id="cancelbtn"
+		                            styleClass="btnClearGreenText"
+		                            action="{!PrevStep}" 
+		                            immediate="true" 
+		                            rendered="{!NOT(submitted)}"/>
+		                    </div>
+	                    
+	                	</div>	 
+                     </apex:outputpanel>      
+                </div>
+                 
+                  
+                    
+                <div class="innerContentRHSDiv">
+                    <!--  live chat -->
+                       <c:LiveChat />
+    
+                       <c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+                            divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+                            divStyle="width: 205px"/>
+                    <!--  quick links -->
+                    <div style="position: relative;"><c:PortalQuickLinks mode="Property"/></div>
+                </div>  
+            
+                <div style="clear:both"/>
+            </apex:pageBlock>
+            
+        </div>
+
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff"
+                                       borderColor="#6B6B6B"
+                                       borderSize="1"
+                                       height="50px"
+                                       width="120px"
+                                       margintop="-25px"
+                                       marginleft="-60px"
+                                       ImageUrl="{!$Resource.AjaxAnimation}"
+                                       Message="Loading..."/>
+            </apex:facet>
+        </apex:actionStatus>
+    </apex:form>
+
+</apex:page>

@@ -1,0 +1,179 @@
+<apex:page standardController="Billing_Account__c" extensions="QOSExCon">
+
+<!-- 
+    Type:       VF page
+    Purpose:    Display QOS Scroll in Quick View Page
+    
+    Used By:	QuickView.page
+    ---------------------------------------------------------------
+    History:
+    
+    21-Nov-2012 DYU Created TP416
+    
+ -->
+ 	<apex:includeScript value="/support/console/22.0/integration.js" />
+ 	<apex:includeScript value="{!URLFOR($Resource.jqueryui1816, '/js/jquery-1.6.2.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.jqueryui1816, '/js/jquery-ui-1.8.16.custom.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.jqueryui1816, '/css/custom-theme/jquery-ui-1.8.16.custom.css')}"/>
+ 	
+	<script type="text/javascript">
+ 		function setTabTitle() {
+        	if (sforce.console.isInConsole())
+           		sforce.console.setTabTitle('{!JSINHTMLENCODE(Billing_Account__c.HiAF_Account_Number__c)} - QOS');
+       	}       
+      
+       	var previousOnload = window.onload;        
+       	window.onload = function() { 
+            if (previousOnload) { 
+                previousOnload();
+            }
+            setTabTitle();                
+       	}
+       
+       	var j$ = jQuery.noConflict();
+	        j$(function() {
+	           BuildQASDialog();       
+	        });          
+       
+       	//Build the popup dialog that displays the event details
+       	function BuildQASDialog() {
+           j$( "#qosdetail-popup").dialog({
+               dialogClass: 'ui-dropshadow',
+               autoOpen: false,
+               height: 230,
+               width: 400,
+               modal: true,
+               resizable: true,
+               title: 'Event Details',
+               zIndex: 60,
+           }); 
+	   	} 
+		
+	   	//Display event details dialog 
+       	function ShowDetails() {
+           try {
+               j$("#qosdetail-popup").dialog("open");
+
+           } catch (e) { alert(e.toString()); }
+       	}
+		
+	  	//Close event details dialog 
+	  	function CloseDetails() {
+           try {
+               j$("#qosdetail-popup").dialog("close");
+
+           } catch (e) { alert(e.toString()); }
+           return false;
+       	}
+       
+       	//Retrieved the event line details
+       	function getEventLineDetails(val){
+       		eventNumberVal = val;
+       		getEventDetails(eventNumberVal);
+       	}
+       
+       	//Sort related classifications list default by created date desc
+       	function sortQOS(direction, fieldName, currentExpression, recCount){
+	       if(recCount > 0){
+		       field = fieldName;
+		       if(currentExpression != fieldName){
+		           order = 'ASC';
+		       }else{
+		           if(direction == 'ASC')
+		               order = 'DESC';
+		           else
+		               order = 'ASC';
+		       }
+		       sortQOSList(field, order);
+	       }
+        }
+    </script>
+	<!-- PAGE MESSAGES -->
+	<apex:pagemessages id="messages" />
+    
+    <apex:form >
+    	<!-- Action Functions -->
+    	<apex:actionFunction name="getEventDetails" action="{!getEventDetails}" rerender="eventDetailsPanel" oncomplete="ShowDetails();">
+            <apex:param name="eventNumberVal" value="billingid" assignTo="{!eventNum}"/>
+        </apex:actionFunction>
+        <apex:actionFunction name="sortQOSList" action="{!getQOS}" rerender="qosPage">
+            <apex:param name="field" value="field" assignTo="{!sortField}"/>
+            <apex:param name="order" value="order" assignTo="{!sortOrder}"/>
+        </apex:actionFunction>
+        
+        <!-- START OF QOS Page Block -->
+    	<apex:pageblock id="qosPage">
+            <apex:pageBlockSection id="qosSection" columns="1">
+                <apex:pageblockTable id="qosTable" value="{!qosDetailsList}"
+                    var="q">
+                    	<apex:column >
+                           <apex:facet name="header">
+                              <apex:commandLink value="Event Number" onclick="javascript:sortQOS('{!sortOrder}', 'EventNumber', '{!sortField}', {!numOfRecords});return false;">
+                                 	<apex:image value="/s.gif" styleClass="{!IF(numOfRecords > 0 && sortField == 'EventNumber', if(sortOrder='ASC','sortAsc','sortDesc'),'')}"/>
+                                 </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputText value="{!q.EventNumber}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">
+                                <apex:commandLink value="Received Date" onclick="javascript:sortQOS('{!sortOrder}', 'ReceivedDate', '{!sortField}', {!numOfRecords});return false;">
+                                 	<apex:image value="/s.gif" styleClass="{!IF(numOfRecords > 0 && sortField == 'ReceivedDate', if(sortOrder='ASC','sortAsc','sortDesc'),'')}"/>
+                                 </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputText value="{!q.ReceivedDate}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">
+                                 <apex:commandLink value="Event Type" onclick="javascript:sortQOS('{!sortOrder}', 'EventCode', '{!sortField}', {!numOfRecords});return false;">
+                                 	<apex:image value="/s.gif" styleClass="{!IF(numOfRecords > 0 && sortField == 'EventCode', if(sortOrder='ASC','sortAsc','sortDesc'),'')}"/>
+                                 </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputText value="{!q.EventCode}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">
+                               <apex:commandLink value="Details" onclick="javascript:sortQOS('{!sortOrder}', 'EventLine', '{!sortField}', {!numOfRecords});return false;">
+                                 	<apex:image value="/s.gif" styleClass="{!IF(numOfRecords > 0 && sortField == 'EventLine', if(sortOrder='ASC','sortAsc','sortDesc'),'')}"/>
+                                 </apex:commandLink>
+                            </apex:facet>
+                            <A onClick="getEventLineDetails('{!q.EventNumber}');return false;" style="cursor:pointer;" href="#">
+                           	{!q.EventLine}
+                            </A>
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">
+                                <apex:commandLink value="Contact Type" onclick="javascript:sortQOS('{!sortOrder}', 'ContactType', '{!sortField}', {!numOfRecords});return false;">
+                                 	<apex:image value="/s.gif" styleClass="{!IF(numOfRecords > 0 && sortField == 'ContactType', if(sortOrder='ASC','sortAsc','sortDesc'),'')}"/>
+                                 </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputText value="{!q.ContactType}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">
+                                <apex:commandLink value="Received By" onclick="javascript:sortQOS('{!sortOrder}', 'ReceivedBy', '{!sortField}', {!numOfRecords});return false;">
+                                 	<apex:image value="/s.gif" styleClass="{!IF(numOfRecords > 0 && sortField == 'ReceivedBy', if(sortOrder='ASC','sortAsc','sortDesc'),'')}"/>
+                                 </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputText value="{!q.ReceivedBy}" />
+                        </apex:column>
+                        
+                </apex:pageblockTable>
+           </apex:pageBlockSection>
+    	</apex:pageblock>
+    	<!-- END OF QOS Page Block -->
+    	
+    	<!-- START OF EVENT DETAILS DIALOG POPUP -->
+    	<div id="qosdetail-popup" title="Bill Detail - {!Billing_Account__c.Name}" >
+    		<apex:outputPanel id="eventDetailsPanel">
+    			<p>
+    				<b>{!eventdetails}</b>
+    			</p>
+    		</apex:outputPanel>
+    		<br></br>
+    		<center>
+            	<apex:commandButton id="closebtn" onclick="return CloseDetails(); return false;" value="Close" />
+            </center>
+    	</div>
+    	<!-- END OF EVENT DETAILS DIALOG POPUP -->
+    </apex:form>
+</apex:page>

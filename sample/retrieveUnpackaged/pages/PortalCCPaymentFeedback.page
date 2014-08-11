@@ -1,0 +1,122 @@
+<apex:page sidebar="false" showHeader="true" doctype="html-5.0"
+    tabstyle="Portal_Payment_Options__tab"
+    controller="PortalCCPaymentController">
+    <!-- 
+    Type:       VF page
+    Purpose:    Displays HiAF Payment History For Portal User
+    ---------------------------------------------------------------
+    History:
+    
+    -->
+
+    <head>
+        <apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+        
+        <apex:stylesheet value="{!$Resource.PortalSidebar_Styles}"/>        
+        <apex:stylesheet value="{!$Resource.PortalPayment_Styles}"/>  
+        <style>
+        /*.bPageBlock .detailList .labelCol {
+            padding-bottom: 15px;
+            width: 25%;
+        }*/
+        .bPageBlock .detailList .labelCol {
+            padding-bottom: 15px;
+            padding-left: 0px !important;
+            width: 33% !important;
+        }            
+
+        .bEditBlock .detailList .dataCol, .bEditBlock .detailList .data2Col {
+            padding-left: 0px;
+        }
+        </style>
+       
+    </head>
+
+    <apex:form id="form">
+        <!-- hidden outputfields or input fields go here -->
+        <apex:outputfield rendered="false"
+            value="{!userInputFields.Billing_Account__c}" />
+
+        <!--  sidebar -->
+        <div class="pbTransparent sideBarCellDiv" >
+            <!--  sidebar -->                           
+            <c:PortalSidebar id="sidebar" groupName="PaymentOptions" 
+                        currentAccRecordType="{!customer.RecordType.DeveloperName}" 
+                        currentDevName="PaymentOptions_CCPayment"
+                        title="Payment options"/>
+        </div>
+
+        <!--  content -->        
+        <apex:outputPanel id="wholePage" layout="block" styleClass="contentCellDiv"
+        rendered="{!NOT(ISNULL(userInputFields.Billing_Account__c))}">
+        
+            <apex:sectionheader subtitle="Credit card payment" />
+            
+            <div class="clear"/>
+            
+            <apex:pageBlock id="pageblock">
+                <!--  PAGE MESSAGES -->
+                <div style="margin-top: 5px; text-align: left">
+                    <apex:pageMessages id="msg" escape="false"/>
+                </div>
+             
+                <!-- CONTENT -->
+                <div class="contentCellDiv">
+                
+                    <!-- use the outputpanel below for words that goes across the whole content page-->
+                    <apex:outputPanel id="innerContentLHSDiv" styleclass="innerContentLHSDiv">
+                    
+                    <apex:outputPanel id="success" rendered="{!paymentSucceeded}">
+                            <p>
+                            {!accountController.userContact.FirstName}, your payment of 
+                            $<apex:outputField value="{!userInputFields.Amount__c}"/> 
+                            has been <b>approved</b>. Your receipt number is {!taskRec.Hidden_CC_Payment_Receipt_Number__c}.
+                            </p>
+                            <p>
+                            Thank you for your payment. 
+                            </p><p/>
+                    
+                   </apex:outputPanel> 
+                   <div style="margin:0 auto;text-align:center!important;">
+                        <apex:commandButton value="Home" onclick="goHome();return false" />
+                        <apex:commandButton action="{!payBill}" styleClass="btnGreen"
+                            value="Pay Another Bill" />
+                    </div>
+                    </apex:outputPanel>  
+                    
+                
+                    <div class="innerContentRHSDiv">
+                        <!--  live chat -->
+                        <c:LiveChat />
+                        <c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+                            divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+                            divStyle="width: 205px"/>
+                        <!--  quick links -->
+                        <div style="position: relative;"><c:PortalQuickLinks mode="Payment"/></div>
+                    </div>
+                </div>
+            
+                <div class="clear"/>
+            
+            </apex:pageBlock>
+        <script>
+            function goHome(){       
+                window.location = "{!$Page.PortalMyAccountHomePage}";
+            } 
+        </script>
+        </apex:outputPanel>
+       
+       
+
+        <!-- Action Status that are not position dependent -->
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+                    borderSize="1" height="50px" width="120px" margintop="-25px"
+                    marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+                    Message="Loading..." />
+            </apex:facet>
+        </apex:actionStatus>
+
+    </apex:form>
+</apex:page>

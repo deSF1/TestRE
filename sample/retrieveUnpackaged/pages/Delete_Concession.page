@@ -1,0 +1,63 @@
+<apex:page standardController="Case" extensions="ConcessionExCon">
+<!-- 
+    Type:       VF page
+    Purpose:    Deletes a Concession in HiAF
+    ---------------------------------------------------------------
+    History:    Pre-10.06.2012    SFDC    Created
+                10.06.2012        GT      1023 - Added in handling for closed cases
+                16.06.2012        GT      1023 - Needed to add handling for page content to not be 
+                                                 rendered if case is closed.    
+ -->
+
+    <script type="text/javascript">
+       var previousOnload = window.onload;
+       window.onload = function() {
+            if (previousOnload) {
+                previousOnload();
+            }
+            deleteConcession();
+       }
+    </script>
+
+    <apex:form id="theForm">
+    
+        <!-- #1023 Addition for handling View layer on Closed Clases -->
+        
+                <apex:commandLink value="<-- Back to Case" action="{!back}" rendered="{!Case.isClosed}" />
+                <apex:pageMessage severity="error"
+                strength="2"
+                summary="This concession record has already been processed. Please create a new request."
+                rendered="{!(Case.isClosed)}"/>
+    
+        <!-- #1023 end -->
+        
+        
+        <apex:pageBlock id="wholepage" rendered="{!NOT(Case.isClosed)}">
+        
+            <apex:pagemessages id="messages"/>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton action="{!URLFor($Action.Case.View,cse.Id)}" value="Back"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+
+        <apex:actionFunction name="deleteConcession"
+                                action="{!deleteConcession}"
+                                status="loading"
+                                rerender="theForm,messages"
+                                rendered="{!NOT(Case.isClosed)}"/>
+
+        <apex:actionStatus id="loading" rendered="{!NOT(Case.isClosed)}">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff"
+                                        borderColor="#6B6B6B"
+                                        borderSize="1"
+                                        height="50px"
+                                        width="120px"
+                                        margintop="-25px"
+                                        marginleft="-60px"
+                                        ImageUrl="{!$Resource.AjaxAnimation}"
+                                        Message="Loading..."/>
+            </apex:facet>
+        </apex:actionStatus>
+    </apex:form>
+</apex:page>

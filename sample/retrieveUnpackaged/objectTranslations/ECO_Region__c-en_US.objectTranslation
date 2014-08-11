@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>ECO Region</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>ECO Regions</value>
+    </caseValues>
+    <fields>
+        <label><!-- Backlog Date --></label>
+        <name>Backlog_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- ECO Date --></label>
+        <name>ECO_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Region Code --></label>
+        <name>Region_Code__c</name>
+        <picklistValues>
+            <masterLabel>A</masterLabel>
+            <translation><!-- A --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>B</masterLabel>
+            <translation><!-- B --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>C</masterLabel>
+            <translation><!-- C --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Region --></label>
+        <name>Region__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sub Region Number --></label>
+        <name>Sub_Region_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sub Region --></label>
+        <name>Sub_Region__c</name>
+    </fields>
+    <fields>
+        <label><!-- Suburb --></label>
+        <name>Suburb__c</name>
+        <picklistValues>
+            <masterLabel>Blairgowrie</masterLabel>
+            <translation><!-- Blairgowrie --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Portsea</masterLabel>
+            <translation><!-- Portsea --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rye</masterLabel>
+            <translation><!-- Rye --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sorrento</masterLabel>
+            <translation><!-- Sorrento --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>St Andrews</masterLabel>
+            <translation><!-- St Andrews --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>ECO Region Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Details --></label>
+            <section>Details</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

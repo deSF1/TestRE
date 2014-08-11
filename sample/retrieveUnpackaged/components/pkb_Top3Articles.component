@@ -1,0 +1,75 @@
+<apex:component allowDML="true">
+    <!--
+    Type:      Component
+    Purpose:   Displays the top 3 articles per category
+    
+    Used By:    pkb_Template VF Page
+    ---------------------------------------------------------------
+    History:
+
+    19-May-2012 DYu         Created
+    22-May-2012 RDelaCruz    -Revised for dynamic sizing
+    29-Mar-2014	NPatterson	UPDATE: added controller and updated style to hide digital meter categories
+    -->
+    <apex:attribute name="pkbCon" type="pkb_Controller" required="true" description="handle to the pkb controller" />
+    <apex:variable var="feedback" value="{!pkbCon.feedbackSourceParam}={!IF(pkbCon.displayContactUs, pkbCon.feedbackContactUs, pkbCon.feedbackSearch)}" />
+    <apex:variable var="pageNum" value="{!pkbCon.pageNumParam}={!pkbCon.currPage}" />
+    <apex:variable var="params" value="{!IF(ISBLANK(pkbCon.allSearchParams), feedback, pkbCon.allSearchParams+ '&' +feedback+ '&' +pageNum)}" />
+    <apex:form >    
+        <apex:pageBlock >
+            <div style="width: 660px; margin-left: -25px; margin-top: -30px; height:auto; overflow: hidden;display: none;">
+                <apex:variable var="ctr" value="{!0}"/>           
+                <knowledge:categoryList categoryVar="c" categoryGroup="Categories" rootCategory="All" level="1">
+                 <apex:variable var="ctr" value="{!ctr+1}"/> 
+                 <div id="tmp{!ctr}" style="{!IF((pkbCon.customerType=='Residential' && c.Name=='Trade_waste') || ((c.Name=='Digital_Meter_Trial' || c.Name=='My_Snapshot' || c.Name=='My_Usage' || c.Name=='My_Profile' || c.Name=='My_Smart_Solution') && pkbCon.propertyIsPresent == false),'display:none;', IF(pkbCon.customerType=='Business' && c.Name=='Concessions', 'display:none;', 'display:block;'))}">
+                  <div class="float_box">
+                        <apex:outputPanel layout="block" >
+                             <div style="margin-bottom:5px;"><a href="#" onclick="setCategoryPicklistValue('Categories:{!c.Name}');"><apex:outputText value="{!c.Label}" style="font-weight: bold; color:#575756;"></apex:outputText></a></div>
+                             <!-- Get the top 3 articles per category -->
+                             <div><c:pkb_knowledgeArticle catname="{!c.Name}" params="{!params}" pkbCon="{!pkbCon}"/></div>
+                        </apex:outputPanel>
+                    </div>
+                   </div>
+                   </knowledge:categoryList>
+                 <input id="tempCtr" type="Hidden" value="{!ctr}"/>
+            </div>   
+            <div id="reLoadArticle" style="width: 660px; margin-left: -25px; margin-top: -30px; height:auto; overflow: hidden;">
+             </div>
+            <script>
+          
+                LoadArticles();
+                function LoadArticles(){
+                
+                    var intCount=document.getElementById("tempCtr").value;
+                    var testDiv=document.getElementById("reLoadArticle");
+                    var content;
+                    var i=0;
+                    var id="";
+                    var arrID= new Array();
+                    var strID="";
+                    for(var j=1; j<=intCount;j++){
+                        id="tmp" + j + ".0";
+                        if(document.getElementById(id).style.display!='none'){
+                            strID+=id + ",";
+                        }
+                    }
+                    strID=strID.substring(0,strID.length-1);
+                    arrID=strID.split(',');
+                    content="<div class='rowContainer'>";
+                    for(i=0;i<arrID.length;i++){
+ 
+                        if((i+1)% 3!=0){
+                            content+=document.getElementById(arrID[i]).innerHTML;
+                        }else{
+                            content+=document.getElementById(arrID[i]).innerHTML;
+                            content+="</div><div class='rowContainer'>";
+                        }
+                    }
+                     content+="</div>";
+                   testDiv.innerHTML=content;
+                }
+
+            </script>
+        </apex:pageBlock>
+    </apex:form>
+</apex:component>

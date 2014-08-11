@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Action Item</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Action Items</value>
+    </caseValues>
+    <fields>
+        <label><!-- Action Category --></label>
+        <name>Action_Category__c</name>
+        <picklistValues>
+            <masterLabel>Amenities</masterLabel>
+            <translation><!-- Amenities --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Equipment &amp; Process</masterLabel>
+            <translation><!-- Equipment &amp; Process --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Investigation</masterLabel>
+            <translation><!-- Investigation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Irrigation</masterLabel>
+            <translation><!-- Irrigation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Leaks</masterLabel>
+            <translation><!-- Leaks --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Management Tools</masterLabel>
+            <translation><!-- Management Tools --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other (please specify)</masterLabel>
+            <translation><!-- Other (please specify) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recycled Water</masterLabel>
+            <translation><!-- Recycled Water --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Staff / tenant  engagement</masterLabel>
+            <translation><!-- Staff / tenant  engagement --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Swimming pools and Dams</masterLabel>
+            <translation><!-- Swimming pools and Dams --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Action Subject --></label>
+        <name>Action_Subject__c</name>
+    </fields>
+    <fields>
+        <label><!-- Action --></label>
+        <name>Action__c</name>
+        <picklistValues>
+            <masterLabel>Abide by all water restrictions</masterLabel>
+            <translation><!-- Abide by all water restrictions --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Access suitability of using recycled water</masterLabel>
+            <translation><!-- Access suitability of using recycled water --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Adjust urinal sensors</masterLabel>
+            <translation><!-- Adjust urinal sensors --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Appoint staff to manage and monitor waterMAP</masterLabel>
+            <translation><!-- Appoint staff to manage and monitor waterMAP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Build new dam</masterLabel>
+            <translation><!-- Build new dam --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Capture and reuse fire service testing water</masterLabel>
+            <translation><!-- Capture and reuse fire service testing water --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Change fire service testing regime to monthly</masterLabel>
+            <translation><!-- Change fire service testing regime to monthly --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Check / adjust ball floats on process top-ups</masterLabel>
+            <translation><!-- Check / adjust ball floats on process top-ups --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Check / review fire service testing regime</masterLabel>
+            <translation><!-- Check / review fire service testing regime --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Collect / recycle condensate</masterLabel>
+            <translation><!-- Collect / recycle condensate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Collect and reuse on-site process water</masterLabel>
+            <translation><!-- Collect and reuse on-site process water --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Collect irrigation run-off for re-use</masterLabel>
+            <translation><!-- Collect irrigation run-off for re-use --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Comparison against industry benchmarks</masterLabel>
+            <translation><!-- Comparison against industry benchmarks --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Conduct cleaner production audit</masterLabel>
+            <translation><!-- Conduct cleaner production audit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Conduct cooling tower audit</masterLabel>
+            <translation><!-- Conduct cooling tower audit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Conduct water audit (consultant study)</masterLabel>
+            <translation><!-- Conduct water audit (consultant study) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Conduct water audit (internal study)</masterLabel>
+            <translation><!-- Conduct water audit (internal study) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Connect to Class A recycled system</masterLabel>
+            <translation><!-- Connect to Class A recycled system --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Continue to remind staff to adopt water efficient practices</masterLabel>
+            <translation><!-- Continue to remind staff to adopt water efficient practices --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Develop business case for project</masterLabel>
+            <translation><!-- Develop business case for project --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Develop case studies</masterLabel>
+            <translation><!-- Develop case studies --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Develop feasibility study for project</masterLabel>
+            <translation><!-- Develop feasibility study for project --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Develop specific benchmarks</masterLabel>
+            <translation><!-- Develop specific benchmarks --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Develop water &apos;mass balance&apos; across site</masterLabel>
+            <translation><!-- Develop water &apos;mass balance&apos; across site --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Divert and collect stormwater</masterLabel>
+            <translation><!-- Divert and collect stormwater --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Engage contracted water conservation service providers</masterLabel>
+            <translation><!-- Engage contracted water conservation service providers --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Engage tenants in water efficient practices</masterLabel>
+            <translation><!-- Engage tenants in water efficient practices --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Engage with industry groups for assistance</masterLabel>
+            <translation><!-- Engage with industry groups for assistance --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Enlarge existing dam</masterLabel>
+            <translation><!-- Enlarge existing dam --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ensure fire service is not used illegally</masterLabel>
+            <translation><!-- Ensure fire service is not used illegally --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fix leaks immediately</masterLabel>
+            <translation><!-- Fix leaks immediately --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Form in-house staff involvement team</masterLabel>
+            <translation><!-- Form in-house staff involvement team --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>High pressure/ low volume wash alternatives</masterLabel>
+            <translation><!-- High pressure/ low volume wash alternatives --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Hold staff / tenant environmental forums</masterLabel>
+            <translation><!-- Hold staff / tenant environmental forums --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Hydroshare</masterLabel>
+            <translation><!-- Hydroshare --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Identify / quantify variance in water consumption</masterLabel>
+            <translation><!-- Identify / quantify variance in water consumption --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Identify potential infrastructure leakage</masterLabel>
+            <translation><!-- Identify potential infrastructure leakage --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Incorporate water targets into policies</masterLabel>
+            <translation><!-- Incorporate water targets into policies --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install automatic shower timers</masterLabel>
+            <translation><!-- Install automatic shower timers --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install bore</masterLabel>
+            <translation><!-- Install bore --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install check meters</masterLabel>
+            <translation><!-- Install check meters --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install check meters at key process areas</masterLabel>
+            <translation><!-- Install check meters at key process areas --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install chemical water treatment system</masterLabel>
+            <translation><!-- Install chemical water treatment system --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install dam cover</masterLabel>
+            <translation><!-- Install dam cover --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install dripper system</masterLabel>
+            <translation><!-- Install dripper system --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install dual flush toilets</masterLabel>
+            <translation><!-- Install dual flush toilets --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install flow control valves on all hand basins</masterLabel>
+            <translation><!-- Install flow control valves on all hand basins --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install flow control valves on showers</masterLabel>
+            <translation><!-- Install flow control valves on showers --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install laundry water recycling system</masterLabel>
+            <translation><!-- Install laundry water recycling system --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install low flow shower-heads</masterLabel>
+            <translation><!-- Install low flow shower-heads --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install moisture sensors</masterLabel>
+            <translation><!-- Install moisture sensors --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install rain sensors</masterLabel>
+            <translation><!-- Install rain sensors --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install rainwater/ run-off collection tank</masterLabel>
+            <translation><!-- Install rainwater/ run-off collection tank --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install reverse osmosis system</masterLabel>
+            <translation><!-- Install reverse osmosis system --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install sensor taps on hand basins</masterLabel>
+            <translation><!-- Install sensor taps on hand basins --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install smart meters</masterLabel>
+            <translation><!-- Install smart meters --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install swimming pool cover</masterLabel>
+            <translation><!-- Install swimming pool cover --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install timed urinal flushing system</masterLabel>
+            <translation><!-- Install timed urinal flushing system --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install toilet weights in cisterns</masterLabel>
+            <translation><!-- Install toilet weights in cisterns --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install water awareness stickers and posters</masterLabel>
+            <translation><!-- Install water awareness stickers and posters --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install water efficient clothes washing machines</masterLabel>
+            <translation><!-- Install water efficient clothes washing machines --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install water efficient dish washer</masterLabel>
+            <translation><!-- Install water efficient dish washer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install water efficient pool filter</masterLabel>
+            <translation><!-- Install water efficient pool filter --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install water efficient pre-rinse nozzles</masterLabel>
+            <translation><!-- Install water efficient pre-rinse nozzles --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install water efficient steamers (for cooking)</masterLabel>
+            <translation><!-- Install water efficient steamers (for cooking) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install water efficient sterilising equipment</masterLabel>
+            <translation><!-- Install water efficient sterilising equipment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install water treatment system</masterLabel>
+            <translation><!-- Install water treatment system --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install waterless urinals</masterLabel>
+            <translation><!-- Install waterless urinals --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install waterless woks</masterLabel>
+            <translation><!-- Install waterless woks --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Install wetland for water treatment</masterLabel>
+            <translation><!-- Install wetland for water treatment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Investigate possibility of connecting to Class A System</masterLabel>
+            <translation><!-- Investigate possibility of connecting to Class A System --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Investigate water efficient equipment</masterLabel>
+            <translation><!-- Investigate water efficient equipment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Minimise process evaporation</masterLabel>
+            <translation><!-- Minimise process evaporation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Monitor water consumption regularly</masterLabel>
+            <translation><!-- Monitor water consumption regularly --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Monitor water consumption regulary</masterLabel>
+            <translation><!-- Monitor water consumption regulary --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Monitor/ record water usage</masterLabel>
+            <translation><!-- Monitor/ record water usage --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Monthly report of water data</masterLabel>
+            <translation><!-- Monthly report of water data --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mulch garden beds</masterLabel>
+            <translation><!-- Mulch garden beds --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other (please specify)</masterLabel>
+            <translation><!-- Other (please specify) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Plant drought tolerant plants</masterLabel>
+            <translation><!-- Plant drought tolerant plants --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Plant warm season grasses</masterLabel>
+            <translation><!-- Plant warm season grasses --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Promote achievements</masterLabel>
+            <translation><!-- Promote achievements --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Publish &amp; circulate staff / tenant newsletters</masterLabel>
+            <translation><!-- Publish &amp; circulate staff / tenant newsletters --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Purchase tankered recycled water</masterLabel>
+            <translation><!-- Purchase tankered recycled water --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Purchase tankered water (not recycled)</masterLabel>
+            <translation><!-- Purchase tankered water (not recycled) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Purpose built trigger nozzles on all hoses</masterLabel>
+            <translation><!-- Purpose built trigger nozzles on all hoses --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Re-plumb toilets to decrease water flow</masterLabel>
+            <translation><!-- Re-plumb toilets to decrease water flow --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Reassess cleaning procedures i.e. dry cleaning</masterLabel>
+            <translation><!-- Reassess cleaning procedures i.e. dry cleaning --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recycle / re-use filter backwash</masterLabel>
+            <translation><!-- Recycle / re-use filter backwash --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recycle / re-use treated Trade Waste effluent</masterLabel>
+            <translation><!-- Recycle / re-use treated Trade Waste effluent --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Remove spa baths</masterLabel>
+            <translation><!-- Remove spa baths --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Repair boilers</masterLabel>
+            <translation><!-- Repair boilers --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Repair cooling towers</masterLabel>
+            <translation><!-- Repair cooling towers --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Replace X-Ray equipment with digital equipment</masterLabel>
+            <translation><!-- Replace X-Ray equipment with digital equipment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Replace boilers with efficient alternatives</masterLabel>
+            <translation><!-- Replace boilers with efficient alternatives --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Replace cooling towers with air cooled chiller</masterLabel>
+            <translation><!-- Replace cooling towers with air cooled chiller --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Replace irrigation system with water efficient system</masterLabel>
+            <translation><!-- Replace irrigation system with water efficient system --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Replace old pipes</masterLabel>
+            <translation><!-- Replace old pipes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Replace pan flushers with macerators</masterLabel>
+            <translation><!-- Replace pan flushers with macerators --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Replace trigger nozzles with efficient models</masterLabel>
+            <translation><!-- Replace trigger nozzles with efficient models --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Report waterMAP status at Board meetings</masterLabel>
+            <translation><!-- Report waterMAP status at Board meetings --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Report waterMAP status at Management meetings</masterLabel>
+            <translation><!-- Report waterMAP status at Management meetings --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Review CIP system for efficiency</masterLabel>
+            <translation><!-- Review CIP system for efficiency --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Review Standard Operating Procedures</masterLabel>
+            <translation><!-- Review Standard Operating Procedures --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Review filtration and back-flow regime / frequency</masterLabel>
+            <translation><!-- Review filtration and back-flow regime / frequency --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Reward staff for water saving initiatives</masterLabel>
+            <translation><!-- Reward staff for water saving initiatives --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Smart Metering</masterLabel>
+            <translation><!-- Smart Metering --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Spray ball for in-vessel cleaning</masterLabel>
+            <translation><!-- Spray ball for in-vessel cleaning --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Staff / tenant water efficiency training</masterLabel>
+            <translation><!-- Staff / tenant water efficiency training --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Storm-water collection for in process substitution</masterLabel>
+            <translation><!-- Storm-water collection for in process substitution --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Use Class C water for irrigation</masterLabel>
+            <translation><!-- Use Class C water for irrigation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Use chemicals to minimise evaporation</masterLabel>
+            <translation><!-- Use chemicals to minimise evaporation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Use dialysis water for toilets</masterLabel>
+            <translation><!-- Use dialysis water for toilets --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Use rainwater for toilets</masterLabel>
+            <translation><!-- Use rainwater for toilets --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Use recycled cooling tower water for toilets</masterLabel>
+            <translation><!-- Use recycled cooling tower water for toilets --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Use recycled process water for toilets</masterLabel>
+            <translation><!-- Use recycled process water for toilets --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Use recycled water for vehicle washing</masterLabel>
+            <translation><!-- Use recycled water for vehicle washing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Use recycled water for wash down of external areas</masterLabel>
+            <translation><!-- Use recycled water for wash down of external areas --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Use water alternatives i.e. dry lube</masterLabel>
+            <translation><!-- Use water alternatives i.e. dry lube --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Use water minimising blocks in urinals</masterLabel>
+            <translation><!-- Use water minimising blocks in urinals --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water conservation &apos;champions&apos;</masterLabel>
+            <translation><!-- Water conservation &apos;champions&apos; --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>waterMAP representative has copies of water accounts</masterLabel>
+            <translation><!-- waterMAP representative has copies of water accounts --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Cost --></label>
+        <name>Cost__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer --></label>
+        <name>Customer__c</name>
+        <relationshipLabel><!-- Action Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Estimated Savings - Other $ / Year --></label>
+        <name>Estimated_Savings_Other_Cost_Per_Yr__c</name>
+    </fields>
+    <fields>
+        <label><!-- Estimated Savings - Water $ / Year --></label>
+        <name>Estimated_Savings_Water_Cost_Per_Yr__c</name>
+    </fields>
+    <fields>
+        <label><!-- Estimated Savings - Water KL / Year --></label>
+        <name>Estimated_Savings_Water_Usage_Per_Yr__c</name>
+    </fields>
+    <fields>
+        <label><!-- Funding Required --></label>
+        <name>Funding_Required__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ongoing Initiative --></label>
+        <name>Is_Ongoing_Initiative__c</name>
+    </fields>
+    <fields>
+        <label><!-- Item Number --></label>
+        <name>Item_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Long Term Actions (&gt;2 years) --></label>
+        <name>Long_Term_Actions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Medium Term Actions (6 months-2 years) --></label>
+        <name>Medium_Term_Actions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Migration Id --></label>
+        <name>Migration_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ongoing and Future Consideration Actions --></label>
+        <name>Ongoing_and_Future_Consideration_Actions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Action Type --></label>
+        <name>Other_Action_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parent Account ID --></label>
+        <name>Parent_Account_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payback (Years) --></label>
+        <name>Payback_Years_Calc__c</name>
+    </fields>
+    <fields>
+        <label><!-- Project Comments --></label>
+        <name>Project_Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Scheduled Completion Date --></label>
+        <name>Scheduled_Completion_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Short Term Actions(3-6 months) --></label>
+        <name>Short_Term_Actions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Cancelled</masterLabel>
+            <translation><!-- Cancelled --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Future Consideration</masterLabel>
+            <translation><!-- Future Consideration --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In progress</masterLabel>
+            <translation><!-- In progress --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not started</masterLabel>
+            <translation><!-- Not started --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Universal Id --></label>
+        <name>Universal_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Watermap --></label>
+        <name>Watermap__c</name>
+        <relationshipLabel><!-- Action Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Year Action Completed --></label>
+        <name>Year_Action_Completed__c</name>
+    </fields>
+    <layouts>
+        <layout>Action Item (Portal)</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Action Plan Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Non-WaterMap Action Plan Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Non-WaterMAP ActionPlan --></label>
+        <name>Non_WaterMAP_ActionPlan</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- WaterMAP Action Item --></label>
+        <name>WaterMAP_Action_Item</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- New_Action_Item --></label>
+        <name>New_Action_Item</name>
+    </webLinks>
+</CustomObjectTranslation>

@@ -1,0 +1,91 @@
+<apex:component controller="SiteLoginController" id="loginComponent">
+
+    <!--
+        Description: Site login component rebranded for SEW
+
+        History:
+            14-Jun-2011 D.Thong (Salesforce)    Created
+            23-Apr-2012 D.YU					NEW: Updated the links labels and site login button 
+            05-Oct-2012 D.YU					TP #404: update "New user registration" link to button 
+    -->
+
+	<style>
+		label {
+			padding-right: 30px;
+		}
+		
+	</style>
+	<script type="text/javascript">
+		/* Start Version: 1.0
+		* Modified By: DYU (CloudSherpas) 
+		* Modified Date: 05-Oct-2012
+		* Team Pulse: 404
+		* Description: Open new user registration step 1 
+		*/
+		function openRegistrationPageStep1(){
+			window.location.href = '{!$Page.SiteNewPortalUserRegistration_Step1}'; 
+		}
+		/* End Version: 1.0 */
+	</script>
+
+    <apex:form id="loginForm" forceSSL="true">
+        <div style="color: #000;">
+            <apex:outputPanel layout="block">
+                <apex:pageMessages id="error"/>
+                <apex:panelGrid columns="2" style="margin-top:1em;">
+                    <apex:outputLabel value="{!$Label.site.username}" for="username"/>
+                    <apex:outputPanel >
+                        <apex:inputText id="username" value="{!username}" style="width:155px"/>&nbsp;
+                        <!--  @portal.sewl.com.au{!IF(ISNULL($Setup.PortalSettings__c.Sandbox_Name__c),'','.'+$Setup.PortalSettings__c.Sandbox_Name__c)}-->
+                    </apex:outputPanel>
+                    <apex:outputLabel value="{!$Label.site.password}" for="password"/>
+                    <apex:outputPanel >
+                        <apex:inputSecret id="password" value="{!password}" style="width:155px"/>&nbsp;&nbsp;
+                        <apex:commandButton action="{!login}" 
+                        			value="Log in" id="loginButton" 
+                        			styleClass="btnGreen" />
+                    </apex:outputPanel>
+                    <apex:outputText value=""/>
+                    <apex:outputPanel layout="block" style="padding-top:5px;" >
+                        <apex:commandlink action="{!ForgotPwd}" 
+                        					styleClass="bulletedLinkBlue"
+                        					value="Reset your password" id="forgotpwdLink" />
+                    </apex:outputPanel>
+
+                    <apex:outputText value=""/>
+                    <apex:outputPanel layout="block" style="padding-top:5px;" >
+                        <apex:commandlink action="{!ForgotUsername}" 
+               					            styleClass="bulletedLinkBlue"
+                        					value="Forgot your username?" id="forgotusrLink" />
+                    </apex:outputPanel>
+
+                    <apex:outputText value=""/>
+<!--   				Start Version: 1.0
+					* Modified By: DYU (CloudSherpas) 
+					* Modified Date: 05-Oct-2012
+					* Team Pulse: 404
+					* Description: Comment out new user registration link
+					*			   Add new user registration button
+					* 
+-->
+<!--  				<apex:outputPanel layout="block" style="padding-top:5px">
+                        <apex:outputLink value="{!$Page.SiteNewPortalUserRegistration_Step1}" 
+											styleClass="bulletedLinkBlue"                        					
+                        					id="newUserLink" >New user registration</apex:outputLink>
+                    </apex:outputPanel>  
+-->
+                    <apex:outputPanel layout="block" style="padding-top:5px">
+	                    <apex:commandButton id="newUserLink"
+	                    	onclick="javascript:openRegistrationPageStep1();return false;"
+	                        style="position: relative; top: 2px; background-color: #e37222;"
+	                        value="New user registration">
+	                    </apex:commandButton>
+                	</apex:outputPanel> 
+<!--   				End Version: 1.0 
+-->
+	            </apex:panelGrid>
+            </apex:outputPanel>
+        </div>
+    </apex:form>
+
+</apex:component>

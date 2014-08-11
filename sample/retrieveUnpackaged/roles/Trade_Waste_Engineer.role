@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>None</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>Trade Waste Engineer</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>Trade Waste Engineer</name>
+    <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    <parentRole>Technical_Services</parentRole>
+</Role>

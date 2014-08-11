@@ -1,0 +1,50 @@
+<apex:page standardcontroller="FAQ__kav"
+           sidebar="false"
+           cache="false"
+           tabStyle="Portal_Support__tab"
+           showheader="{!NOT($CurrentPage.parameters.popup=='true')}">
+            
+    <!-- 
+    Type:       VF page to render FAQs in portal
+    Purpose:    Used by knowledge
+    ---------------------------------------------------------------
+    History:
+        17-Apr-2011 - Dennis Thong - Created
+        03-May-2012 - Ji Zhang Modified to use PortalKB_Template
+        14-Apr-2014 - ejandusay	added hide DM tab component
+    -->
+    <c:DMTrialHideDigitalMeterTab ></c:DMTrialHideDigitalMeterTab> 
+    <apex:stylesheet value="{!$Resource.SEWPortalStyles}"/>
+   <apex:composition template="PortalKB_Template">
+        <apex:define name="title">
+            <apex:outputField value="{!FAQ__kav.Title}" 
+                    id="title" label=""/>
+               <script>
+                    document.title = 'mySouthEastWaterFAQ - ' + '{!FAQ__kav.Title}'; 
+               </script>
+        </apex:define>
+        
+        <apex:define name="content">
+            <apex:outputField value="{!FAQ__kav.Article_Content__c}" 
+                        id="content" label=""/>                     
+        </apex:define>
+        
+        <apex:define name="attachment">
+            
+        </apex:define>
+        
+        <apex:define name="relatedLinks">
+        	<apex:outputPanel styleClass="relatedArticles" layout="block" rendered="{!FAQ__kav.Related_Articles_mySouthEastWater_Site__c <> '' && FAQ__kav.Related_Articles_mySouthEastWater_Site__c <> null}">
+				<br/>
+				<div style="font-weight: bold; color: #000000; font-style: normal; font-family: 'Arial','Helvetica',sans-serif; font-size: 11.25pt">{!$Label.PKB2_Related_Articles}</div>
+				<br/>
+				<apex:outputPanel layout="block" styleClass="searchDrillr">
+					<apex:outputField value="{!FAQ__kav.Related_Articles_mySouthEastWater_Site__c}" 
+                        id="relatedLinks" label=""/>
+				</apex:outputPanel>
+			
+			</apex:outputPanel>
+            
+        </apex:define>    
+    </apex:composition>
+</apex:page>

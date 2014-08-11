@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>WaterMAP Submission</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>WaterMAP Submissions</value>
+    </caseValues>
+    <fields>
+        <label><!-- Action Plan Complete --></label>
+        <name>Action_Plan_Complete__c</name>
+    </fields>
+    <fields>
+        <label><!-- Active --></label>
+        <name>Active__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approvable --></label>
+        <name>Approvable__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approval Warning Image --></label>
+        <name>Approval_Warning_Image__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approver --></label>
+        <name>Approver__c</name>
+        <relationshipLabel><!-- WaterMAP Submissions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Authorised By --></label>
+        <name>Authorised_By__c</name>
+        <relationshipLabel><!-- WaterMAP Submissions (Authorised By) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Company &amp; Site Info Complete --></label>
+        <name>Company_Site_Info_Complete__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cover Complete --></label>
+        <name>Cover_Complete__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Name --></label>
+        <name>Customer_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer --></label>
+        <name>Customer__c</name>
+        <relationshipLabel><!-- WaterMAP Submissions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) Approval Email Message --></label>
+        <name>HIDDEN_Approval_Email_Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) Send Approval Email --></label>
+        <name>HIDDEN_Send_Approval_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- I&apos;m The Approver --></label>
+        <name>I_am_The_Approver__c</name>
+    </fields>
+    <fields>
+        <label><!-- I&apos;m The Customer Owner --></label>
+        <name>I_m_The_Customer_Owner__c</name>
+    </fields>
+    <fields>
+        <label><!-- Indicators &amp; Targets Complete --></label>
+        <name>Indicators_Targets_Complete__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Current WaterMAP Year --></label>
+        <name>Is_Current_WaterMAP_Year__c</name>
+    </fields>
+    <fields>
+        <label><!-- waterMAP PDF Generated? --></label>
+        <name>Is_waterMAP_PDF_Generated__c</name>
+    </fields>
+    <fields>
+        <label><!-- Opportunities to Save Water Complete --></label>
+        <name>Opportunities_to_Save_Water_Complete__c</name>
+    </fields>
+    <fields>
+        <label><!-- Prepared By --></label>
+        <name>Prepared_By__c</name>
+        <relationshipLabel><!-- WaterMAP Submissions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Property Ref --></label>
+        <name>Property_Ref__c</name>
+    </fields>
+    <fields>
+        <label><!-- Review Complete --></label>
+        <name>Review_Complete__c</name>
+    </fields>
+    <fields>
+        <label><!-- Rolled Over Flag --></label>
+        <name>Rolled_Over_Flag__c</name>
+    </fields>
+    <fields>
+        <label><!-- Previous Year Sewage Disposal Volume --></label>
+        <name>S2_Sewage_Disposal_Volume__c</name>
+    </fields>
+    <fields>
+        <label><!-- Previous Year Trade Waste Volume --></label>
+        <name>S2_Trade_Waste_Volume__c</name>
+    </fields>
+    <fields>
+        <label><!-- Previous Year Water Consumption (KL/yr) --></label>
+        <name>S2_Water_Consumption__c</name>
+    </fields>
+    <fields>
+        <label><!-- Site Address --></label>
+        <name>Site_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Approved by SEW</masterLabel>
+            <translation><!-- Approved by SEW --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cancelled</masterLabel>
+            <translation><!-- Cancelled --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Progress</masterLabel>
+            <translation><!-- In Progress --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Required</masterLabel>
+            <translation><!-- Not Required --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Started</masterLabel>
+            <translation><!-- Not Started --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ready for Review</masterLabel>
+            <translation><!-- Ready for Review --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Review Completed</masterLabel>
+            <translation><!-- Review Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Submitted for Approval</masterLabel>
+            <translation><!-- Submitted for Approval --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Submitted Datetime --></label>
+        <name>Submitted_Datetime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Universal Id --></label>
+        <name>Universal_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- WaterMAP Customer Id --></label>
+        <name>WaterMAP_Customer_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Water Consumption Complete --></label>
+        <name>Water_Consumption_Complete__c</name>
+    </fields>
+    <fields>
+        <label><!-- Watermap --></label>
+        <name>Watermap__c</name>
+        <relationshipLabel><!-- WaterMAP Submissions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Year --></label>
+        <name>Year__c</name>
+        <picklistValues>
+            <masterLabel>2008/09</masterLabel>
+            <translation><!-- 2008/09 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2009/10</masterLabel>
+            <translation><!-- 2009/10 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2010/11</masterLabel>
+            <translation><!-- 2010/11 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2011/12</masterLabel>
+            <translation><!-- 2011/12 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2012/13</masterLabel>
+            <translation><!-- 2012/13 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2013/14</masterLabel>
+            <translation><!-- 2013/14 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2014/15</masterLabel>
+            <translation><!-- 2014/15 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2015/16</masterLabel>
+            <translation><!-- 2015/16 --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>WaterMAP Submission Layout</layout>
+        <sections>
+            <label><!-- Completion --></label>
+            <section>Completion</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Watermap Submission Layout (Portal)</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Please use the approve button to approve the waterMAP Submission --></errorMessage>
+        <name>Prevent_Users_from_Approving_Via_Status</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Approve --></label>
+        <name>Approve</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_From_WaterMAP --></label>
+        <name>New_From_WaterMAP</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Portal_View --></label>
+        <name>Portal_View</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- View --></label>
+        <name>View</name>
+    </webLinks>
+    <workflowTasks>
+        <description><!-- Please review and approve waterMAP. --></description>
+        <name>Follow_Up_waterMAP_Submission</name>
+        <subject><!-- Follow Up - waterMAP Submission --></subject>
+    </workflowTasks>
+    <workflowTasks>
+        <description><!-- Current waterMAP is approaching expiry date --></description>
+        <name>Follow_Up_waterMAP_expiry</name>
+        <subject><!-- Follow Up - waterMAP expiry --></subject>
+    </workflowTasks>
+</CustomObjectTranslation>

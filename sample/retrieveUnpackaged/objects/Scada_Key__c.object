@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <description>Contains the &apos;Key&apos; Parameter needed for the Scada Callout</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Value__c</fullName>
+        <description>Key Value</description>
+        <externalId>false</externalId>
+        <label>Value</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Scada Key</label>
+</CustomObject>

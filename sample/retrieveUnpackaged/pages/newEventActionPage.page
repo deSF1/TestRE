@@ -1,0 +1,150 @@
+<!--
+    Type:      Component
+    Purpose:   New event action page
+    
+    Used By:    
+    ---------------------------------------------------------------
+    History:
+
+    09/05/2014 ejandusay(Cloud Sherpas)         Created
+    12/05/2014 ejandusay(Cloud Sherpas)         added option to choose message template
+    15/05/2014 ejandusay(Cloud Sherpas)         added javascript function to render rich text field
+-->
+
+<apex:page standardController="Event_Action__c" showHeader="true" sidebar="true" extensions="newEventActionController" id="thePage">
+<apex:form id="jsForm">
+<apex:includeScript value="/support/console/26.0/integration.js"/>
+<apex:includeScript value="http://ajax.microsoft.com/ajax/jquery/jquery-1.7.1.min.js" />
+<script type="text/javascript">
+   
+    function callActionFunction(){
+        callaction();
+    }
+    function callActionFunctionForImage(){
+        callactionTwo();
+    }
+    function callActionFunctionAWS(){
+        callactionAWS();
+    }
+    function callActionFunctionResolution(){
+        callactionResolution();
+    }
+    function setMessage(){
+        document.getElementById('thePage:theForm:pBlock:pbID:eventMessage').value = '{!eventAction.Message__c}';  
+    }  
+    function setAltWaterSupply(){
+        document.getElementById('thePage:theForm:pBlock:pbID:eventAWSMessage').value = '{!eventAction.Alternative_Water_Supply__c}';     
+    }
+    function setResolution(){
+        document.getElementById('thePage:theForm:pBlock:pbID:resolution:textAreaDelegate_Resolution__c_frame').contentWindow.document.body.innerHTML = '{!eventAction.Resolution__c}';     
+    }
+    window.onload = function testGetFocusedSubtabId() {
+        sforce.console.getFocusedSubtabId(showTabId);
+    }
+    var showTabId = function showTabId(result) {
+        //set the tab name
+        sforce.console.setTabTitle('{!tabName}', result.id);
+    };
+</script>
+</apex:form>
+<apex:sectionHeader id="sectionheader" title="Event Action Edit" subtitle="New Event Action" />
+<apex:form id="theForm">
+    <apex:pagemessages id="errors" ></apex:pagemessages>
+     <apex:pageBlock title="Event Action Edit" mode="edit" id="pBlock">
+     <apex:actionStatus id="status2">
+            <apex:facet name="start">
+            <c:ActionStatus BackColor="#ffffff"
+                                    borderColor="#6B6B6B"
+                                    borderSize="1"
+                                    height="50px"
+                                    width="60px"
+                                    margintop="-25px"   
+                                    marginleft="-60px"
+                                    ImageUrl="{!$Resource.AjaxAnimation}"
+                                    Message=""/>
+            </apex:facet>
+        </apex:actionStatus>
+        <apex:pageBlockSection title="Information" columns="1" id="pbID"  > 
+            <apex:outputField value="{!currentEvent.Name}" />
+           <!--  <apex:inputField value="{!eventAction.Publish_status__c}" rendered="{!IF(recType.Name =='IVR',true,false)}"/> -->
+            <apex:inputField value="{!eventAction.Publish_status__c}" rendered="{!showStatus}"/>
+            <apex:PageBlockSectionItem rendered="{!IF(recType.Name =='Internet',true,false)}" >
+
+                <apex:outputPanel >
+                    <apex:actionFunction name="callactionTwo" action="{!callRenderImage}" reRender="imagePanel" status="status" />
+                    <div><apex:outputLabel value="Image:"></apex:outputLabel></div>
+                </apex:outputPanel>
+                <apex:outputPanel id="imagePanel">
+                    <apex:image url="{!$Resource.IconDiscolouredWaterSmall}" rendered="{!showDiscWater}"/>
+                    <apex:image url="{!$Resource.IconScheduledWorksSmall}" rendered="{!showSchedWorks}"/>
+                    <apex:image url="{!$Resource.IconEmergencyWorkSmall}" rendered="{!showEmergencyWorks}"/>
+                </apex:outputPanel>
+
+            </apex:PageBlockSectionItem>
+            <apex:inputField id="publicType" value="{!eventAction.Public_Type__c}" onchange="callActionFunctionForImage();" rendered="{!IF(recType.Name =='Internet',true,false)}"/>
+
+            <apex:PageBlockSectionItem id="pbSectionItem" rendered="{!IF(recType.Name =='Internet',true,false)}">               
+                <apex:outputPanel >
+                    <div><apex:outputLabel value="Message Template:" for="Action"></apex:outputLabel></div>
+                </apex:outputPanel>
+                <apex:outputPanel >
+                    <apex:actionFunction name="callaction"  action="{!populateMessageField}"  reRender="errors,jsForm" status="status" oncomplete="setMessage();"/>
+                    <apex:actionFunction name="callactionAWS" action="{!populateMessageField}" reRender="errors,jsForm" status="status" oncomplete="setAltWaterSupply();" />
+                    <apex:actionFunction name="callactionResolution" action="{!populateMessageField}" reRender="errors,jsForm" status="status" oncomplete="setResolution();" />
+                    <apex:selectList required="true" id="Action" value="{!descTemplate}" size="1" onchange="callActionFunction();">
+                            <apex:selectOptions value="{!Templates}"></apex:selectOptions>
+                    </apex:selectList>
+                    <apex:actionStatus id="status">
+                        <apex:facet name="start">
+                        <c:ActionStatus BackColor="#ffffff"
+                                                borderColor="#6B6B6B"
+                                                borderSize="1"
+                                                height="50px"
+                                                width="60px"
+                                                margintop="-25px"   
+                                                marginleft="-60px"
+                                                ImageUrl="{!$Resource.AjaxAnimation}"
+                                                Message=""/>
+                        </apex:facet>
+                    </apex:actionStatus>
+                </apex:outputPanel>
+            </apex:PageBlockSectionItem>
+            <apex:inputField id="eventMessage" value="{!eventAction.Message__c}" style="width: 355px; height: 94px;"/>
+            <!-- <apex:inputField id="eventMessageInternet" value="{!eventAction.Rich_Text_Message__c}" rendered="{!IF(recType.Name =='Internet',true,false)}"/> -->
+            <!-- <apex:inputField id="eventMessageInternet" value="{!eventAction.Chatter_Post_Id__c}" rendered="{!IF(recType.Name =='Internet',true,false)}" styleClass="preventCopyPaste2"/> -->
+            <apex:PageBlockSectionItem id="pbSectionItemTwo" rendered="{!IF(recType.Name =='Internet',true,false)}">                
+                <apex:outputPanel >
+                    <div><apex:outputLabel value="Alternative Water Supply Template:" for="ActionOne"></apex:outputLabel></div>
+                </apex:outputPanel>
+                <apex:outputPanel >
+                    <apex:selectList required="true" id="ActionOne" value="{!descAWSTemplate}" size="1" onchange="callActionFunctionAWS();">
+                            <apex:selectOptions value="{!AWSTemplates}"></apex:selectOptions>
+                    </apex:selectList>
+                    
+                </apex:outputPanel>
+            </apex:PageBlockSectionItem>
+            
+            <apex:inputField id="eventAWSMessage" value="{!eventAction.Alternative_Water_Supply__c}" rendered="{!IF(recType.Name =='Internet',true,false)}" style="width: 355px; height: 94px;"/> 
+            <apex:PageBlockSectionItem id="pbSectionItemThree" rendered="{!IF(recType.Name =='Internet',true,false)}">
+                <apex:outputPanel >
+                    <div><apex:outputLabel value="Resolution Template:" for="ActionTwo"></apex:outputLabel></div>
+                </apex:outputPanel>
+                <apex:outputPanel >
+                    <apex:selectList required="true" id="ActionTwo" value="{!descResTemplate}" size="1" onchange="callActionFunctionResolution();">
+                            <apex:selectOptions value="{!ResolutionTemplates}"></apex:selectOptions>
+                    </apex:selectList>  
+                </apex:outputPanel>                    
+            </apex:PageBlockSectionItem>
+            <apex:pagemessage summary="Please avoid 'Copy-Paste' on Resolution field."
+                                severity="info" strength="2" />    
+            <apex:inputField id="resolution" value="{!eventAction.Resolution__c}" style="width: 355px;height: 94px;" rendered="{!IF(recType.Name =='Internet',true,false)}"/>
+        </apex:pageBlockSection>
+    <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!saveEventAction}" reRender="errors,jsForm" status="status2" />
+        <apex:commandButton value="Cancel" action="{!cancelButton}"/>
+    </apex:pageBlockButtons>
+    </apex:pageBlock>
+
+
+</apex:form>    
+</apex:page>

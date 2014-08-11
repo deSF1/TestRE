@@ -1,0 +1,736 @@
+<apex:page sidebar="false" showHeader="true" standardController="Case"
+    extensions="PortalPaymentPlanWizard_Controller"
+    tabstyle="Portal_Payment_Options__tab" doctype="html-5.0" name="page">
+    <!--
+        Description: Payment Plan
+                     This is step 1 - Select address, plan and calculate
+
+        History:
+           30-Apr-2012 A.Vergara Created
+           4-Jun-2012  D.Yu      Update: 5161 - Update header 
+           17-Sep-2012 J.Castillo Update: TP-375 - Modified CSS to override nowrap on errorMsg
+           09-Nov-2012	R.Dela Cruz	  TT5212 – payment plans confusing: Comment out submit direct debit button
+    						  Change Term's and condition value.
+    						  Add rerender for both terms and condition
+    						  Call the update of Direct Debit followed by submit payment plans
+    						  Add action function submit payment plans
+           20-Nov-2012 R.Dela Cruz Update doRedirect() method in javascript.
+                                    Comment the Redirect function and change by SubmitPaymentPlan.
+           19-Jul-2013 N.Patterson  TT11104 - Added the ability to create credit card payment plan 
+ -->
+    <html>
+<!-- Head -->
+<head>
+<META HTTP-EQUIV="EXPIRES" CONTENT="-1" />
+<apex:includeScript value="{!$Page.GoogleAnalyticsTracker}" />
+<apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-1.7.1.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.jqueryui1818, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+<apex:stylesheet value="{!URLFOR($Resource.jqueryui1818, '/css/custom-theme/jquery-ui-1.8.18.custom.css')}" />
+<apex:stylesheet value="{!$Resource.PortalSidebar_Styles}" />
+<apex:stylesheet value="{!$Resource.PortalPayment_Styles}" />
+
+
+
+<style type="text/css">
+.bPageBlock .detailList .labelCol {
+    padding-bottom: 0px;
+    padding-left: 0px !important;
+    width: 33% !important;
+}
+
+.bEditBlock .detailList .dataCol,.bEditBlock .detailList .data2Col {
+    padding-left: 0px;
+}
+
+.radioButton tr td {
+    display: block;
+    vertical-align: inherit;
+    border-color: inherit;
+    margin-left: -8px;
+}
+
+.radioButton tr td label {
+    margin-top: -20px;
+    display: block;
+    vertical-align: inherit;
+    border-color: inherit;
+    margin-left: 25px;
+}
+
+.paymentHeader {
+    font-size: 15pt;
+}
+
+.higlightcontainer {
+    background-color: #D8EFF7;
+    margin-bottom: 1px;
+    padding: 10px;
+}
+
+td.data2Col .errorMsg {
+	white-space: normal;
+	width: 270px;
+}
+
+</style>
+<script type="text/javascript"> 
+                var j$ = jQuery.noConflict();
+
+                j$(function() {
+                    CreateTermsPopup();
+                    CreateTermsPPPopup();
+                });
+                
+                function CreateTermsPopup() {
+                    j$( "#terms-popup" ).dialog({
+                        dialogClass: 'ui-dropshadow',
+                        autoOpen: false,
+                        width: 500,
+                        modal: true,
+                        resizable: false,
+                        title: 'Terms & conditions for direct debit'
+                    });             
+                }
+                
+                function CreateTermsPPPopup() {
+                    j$( "#terms-popupPP" ).dialog({
+                        dialogClass: 'ui-dropshadow',
+                        autoOpen: false,
+                        width: 500,
+                        modal: true,
+                        resizable: false,
+                        title: 'Terms & conditions for payment plan'
+                    });             
+                }
+                
+                function enableSubmit(checkAgree)
+                {
+                    submitBtn = document.getElementById('{!$Component.form.contentCellPageblock.planDetails.pbsSubmit.nextbtn}');
+                    if(checkAgree.checked){
+                        submitBtn.disabled = false;
+                        submitBtn.setAttribute("class", "btnGreen");
+                        }
+                        else
+                        {
+                            submitBtn.disabled = true;
+                        submitBtn.setAttribute("class", "btnDarkGray");
+                        }
+                }
+                function doRedirect() {
+                    try {
+                        var notCompleteFlag = document.getElementById('{!$Component.form.contentCellPageblock.notcompletedflag}').value;
+                        var timeoutFlag =  document.getElementById('{!$Component.form.contentCellPageblock.timeoutflag}').value;
+        
+                        if (notCompleteFlag == 'false') {
+                            //12.Nov.2012-RDELACRUZ update for the creation of payment plans and direct debit update
+                            //Redirect();
+                           submitPaymentPlan();
+                        }
+                        
+                        if (timeoutFlag == 'true') {
+                            Timeout();
+                        }   
+                    } catch (e) {
+                        alert(e.toString());
+                    }
+                }
+                
+            </script>
+</head>
+<!-- Body -->
+<body>
+    <apex:form id="form">
+        <!--  sidebar -->
+        <div class="pbTransparent sideBarCellDiv">
+            <c:PortalSidebar id="sidebar" groupName="PaymentOptions"
+                currentAccRecordType="{!customer.RecordType.DeveloperName}"
+                currentDevName="PaymentOptions_SetUpAPlan" title="Payment options" />
+        </div>
+        <!--  MAIN CONTENT -->
+        <apex:outputPanel id="contentCellDiv" layout="block"
+            styleClass="contentCellDiv">
+            <!-- PAGE MESSAGES - ALWAYS DISPLAYED -->
+
+            <!-- TITLE LHS-->
+            <apex:sectionHeader subtitle="Manage payment plan" />
+            <div class="clear" />
+
+            <apex:pageBlock id="contentCellPageblock">
+                <!-- Left HAND SIDE CONTENT -->
+                <apex:outputPanel id="innerContentLHSDiv"
+                    styleClass="innerContentLHSDiv">
+                    <apex:inputHidden value="{!DDCon.notCompleted}"
+                        id="notcompletedflag" />
+                    <apex:inputHidden value="{!DDCon.timeOut}" id="timeoutflag" />
+                    <!--  ACTION FUNCTIONS -->
+                    <apex:actionFunction action="{!DDCon.Redirect}" name="Redirect" status="loading"/>
+                    <apex:actionFunction action="{!DDCon.Timeout}" name="Timeout" />
+                    <apex:actionFunction action="{!registerDeregisterCustomer}"
+                        name="registerDeregisterCustomer"
+                        status="loading"/>
+                    <apex:actionFunction action="{!submitPaymentPlanCall}" 
+                        name="submitPaymentPlan" status="loading" />
+                    <!-- POLLER -->
+
+                    <apex:actionPoller action="{!DDCon.checkStatus}"
+                        interval="5" rendered="{!DDCon.submitting}"
+                        rerender="innerContentLHSDiv" oncomplete="doRedirect()"/>
+                    <apex:outputPanel id="pageMessages" layout="block">
+                        <apex:pageMessages id="msgTop" escape="false" />
+                    </apex:outputPanel>
+                    <apex:pageBlockSection id="planDetails" columns="1"
+                            title="Your details" showHeader="false" collapsible="false">
+
+
+                        <apex:pageblockSectionItem >
+                            <apex:outputLabel value="Property" />
+                            <apex:outputText value="{!currentBillAcct.Property__r.Street_Address_Proper__c}, {!currentBillAcct.Property__r.Suburb_Proper__c} {!currentBillAcct.Property__r.Postal_Code__c}" />
+                        </apex:pageblockSectionItem>
+
+
+                        <apex:pageblockSectionItem >
+                            <apex:outputLabel value="Length of plan" />
+                            <apex:outputText value="{!currentCase.Term__c}" />
+
+                        </apex:pageblockSectionItem>
+
+                        <apex:pageblockSectionItem >
+                            <apex:outputLabel value="Payment frequency" />
+                            <apex:outputText value="{!currentCase.Repayment_Frequency__c}" />
+                        </apex:pageblockSectionItem>
+
+                        <apex:pageblockSectionItem >
+                            <apex:outputLabel for="pAmount" value="Payment amount" />
+                            <apex:outputText id="pAmount"
+                                value="${0, number,###,###,##0.00}">
+                                <apex:param value="{!currentCase.Payment_Amount__c}" />
+                            </apex:outputText>
+                        </apex:pageblockSectionItem>
+
+
+                        <!-- apex:pageblockSectionItem >
+                                    <apex:outputLabel styleClass="paymentHeader" for="customerName" value="Step 4"/>
+                                    <apex:outputLabel styleClass="paymentHeader" for="customerName" value="Payment Method"/>
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem >
+                                    <apex:outputLabel />
+                                     <apex:outputLabel value="{!currentCase.Payment_Method__c}" />
+                                </apex:pageblockSectionItem>
+                               
+                               -->
+
+
+                        <!--apex:pageblockSectionItem >
+                                  <apex:outputLabel />
+                                <apex:outputPanel >
+                                <apex:outputLabel value="{!IF(currentCase.Billing_Account__r.Direct_Debit__c,'YES - direct debit arrangement in place','NO - direct debit arrangement does not exist')}"/>
+                                </apex:outputPanel>   
+                                </apex:pageblockSectionItem-->
+
+                        <apex:pageBlockSectionItem id="confirmation">
+                            <apex:outputPanel >
+                                <apex:actionRegion >
+                                    <!-- apex:inputCheckBox value="{!displayDirectDebit}">
+                                                            <apex:actionSupport event="onclick" 
+                                                                                rerender="innerContentLHSDiv"
+                                                                                onsubmit="document.body.style.cursor='wait'"
+                                                                                oncomplete="document.body.style.cursor='default'"/> 
+                                                        </apex:inputCheckBox> -->
+                                </apex:actionRegion>
+                                <!-- label>Add New
+                                                    </label> -->
+                            </apex:outputPanel>
+                            <apex:outputPanel ></apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                         
+                        <apex:pageBlockSectionItem id="dataEntry">
+                        <apex:outputPanel layout="block" id="directdebitdetails"
+                            style="margin-top: 20px;margin-left: -10px; text-align:justify;width:90%;"
+                            rendered="{!displayDirectDebit}">
+
+                            <h3>
+                                Payment plans submitted via mySouthEastWater will need to be
+                                paid via a bank account on direct debit.<br /> <br /> Enter your
+                                account details below
+                            </h3>
+                            <p />
+                            <apex:outputPanel id="statuses">
+                                <c:EnhancedActionStatus BackColor="#ffffff"
+                                    borderColor="#6B6B6B" borderSize="1" height="150px"
+                                    width="300px" margintop="-50px" marginleft="-125px"
+                                    ImageUrl="{!$Resource.AjaxAnimation}"
+                                    Message="<b>Processing</b><br><br>We are currently processing your request. This can take up to a minute. Please do not navigate or move away from this page until it is complete."
+                                    rendered="{!DDCon.submitting || (DDCon.finishedSubmitting && !DDCon.notCompleted && !DDCon.errorsExist)}" />
+
+                                <apex:pagemessage id="submitting"
+                                    summary="We are currently processing your request. This can take up to a minute for each account. Please do not navigate or move away from this page until it is complete."
+                                    rendered="false" severity="info" strength="2" />
+                            </apex:outputPanel>
+                            
+
+                            <apex:outputPanel layout="block" style="margin-bottom: 20px;"
+                                id="accountdetails">
+                                <apex:actionRegion >
+                                			<div id="ddTyperecord" style="width: 470px;">
+                                            <apex:pageBlockSection columns="1" id="accounttypepbs">
+                                                <apex:inputField value="{!DDCon.userInputFields.DD_Account_Type__c}" id="accounttype" required="true" label="Account type">
+                                                    <apex:actionSupport event="onchange"  
+                                                                        focus="accounttype"
+                                                                        onsubmit="document.body.style.cursor='wait'"
+                                                                        oncomplete="document.body.style.cursor='default'"
+                                                                        rerender="accountdetails,msg"/>
+                                                </apex:inputField>
+                                            </apex:pageBlockSection>
+                                            </div>
+                                        </apex:actionRegion>
+                                <!-- apex:actionRegion >
+                                    <apex:pageBlockSection columns="1" id="accounttypepbsOlds">
+                                        <apex:outputField value="{!DDCon.userInputFields.DD_Account_Type__c}"
+                                            id="accounttype"  label="Account type"/>
+                                    </apex:pageBlockSection>
+                                </apex:actionRegion -->
+                                <div style="height: 8px"></div>
+                                
+                                <div id="detailrecord" style="width: 470px;">
+                                <apex:pageBlockSection columns="1"
+                                    rendered="{!DDCon.userInputFields.DD_Account_Type__c == 'Bank Account'}"
+                                    id="bankacctpbs">
+                                    
+                                    <apex:inputField value="{!DDCon.userInputFields.DD_Financial_Institution__c}"
+                                        id="bank" required="true" label="Financial institution"/>
+                                    <apex:inputField value="{!DDCon.userInputFields.DD_BSB_No__c}"
+                                        id="bsb" required="true" label="BSB number"/>
+                                    <apex:inputField value="{!DDCon.userInputFields.DD_Account_No__c}"
+                                        id="accountNumber" required="true" label="Account number"/>
+                                    <apex:inputField value="{!DDCon.userInputFields.DD_Account_Name__c}"
+                                        id="accountName" required="true" label="Account name"/>
+                                    <script>
+                                                    // fixed auto complete references
+                                                    document.getElementById('{!$Component.bsb}').autocomplete = "off";
+                                                    document.getElementById('{!$Component.bank}').autocomplete = "off";
+                                                    document.getElementById('{!$Component.accountName}').autocomplete = "off";
+                                                    document.getElementById('{!$Component.accountNumber}').autocomplete = "off";
+                                                    var disableComp = ({!DDCon.Submitting}||{!DDCon.isDisabledAddAmend});
+                                                    document.getElementById('{!$Component.bsb}').disabled = disableComp;
+                                                    document.getElementById('{!$Component.bank}').disabled = disableComp;
+                                                    document.getElementById('{!$Component.accountName}').disabled = disableComp;
+                                                    document.getElementById('{!$Component.accountNumber}').disabled = disableComp;
+                                                    
+                                                </script>
+                                </apex:pageBlockSection>
+                                <apex:outputPanel rendered="{!DDCon.userInputFields.DD_Account_Type__c == 'Credit Card'}" id="creditcrdpbs">
+                                	<c:PortalCreditCardDetails ddc="{!DDCon}"/>
+                                </apex:outputPanel>
+                                </div>
+                               
+                             <apex:outputPanel rendered="{!!DDCon.isDisabledAddAmend}"
+                                style="margin-top: 20px;margin-left: -10px">
+                                <apex:pagemessage summary="Please accept the terms and conditions for direct debit and payment plan and click the ‘Submit’ button."
+                                severity="info" strength="2" />
+                            </apex:outputPanel>
+
+                                
+                                <!--apex:pageBlockSection columns="1" id="termspbs">
+                                    <apex:pageBlockSectionItem id="confirmation"
+                                            rendered="{! !DDCon.isDisabledAddAmend}"-->
+                                        <apex:outputLabel />
+                                        <apex:outputPanel id="agreedPanel">
+                                        	<apex:actionRegion >
+                                                <apex:inputCheckBox value="{!DDCon.agreedTerms}">
+                                                        <apex:actionSupport event="onclick"
+                                                        rerender="nextbtn"
+                                                        onsubmit="document.body.style.cursor='wait'"
+                                                        oncomplete="document.body.style.cursor='default'"
+                                                        status="loading"/>
+                                                </apex:inputCheckBox>
+                                          	</apex:actionRegion>
+                                            <label>I have read and understood the <apex:outputLink onclick="javascript:j$('#terms-popup').dialog('open'); return false;">
+                                                            terms and conditions for direct debit
+                                                        </apex:outputLink> </label>
+                                        </apex:outputPanel>
+                                        <br/>
+                                    <!--/apex:pageBlockSectionItem>
+                                    <apex:pageBlockSectionItem id="confirmationPP"
+                                        rendered="{!!DDCon.isDisabledAddAmend}"-->
+                                        <apex:outputLabel />
+                                        <apex:outputPanel id="agreedPanelPP" rendered="{!!DDCon.isDisabledAddAmend}">
+                                        <apex:actionRegion >
+                                        <apex:inputCheckBox value="{!agreedTermsPP}">
+                                                <apex:actionSupport event="onclick"
+                                                    rerender="nextbtn"
+                                                    onsubmit="document.body.style.cursor='wait'"
+                                                    oncomplete="document.body.style.cursor='default'"
+                                                    status="loading" />
+                                            </apex:inputCheckBox>
+                                    </apex:actionRegion>
+                                    <label>I have read and understood the <apex:outputLink onclick="javascript:j$('#terms-popupPP').dialog('open'); return false;">
+                                                          terms and conditions for  payment plan
+                                                      </apex:outputLink> </label>
+                                        </apex:outputPanel>
+                                    <!--09-Nov-2012	R.Dela Cruz	  TT5212  payment plans confusing-->    
+                                    <!--/apex:pageBlockSectionItem-->
+                                    <!--apex:pageblockSectionItem rendered="{! !DDCon.isDisabledAddAmend}" id="ammend">
+                                        <apex:outputLabel />
+                                        <apex:outputPanel id="submitBtnPanel">
+
+                                            <apex:commandButton value="Submit direct debit details"
+                                                action="{!confirmDirectDebit}" styleClass="btnGreen"
+                                                id="submitBtn" rerender="innerContentLHSDiv"
+                                                status="loading" oncomplete="doSubmit()"
+                                                disabled="{!(NOT(DDCon.agreedTerms)||DDCon.Submitting||DDCon.isDisabledAddAmend)}" />
+                                            <script type="text/javascript"> 
+                                                function doSubmit() {
+                                                    if ('{!DDCon.newTaskList}'!= '' && '{!DDCon.newTaskList}'!= '[]') {
+                                                        registerDeregisterCustomer();
+                                                    }
+                                                }
+                                            </script>
+                                        </apex:outputPanel>
+
+                                    </apex:pageblockSectionItem-->
+                                <!--/apex:pageBlockSection-->
+                                <!-- End of Comment -->
+                            </apex:outputPanel>
+                            <br />
+                        </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                       
+                        
+                        <!-- I HAVE AGREED PAYMENT PLAN SECTION -->
+                        <apex:pageblockSectionItem id="pbsSubmit" >
+                            <apex:outputLabel />
+                            <apex:outputPanel id="bottomButtons">
+                                <apex:commandButton value="Previous" action="{!selectFirstPage}"
+                                    id="Pbtn" immediate="true" disabled="{!submissionPressed}"/>
+                                <apex:commandButton value="Submit" 
+                                    action="{!confirmDirectDebit}" status="loading"  oncomplete="doSubmit()"
+                                    styleClass="btnGreen" id="nextbtn"  rendered="{!!DDCon.isDisabledAddAmend}" rerender="innerContentLHSDiv,bottomButtons"
+                                    disabled="{!(NOT(DDCon.agreedTerms)|| NOT(agreedTermsPP) || submissionPressed)}"/>
+                                      <script type="text/javascript"> 
+                                                function doSubmit() {
+                                                    if ('{!DDCon.newTaskList}'!= '' && '{!DDCon.newTaskList}'!= '[]') {
+                                                        registerDeregisterCustomer();    
+                                                    }
+                                                }
+                                            </script>
+                                <apex:commandButton value="Cancel" disabled="{!submissionPressed}"
+                                    styleClass="btnClearGreenText" immediate="true"
+                                    action="{!fullCancel}" />
+                            </apex:outputPanel>
+                        </apex:pageblockSectionItem>
+                    </apex:pageBlockSection>
+                    </apex:outputPanel>
+            
+                <!-- RIGHT HAND SIDE CONTENT -->
+                <apex:outputPanel id="innerContentRHSDiv" layout="block"
+                    styleClass="innerContentRHSDiv">
+                    <!--  live chat -->
+                    <c:LiveChat />
+                    <c:PortalKnowledgeSidebar rowClass="borderDottedMedGreyBottom "
+                        divClass="pbTransparent pbMedGreyDottedHeader pbNoPad grey"
+                        divStyle="width: 205px" />
+                    <!--  quick links -->
+                    <div style="position: relative;">
+                        <c:PortalQuickLinks />
+                    </div>
+                </apex:outputPanel>
+                <div style="clear: both" />
+                
+            </apex:pageBlock>
+    </apex:outputPanel>
+        
+
+        <!-- Action Status that are not position dependent -->
+        <apex:actionStatus id="loading">
+            <apex:facet name="start">
+                <c:EnhancedActionStatus BackColor="#ffffff" borderColor="#6B6B6B"
+                    borderSize="1" height="50px" width="120px" margintop="-25px"
+                    marginleft="-60px" ImageUrl="{!$Resource.AjaxAnimation}"
+                    Message="Loading..." />
+            </apex:facet>
+        </apex:actionStatus>
+        
+    </apex:form>
+
+    <div id="terms-popup" class="clear" style="display: none;">
+
+        <div
+            style="height: 190px; text-align: justify; overflow: auto; padding: 0px 10px; border: solid 1px #E4E2DD;"
+            class="radiusAll">
+            <!-- T&C -->
+                <p>
+                    This agreement sets out the responsibilities and obligations between South East Water,
+                    ABN 89 066 902 547 (we) and our customers (you) in regard to the use of our direct debit
+                    system.
+                </p>
+                <p></p>
+                <p>
+                    <b>
+                    Our commitment to you</b>
+                </p>
+                <p></p>
+                <ul>  
+                    <li>
+                        We will send an account to you as normal.
+                    </li>
+                    <li>
+                            The direct debit payment will be processed on the due date shown on your account,
+                                or if you have entered into a budget plan, debits will be processed on the agreed dates.
+                                We will not alter the frequency of direct debit payments without first consulting you and seeking prior approval. 
+                    </li>
+                    <li>
+                        We will provide you with at least
+                                14 days notice in writing prior to making any changes to the terms of our arrangement with you.
+                        
+                    </li>
+                    <li>
+                        In the event that a payment is due on a day
+                                which is not a working day, we will defer the processing of direct debits until the next working day. This will not impact
+                                your payment dates.
+                    </li>
+                    <li>
+                        We will ensure that your personal details are kept strictly confidential and used only by our direct
+                                debit officers for your direct debit payments, or in accordance with this agreement, or as required by law.
+                    </li>
+                    <li>
+                        We will handle all personal information we receive from you in accordance with our 
+                        
+                            <a href="http://www.southeastwater.com.au/Footer/Pages/Privacy.aspx" tabindex="-1" target="_blank">
+                            privacy policy.
+                            </a>
+                    </li>
+                    <li>
+                        The terms of the customer charter,
+                                or any other express agreement between you and South East Water, apply to South East Water&rsquo;s services provided to you,
+                                except to the extent that those terms are inconsistent with this agreement
+                    </li>
+                </ul>
+                <p></p>
+                <p>
+                <b>Your rights</b>
+                </p><p></p>
+                <ul>
+                    <li>
+                        If at any time, the direct debit system no longer suits your needs, 
+                            you can withdraw from the service by contacting us on 131 851.</li>
+                    <li>
+                        You may also withdraw in writing by giving at least 10 days&#39; notice. 
+                    </li>
+                    <li>
+                        You may also contact your financial institution.
+                    </li>
+                    <li>
+                        To alter a payment plan, the withdrawal must be made at least
+                                four working days from a payment date.
+                    </li>
+                    <li>
+                        
+                            We request that all queries in relation to direct debit requests for cancellation or deferral of payments
+                            be directed to us, as the first point of contact, prior to notifying your financial institution.
+                    </li>
+                </ul>
+                <p></p>
+                <p>
+                <b>
+                    Disputes
+                </b>
+                </p>
+                <p></p>
+                <ul>
+                    <li>
+                                In the event that a debit drawing is disputed, you should contact us in the first instance, or your financial 
+                                institution. We will respond to the dispute within seven working days of your contact with us and will endeavour to resolve 
+                                the dispute within a further seven working days. In the event that an error has been made by us, a refund equal to the 
+                                disputed amount will be paid in accordance with your instructions.
+                        
+                    </li>
+                    <li>
+                        We will, on request from your financial institution,
+                        provide information in connection with a claim made on it relating to an alleged incorrect or wrongful debit.
+                    </li>
+                </ul>
+                <p></p>
+                <p>
+                    <b>
+                    Your commitment to us
+                    </b>
+                </p>
+                <p></p>
+                <ul>
+                    <li>
+                        The direct debit system is not available on all accounts, so if you&rsquo;re unsure about your 
+                        account type or other information, such as account number or what a &lsquo;BSB&rsquo; number is, you should
+                        contact your bank.
+                    </li>
+                    <li>
+                        You must advise us if the nominated account is transferred or closed
+                        or if your details have changed.
+                    </li>
+                    <li>
+                        It is your responsibility to ensure that
+                        sufficient clear funds are available in your nominated account at the time
+                        of payment. In the event that insufficient funds are available, you can, 
+                        by contacting us or your financial institution at least four working days
+                        from a payment date, request the cancellation or deferral of a payment.
+                        In the case of deferring a quarterly payment, a quarterly payment must be
+                        deferred for a minimum of seven working days.
+                    </li>
+                    <li>
+                        In the event that an amount is returned as unpaid from your financial institution,
+                        we will debit your account with an amount equal to the unpaid amount.
+                        Standard bank dishonour fees and normal debit fees may apply,
+                        so you should check this with your financial institution.
+                        &nbsp;We reserve the right to cancel any direct debit 
+                        request in the event of two or more debits being returned as unpaid. If the amount remains unpaid, 
+                        it may be listed with a credit reporting agency, which could affect your credit rating.
+                    </li>
+                </ul>
+                <p></p>
+                <p>
+                    We reserve the right to withdraw this product, stop
+                    or change individual payment plans at any time. We will provide you with 14 days prior
+                    notice of any changes. &nbsp;In the event we cease to trade, all payment plans will be cancelled immediately
+                    and both you and your financial institution will be notified.</p>
+                <p></p>
+                <p><b>
+                    Updates to the terms and conditions</b>
+                </p>
+                <p>
+                    South East Water may amend or update these 
+                    terms from time to time without notice to you. Such additional terms and
+                    conditions are incorporated by reference into these terms and conditions
+                    and you agree that you will comply with any additional terms and conditions
+                    that will be made available to you.&nbsp; You may deregister your account
+                    at any time if you do not agree to these terms and conditions or any amendments
+                    or updates we may make from time to time.
+                </p>
+            <!-- END T&C -->
+        </div>
+
+        <center>
+                            <br /><apex:form >
+                            <apex:commandButton styleClass="btnGreen" value="Close"
+                                onclick="hideTerms(); return false;" tabindex="1" id="closetermswindow"/></apex:form>
+                            <script>
+                                function hideTerms() {
+                                    j$("#terms-popup").dialog("close");
+                                }
+                            </script>
+      </center>
+    </div>
+    
+    <div id="terms-popupPP" class="clear" style="display: none;">
+
+        <div
+            style="height: 190px; text-align: justify; overflow: auto; padding: 0px 10px; border: solid 1px #E4E2DD;"
+            class="radiusAll">
+            <!-- T&C -->
+                <p><b>About payment plan</b>
+                </p>
+                <p>Payment plan instalments are calculated based upon
+                 your current balance and your estimated future accounts
+                 for the period of the agreement. As future accounts
+                 have been estimated based on your previous water
+                 consumption history, we will review your account
+                 at the end of the payment plan agreement to determine
+                 if a refund is due or further payment is required.&nbsp;
+                 If a further payment is required, we will rollover the 
+                 balance to the next period.
+                </p>
+                <p>While you continue to pay as agreed, your
+                 quarterly account will be forwarded to you
+                 for informational purposes only, and South
+                 East Water will cease any action for the 
+                 recovery of your account balance while you continue
+                 to pay as agreed.&nbsp;
+                </p>
+                <p>
+                 Payment plans can be set up for a period of six or twelve months for residential
+                 customers and six months for non &ndash; residential customers.&nbsp; Payments can
+                 be on a monthly or fortnightly basis.
+                </p>
+                <p >
+                <b>Cancelling or dishonouring a payment plan</b>
+                </p>
+                <p>
+                To cancel a payment plan, you will need to 
+                notify South East Water at least four business
+                 days before a transaction is scheduled to be made. &nbsp;Your payment
+                 plan will remain active and in effect until South East Water receives
+                 cancellation notice four days in advance.
+                </p>
+                <p>
+                If your payment agreement is not honoured or is cancelled:
+                </p>
+                <ul>
+                    <li>
+                        any outstanding balance must be paid immediately;
+                    </li>
+                    <li>
+                    we may refuse to enter into further payment agreements with you and
+                    </li>
+                    <li>we may without further notice to you take action against you to recover any amounts due to us.</li>
+                </ul>
+                <p>
+                    If you wish to cancel a payment plan and this payment plan is attached to a direct debit,
+                    both the direct debit and payment plans have to be cancelled before you can revert back to
+                    quarterly billing.
+                </p>
+                <p>
+                    We reserve the right to discontinue accepting payment plan payments at any time,
+                    for any reason without prior written notice. We may send notification of termination 
+                    of the payment plan any time after the termination is effective. If we terminate,
+                    we will not accept payment and debit requests. We also may temporarily discontinue
+                    accepting payment plan payments, at our sole discretion.
+                </p>
+                <p>
+                <b>Reminders</b>
+                </p>
+                <p>No reminders will be sent for your payment instalments.</p>
+                <p><b>Payment</b></p>
+                <p>You will not be able to change payment terms (payment amounts offered) in <i>mySouthEastWater.&nbsp; </i>&nbsp;
+                You will be required to make your first payment within 15 days.
+                </p>
+                <p>
+                    <b>
+                    Concession</b>
+                </p>
+                <p>
+                    If you are entitled to a concession, which has not been deducted from your account,
+                    please call 131851 to claim your entitlement.
+                </p>
+                <p><b>Hardship</b></p>
+                <p>If you experience difficulty meeting these payments let us know immediately.</p>
+                <p>If you are already with Centrepay, you will not be able to start a payment plan.</p>
+                <b>Direct debit</b>
+                <div><p>In order to establish a payment plan with us, you must enter into a direct debit agreement with us on
+                the terms set out below.</p>
+                <p>Payment by credit cards are not accepted for payment plans.</p>
+                <p><b>Updates to the terms and conditions</b></p>
+                <p>South East Water may amend or update these terms from time to time without
+                 notice to you. Such additional terms and conditions are incorporated 
+                 by reference into these terms and conditions and you agree that you
+                 will comply with any additional terms and conditions that will be
+                 made available to you.&nbsp; You may deregister your account at
+                 any time if you do not agree to these terms and conditions or any
+                 amendments or updates we may make from time to time.
+                 </p></div>
+            <!-- END T&C -->
+        </div>
+
+        <center>
+                            <br /><apex:form >
+                            <apex:commandButton styleClass="btnGreen" value="Close"
+                                onclick="hideTermsPP(); return false;" tabindex="1" id="closetermswindow"/></apex:form>
+                            <script>
+                                function hideTermsPP() {
+                                    j$("#terms-popupPP").dialog("close");
+                                }
+                            </script>
+      </center>
+    </div>
+    <script>//alert('loading');</script>
+</body>
+
+    </html>
+</apex:page>

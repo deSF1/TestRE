@@ -1,0 +1,4495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Category Level 1</value>
+        </caseValues>
+        <name>type_case</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <label><!-- Meter Accessible? --></label>
+        <name>Access_to_Meter__c</name>
+    </fields>
+    <fields>
+        <label><!-- Action --></label>
+        <name>Action__c</name>
+        <picklistValues>
+            <masterLabel>Amend</masterLabel>
+            <translation><!-- Amend --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cancel</masterLabel>
+            <translation><!-- Cancel --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Create</masterLabel>
+            <translation><!-- Create --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Address Available --></label>
+        <name>Address_Available__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Payment Amount --></label>
+        <name>Adhoc_First_Payment_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Payment Date --></label>
+        <name>Adhoc_First_Payment_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Payment Amount --></label>
+        <name>Adhoc_Last_Payment_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Payment Date --></label>
+        <name>Adhoc_Last_Payment_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of Payments --></label>
+        <name>Adhoc_Number_of_Payments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Regular Payment Amount --></label>
+        <name>Adhoc_Regular_Payment_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Second Payment Amount --></label>
+        <name>Adhoc_Second_Payment_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Second Payment Date --></label>
+        <name>Adhoc_Second_Payment_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Adjusted Bill Sent --></label>
+        <name>Adjusted_Bill_Sent__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- For integration --></help>
+        <label><!-- Agent Address 1 --></label>
+        <name>Agent_Address_1__c</name>
+    </fields>
+    <fields>
+        <help><!-- For integration --></help>
+        <label><!-- Agent Address 2 --></label>
+        <name>Agent_Address_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agent Address Line 1 --></label>
+        <name>Agent_Address_Line_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agent Address Line 2 --></label>
+        <name>Agent_Address_Line_2__c</name>
+    </fields>
+    <fields>
+        <help><!-- For integration --></help>
+        <label><!-- Agent Name --></label>
+        <name>Agent_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agent --></label>
+        <name>Agent__c</name>
+        <relationshipLabel><!-- Cases --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Alert Flag --></label>
+        <name>Alert_Flag__c</name>
+    </fields>
+    <fields>
+        <label><!-- Alerts --></label>
+        <name>Alerts_Int_Long__c</name>
+    </fields>
+    <fields>
+        <label><!-- (HIDDEN) Alerts --></label>
+        <name>Alerts_Int__c</name>
+    </fields>
+    <fields>
+        <label><!-- Amend Read Used --></label>
+        <name>Amend_Read_Used__c</name>
+        <picklistValues>
+            <masterLabel>Billed</masterLabel>
+            <translation><!-- Billed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Un-billed</masterLabel>
+            <translation><!-- Un-billed --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Amount Settled --></label>
+        <name>Amount_Settled__c</name>
+    </fields>
+    <fields>
+        <label><!-- Applicable Date --></label>
+        <name>Applicable_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Application Result Reason --></label>
+        <name>Application_Result_Reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- Application Result --></label>
+        <name>Application_Result__c</name>
+        <picklistValues>
+            <masterLabel>Approved - SDC Only</masterLabel>
+            <translation><!-- Approved - SDC Only --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approved - Usage &amp; SDC</masterLabel>
+            <translation><!-- Approved - Usage &amp; SDC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Application type --></label>
+        <name>Application_type__c</name>
+        <picklistValues>
+            <masterLabel>Leak Allowance</masterLabel>
+            <translation><!-- Leak Allowance --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unexplained Usage</masterLabel>
+            <translation><!-- Unexplained Usage --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Arrears --></label>
+        <name>Arrears__c</name>
+    </fields>
+    <fields>
+        <label><!-- Asset Details --></label>
+        <name>Asset_Details__c</name>
+    </fields>
+    <fields>
+        <label><!-- Assets --></label>
+        <name>Assets__c</name>
+    </fields>
+    <fields>
+        <label><!-- Attention Of --></label>
+        <name>Attention_Of__c</name>
+    </fields>
+    <fields>
+        <label><!-- Authority to Transact? --></label>
+        <name>Authority_to_Transact__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- BNSM/ADC Manual Update --></label>
+        <name>BNSM_ADC_Manual_Update__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bank --></label>
+        <name>Bank__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing Account Balance --></label>
+        <name>Billing_Account_Balance__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing Account Number Check Digit --></label>
+        <name>Billing_Account_Number_Check_Digit__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing Account Property Address --></label>
+        <name>Billing_Account_Property_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing Account Quoted --></label>
+        <name>Billing_Account_Quoted__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing Account --></label>
+        <name>Billing_Account_SMR__c</name>
+        <relationshipLabel><!-- Cases (Billing Account) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Billing Account --></label>
+        <name>Billing_Account__c</name>
+        <relationshipLabel><!-- Cases --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Current Billing Address --></label>
+        <name>Billing_Address_SMR__c</name>
+    </fields>
+    <fields>
+        <label><!-- (HIDDEN) Bills Over Email --></label>
+        <name>Bills_Over_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- (HIDDEN) Cancel Trade Waste --></label>
+        <name>Cancel_Trade_Waste__c</name>
+    </fields>
+    <fields>
+        <label><!-- Card left? --></label>
+        <name>Card_left__c</name>
+    </fields>
+    <fields>
+        <help><!-- What is the case or activity about? --></help>
+        <label><!-- What --></label>
+        <name>Category_Level_1__c</name>
+        <picklistValues>
+            <masterLabel>Account Payments &amp; Collections</masterLabel>
+            <translation><!-- Account Payments &amp; Collections --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Asset Management</masterLabel>
+            <translation><!-- Asset Management --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Audit</masterLabel>
+            <translation><!-- Audit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Billing</masterLabel>
+            <translation><!-- Billing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Claims</masterLabel>
+            <translation><!-- Claims --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Community Program</masterLabel>
+            <translation><!-- Community Program --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Compliance</masterLabel>
+            <translation><!-- Compliance --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Details</masterLabel>
+            <translation><!-- Customer Details --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Environmental Management</masterLabel>
+            <translation><!-- Environmental Management --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Industry program</masterLabel>
+            <translation><!-- Industry program --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Insurance</masterLabel>
+            <translation><!-- Insurance --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Knowledge sharing</masterLabel>
+            <translation><!-- Knowledge sharing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Land Development</masterLabel>
+            <translation><!-- Land Development --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Plumbing</masterLabel>
+            <translation><!-- Plumbing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Policy Reform</masterLabel>
+            <translation><!-- Policy Reform --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Portal Registration</masterLabel>
+            <translation><!-- Portal Registration --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pricing</masterLabel>
+            <translation><!-- Pricing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Programs</masterLabel>
+            <translation><!-- Programs --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property</masterLabel>
+            <translation><!-- Property --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property Information</masterLabel>
+            <translation><!-- Property Information --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Regulatory</masterLabel>
+            <translation><!-- Regulatory --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Relationships</masterLabel>
+            <translation><!-- Relationships --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Research</masterLabel>
+            <translation><!-- Research --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sales &amp; Service</masterLabel>
+            <translation><!-- Sales &amp; Service --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Strategy</masterLabel>
+            <translation><!-- Strategy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Transfer</masterLabel>
+            <translation><!-- Transfer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water quality</masterLabel>
+            <translation><!-- Water quality --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Why is the case or activity occurring? --></help>
+        <label><!-- Why --></label>
+        <name>Category_Level_2__c</name>
+        <picklistValues>
+            <masterLabel>Account/Access</masterLabel>
+            <translation><!-- Account/Access --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Applications - Land Development</masterLabel>
+            <translation><!-- Applications - Land Development --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Applications - Property Information</masterLabel>
+            <translation><!-- Applications - Property Information --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Applications, Commercial Units</masterLabel>
+            <translation><!-- Applications, Commercial Units --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Aquabiz</masterLabel>
+            <translation><!-- Aquabiz --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Backflow</masterLabel>
+            <translation><!-- Backflow --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Billing</masterLabel>
+            <translation><!-- Billing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Build over</masterLabel>
+            <translation><!-- Build over --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Call transfer</masterLabel>
+            <translation><!-- Call transfer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Campaigns &amp; Programs</masterLabel>
+            <translation><!-- Campaigns &amp; Programs --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Concession</masterLabel>
+            <translation><!-- Concession --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Debt Recovery Action</masterLabel>
+            <translation><!-- Debt Recovery Action --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Development Process</masterLabel>
+            <translation><!-- Development Process --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Did Not Receive Bill</masterLabel>
+            <translation><!-- Did Not Receive Bill --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Early Connection Option</masterLabel>
+            <translation><!-- Early Connection Option --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Efficiency Programs &amp; Products</masterLabel>
+            <translation><!-- Efficiency Programs &amp; Products --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Events</masterLabel>
+            <translation><!-- Events --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Funding</masterLabel>
+            <translation><!-- Funding --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gardens Program (Residential)</masterLabel>
+            <translation><!-- Gardens Program (Residential) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Give Explanation of Charges</masterLabel>
+            <translation><!-- Give Explanation of Charges --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>High Usage</masterLabel>
+            <translation><!-- High Usage --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Hot Issues - Media</masterLabel>
+            <translation><!-- Hot Issues - Media --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Incorrect Charges</masterLabel>
+            <translation><!-- Incorrect Charges --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Industrial and Private Water</masterLabel>
+            <translation><!-- Industrial and Private Water --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Information Statement</masterLabel>
+            <translation><!-- Information Statement --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Information Statement Update</masterLabel>
+            <translation><!-- Information Statement Update --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Local Govt Strategic Relationship</masterLabel>
+            <translation><!-- Local Govt Strategic Relationship --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Meter Information</masterLabel>
+            <translation><!-- Meter Information --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Meter Readings</masterLabel>
+            <translation><!-- Meter Readings --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Metering</masterLabel>
+            <translation><!-- Metering --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Move In / Move Out</masterLabel>
+            <translation><!-- Move In / Move Out --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Payments</masterLabel>
+            <translation><!-- Payments --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Personal Injury</masterLabel>
+            <translation><!-- Personal Injury --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Plumbing Process</masterLabel>
+            <translation><!-- Plumbing Process --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property Declaration</masterLabel>
+            <translation><!-- Property Declaration --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property Development Fire Service</masterLabel>
+            <translation><!-- Property Development Fire Service --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property Information</masterLabel>
+            <translation><!-- Property Information --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property Matters</masterLabel>
+            <translation><!-- Property Matters --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recycled Water</masterLabel>
+            <translation><!-- Recycled Water --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Referral</masterLabel>
+            <translation><!-- Referral --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Returned Account</masterLabel>
+            <translation><!-- Returned Account --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Service Issues</masterLabel>
+            <translation><!-- Service Issues --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sewer</masterLabel>
+            <translation><!-- Sewer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sewer - Claims</masterLabel>
+            <translation><!-- Sewer - Claims --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sewer Connection Scheme</masterLabel>
+            <translation><!-- Sewer Connection Scheme --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Showerhead Exchange</masterLabel>
+            <translation><!-- Showerhead Exchange --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tappings</masterLabel>
+            <translation><!-- Tappings --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tappings/Pluggings</masterLabel>
+            <translation><!-- Tappings/Pluggings --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Toilet Replacement Program</masterLabel>
+            <translation><!-- Toilet Replacement Program --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unable to Pay</masterLabel>
+            <translation><!-- Unable to Pay --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Update Customer/Person</masterLabel>
+            <translation><!-- Update Customer/Person --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Update Property</masterLabel>
+            <translation><!-- Update Property --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Vehicle</masterLabel>
+            <translation><!-- Vehicle --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water</masterLabel>
+            <translation><!-- Water --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water - Claims</masterLabel>
+            <translation><!-- Water - Claims --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water Efficiency / Conservation</masterLabel>
+            <translation><!-- Water Efficiency / Conservation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water Off/On</masterLabel>
+            <translation><!-- Water Off/On --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water Restrictions</masterLabel>
+            <translation><!-- Water Restrictions --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- The solution, the response, the process - the case creation --></help>
+        <label><!-- How --></label>
+        <name>Category_Level_3__c</name>
+        <picklistValues>
+            <masterLabel>&quot;Property Information</masterLabel>
+            <translation><!-- &quot;Property Information --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Acceptance of Works</masterLabel>
+            <translation><!-- Acceptance of Works --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Access to Meter</masterLabel>
+            <translation><!-- Access to Meter --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Account Balance/Due Date</masterLabel>
+            <translation><!-- Account Balance/Due Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Account Password</masterLabel>
+            <translation><!-- Account Password --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ad Hoc Billing Explained</masterLabel>
+            <translation><!-- Ad Hoc Billing Explained --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Add/Amend Concession Details</masterLabel>
+            <translation><!-- Add/Amend Concession Details --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Advice / Information Provided</masterLabel>
+            <translation><!-- Advice / Information Provided --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Alternate Water Supplies</masterLabel>
+            <translation><!-- Alternate Water Supplies --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Alternate Water Supplies - Recycled Water</masterLabel>
+            <translation><!-- Alternate Water Supplies - Recycled Water --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Amend Direct Debit</masterLabel>
+            <translation><!-- Amend Direct Debit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Amend Email List (Add/Delete)</masterLabel>
+            <translation><!-- Amend Email List (Add/Delete) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Amend Meter Reading</masterLabel>
+            <translation><!-- Amend Meter Reading --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Amend Property Description</masterLabel>
+            <translation><!-- Amend Property Description --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Applications</masterLabel>
+            <translation><!-- Applications --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Audit</masterLabel>
+            <translation><!-- Audit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>BWG Offer</masterLabel>
+            <translation><!-- BWG Offer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Backlog Sewer Charges Explained</masterLabel>
+            <translation><!-- Backlog Sewer Charges Explained --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bad Debt Recommendation</masterLabel>
+            <translation><!-- Bad Debt Recommendation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Balance Transfer</masterLabel>
+            <translation><!-- Balance Transfer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bankruptcy and  Liquidations</masterLabel>
+            <translation><!-- Bankruptcy and  Liquidations --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Billing / Metering</masterLabel>
+            <translation><!-- Billing / Metering --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Billing Adjustment</masterLabel>
+            <translation><!-- Billing Adjustment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bookings</masterLabel>
+            <translation><!-- Bookings --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Build overs</masterLabel>
+            <translation><!-- Build overs --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Campaign Opt In/Out</masterLabel>
+            <translation><!-- Campaign Opt In/Out --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Caveat</masterLabel>
+            <translation><!-- Caveat --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Certificate of Completion</masterLabel>
+            <translation><!-- Certificate of Completion --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Change of Occupier Explained</masterLabel>
+            <translation><!-- Change of Occupier Explained --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Check Meters</masterLabel>
+            <translation><!-- Check Meters --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Check for Tampering</masterLabel>
+            <translation><!-- Check for Tampering --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Claim</masterLabel>
+            <translation><!-- Claim --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Collision</masterLabel>
+            <translation><!-- Collision --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Complaint</masterLabel>
+            <translation><!-- Complaint --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Confirm Article Contributor</masterLabel>
+            <translation><!-- Confirm Article Contributor --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Consent to connect Water or Sewer</masterLabel>
+            <translation><!-- Consent to connect Water or Sewer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Consolidations</masterLabel>
+            <translation><!-- Consolidations --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Contact Customer</masterLabel>
+            <translation><!-- Contact Customer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Contact Details Changed</masterLabel>
+            <translation><!-- Contact Details Changed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Credit Card Payment</masterLabel>
+            <translation><!-- Credit Card Payment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Credit management</masterLabel>
+            <translation><!-- Credit management --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Classifaction Changes</masterLabel>
+            <translation><!-- Customer Classifaction Changes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Read</masterLabel>
+            <translation><!-- Customer Read --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Read Taken</masterLabel>
+            <translation><!-- Customer Read Taken --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Default Listing (On/Off)</masterLabel>
+            <translation><!-- Default Listing (On/Off) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Delete Concession</masterLabel>
+            <translation><!-- Delete Concession --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Denied Information Access (No Authority)</masterLabel>
+            <translation><!-- Denied Information Access (No Authority) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Desalination</masterLabel>
+            <translation><!-- Desalination --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Desalination Information</masterLabel>
+            <translation><!-- Desalination Information --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Development Cycled</masterLabel>
+            <translation><!-- Development Cycled --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dial Before You Dig</masterLabel>
+            <translation><!-- Dial Before You Dig --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dialysis</masterLabel>
+            <translation><!-- Dialysis --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Differing Meter Numbers</masterLabel>
+            <translation><!-- Differing Meter Numbers --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Digital Water Meters</masterLabel>
+            <translation><!-- Digital Water Meters --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dishonour</masterLabel>
+            <translation><!-- Dishonour --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Drainage &amp; Waterways Explained</masterLabel>
+            <translation><!-- Drainage &amp; Waterways Explained --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Drawing set up</masterLabel>
+            <translation><!-- Drawing set up --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dry Tappings Meter Installations</masterLabel>
+            <translation><!-- Dry Tappings Meter Installations --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Easements</masterLabel>
+            <translation><!-- Easements --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EasyPay Card Order</masterLabel>
+            <translation><!-- EasyPay Card Order --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Email/Phone Update</masterLabel>
+            <translation><!-- Email/Phone Update --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Employee Issue</masterLabel>
+            <translation><!-- Employee Issue --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Encumbrances</masterLabel>
+            <translation><!-- Encumbrances --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Essential Services Commission</masterLabel>
+            <translation><!-- Essential Services Commission --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Event / speaker</masterLabel>
+            <translation><!-- Event / speaker --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Events</masterLabel>
+            <translation><!-- Events --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Exchange (Planned and Unplanned)</masterLabel>
+            <translation><!-- Exchange (Planned and Unplanned) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Exchange made</masterLabel>
+            <translation><!-- Exchange made --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Exemptions</masterLabel>
+            <translation><!-- Exemptions --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Exemptions / Water Restrictions</masterLabel>
+            <translation><!-- Exemptions / Water Restrictions --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Extension (Private)</masterLabel>
+            <translation><!-- Extension (Private) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>External</masterLabel>
+            <translation><!-- External --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fault with Product/Service</masterLabel>
+            <translation><!-- Fault with Product/Service --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Faults</masterLabel>
+            <translation><!-- Faults --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Faulty Enquiry</masterLabel>
+            <translation><!-- Faulty Enquiry --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Feedback</masterLabel>
+            <translation><!-- Feedback --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Financial Hardship Support</masterLabel>
+            <translation><!-- Financial Hardship Support --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Financial Transfer</masterLabel>
+            <translation><!-- Financial Transfer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fire Services</masterLabel>
+            <translation><!-- Fire Services --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fire Services Explained</masterLabel>
+            <translation><!-- Fire Services Explained --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Follow Up</masterLabel>
+            <translation><!-- Follow Up --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Follow up EOI</masterLabel>
+            <translation><!-- Follow up EOI --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Force Billing</masterLabel>
+            <translation><!-- Force Billing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Freedom of Information</masterLabel>
+            <translation><!-- Freedom of Information --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Funding</masterLabel>
+            <translation><!-- Funding --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Generate New Customer Record</masterLabel>
+            <translation><!-- Generate New Customer Record --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Generate New Person Record</masterLabel>
+            <translation><!-- Generate New Person Record --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Government - Centrepay</masterLabel>
+            <translation><!-- Government - Centrepay --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gravity Sewer</masterLabel>
+            <translation><!-- Gravity Sewer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Group Account (Add/Delete)</masterLabel>
+            <translation><!-- Group Account (Add/Delete) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Group Account Balance</masterLabel>
+            <translation><!-- Group Account Balance --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Guaranteed Service Levels</masterLabel>
+            <translation><!-- Guaranteed Service Levels --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Guidelines</masterLabel>
+            <translation><!-- Guidelines --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Hot Water Services</masterLabel>
+            <translation><!-- Hot Water Services --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>How to Conduct Leak Test</masterLabel>
+            <translation><!-- How to Conduct Leak Test --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>How to Read Meter</masterLabel>
+            <translation><!-- How to Read Meter --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Hydroshare</masterLabel>
+            <translation><!-- Hydroshare --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Incident</masterLabel>
+            <translation><!-- Incident --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Increased Pricing</masterLabel>
+            <translation><!-- Increased Pricing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Information Provided</masterLabel>
+            <translation><!-- Information Provided --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Information Statements</masterLabel>
+            <translation><!-- Information Statements --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Inspections</masterLabel>
+            <translation><!-- Inspections --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Interest</masterLabel>
+            <translation><!-- Interest --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Internal</masterLabel>
+            <translation><!-- Internal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Investigation Information</masterLabel>
+            <translation><!-- Investigation Information --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Invitation Offer</masterLabel>
+            <translation><!-- Invitation Offer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Land Servicing Advice</masterLabel>
+            <translation><!-- Land Servicing Advice --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Last Account Explained</masterLabel>
+            <translation><!-- Last Account Explained --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Last Payment - Cheque Settlement</masterLabel>
+            <translation><!-- Last Payment - Cheque Settlement --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Leak Allowance/Unexplained Usage</masterLabel>
+            <translation><!-- Leak Allowance/Unexplained Usage --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Legal</masterLabel>
+            <translation><!-- Legal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Legislation &amp; Policy</masterLabel>
+            <translation><!-- Legislation &amp; Policy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Link EOI to Opportunity</masterLabel>
+            <translation><!-- Link EOI to Opportunity --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Link Person Records</masterLabel>
+            <translation><!-- Link Person Records --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Low Pressure sewer</masterLabel>
+            <translation><!-- Low Pressure sewer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Manage Clericals</masterLabel>
+            <translation><!-- Manage Clericals --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mercantile Action</masterLabel>
+            <translation><!-- Mercantile Action --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Merge Customers</masterLabel>
+            <translation><!-- Merge Customers --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Meter Reader Issue</masterLabel>
+            <translation><!-- Meter Reader Issue --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Meter Returns</masterLabel>
+            <translation><!-- Meter Returns --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Meter Tappings</masterLabel>
+            <translation><!-- Meter Tappings --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Minor Sewer Alteration</masterLabel>
+            <translation><!-- Minor Sewer Alteration --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Missing Meter</masterLabel>
+            <translation><!-- Missing Meter --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Missing Meters</masterLabel>
+            <translation><!-- Missing Meters --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Missing Payment</masterLabel>
+            <translation><!-- Missing Payment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Modify Recovery</masterLabel>
+            <translation><!-- Modify Recovery --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Name Change</masterLabel>
+            <translation><!-- Name Change --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Negotiated Settlements</masterLabel>
+            <translation><!-- Negotiated Settlements --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New Contact Details</masterLabel>
+            <translation><!-- New Contact Details --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New Direct Debit</masterLabel>
+            <translation><!-- New Direct Debit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Non Works</masterLabel>
+            <translation><!-- Non Works --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Non-Collision</masterLabel>
+            <translation><!-- Non-Collision --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not for Profit Rebate</masterLabel>
+            <translation><!-- Not for Profit Rebate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Notice of Sale</masterLabel>
+            <translation><!-- Notice of Sale --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>On-site Kiosk</masterLabel>
+            <translation><!-- On-site Kiosk --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Open or Close Charges</masterLabel>
+            <translation><!-- Open or Close Charges --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Organise Refund</masterLabel>
+            <translation><!-- Organise Refund --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other - Specify</masterLabel>
+            <translation><!-- Other - Specify --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other Authorities Works</masterLabel>
+            <translation><!-- Other Authorities Works --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Owners Corp Explained</masterLabel>
+            <translation><!-- Owners Corp Explained --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ownership Information</masterLabel>
+            <translation><!-- Ownership Information --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Parks Charge Explained</masterLabel>
+            <translation><!-- Parks Charge Explained --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Payment</masterLabel>
+            <translation><!-- Payment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Payment Issue</masterLabel>
+            <translation><!-- Payment Issue --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Payment Plan</masterLabel>
+            <translation><!-- Payment Plan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Personal Injury</masterLabel>
+            <translation><!-- Personal Injury --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Photographer Shoot Arranged</masterLabel>
+            <translation><!-- Photographer Shoot Arranged --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Portal Access</masterLabel>
+            <translation><!-- Portal Access --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Portal Password</masterLabel>
+            <translation><!-- Portal Password --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pricing</masterLabel>
+            <translation><!-- Pricing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pricing Enquiry</masterLabel>
+            <translation><!-- Pricing Enquiry --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pricing Information</masterLabel>
+            <translation><!-- Pricing Information --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Print Bill</masterLabel>
+            <translation><!-- Print Bill --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Priority Plumbing</masterLabel>
+            <translation><!-- Priority Plumbing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Privacy</masterLabel>
+            <translation><!-- Privacy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Product Sale</masterLabel>
+            <translation><!-- Product Sale --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Program Feedback</masterLabel>
+            <translation><!-- Program Feedback --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property Class/ Memo Changes</masterLabel>
+            <translation><!-- Property Class/ Memo Changes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property Information Statement</masterLabel>
+            <translation><!-- Property Information Statement --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property Sewerage Plans</masterLabel>
+            <translation><!-- Property Sewerage Plans --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property Visit</masterLabel>
+            <translation><!-- Property Visit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Provide Next Reading Date</masterLabel>
+            <translation><!-- Provide Next Reading Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>RSVP</masterLabel>
+            <translation><!-- RSVP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rates Updates</masterLabel>
+            <translation><!-- Rates Updates --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rebate Offer (Small Bus)</masterLabel>
+            <translation><!-- Rebate Offer (Small Bus) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rebates</masterLabel>
+            <translation><!-- Rebates --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Receipt Method Change</masterLabel>
+            <translation><!-- Receipt Method Change --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recheck Meter</masterLabel>
+            <translation><!-- Recheck Meter --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recovery Agency Issue</masterLabel>
+            <translation><!-- Recovery Agency Issue --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recovery Notice Explained</masterLabel>
+            <translation><!-- Recovery Notice Explained --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recycled Water</masterLabel>
+            <translation><!-- Recycled Water --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recycled Water Information</masterLabel>
+            <translation><!-- Recycled Water Information --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Relationship Engagement</masterLabel>
+            <translation><!-- Relationship Engagement --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Remote Meters</masterLabel>
+            <translation><!-- Remote Meters --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Report - Water Consumption</masterLabel>
+            <translation><!-- Report - Water Consumption --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Responsibility of Account/Payments</masterLabel>
+            <translation><!-- Responsibility of Account/Payments --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Reversal of Credit Card Payment</masterLabel>
+            <translation><!-- Reversal of Credit Card Payment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Role Change</masterLabel>
+            <translation><!-- Role Change --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SDC Explained</masterLabel>
+            <translation><!-- SDC Explained --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Scheme Amendments</masterLabel>
+            <translation><!-- Scheme Amendments --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Segmentation Update</masterLabel>
+            <translation><!-- Segmentation Update --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Seminars</masterLabel>
+            <translation><!-- Seminars --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Send Application Form</masterLabel>
+            <translation><!-- Send Application Form --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Septic to Sewer</masterLabel>
+            <translation><!-- Septic to Sewer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Service Restricted</masterLabel>
+            <translation><!-- Service Restricted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sewer</masterLabel>
+            <translation><!-- Sewer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sewer Depth Size and Offsets</masterLabel>
+            <translation><!-- Sewer Depth Size and Offsets --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sewer and Water Plots</masterLabel>
+            <translation><!-- Sewer and Water Plots --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sewerage</masterLabel>
+            <translation><!-- Sewerage --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Showerhead Exchange</masterLabel>
+            <translation><!-- Showerhead Exchange --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Single Residential Applications</masterLabel>
+            <translation><!-- Single Residential Applications --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Special Credit</masterLabel>
+            <translation><!-- Special Credit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Special Read</masterLabel>
+            <translation><!-- Special Read --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Statement of Compliance</masterLabel>
+            <translation><!-- Statement of Compliance --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Story / Photos Approval</masterLabel>
+            <translation><!-- Story / Photos Approval --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Subdivison</masterLabel>
+            <translation><!-- Subdivison --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Supply of Receipt</masterLabel>
+            <translation><!-- Supply of Receipt --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T-Insertion Bookings</masterLabel>
+            <translation><!-- T-Insertion Bookings --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Telephone Issue</masterLabel>
+            <translation><!-- Telephone Issue --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tenancy Information</masterLabel>
+            <translation><!-- Tenancy Information --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Testing Meter</masterLabel>
+            <translation><!-- Testing Meter --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Third Party Access</masterLabel>
+            <translation><!-- Third Party Access --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Time to Pay Extension</masterLabel>
+            <translation><!-- Time to Pay Extension --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Toilet Retrofit</masterLabel>
+            <translation><!-- Toilet Retrofit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Toilet installed</masterLabel>
+            <translation><!-- Toilet installed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Town Planning</masterLabel>
+            <translation><!-- Town Planning --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Trade Waste</masterLabel>
+            <translation><!-- Trade Waste --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Trade Waste Explained</masterLabel>
+            <translation><!-- Trade Waste Explained --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Transactions Statement</masterLabel>
+            <translation><!-- Transactions Statement --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unable to Read Meter</masterLabel>
+            <translation><!-- Unable to Read Meter --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unclaimed Credits</masterLabel>
+            <translation><!-- Unclaimed Credits --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unrestrict Service</masterLabel>
+            <translation><!-- Unrestrict Service --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Update Mailing Address</masterLabel>
+            <translation><!-- Update Mailing Address --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Update Meter Details</masterLabel>
+            <translation><!-- Update Meter Details --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Update Provided</masterLabel>
+            <translation><!-- Update Provided --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Usage Charges</masterLabel>
+            <translation><!-- Usage Charges --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Validation Results</masterLabel>
+            <translation><!-- Validation Results --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Valuations</masterLabel>
+            <translation><!-- Valuations --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Verification</masterLabel>
+            <translation><!-- Verification --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>View Bill</masterLabel>
+            <translation><!-- View Bill --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Visit Site - Confirm Project Completion</masterLabel>
+            <translation><!-- Visit Site - Confirm Project Completion --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Voluntary WaterMAP</masterLabel>
+            <translation><!-- Voluntary WaterMAP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>WEF Offer</masterLabel>
+            <translation><!-- WEF Offer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water</masterLabel>
+            <translation><!-- Water --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water &amp; Sewer Services Explained</masterLabel>
+            <translation><!-- Water &amp; Sewer Services Explained --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water Efficiency Program / Usage</masterLabel>
+            <translation><!-- Water Efficiency Program / Usage --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water Loss/ Pressure / Quality</masterLabel>
+            <translation><!-- Water Loss/ Pressure / Quality --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water On/Off Information</masterLabel>
+            <translation><!-- Water On/Off Information --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water Restriction Breach</masterLabel>
+            <translation><!-- Water Restriction Breach --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water Tanks</masterLabel>
+            <translation><!-- Water Tanks --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water and Sewer</masterLabel>
+            <translation><!-- Water and Sewer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Water, Sewer and Recycled Water</masterLabel>
+            <translation><!-- Water, Sewer and Recycled Water --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Web/Internet Issue</masterLabel>
+            <translation><!-- Web/Internet Issue --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Welcome Home Kit</masterLabel>
+            <translation><!-- Welcome Home Kit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Wet Tappings</masterLabel>
+            <translation><!-- Wet Tappings --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Withdraw Direct Debit</masterLabel>
+            <translation><!-- Withdraw Direct Debit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Works</masterLabel>
+            <translation><!-- Works --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Caveat Customer --></label>
+        <name>Caveat_Customer__c</name>
+    </fields>
+    <fields>
+        <label><!-- Change Billing Address --></label>
+        <name>Change_Billing_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cheque Amount --></label>
+        <name>Cheque_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cheque Included? --></label>
+        <name>Cheque_Included__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cheque Number --></label>
+        <name>Cheque_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- City --></label>
+        <name>City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Complaint Type --></label>
+        <name>Complaint_Type__c</name>
+        <picklistValues>
+            <masterLabel>Customer Experience Surveys</masterLabel>
+            <translation><!-- Customer Experience Surveys --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EWOV</masterLabel>
+            <translation><!-- EWOV --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>General Complaint</masterLabel>
+            <translation><!-- General Complaint --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Products</masterLabel>
+            <translation><!-- Products --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Trade Waste</masterLabel>
+            <translation><!-- Trade Waste --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Complete --></label>
+        <name>Complete__c</name>
+    </fields>
+    <fields>
+        <label><!-- Concession Allowances --></label>
+        <name>Concession_Allowances__c</name>
+    </fields>
+    <fields>
+        <label><!-- Concession Card Firstname --></label>
+        <name>Concession_Card_Firstname__c</name>
+    </fields>
+    <fields>
+        <label><!-- Concession Card Lastname --></label>
+        <name>Concession_Card_Lastname__c</name>
+    </fields>
+    <fields>
+        <label><!-- Concession Card Number --></label>
+        <name>Concession_Card_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Concession Card Type --></label>
+        <name>Concession_Card_Type__c</name>
+        <picklistValues>
+            <masterLabel>DVA - Gold Card</masterLabel>
+            <translation><!-- DVA - Gold Card --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DVA - Pensioner Concession Card</masterLabel>
+            <translation><!-- DVA - Pensioner Concession Card --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Health Care Card</masterLabel>
+            <translation><!-- Health Care Card --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pensioner Concession Card</masterLabel>
+            <translation><!-- Pensioner Concession Card --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Concession Contact Point --></label>
+        <name>Concession_Contact_Point__c</name>
+        <picklistValues>
+            <masterLabel>COUNTER VISIT</masterLabel>
+            <translation><!-- COUNTER VISIT --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>E-MAIL</masterLabel>
+            <translation><!-- E-MAIL --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FAX</masterLabel>
+            <translation><!-- FAX --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>INTERNET</masterLabel>
+            <translation><!-- INTERNET --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>LETTER</masterLabel>
+            <translation><!-- LETTER --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PENSION REBATE APPL</masterLabel>
+            <translation><!-- PENSION REBATE APPL --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Concession Customer Type --></label>
+        <name>Concession_Customer_Type__c</name>
+        <picklistValues>
+            <masterLabel>Life Tenant</masterLabel>
+            <translation><!-- Life Tenant --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Occupant of property that is the Estate of</masterLabel>
+            <translation><!-- Occupant of property that is the Estate of --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property occupier</masterLabel>
+            <translation><!-- Property occupier --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Concession details confirmed? --></label>
+        <name>Concession_Details_Confirmed__c</name>
+        <picklistValues>
+            <masterLabel>Existing concession details correct</masterLabel>
+            <translation><!-- Existing concession details correct --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New concession details required</masterLabel>
+            <translation><!-- New concession details required --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>n/a</masterLabel>
+            <translation><!-- n/a --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Concession Evidence --></label>
+        <name>Concession_Evidence__c</name>
+        <picklistValues>
+            <masterLabel>Copy of private agreement</masterLabel>
+            <translation><!-- Copy of private agreement --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lease/Rental agreement</masterLabel>
+            <translation><!-- Lease/Rental agreement --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Letter from owner</masterLabel>
+            <translation><!-- Letter from owner --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Letter from retirement village</masterLabel>
+            <translation><!-- Letter from retirement village --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Concession Holder --></label>
+        <name>Concession_Holder__c</name>
+        <picklistValues>
+            <masterLabel>A/C Holder Partner</masterLabel>
+            <translation><!-- A/C Holder Partner --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Account Holder</masterLabel>
+            <translation><!-- Account Holder --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Third Party</masterLabel>
+            <translation><!-- Third Party --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Confirmation Type --></label>
+        <name>Confirmation_Type__c</name>
+        <picklistValues>
+            <masterLabel>Email</masterLabel>
+            <translation><!-- Email --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fax</masterLabel>
+            <translation><!-- Fax --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Letter</masterLabel>
+            <translation><!-- Letter --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Phone</masterLabel>
+            <translation><!-- Phone --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SMS</masterLabel>
+            <translation><!-- SMS --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- (HIDDEN) Connection Or Disconnection --></label>
+        <name>Connection_Or_Disconnection__c</name>
+    </fields>
+    <fields>
+        <help><!-- Document the contact Name and contact information here. If the contact is an existing person against the Customer record, then select it using the lookup below --></help>
+        <label><!-- Contact Details --></label>
+        <name>Contact_Details__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact Email --></label>
+        <name>Contact_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact Method --></label>
+        <name>Contact_Method__c</name>
+        <picklistValues>
+            <masterLabel>Email</masterLabel>
+            <translation><!-- Email --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fax</masterLabel>
+            <translation><!-- Fax --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Letter</masterLabel>
+            <translation><!-- Letter --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NOS - Aquis</masterLabel>
+            <translation><!-- NOS - Aquis --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NOS - Dispos</masterLabel>
+            <translation><!-- NOS - Dispos --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Telephone</masterLabel>
+            <translation><!-- Telephone --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Contact Mode --></label>
+        <name>Contact_Mode__c</name>
+        <picklistValues>
+            <masterLabel>Mobile</masterLabel>
+            <translation><!-- Mobile --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Work</masterLabel>
+            <translation><!-- Work --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Contact Outcome --></label>
+        <name>Contact_Outcome__c</name>
+        <picklistValues>
+            <masterLabel>Contact made with 3rd Party</masterLabel>
+            <translation><!-- Contact made with 3rd Party --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Contact made with Customer</masterLabel>
+            <translation><!-- Contact made with Customer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Contact willing to talk to office</masterLabel>
+            <translation><!-- Contact willing to talk to office --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No contact made</masterLabel>
+            <translation><!-- No contact made --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- For Person that is not in system and no need to record in system. --></help>
+        <label><!-- Contact Person Name --></label>
+        <name>Contact_Person_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact Phone Number --></label>
+        <name>Contact_Phone_Number__c</name>
+    </fields>
+    <fields>
+        <help><!-- The relationship the contact person in relation to the complaint --></help>
+        <label><!-- Contact Relationship --></label>
+        <name>Contact_Relationship__c</name>
+    </fields>
+    <fields>
+        <help><!-- This field contains information that is parsed to BRE for SMR Cases. --></help>
+        <label><!-- Contact Type --></label>
+        <name>Contact_Type__c</name>
+        <picklistValues>
+            <masterLabel>Agent</masterLabel>
+            <translation><!-- Agent --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>B/O Sale</masterLabel>
+            <translation><!-- B/O Sale --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>B/O Tenant</masterLabel>
+            <translation><!-- B/O Tenant --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Owner</masterLabel>
+            <translation><!-- Owner --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Purchaser</masterLabel>
+            <translation><!-- Purchaser --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Solicitor</masterLabel>
+            <translation><!-- Solicitor --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tenant</masterLabel>
+            <translation><!-- Tenant --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Vendor</masterLabel>
+            <translation><!-- Vendor --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- (HIDDEN) Correspondence Address --></label>
+        <name>Correspondence_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Country --></label>
+        <name>Country__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current Drainage --></label>
+        <name>Current_Drainage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current Due Date --></label>
+        <name>Current_Due_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current Parks --></label>
+        <name>Current_Parks__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Mailing Address --></label>
+        <name>Customer_Mailing_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Name (Portal) --></label>
+        <name>Customer_Name_Portal__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Number (Portal) --></label>
+        <name>Customer_Number_Portal__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reason for Extension --></label>
+        <name>Date_Interim_Reason__c</name>
+    </fields>
+    <fields>
+        <help><!-- The field captures the Date when Due Date extension was initiated. --></help>
+        <label><!-- Date Interim --></label>
+        <name>Date_Interim__c</name>
+    </fields>
+    <fields>
+        <help><!-- Date of upfront payment --></help>
+        <label><!-- Date of Payment --></label>
+        <name>Date_of_Payment__c</name>
+    </fields>
+    <fields>
+        <label><!-- Days Till Due --></label>
+        <name>Days_Till_Due__c</name>
+    </fields>
+    <fields>
+        <label><!-- Delete Reason --></label>
+        <name>Delete_Reason__c</name>
+        <picklistValues>
+            <masterLabel>Card cancelled</masterLabel>
+            <translation><!-- Card cancelled --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Change of card details</masterLabel>
+            <translation><!-- Change of card details --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Deceased</masterLabel>
+            <translation><!-- Deceased --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No longer at the property</masterLabel>
+            <translation><!-- No longer at the property --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Dialysis Customer --></label>
+        <name>Dialysis_Customer__c</name>
+    </fields>
+    <fields>
+        <label><!-- Drainage Paid --></label>
+        <name>Drainage_Paid__c</name>
+    </fields>
+    <fields>
+        <label><!-- Drainage Period From --></label>
+        <name>Drainage_Period_From__c</name>
+    </fields>
+    <fields>
+        <label><!-- Drainage Period To --></label>
+        <name>Drainage_Period_To__c</name>
+    </fields>
+    <fields>
+        <label><!-- Due Date --></label>
+        <name>Due_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- EWOV Type --></label>
+        <name>EWOV_Type__c</name>
+        <picklistValues>
+            <masterLabel>Assisted</masterLabel>
+            <translation><!-- Assisted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Investigative</masterLabel>
+            <translation><!-- Investigative --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Escalated --></label>
+        <name>Escalated__c</name>
+    </fields>
+    <fields>
+        <label><!-- Evidence of Children --></label>
+        <name>Evidence_of_Children__c</name>
+    </fields>
+    <fields>
+        <label><!-- Existing Order 1 --></label>
+        <name>Existing_Order_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Existing Order 2 --></label>
+        <name>Existing_Order_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Existing Reading --></label>
+        <name>Existing_Reading__c</name>
+        <picklistValues>
+            <masterLabel>Existing Order 1</masterLabel>
+            <translation><!-- Existing Order 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Existing Order 2</masterLabel>
+            <translation><!-- Existing Order 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Last Billed</masterLabel>
+            <translation><!-- Last Billed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Scheduled</masterLabel>
+            <translation><!-- Scheduled --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unbilled</masterLabel>
+            <translation><!-- Unbilled --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Expression of Interest --></label>
+        <name>Expression_of_Interest__c</name>
+        <relationshipLabel><!-- Cases --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Extend Due Date --></label>
+        <name>Extend_Due_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- External Id --></label>
+        <name>External_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Faulty Stop Tap? --></label>
+        <name>Faulty_Stop_Tap__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Feedback Type --></label>
+        <name>Feedback_Type__c</name>
+        <picklistValues>
+            <masterLabel>Compliment</masterLabel>
+            <translation><!-- Compliment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Existing Article</masterLabel>
+            <translation><!-- Existing Article --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New Article</masterLabel>
+            <translation><!-- New Article --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Suggestions</masterLabel>
+            <translation><!-- Suggestions --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Field Officer Name --></label>
+        <name>Field_Officer_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Payment Date --></label>
+        <name>First_Payment_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Forwarding Address --></label>
+        <name>Forwarding_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Future City --></label>
+        <name>FutureCity__c</name>
+    </fields>
+    <fields>
+        <label><!-- Future Post Code --></label>
+        <name>FuturePostCode__c</name>
+    </fields>
+    <fields>
+        <label><!-- Future State --></label>
+        <name>FutureState__c</name>
+    </fields>
+    <fields>
+        <label><!-- Future Street Address --></label>
+        <name>FutureStreetAddress__c</name>
+    </fields>
+    <fields>
+        <label><!-- Future Address Process --></label>
+        <name>Future_Address_Process__c</name>
+    </fields>
+    <fields>
+        <label><!-- Future Attention --></label>
+        <name>Future_Attention__c</name>
+    </fields>
+    <fields>
+        <label><!-- Future Care Of --></label>
+        <name>Future_Care_Of__c</name>
+    </fields>
+    <fields>
+        <label><!-- Future Country --></label>
+        <name>Future_Country__c</name>
+    </fields>
+    <fields>
+        <label><!-- Future DPID --></label>
+        <name>Future_DPID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Owner&apos;s Team --></label>
+        <name>HIDDEN_Owner_Team__c</name>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) Send NOS Processed Email --></label>
+        <name>HIDDEN_Send_NOS_Processed_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Hardship Details --></label>
+        <name>Hardship_Details__c</name>
+    </fields>
+    <fields>
+        <label><!-- Hardship Evident --></label>
+        <name>Hardship_Evident__c</name>
+    </fields>
+    <fields>
+        <label><!-- Has the Leak been repaired? --></label>
+        <name>Has_the_Leak_been_repaired__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>n/a (If n/a, add reason in case comment)</masterLabel>
+            <translation><!-- n/a (If n/a, add reason in case comment) --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- (Hidden) Send to LL on Demand --></label>
+        <name>Hidden_Send_to_LL_on_Demand__c</name>
+    </fields>
+    <fields>
+        <help><!-- Issues that are a pain point with customers and may lead to growing dissatisfaction and/or complaints.  We encourage all employees to identify hot issues so that we can quickly spot emerging trends and be more proactive in our response. --></help>
+        <label><!-- Hot Issues --></label>
+        <name>Hot_Issues__c</name>
+    </fields>
+    <fields>
+        <label><!-- Calculated Trade Waste Volumetric Amount --></label>
+        <name>IS_Calc_Trade_Waste_Vol_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Company trading on or after settlemen --></label>
+        <name>IS_Company_Trading_On_Or_After_Settlemen__c</name>
+    </fields>
+    <fields>
+        <label><!-- Date of Settlement --></label>
+        <name>IS_Date_Of_Settlement__c</name>
+    </fields>
+    <fields>
+        <label><!-- Drain Bill From --></label>
+        <name>IS_Drain_Bill_From__c</name>
+    </fields>
+    <fields>
+        <label><!-- Drain Bill To --></label>
+        <name>IS_Drain_Bill_To__c</name>
+    </fields>
+    <fields>
+        <label><!-- Drainage --></label>
+        <name>IS_Drain_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fire Service Fee Bill From --></label>
+        <name>IS_Fire_Service_Fee_Bill_From__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fire Service Fee Bill To --></label>
+        <name>IS_Fire_Service_Fee_Bill_To__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fire Service Charge --></label>
+        <name>IS_Fire_Service_Fee_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fire Usage Daily Charge --></label>
+        <name>IS_Fire_Usage_Daily_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Food Waste Fee Bill From --></label>
+        <name>IS_Food_Waste_Fee_Bill_From__c</name>
+    </fields>
+    <fields>
+        <label><!-- Food Waste Fee Bill To --></label>
+        <name>IS_Food_Waste_Fee_Bill_To__c</name>
+    </fields>
+    <fields>
+        <label><!-- Food Waste Service --></label>
+        <name>IS_Food_Waste_Fee_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Read Date --></label>
+        <name>IS_Last_Read_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Legal Costs --></label>
+        <name>IS_Legal_Costs__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lien Current Balance --></label>
+        <name>IS_Lien_Current_Balance__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Arrears --></label>
+        <name>IS_Other_Arrears__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parks Bill From --></label>
+        <name>IS_Parks_Bill_From__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parks Bill To --></label>
+        <name>IS_Parks_Bill_To__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parks --></label>
+        <name>IS_Parks_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is production ceasing before settlement --></label>
+        <name>IS_Prod_Ceasing_Earlier_Than_Settle__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recycle Service Bill From --></label>
+        <name>IS_Recycle_Service_Bill_From__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recycle Service Bill To --></label>
+        <name>IS_Recycle_Service_Bill_To__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recycled Water Service --></label>
+        <name>IS_Recycle_Service_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recycle Usage Daily Charge --></label>
+        <name>IS_Recycle_Usage_Daily_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Information Statement Retrieve Date --></label>
+        <name>IS_Retrieve_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sewerage Disposal Daily Charge --></label>
+        <name>IS_Sewerage_Disposal_Daily_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sewerage Service Bill From --></label>
+        <name>IS_Sewerage_Service_Bill_From__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sewerage Service Bill To --></label>
+        <name>IS_Sewerage_Service_Bill_To__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sewerage Service --></label>
+        <name>IS_Sewerage_Service_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Special read arranged --></label>
+        <name>IS_Special_Read_Arranged__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trade Waste Usage Contact --></label>
+        <name>IS_Trade_Waste_Contact__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trade Waste Fee Bill From --></label>
+        <name>IS_Trade_Waste_Fee_Bill_From__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trade Waste Fee Bill To --></label>
+        <name>IS_Trade_Waste_Fee_Bill_To__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trade Waste Agreement Fee --></label>
+        <name>IS_Trade_Waste_Fee_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Usage Owing --></label>
+        <name>IS_Usage_Owing__c</name>
+    </fields>
+    <fields>
+        <label><!-- Water Service Bill From --></label>
+        <name>IS_Water_Service_Bill_From__c</name>
+    </fields>
+    <fields>
+        <label><!-- Water Service Bill To --></label>
+        <name>IS_Water_Service_Bill_To__c</name>
+    </fields>
+    <fields>
+        <label><!-- Water Service --></label>
+        <name>IS_Water_Service_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Water Usage Daily Charge --></label>
+        <name>IS_Water_Usage_Daily_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- What date are they ceasing? --></label>
+        <name>IS_What_Date_Are_They_Ceasing__c</name>
+    </fields>
+    <fields>
+        <label><!-- Information --></label>
+        <name>Information_Int_Long__c</name>
+    </fields>
+    <fields>
+        <label><!-- (HIDDEN) Information --></label>
+        <name>Information_Int__c</name>
+    </fields>
+    <fields>
+        <label><!-- Information Needed --></label>
+        <name>Information_Needed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Information Statement Advice --></label>
+        <name>Information_Statement_Advice__c</name>
+    </fields>
+    <fields>
+        <label><!-- Inspection Date --></label>
+        <name>Inspection_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Inspection Read 1 --></label>
+        <name>Inspection_Read_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Inspection Read 2 --></label>
+        <name>Inspection_Read_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Insured --></label>
+        <name>Insured__c</name>
+    </fields>
+    <fields>
+        <label><!-- Interimed By --></label>
+        <name>Interimed_By__c</name>
+        <relationshipLabel><!-- Cases --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Done at the Back End? --></label>
+        <name>Is_Done_at_the_Back_End__c</name>
+    </fields>
+    <fields>
+        <label><!-- (HIDDEN) Letter to Agent --></label>
+        <name>Is_Letter_to_Agent__c</name>
+    </fields>
+    <fields>
+        <label><!-- (HIDDEN) Letter to Owner --></label>
+        <name>Is_Letter_to_Owner__c</name>
+    </fields>
+    <fields>
+        <label><!-- Amend - Performed? --></label>
+        <name>Is_SMR_Amend_Performed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Amend - Validated? --></label>
+        <name>Is_SMR_Amend_Validated__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cancelled? --></label>
+        <name>Is_SMR_Cancelled__c</name>
+    </fields>
+    <fields>
+        <label><!-- Create - Performed? --></label>
+        <name>Is_SMR_Create_Performed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Create - Validated? --></label>
+        <name>Is_SMR_Create_Validated__c</name>
+    </fields>
+    <fields>
+        <label><!-- Direct Debit? --></label>
+        <name>Is_Suspend_Recovery_Direct_Debit__c</name>
+    </fields>
+    <fields>
+        <label><!-- Performed? --></label>
+        <name>Is_Suspend_Recovery_Performed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Validated? --></label>
+        <name>Is_Suspend_Recovery_Validated__c</name>
+    </fields>
+    <fields>
+        <label><!-- Knowledge Category --></label>
+        <name>Knowledge_Category__c</name>
+        <picklistValues>
+            <masterLabel>About us</masterLabel>
+            <translation><!-- About us --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Billing</masterLabel>
+            <translation><!-- Billing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Concessions</masterLabel>
+            <translation><!-- Concessions --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Moving in and moving out</masterLabel>
+            <translation><!-- Moving in and moving out --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Payments</masterLabel>
+            <translation><!-- Payments --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pricing and charges</masterLabel>
+            <translation><!-- Pricing and charges --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Products and services</masterLabel>
+            <translation><!-- Products and services --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Service faults</masterLabel>
+            <translation><!-- Service faults --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Trade waste</masterLabel>
+            <translation><!-- Trade waste --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>mysoutheastwater</masterLabel>
+            <translation><!-- mysoutheastwater --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Last Billed Reading --></label>
+        <name>Last_Billed_Reading__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Read Date --></label>
+        <name>Last_Read_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Recovery Action Date --></label>
+        <name>Last_Recovery_Action_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Recovery Action --></label>
+        <name>Last_Recovery_Action__c</name>
+    </fields>
+    <fields>
+        <label><!-- Legal Costs --></label>
+        <name>Legal_Costs__c</name>
+    </fields>
+    <fields>
+        <help><!-- Legal Customer --></help>
+        <label><!-- Legal Customer --></label>
+        <name>Legal_Customer__c</name>
+    </fields>
+    <fields>
+        <help><!-- Letter sent to Agent to confirm New Tenancy details or if the property is NSM then the Agent will be informed by letter that we are unable to bill the tenant. --></help>
+        <label><!-- Letter to Agent --></label>
+        <name>Letter_to_Agent__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Letter sent to Owner to confirm New Tenancy details or if the property is NSM then the Owner will be informed by letter that we are unable to bill the tenant. --></help>
+        <label><!-- Letter to Owner --></label>
+        <name>Letter_to_Owner__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Manual Check --></label>
+        <name>Manual_Check__c</name>
+    </fields>
+    <fields>
+        <help><!-- Meter Reading --></help>
+        <label><!-- Meter 1 Reading --></label>
+        <name>Meter1_Reading__c</name>
+    </fields>
+    <fields>
+        <label><!-- Meter 1 Serial --></label>
+        <name>Meter1_Serial__c</name>
+    </fields>
+    <fields>
+        <label><!-- Meter 2 Reading --></label>
+        <name>Meter_2_Reading__c</name>
+    </fields>
+    <fields>
+        <label><!-- Meter 2 Serial --></label>
+        <name>Meter_2_Serial__c</name>
+    </fields>
+    <fields>
+        <label><!-- Meter Reading after repair --></label>
+        <name>Meter_Reading_after_repair__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mode --></label>
+        <name>Mode__c</name>
+        <picklistValues>
+            <masterLabel>Action</masterLabel>
+            <translation><!-- Action --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Query</masterLabel>
+            <translation><!-- Query --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Move In / Out Date --></label>
+        <name>Move_In_Out_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- (HIDDEN) Move In Property --></label>
+        <name>Move_In_Property__c</name>
+    </fields>
+    <fields>
+        <label><!-- NOS Exception --></label>
+        <name>NOS_Exception__c</name>
+    </fields>
+    <fields>
+        <help><!-- Copy the New Address to Future Address on Customer. --></help>
+        <label><!-- New Address --></label>
+        <name>New_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Next Bill Issue Date --></label>
+        <name>Next_Bill_Issue_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter in the number of days required for the extension --></help>
+        <label><!-- No. of days to extend due date --></label>
+        <name>No_of_days_to_extend_due_date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Not Insured --></label>
+        <name>Not_Insured__c</name>
+    </fields>
+    <fields>
+        <help><!-- Only required if the application relates to a Non-Residential Customer --></help>
+        <label><!-- Number of Employees --></label>
+        <name>Number_of_Employees__c</name>
+        <picklistValues>
+            <masterLabel>&lt;20</masterLabel>
+            <translation><!-- &lt;20 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&gt;20</masterLabel>
+            <translation><!-- &gt;20 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Often referred to as “One &amp; Done”, First Contact Resolution is the practice of managing customer enquiries or concerns within the first contact. This means handling a customer&apos;s request completely upon first contact and without further follow up. --></help>
+        <label><!-- Number of contacts --></label>
+        <name>Number_of_contacts__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>more than 3</masterLabel>
+            <translation><!-- more than 3 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Opportunity --></label>
+        <name>Opportunity__c</name>
+        <relationshipLabel><!-- Cases --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Opportunity for Improvement --></label>
+        <name>Opportunity_for_Improvement__c</name>
+    </fields>
+    <fields>
+        <name>Origin</name>
+        <picklistValues>
+            <masterLabel>Counter</masterLabel>
+            <translation><!-- Counter --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Experience Survey</masterLabel>
+            <translation><!-- Customer Experience Survey --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Email</masterLabel>
+            <translation><!-- Email --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Email - ABNote</masterLabel>
+            <translation><!-- Email - ABNote --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Email - EWOV</masterLabel>
+            <translation><!-- Email - EWOV --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Email - Leak Allowance</masterLabel>
+            <translation><!-- Email - Leak Allowance --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fax</masterLabel>
+            <translation><!-- Fax --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Government Policy</masterLabel>
+            <translation><!-- Government Policy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IVR</masterLabel>
+            <translation><!-- IVR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Internal</masterLabel>
+            <translation><!-- Internal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Issue or Incident</masterLabel>
+            <translation><!-- Issue or Incident --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Live Web Chat</masterLabel>
+            <translation><!-- Live Web Chat --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mail</masterLabel>
+            <translation><!-- Mail --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Meeting</masterLabel>
+            <translation><!-- Meeting --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mercantile</masterLabel>
+            <translation><!-- Mercantile --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MobileApp</masterLabel>
+            <translation><!-- MobileApp --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Phone</masterLabel>
+            <translation><!-- Phone --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Portal</masterLabel>
+            <translation><!-- Portal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SMS</masterLabel>
+            <translation><!-- SMS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Web</masterLabel>
+            <translation><!-- Web --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Original Due Date --></label>
+        <name>Original_Due_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- If Case Origin is &quot;Other&quot; provide the specific case origin in this field. --></help>
+        <label><!-- Other Case Origin --></label>
+        <name>Other_Case_Origin__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Reason --></label>
+        <name>Other_Reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- Overdue Age (From Original) --></label>
+        <name>Overdue_Age_From_Original__c</name>
+    </fields>
+    <fields>
+        <label><!-- Overdue Amount --></label>
+        <name>Overdue_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Overdue Flag --></label>
+        <name>Overdue_Flag__c</name>
+    </fields>
+    <fields>
+        <label><!-- Overdue Flag (from Original) --></label>
+        <name>Overdue_Flag_from_Original__c</name>
+    </fields>
+    <fields>
+        <label><!-- Overdue Image --></label>
+        <name>Overdue_Image__c</name>
+    </fields>
+    <fields>
+        <label><!-- Owner Type --></label>
+        <name>Owner_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parks Paid --></label>
+        <name>Parks_Paid__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parks Period From --></label>
+        <name>Parks_Period_From__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parks Period To --></label>
+        <name>Parks_Period_To__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parks Unpaid --></label>
+        <name>Parks_Unpaid__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Amount (Original Estimate) --></label>
+        <name>Payment_Amount_Original_Estimate__c</name>
+    </fields>
+    <fields>
+        <help><!-- The periodic payment amount required for the payment plan --></help>
+        <label><!-- Payment Amount --></label>
+        <name>Payment_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Method --></label>
+        <name>Payment_Method__c</name>
+        <picklistValues>
+            <masterLabel>Direct Debit</masterLabel>
+            <translation><!-- Direct Debit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Existing Easypay Card</masterLabel>
+            <translation><!-- Existing Easypay Card --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New Easypay Card</masterLabel>
+            <translation><!-- New Easypay Card --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Name of the person making the complaint, if not recorded in Pulse. --></help>
+        <label><!-- Person Name (Free text) --></label>
+        <name>Person_Name_Free_Text__c</name>
+    </fields>
+    <fields>
+        <label><!-- Portal Case Type --></label>
+        <name>Portal_Case_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Portal Email Sent --></label>
+        <name>Portal_Email_Sent__c</name>
+    </fields>
+    <fields>
+        <label><!-- Move In City (Portal) --></label>
+        <name>Portal_Move_In_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Move In Postal Code (Portal) --></label>
+        <name>Portal_Move_In_Postal_Code__c</name>
+    </fields>
+    <fields>
+        <help><!-- This is the address the portal user is moving into (For Purchaser/Move In scenarios) --></help>
+        <label><!-- Move In Street Address (Portal) --></label>
+        <name>Portal_Move_In_Street_Address__c</name>
+    </fields>
+    <fields>
+        <help><!-- Indicates that the case was closed after viewing the portal article --></help>
+        <label><!-- Resolved By Article in Portal --></label>
+        <name>Portal_Resolved_By_Article__c</name>
+    </fields>
+    <fields>
+        <label><!-- Postcode --></label>
+        <name>Postcode__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pre 01/01/98 --></label>
+        <name>Pre_01_01_98__c</name>
+    </fields>
+    <fields>
+        <label><!-- Print Bill --></label>
+        <name>Print_Bill__c</name>
+    </fields>
+    <fields>
+        <name>Priority</name>
+        <picklistValues>
+            <masterLabel>High</masterLabel>
+            <translation><!-- High --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Immediate</masterLabel>
+            <translation><!-- Immediate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Low</masterLabel>
+            <translation><!-- Low --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Medium</masterLabel>
+            <translation><!-- Medium --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Next 24 hours</masterLabel>
+            <translation><!-- Next 24 hours --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Suggestion</masterLabel>
+            <translation><!-- Suggestion --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Privacy Statement --></label>
+        <name>Privacy_Statement__c</name>
+    </fields>
+    <fields>
+        <help><!-- If Private Extension flag is checked on Property, then it shows &quot;Available&quot; here. Otherwise it is &quot;Unavailable&quot;. --></help>
+        <label><!-- Private Extension Available --></label>
+        <name>Private_Extension_Available__c</name>
+    </fields>
+    <fields>
+        <help><!-- Displays the name of the Product --></help>
+        <label><!-- Product Name --></label>
+        <name>Product_Name__c</name>
+        <relationshipLabel><!-- Cases (Product Name) --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Name of th program the complaint is related to --></help>
+        <label><!-- Program --></label>
+        <name>Program__c</name>
+        <relationshipLabel><!-- Cases --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Property Attributes --></label>
+        <name>Property_Attributes__c</name>
+        <picklistValues>
+            <masterLabel>Abandoned</masterLabel>
+            <translation><!-- Abandoned --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>For Lease</masterLabel>
+            <translation><!-- For Lease --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>For Sale</masterLabel>
+            <translation><!-- For Sale --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Occupied</masterLabel>
+            <translation><!-- Occupied --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Premium</masterLabel>
+            <translation><!-- Premium --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Run Down</masterLabel>
+            <translation><!-- Run Down --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Property Melways Reference --></label>
+        <name>Property_Melways_Reference__c</name>
+    </fields>
+    <fields>
+        <label><!-- Property Ref --></label>
+        <name>Property_Ref__c</name>
+    </fields>
+    <fields>
+        <label><!-- Property Visit Complete --></label>
+        <name>Property_Visit_Complete__c</name>
+    </fields>
+    <fields>
+        <label><!-- Property Visit Completed Date --></label>
+        <name>Property_Visit_Completed_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Property Visit Result --></label>
+        <name>Property_Visit_Result__c</name>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Restore</masterLabel>
+            <translation><!-- Restore --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Restrict</masterLabel>
+            <translation><!-- Restrict --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Property --></label>
+        <name>Property__c</name>
+        <relationshipLabel><!-- Cases --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Property inspection conducted? --></label>
+        <name>Property_inspection_conducted__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Purchaser Account Name --></label>
+        <name>Purchaser_Account_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Also applies to Tenant becomes Purchaser situation. --></help>
+        <label><!-- Purchaser Billing Account --></label>
+        <name>Purchaser_Billing_Account__c</name>
+        <relationshipLabel><!-- Cases (As Purchaser Account) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Reading Date --></label>
+        <name>Reading_Date__c</name>
+    </fields>
+    <fields>
+        <name>Reason</name>
+        <picklistValues>
+            <masterLabel>Agreement</masterLabel>
+            <translation><!-- Agreement --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Complex functionality</masterLabel>
+            <translation><!-- Complex functionality --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Enquiry</masterLabel>
+            <translation><!-- Enquiry --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Existing problem</masterLabel>
+            <translation><!-- Existing problem --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Instructions not clear</masterLabel>
+            <translation><!-- Instructions not clear --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Investigation</masterLabel>
+            <translation><!-- Investigation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New problem</masterLabel>
+            <translation><!-- New problem --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Promise to Pay</masterLabel>
+            <translation><!-- Promise to Pay --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>User didn&apos;t attend training</masterLabel>
+            <translation><!-- User didn&apos;t attend training --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Rebilled Amount --></label>
+        <name>Rebilled_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Rebilled Date --></label>
+        <name>Rebilled_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Rebilled --></label>
+        <name>Rebilled__c</name>
+    </fields>
+    <fields>
+        <help><!-- Has application form been received? --></help>
+        <label><!-- Received Application Form? --></label>
+        <name>Received_Application_Form__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Has SEWL previously received evidence that the concession card holder is responsible for the water and sewerage accounts at this property? --></help>
+        <label><!-- Received Evidence of Responsibility? --></label>
+        <name>Received_Evidence_of_Responsibility__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Recommended Publish Date --></label>
+        <name>Recommended_Publish_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recommended Review / Archive Date --></label>
+        <name>Recommended_Review_Archive_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Record Type Name --></label>
+        <name>Record_Type_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recovery Path --></label>
+        <name>Recovery_Path_For_Add__c</name>
+        <picklistValues>
+            <masterLabel>D1</masterLabel>
+            <translation><!-- D1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>D2</masterLabel>
+            <translation><!-- D2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>D3</masterLabel>
+            <translation><!-- D3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OTHER</masterLabel>
+            <translation><!-- OTHER --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PD</masterLabel>
+            <translation><!-- PD --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Recovery Path --></label>
+        <name>Recovery_Path__c</name>
+        <picklistValues>
+            <masterLabel>D1 - RESIDENTIAL 1</masterLabel>
+            <translation><!-- D1 - RESIDENTIAL 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>D2 - RESIDENTIAL 2</masterLabel>
+            <translation><!-- D2 - RESIDENTIAL 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>D3 - TENANT USAGE - RES</masterLabel>
+            <translation><!-- D3 - TENANT USAGE - RES --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N1 - NON RESIDENTIAL</masterLabel>
+            <translation><!-- N1 - NON RESIDENTIAL --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N2 - Non Res Serv Only</masterLabel>
+            <translation><!-- N2 - Non Res Serv Only --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N3 - NON RES USAGE</masterLabel>
+            <translation><!-- N3 - NON RES USAGE --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PD - Parks and Drainage</masterLabel>
+            <translation><!-- PD - Parks and Drainage --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- If recycled water is available on the property, then specifying an address will issue a welcome home kit. --></help>
+        <label><!-- Recycled Water Available --></label>
+        <name>Recycled_Water_Available__c</name>
+    </fields>
+    <fields>
+        <label><!-- Refer to Internal System --></label>
+        <name>Refer_to_Internal_System__c</name>
+        <picklistValues>
+            <masterLabel>Faults and Emergencies</masterLabel>
+            <translation><!-- Faults and Emergencies --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Montage</masterLabel>
+            <translation><!-- Montage --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property Development</masterLabel>
+            <translation><!-- Property Development --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Trade Waste</masterLabel>
+            <translation><!-- Trade Waste --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Internal Reference #: --></label>
+        <name>Reference__c</name>
+    </fields>
+    <fields>
+        <label><!-- Letter Type --></label>
+        <name>RemovePaymentPlan_Letter_Type__c</name>
+        <picklistValues>
+            <masterLabel>07</masterLabel>
+            <translation><!-- 07 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>07cr</masterLabel>
+            <translation><!-- 07cr --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>07dd</masterLabel>
+            <translation><!-- 07dd --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>07ddcr</masterLabel>
+            <translation><!-- 07ddcr --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>08</masterLabel>
+            <translation><!-- 08 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>09</masterLabel>
+            <translation><!-- 09 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>None</masterLabel>
+            <translation><!-- None --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Repayment Frequency --></label>
+        <name>Repayment_Frequency__c</name>
+        <picklistValues>
+            <masterLabel>Fortnightly</masterLabel>
+            <translation><!-- Fortnightly --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Monthly</masterLabel>
+            <translation><!-- Monthly --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Weekly</masterLabel>
+            <translation><!-- Weekly --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Reserve --></label>
+        <name>Reserve__c</name>
+    </fields>
+    <fields>
+        <label><!-- Response Sent? --></label>
+        <name>Response_Sent__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Restriction Ability --></label>
+        <name>Restriction_Ability__c</name>
+        <picklistValues>
+            <masterLabel>Able to Restrict</masterLabel>
+            <translation><!-- Able to Restrict --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unable to Restrict</masterLabel>
+            <translation><!-- Unable to Restrict --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Ensure restriction preference type is listed from left to right --></help>
+        <label><!-- Restriction Type --></label>
+        <name>Restriction_Type__c</name>
+        <picklistValues>
+            <masterLabel>Box</masterLabel>
+            <translation><!-- Box --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Crimped Pipe</masterLabel>
+            <translation><!-- Crimped Pipe --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Disc</masterLabel>
+            <translation><!-- Disc --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ferrule</masterLabel>
+            <translation><!-- Ferrule --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fitzroy Box</masterLabel>
+            <translation><!-- Fitzroy Box --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Green Bell</masterLabel>
+            <translation><!-- Green Bell --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Scheduled Date/Time of Visit --></label>
+        <name>Scheduled_Date_Time_of_Visit__c</name>
+    </fields>
+    <fields>
+        <label><!-- Scheduled Reading --></label>
+        <name>Scheduled_Reading__c</name>
+    </fields>
+    <fields>
+        <label><!-- Send Application Form To --></label>
+        <name>Send_Application_Form_To__c</name>
+        <picklistValues>
+            <masterLabel>Billing Account Address</masterLabel>
+            <translation><!-- Billing Account Address --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property Address</masterLabel>
+            <translation><!-- Property Address --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Send Application Form? --></label>
+        <name>Send_Application_Form__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Send Confirmation Letter --></label>
+        <name>Send_Confirmation_Letter__c</name>
+    </fields>
+    <fields>
+        <label><!-- (HIDDEN) Set Up Trade Waste --></label>
+        <name>Set_Up_Trade_Waste__c</name>
+    </fields>
+    <fields>
+        <label><!-- Settlement Date --></label>
+        <name>Settlement_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- If blank , the first 255 characters of the full description will be automatically copied here. --></help>
+        <label><!-- Short Description --></label>
+        <name>Short_Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- State/Postcode --></label>
+        <name>State__c</name>
+    </fields>
+    <fields>
+        <name>Status</name>
+        <picklistValues>
+            <masterLabel>Cancelled</masterLabel>
+            <translation><!-- Cancelled --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Closed</masterLabel>
+            <translation><!-- Closed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Error</masterLabel>
+            <translation><!-- Error --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Escalated</masterLabel>
+            <translation><!-- Escalated --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Follow up Required</masterLabel>
+            <translation><!-- Follow up Required --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Progress</masterLabel>
+            <translation><!-- In Progress --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Manual Update Flag</masterLabel>
+            <translation><!-- Manual Update Flag --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New</masterLabel>
+            <translation><!-- New --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ongoing</masterLabel>
+            <translation><!-- Ongoing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending</masterLabel>
+            <translation><!-- Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Referred internally</masterLabel>
+            <translation><!-- Referred internally --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Waiting for HiAffinity</masterLabel>
+            <translation><!-- Waiting for HiAffinity --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Waiting on Customer</masterLabel>
+            <translation><!-- Waiting on Customer --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Street Address (Portal) --></label>
+        <name>Street_Address_Portal__c</name>
+    </fields>
+    <fields>
+        <label><!-- Street --></label>
+        <name>Street__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sub Type --></label>
+        <name>Sub_Type__c</name>
+        <picklistValues>
+            <masterLabel>Article Feedback</masterLabel>
+            <translation><!-- Article Feedback --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Complaint</masterLabel>
+            <translation><!-- Complaint --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Concession - Add</masterLabel>
+            <translation><!-- Concession - Add --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Concession - Delete</masterLabel>
+            <translation><!-- Concession - Delete --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Details</masterLabel>
+            <translation><!-- Customer Details --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Feedback</masterLabel>
+            <translation><!-- Feedback --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>General Enquiry</masterLabel>
+            <translation><!-- General Enquiry --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Information Reading</masterLabel>
+            <translation><!-- Information Reading --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Information Statement Update</masterLabel>
+            <translation><!-- Information Statement Update --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Insurance Claim</masterLabel>
+            <translation><!-- Insurance Claim --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Merge Request</masterLabel>
+            <translation><!-- Merge Request --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>More Time To Pay</masterLabel>
+            <translation><!-- More Time To Pay --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>More Time To Pay Exception</masterLabel>
+            <translation><!-- More Time To Pay Exception --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Move In</masterLabel>
+            <translation><!-- Move In --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Move Out</masterLabel>
+            <translation><!-- Move Out --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Notice of Sale</masterLabel>
+            <translation><!-- Notice of Sale --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Payment Plan</masterLabel>
+            <translation><!-- Payment Plan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Portal Registration Enquiry</masterLabel>
+            <translation><!-- Portal Registration Enquiry --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Portal Registration Name Match</masterLabel>
+            <translation><!-- Portal Registration Name Match --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Submit Meter Read</masterLabel>
+            <translation><!-- Submit Meter Read --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- List any known Subject Matter Experts who can assist with this article --></help>
+        <label><!-- Subject matter experts --></label>
+        <name>Subject_matter_experts__c</name>
+    </fields>
+    <fields>
+        <label><!-- Suburb --></label>
+        <name>Suburb__c</name>
+    </fields>
+    <fields>
+        <help><!-- If checked, Billing Account will be suspended. --></help>
+        <label><!-- Suspend Billing --></label>
+        <name>Suspend_Billing__c</name>
+    </fields>
+    <fields>
+        <label><!-- Suspend To Date --></label>
+        <name>Suspend_To_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check box if no action is required. Billing account will not be auto suspended --></help>
+        <label><!-- Suspension of bill not required --></label>
+        <name>Suspension_of_bill_not_required__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tenant Account Name --></label>
+        <name>Tenant_Account_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tenant Staying On? --></label>
+        <name>Tenant_Action__c</name>
+        <picklistValues>
+            <masterLabel>Go</masterLabel>
+            <translation><!-- Go --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Stay</masterLabel>
+            <translation><!-- Stay --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unknown</masterLabel>
+            <translation><!-- Unknown --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Not required is Non-Tenancy is picked. --></help>
+        <label><!-- Tenant Billing Account --></label>
+        <name>Tenant_Billing_Account__c</name>
+        <relationshipLabel><!-- Cases (AsTenant Account) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Tenant Name --></label>
+        <name>Tenant_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Total amount to be paid off over the plan period. --></help>
+        <label><!-- Term --></label>
+        <name>Term__c</name>
+        <picklistValues>
+            <masterLabel>12 months</masterLabel>
+            <translation><!-- 12 months --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>24 months</masterLabel>
+            <translation><!-- 24 months --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>6 months</masterLabel>
+            <translation><!-- 6 months --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Total Owing --></label>
+        <name>Total_Owing__c</name>
+    </fields>
+    <fields>
+        <help><!-- Total amount to be paid off over the term period --></help>
+        <label><!-- Total --></label>
+        <name>Total__c</name>
+    </fields>
+    <fields>
+        <label><!-- Transaction Type --></label>
+        <name>TransactionType__c</name>
+        <picklistValues>
+            <masterLabel>Court – Order</masterLabel>
+            <translation><!-- Court – Order --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Deceased Estate</masterLabel>
+            <translation><!-- Deceased Estate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Deceased Partner</masterLabel>
+            <translation><!-- Deceased Partner --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Love &amp; Affection</masterLabel>
+            <translation><!-- Love &amp; Affection --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Notice of Acquisition</masterLabel>
+            <translation><!-- Notice of Acquisition --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Notice of Disposition</masterLabel>
+            <translation><!-- Notice of Disposition --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other – Specify</masterLabel>
+            <translation><!-- Other – Specify --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sale of Business</masterLabel>
+            <translation><!-- Sale of Business --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- (HIDDEN) Transfer Concession --></label>
+        <name>Transfer_Concession__c</name>
+    </fields>
+    <fields>
+        <name>Type</name>
+        <picklistValues>
+            <masterLabel>Billing &amp; Accounts</masterLabel>
+            <translation><!-- Billing &amp; Accounts --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Faults and Emergencies</masterLabel>
+            <translation><!-- Faults and Emergencies --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Key Account management</masterLabel>
+            <translation><!-- Key Account management --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Property Development</masterLabel>
+            <translation><!-- Property Development --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Risk Management</masterLabel>
+            <translation><!-- Risk Management --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Stakeholder Management</masterLabel>
+            <translation><!-- Stakeholder Management --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Type of Read INTEGRATION --></label>
+        <name>Type_of_Read_INTEGRATION__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type of Read --></label>
+        <name>Type_of_Read__c</name>
+        <picklistValues>
+            <masterLabel>Information Reading</masterLabel>
+            <translation><!-- Information Reading --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Move In</masterLabel>
+            <translation><!-- Move In --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Move Out</masterLabel>
+            <translation><!-- Move Out --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sale</masterLabel>
+            <translation><!-- Sale --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tenant Move In</masterLabel>
+            <translation><!-- Tenant Move In --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tenant Move Out</masterLabel>
+            <translation><!-- Tenant Move Out --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Non Tenant is the new purchase of a property where there is no tenancy --></help>
+        <label><!-- Type of Sale --></label>
+        <name>Type_of_Sale__c</name>
+        <picklistValues>
+            <masterLabel>New Purchaser, Tenant Leaves</masterLabel>
+            <translation><!-- New Purchaser, Tenant Leaves --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New Purchaser, Tenant Stays</masterLabel>
+            <translation><!-- New Purchaser, Tenant Stays --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Non-Tenancy</masterLabel>
+            <translation><!-- Non-Tenancy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sale of Business</masterLabel>
+            <translation><!-- Sale of Business --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tenant is Purchaser</masterLabel>
+            <translation><!-- Tenant is Purchaser --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- UnBilled Reading --></label>
+        <name>UnBilled_Reading__c</name>
+    </fields>
+    <fields>
+        <label><!-- UpdateFlag --></label>
+        <name>UpdateFlag__c</name>
+    </fields>
+    <fields>
+        <label><!-- Update Given --></label>
+        <name>Update_Given__c</name>
+    </fields>
+    <fields>
+        <label><!-- Updated_Touchpoints_Timestamp --></label>
+        <name>Updated_Touchpoints_Timestamp__c</name>
+    </fields>
+    <fields>
+        <label><!-- Updated_Touchpoints --></label>
+        <name>Updated_Touchpoints__c</name>
+    </fields>
+    <fields>
+        <label><!-- Upfront Payment --></label>
+        <name>Upfront_Payment__c</name>
+    </fields>
+    <fields>
+        <help><!-- Used in suspend recovery letter. --></help>
+        <label><!-- User&apos;s Phone --></label>
+        <name>User_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Payment Amount --></label>
+        <name>VF_ONLY_Adhoc_First_Payment_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Payment Amount --></label>
+        <name>VF_ONLY_Adhoc_Last_Payment_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Valid Concession --></label>
+        <name>Valid_Concession__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vendor Account Name --></label>
+        <name>Vendor_Account_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vendor Billing Account --></label>
+        <name>Vendor_Billing_Account__c</name>
+        <relationshipLabel><!-- Cases (As Vendor Account) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Visible in Customer Portal --></label>
+        <name>Visible_in_Customer_Portal__c</name>
+    </fields>
+    <fields>
+        <label><!-- Visit Type --></label>
+        <name>Visit_Type__c</name>
+        <picklistValues>
+            <masterLabel>Information Only</masterLabel>
+            <translation><!-- Information Only --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recheck</masterLabel>
+            <translation><!-- Recheck --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Restoration</masterLabel>
+            <translation><!-- Restoration --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Restriction</masterLabel>
+            <translation><!-- Restriction --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Restriction Imminent</masterLabel>
+            <translation><!-- Restriction Imminent --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Within my team? --></label>
+        <name>Within_my_team__c</name>
+    </fields>
+    <fields>
+        <label><!-- is Manage Address --></label>
+        <name>is_Manage_Address__c</name>
+    </fields>
+    <layouts>
+        <layout>Article Feedback</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Description --></label>
+            <section>Description</section>
+        </sections>
+        <sections>
+            <label><!-- General Info --></label>
+            <section>General Info</section>
+        </sections>
+        <sections>
+            <label><!-- Key Dates --></label>
+            <section>Key Dates</section>
+        </sections>
+        <sections>
+            <label><!-- System Information --></label>
+            <section>System Information</section>
+        </sections>
+        <sections>
+            <label><!-- Web Information --></label>
+            <section>Web Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>CSO Ad Hoc Payments</layout>
+        <sections>
+            <label><!-- Adhoc Payment Details --></label>
+            <section>Adhoc Payment Details</section>
+        </sections>
+        <sections>
+            <label><!-- Alert and Information --></label>
+            <section>Alert and Information</section>
+        </sections>
+        <sections>
+            <label><!-- Case Information --></label>
+            <section>Case Information</section>
+        </sections>
+        <sections>
+            <label><!-- Contact Information --></label>
+            <section>Contact Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Customer Information --></label>
+            <section>Customer Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>CSO Case Page Layout</layout>
+        <sections>
+            <label><!-- Alerts and Information --></label>
+            <section>Alerts and Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>CSO Close Case Layout</layout>
+        <layoutType>CaseClose</layoutType>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>CSO Concession Delete Layout</layout>
+        <sections>
+            <label><!-- Alerts and Information --></label>
+            <section>Alerts and Information</section>
+        </sections>
+        <sections>
+            <label><!-- Concession Details --></label>
+            <section>Concession Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>CSO Concession Layout</layout>
+        <sections>
+            <label><!-- Alerts and Information --></label>
+            <section>Alerts and Information</section>
+        </sections>
+        <sections>
+            <label><!-- Concession Details --></label>
+            <section>Concession Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>CSO Customer Complaint Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Customer Contact --></label>
+            <section>Customer Contact</section>
+        </sections>
+        <sections>
+            <label><!-- Description --></label>
+            <section>Description</section>
+        </sections>
+        <sections>
+            <label><!-- General Info --></label>
+            <section>General Info</section>
+        </sections>
+        <sections>
+            <label><!-- Improvement Suggestions --></label>
+            <section>Improvement Suggestions</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>CSO Field Debt Recovery</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+        <sections>
+            <label><!-- New Section --></label>
+            <section>New Section</section>
+        </sections>
+        <sections>
+            <label><!-- Post-Property Visit Information --></label>
+            <section>Post-Property Visit Information</section>
+        </sections>
+        <sections>
+            <label><!-- Pre-Property Visit Information --></label>
+            <section>Pre-Property Visit Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>CSO Information Statement Update Layout</layout>
+        <sections>
+            <label><!-- Alerts and Information --></label>
+            <section>Alerts and Information</section>
+        </sections>
+        <sections>
+            <label><!-- Conditional Fields --></label>
+            <section>Conditional Fields</section>
+        </sections>
+        <sections>
+            <label><!-- Information Statement Update Advice --></label>
+            <section>Information Statement Update Advice</section>
+        </sections>
+        <sections>
+            <label><!-- Recycled Water Letter --></label>
+            <section>Recycled Water Letter</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>CSO Insurance Claims</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- General Info --></label>
+            <section>General Info</section>
+        </sections>
+        <sections>
+            <label><!-- Insurance Complaint Details --></label>
+            <section>Insurance Complaint Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>CSO Leak Allowance Layout</layout>
+        <sections>
+            <label><!-- Additional Information --></label>
+            <section>Additional Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Customer / Property Infromation --></label>
+            <section>Customer / Property Infromation</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+        <sections>
+            <label><!-- Leak Allowance / Unexplained Usage - Allowance Information --></label>
+            <section>Leak Allowance / Unexplained Usage - Allowance Information</section>
+        </sections>
+        <sections>
+            <label><!-- Leak Allowance / Unexplained Usage - Application Information --></label>
+            <section>Leak Allowance / Unexplained Usage - Application Information</section>
+        </sections>
+        <sections>
+            <label><!-- New Section --></label>
+            <section>New Section</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>CSO Notice of Sale Layout</layout>
+        <sections>
+            <label><!-- Alerts and Information --></label>
+            <section>Alerts and Information</section>
+        </sections>
+        <sections>
+            <label><!-- Cheque Details --></label>
+            <section>Cheque Details</section>
+        </sections>
+        <sections>
+            <label><!-- Customer Information --></label>
+            <section>Customer Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>CSO Payment Plan Layout</layout>
+        <sections>
+            <label><!-- Alert and Information --></label>
+            <section>Alert and Information</section>
+        </sections>
+        <sections>
+            <label><!-- Case Information --></label>
+            <section>Case Information</section>
+        </sections>
+        <sections>
+            <label><!-- Contact Information --></label>
+            <section>Contact Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Customer Information --></label>
+            <section>Customer Information</section>
+        </sections>
+        <sections>
+            <label><!-- Payment Method --></label>
+            <section>Payment Method</section>
+        </sections>
+        <sections>
+            <label><!-- Payment Plan --></label>
+            <section>Payment Plan</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>CSO Special Meter Read Layout</layout>
+        <sections>
+            <label><!-- Alerts and Information --></label>
+            <section>Alerts and Information</section>
+        </sections>
+        <sections>
+            <label><!-- Amend Details --></label>
+            <section>Amend Details</section>
+        </sections>
+        <sections>
+            <label><!-- New Intituitive Address Search --></label>
+            <section>New Intituitive Address Search</section>
+        </sections>
+        <sections>
+            <label><!-- New Section --></label>
+            <section>New Section</section>
+        </sections>
+        <sections>
+            <label><!-- Recycled Water and Private Extension Letter --></label>
+            <section>Recycled Water and Private Extension Letter</section>
+        </sections>
+        <sections>
+            <label><!-- Special Meter Read Request Details --></label>
+            <section>Special Meter Read Request Details</section>
+        </sections>
+        <sections>
+            <label><!-- Special Meter Reading Dates --></label>
+            <section>Special Meter Reading Dates</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>CSO Suspend Recovery Page Layout</layout>
+        <sections>
+            <label><!-- Alerts and Information --></label>
+            <section>Alerts and Information</section>
+        </sections>
+        <sections>
+            <label><!-- Suspend Recovery --></label>
+            <section>Suspend Recovery</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>CSO Take Customer Meter Read Layout</layout>
+        <sections>
+            <label><!-- Meter Read Details --></label>
+            <section>Meter Read Details</section>
+        </sections>
+        <sections>
+            <label><!-- Suspend Recovery --></label>
+            <section>Suspend Recovery</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Customer Portal Case Layout</layout>
+        <sections>
+            <label><!-- Case Detail --></label>
+            <section>Case Detail</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Feedback</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Customer Contact --></label>
+            <section>Customer Contact</section>
+        </sections>
+        <sections>
+            <label><!-- Description --></label>
+            <section>Description</section>
+        </sections>
+        <sections>
+            <label><!-- General Info --></label>
+            <section>General Info</section>
+        </sections>
+        <sections>
+            <label><!-- Improvement Suggestions --></label>
+            <section>Improvement Suggestions</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Insurance Claim Page Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- General Info --></label>
+            <section>General Info</section>
+        </sections>
+        <sections>
+            <label><!-- Insurance Complaint Details --></label>
+            <section>Insurance Complaint Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Key Customer Case Layout</layout>
+        <sections>
+            <label><!-- Case Detail --></label>
+            <section>Case Detail</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Mercantile Agency Suspend Recovery Page Layout</layout>
+        <sections>
+            <label><!-- Billing System - Alerts and Information --></label>
+            <section>Billing System - Alerts and Information</section>
+        </sections>
+        <sections>
+            <label><!-- Suspend Recovery --></label>
+            <section>Suspend Recovery</section>
+        </sections>
+        <sections>
+            <label><!-- Suspension Information --></label>
+            <section>Suspension Information</section>
+        </sections>
+    </layouts>
+    <quickActions>
+        <label><!-- NewChildCase --></label>
+        <name>NewChildCase</name>
+    </quickActions>
+    <recordTypes>
+        <label><!-- Article Feedback --></label>
+        <name>Article_Feedback</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Complaint --></label>
+        <name>Complaint</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Concession --></label>
+        <name>Concession</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Concession - Delete --></label>
+        <name>Concession_Delete</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- ECO Enquiry --></label>
+        <name>ECO_Enquiry</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- ECO Expression of Interest --></label>
+        <name>Early_Connection_Option</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Feedback --></label>
+        <name>Feedback</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Field Debt Recovery --></label>
+        <name>Field_Debt_Recovery</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- General Enquiry --></label>
+        <name>General_Enquiry</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Information Statement Update --></label>
+        <name>Information_Statement_Update</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Insurance Claim --></label>
+        <name>Insurance_Claim</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Internal --></label>
+        <name>Internal</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Leak Allowance / Unexplained Usage --></label>
+        <name>Leak_Allowance</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Notice of Sale --></label>
+        <name>Notice_of_Sale</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Payment Plan --></label>
+        <name>Payment_Plan</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Special Meter Read --></label>
+        <name>Special_Meter_Read</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- More Time to Pay --></label>
+        <name>Suspend_Recovery</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Take Customer Meter Read --></label>
+        <name>Take_Customer_Meter_Read</name>
+    </recordTypes>
+    <validationRules>
+        <errorMessage><!-- Private Extension is available on Property. Please type in address for the letter. --></errorMessage>
+        <name>Address_fields_are_needed_for_PrivateXtn</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- For Move In cases if Recycled Water is on Property, you need to fill in the address fields. --></errorMessage>
+        <name>Address_fields_are_needed_for_Recycled</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Letter to Owner is only valid when Contact Type is Agent, Type of Read is Information Reading, and Contact Method is NOT Telephone. --></errorMessage>
+        <name>Agent_and_Information_have_Letter2Owner</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Agent is required if Letter to Agent is Yes. --></errorMessage>
+        <name>Agent_is_required_if_Letter_to_Agent_Yes</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Applicable Date can&apos;t be in the past. --></errorMessage>
+        <name>Applicable_Date_cannot_be_in_the_past</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Date cannot be in the past --></errorMessage>
+        <name>Article_Feedback_PublishDateNotInPast</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Review Date cannot be earlier than Recommended Publish Date --></errorMessage>
+        <name>Article_Feedback_ReviewDateBeforePublish</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Date cannot be in the past --></errorMessage>
+        <name>Article_Feedback_ReviewDateNotInPast</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You can only amend an existing Special Meter Read case. --></errorMessage>
+        <name>Can_not_amend_new_Case</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You can&apos;t extend on a new Case. --></errorMessage>
+        <name>Can_not_extend_Due_Date_when_new_Case</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The case origin cannot be changed from &apos;Portal&apos; --></errorMessage>
+        <name>Cannot_Change_CaseOrigin_from_Portal</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Case owner is a Queue.  Please change ownership before closing the case. --></errorMessage>
+        <name>Case_cannot_be_closed_when_owner_is_a_Q</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Cannot re-open a closed Case. --></errorMessage>
+        <name>CheckCaseReOpen</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- If Cheque is selected, Cheque Number, Cheque Amount and Bank should be entered. --></errorMessage>
+        <name>Cheque_Details</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Closed Case cannot be editted. 
+Special Meter Read case cannot be edited if Applicable Date has past or is today. --></errorMessage>
+        <name>Closed_Case_cannot_be_editted</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Reason for Extension is required if Due Date is extended. --></errorMessage>
+        <name>Date_Interim_Required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You can only extend the due date up to 30 days. --></errorMessage>
+        <name>Due_date_cannot_be_more_than_30_days</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select EWOV Type --></errorMessage>
+        <name>EWOV_Values</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Existing Reading can&apos;t include readings that are not filled. --></errorMessage>
+        <name>Existing_Reading_match_Check</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Due Date can only be extended for a maximum of 30 days. Please try again. --></errorMessage>
+        <name>Extend_DueDate_30_Days</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Due Date has been extended and cannot be changed again. --></errorMessage>
+        <name>Extend_DueDate_Check</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Pls. select a value on the How field --></errorMessage>
+        <name>Gen_Enquiry_How_is_required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Pls. select a value on the What field --></errorMessage>
+        <name>Gen_Enquiry_What_is_required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Pls. select a value on the Why field --></errorMessage>
+        <name>Gen_Enquiry_Why_is_required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- &quot;You are not permitted to change the status of an Insurance Claim record&quot; --></errorMessage>
+        <name>Insurance_Claim_Status_Change</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The following fields must be completed before closing the case:
+&quot;Application Type&quot;, &quot;Has the Leak ben repaired?&quot;, &quot;Property Inspection Conducted?&quot;, &quot;Faulty Stop tap?&quot;, &quot;Application Result&quot;, &quot;Letter Sent?&quot;, &quot;Adjusted Bill Sent?&quot; --></errorMessage>
+        <name>Leak_Allowance_Close_Case_Rules</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Enter or Select Product Name --></errorMessage>
+        <name>Mandate_Product_Name_field</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Enter or Select Program --></errorMessage>
+        <name>Mandate_Program_Field</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please enter the Property related to the Insurance Claim --></errorMessage>
+        <name>Mandate_Property_field</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Only Mercantile Agency is a valid Case Origin for Mercantile Agency users --></errorMessage>
+        <name>Mercantile_Agent_MTTP_Case_Origin</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Only In Progress is a valid Case Status for Mercantile Agency users --></errorMessage>
+        <name>Mercantile_Agent_MTTP_Case_Status</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Cannot grant a payment extension beyond 14 days. Contact SEW for more information. --></errorMessage>
+        <name>Mercantile_Agent_User_14_Days_MTTP</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You can&apos;t request Information Statement Update for a Tenant Account. --></errorMessage>
+        <name>No_Info_State_Update_for_Tenant_Account</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- &quot;You are not authorised to create EWOV complaints&quot; --></errorMessage>
+        <name>No_authorised_profiles_can_create_EWOV</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Cheque amounts for Notice of Sales cannot be greater than $2,000. --></errorMessage>
+        <name>NoticeofSales_cheque_amount_2000</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- for Non-Tenancy type, only Billing Account with Pending status can be added as Purchaser Billing Account. --></errorMessage>
+        <name>Only_empty_role_BC_for_NOS</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Provide the other case origin detail. --></errorMessage>
+        <name>Other_Case_Origin_required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Enter the Billing Account of the related Complaint for Auto Suspension of Billing Account. --></errorMessage>
+        <name>Populate_Billing_Account</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Non-tenancy case requires both Vendor and Purchaser Accounts. --></errorMessage>
+        <name>Purchase_accounts_required_non_tenancy</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Future Address and Applicable Date are needed if Change Billing Address is ticked. --></errorMessage>
+        <name>Require_Applicable_Date_Future_Address</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- For Purchaser contact type, a purchaser must be chosen --></errorMessage>
+        <name>SMR_must_be_purchase_for_purchase_type</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Tenant Move In / Out is not available if the billing account selected is not a Tenant. --></errorMessage>
+        <name>SMR_must_be_tenant_for_tenant_movein_out</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Suspend Recovery cannot be closed if it is not performed successfully. --></errorMessage>
+        <name>SuspendRec_if_performed_case_can_close</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Suspend to date is before the current due date. Please check the suspend to date. --></errorMessage>
+        <name>Suspend_date_validation_check</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- For New Purchaser, Tenant Stays case requires Vendor, Tenant and Purchaser Accounts. --></errorMessage>
+        <name>VendorTenantPurchase_accounts_required1</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- For New Purchaser, Tenant Leaves case requires Vendor, Tenant and Purchaser Accounts. --></errorMessage>
+        <name>VendorTenantPurchase_accounts_required2</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- For Tenant Becomes Purchaser case requires both Vendor and Tenant Accounts. --></errorMessage>
+        <name>Vendor_and_Purchaser_accounts_required</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Conga_Mail_Merge --></label>
+        <name>APXTConga4__Conga_Mail_Merge</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Concession_Template --></label>
+        <name>Concession_Template</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Delete_Concession --></label>
+        <name>Delete_Concession</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Info_Statement_Update_Perform --></label>
+        <name>Info_Statement_Update_Perform</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- ManageBudgets_Select_Bill_for_Estimates --></label>
+        <name>ManageBudgets_Select_Bill_for_Estimates</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Manage_Payment_Plan --></label>
+        <name>Manage_Payment_Plan</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Mass_Edit --></label>
+        <name>Mass_Edit</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Mass_Update --></label>
+        <name>Mass_Update</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- NOSPerform --></label>
+        <name>NOSPerform</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_Case_BAcct_RList --></label>
+        <name>New_Case_BAcct_RList</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_Case_Cust_RList --></label>
+        <name>New_Case_Cust_RList</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_Case_Person_RList --></label>
+        <name>New_Case_Person_RList</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_Case_Prop_RList --></label>
+        <name>New_Case_Prop_RList</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_Customer --></label>
+        <name>New_Customer</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_General_Enquiry_From_Customer --></label>
+        <name>New_General_Enquiry_From_Customer</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Property_Visit_Complete --></label>
+        <name>Property_Visit_Complete</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- SMR_Cancel --></label>
+        <name>SMR_Cancel</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- SMR_Manage_Address --></label>
+        <name>SMR_Manage_Address</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- SMR_Perform --></label>
+        <name>SMR_Perform</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- SMR_Validate --></label>
+        <name>SMR_Validate</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Send_Attachments_to_LiveLink --></label>
+        <name>Send_Attachments_to_LiveLink</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Suspend_Recovery_Perform --></label>
+        <name>Suspend_Recovery_Perform</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Suspend_Recovery_Validate --></label>
+        <name>Suspend_Recovery_Validate</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Update_Concession --></label>
+        <name>Update_Concession</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Validate_Address --></label>
+        <name>Validate_Address</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Validate_Future_Address --></label>
+        <name>Validate_Future_Address</name>
+    </webLinks>
+    <workflowTasks>
+        <name>Case_Notification_sent_to_Montage_Team</name>
+        <subject><!-- Case Notification sent to Montage Team --></subject>
+    </workflowTasks>
+    <workflowTasks>
+        <name>Case_Notification_sent_to_Property_Development_Team</name>
+        <subject><!-- Case Notification sent to Property Development Team --></subject>
+    </workflowTasks>
+    <workflowTasks>
+        <name>Case_Notification_sent_to_Trade_Waste_Team</name>
+        <subject><!-- Case Notification sent to Trade Waste Team --></subject>
+    </workflowTasks>
+</CustomObjectTranslation>
